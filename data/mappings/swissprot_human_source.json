@@ -1,0 +1,6 @@
+{
+  "url": "https://rest.uniprot.org/uniprotkb/stream?query=%28organism_id%3A9606%29+AND+%28reviewed%3Atrue%29&format=tsv&fields=accession",
+  "uniprot_release": "2026_04",
+  "release_date": "04-November-2026",
+  "count": 20429
+}

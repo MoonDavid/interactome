@@ -1,0 +1,44 @@
+{
+  "created_utc": "2026-11-09T09:44:18.074851+00:00",
+  "policy": "UniProtKB human primary taxon; exclude NOT; collapse numeric isoform suffix; GO ancestor propagation via is_a and part_of; evidence retained",
+  "sources": {
+    "gaf": {
+      "path": "/home/davide/data/GO/goa_human.gaf",
+      "size": 189589476,
+      "mtime_ns": 1760744080000000000
+    },
+    "obo": {
+      "path": "/home/davide/data/GO/go-basic.obo",
+      "size": 31417323,
+      "mtime_ns": 1760744306000000000
+    }
+  },
+  "gaf_sha256": "9b532ef65c396aabe4fc19ecbe6b800e0b5677f436338bfd474c1f3f6c262029",
+  "obo_sha256": "4e3ce039a6ad3d45e2752097625330152cc8ae97d35d824c7fcb0735b45d0fc3",
+  "gaf_headers": [
+    "!gaf-version: 2.2",
+    "!generated-by: GOC",
+    "!date-generated: 2025-10-11T19:32",
+    "!generated-by: GOC",
+    "!date-generated: 2025-10-10T19:12",
+    "!generated-by: UniProt",
+    "!date-generated: 2025-10-09 10:37",
+    "!go-version: http://purl.obolibrary.org/obo/go/releases/2025-10-05/extensions/go-plus.owl",
+    "!generated-by: PANTHER",
+    "!date-generated: 2025-10-01"
+  ],
+  "ontology_headers": [
+    "format-version: 1.2",
+    "data-version: releases/2025-10-10"
+  ],
+  "audit": {
+    "source_rows": 972437,
+    "not_rows_excluded": 1489,
+    "nonhuman_or_nonuniprot_rows_excluded": 73691,
+    "unknown_or_obsolete_terms_excluded": 0
+  },
+  "direct_unique_evidence_rows": 484185,
+  "propagated_protein_term_rows": 1676501,
+  "proteins": 19818,
+  "terms": 21701
+}

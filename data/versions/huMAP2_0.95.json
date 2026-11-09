@@ -1,0 +1,22 @@
+{
+  "name": "huMAP2_0.95",
+  "threshold": 0.95,
+  "comparison": ">=",
+  "parent_sha256": "7bf4b0eb1195e20a77304044d39ca4948f135e087174f18a0ae393d0f5c48ef4",
+  "normalization_policy": "UniProt primary accessions; remove terminal numeric isoform suffix; expand all mapped accessions; undirected; remove source loops before mapping and canonical loops after mapping; huMAP duplicate score=max",
+  "source": {
+    "path": "data/canonical/huMAP2.parquet",
+    "size": 119501150,
+    "mtime_ns": 1794215251315729011,
+    "sha256": "7bf4b0eb1195e20a77304044d39ca4948f135e087174f18a0ae393d0f5c48ef4"
+  },
+  "output": {
+    "path": "data/versions/huMAP2_0.95.parquet",
+    "size": 55297,
+    "mtime_ns": 1794217748826405781,
+    "sha256": "58de3cce4fb53a0a5df35afe2d8739d5e9800cb1755356526f3403b78b007031"
+  },
+  "created_at": "2026-11-09T09:49:08.946454+00:00",
+  "edges": 6722,
+  "nodes": 3288
+}

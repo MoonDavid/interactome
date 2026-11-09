@@ -1,0 +1,17 @@
+{
+  "policy": "Human reviewed UniProtKB/Swiss-Prot entries only; retain all reviewed matches; remove source loops before mapping and resulting loops after mapping",
+  "reviewed_reference": {
+    "url": "https://rest.uniprot.org/uniprotkb/stream?query=%28organism_id%3A9606%29+AND+%28reviewed%3Atrue%29&format=tsv&fields=accession",
+    "uniprot_release": "2026_04",
+    "release_date": "04-November-2026",
+    "count": 20429
+  },
+  "source_gene_count": 8272,
+  "genes_with_reviewed_match": 8190,
+  "genes_with_multiple_reviewed_matches": 45,
+  "genes_with_only_other_matches": 34,
+  "genes_without_any_uniprot_match": 48,
+  "excluded_nonreviewed_or_absent_accession_assignments": 55184,
+  "nonloop_source_rows_lacking_reviewed_endpoint": 616,
+  "audit_file": "data/mappings/HuRI_swissprot_audit.tsv"
+}

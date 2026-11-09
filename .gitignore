@@ -1,0 +1,10 @@
+# Python / tooling
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+*.tmp
+
+# Raw and unfiltered huMAP2 files (>100 MB); keep huMAP2_0.05 and higher versions
+data/networks/humap2_ppis_ACC_20200821.pairsWprob.gz
+data/canonical/huMAP2.parquet
