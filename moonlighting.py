@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from collections import Counter
+from concurrent.futures import ProcessPoolExecutor
 from datetime import datetime, timezone
 from functools import lru_cache
 import hashlib
@@ -9,6 +10,7 @@ import io
 from itertools import combinations
 import json
 import math
+import os
 from pathlib import Path
 import re
 import zipfile
@@ -18,10 +20,16 @@ import numpy as np
 import plotly.graph_objects as go
 import polars as pl
 from scipy import sparse
+from scipy.cluster.hierarchy import fcluster, linkage
 from scipy.sparse import coo_matrix
 from scipy.sparse.csgraph import connected_components
 from scipy.sparse.linalg import eigsh
+from scipy.spatial.distance import pdist
 from scipy.stats import hypergeom, mannwhitneyu, rankdata, spearmanr
+
+CACHE_ROOT = Path(__file__).resolve().parent / 'data' / 'cache'
+_CENTRALITY_MEM_CACHE: dict[str, tuple[pl.DataFrame, dict]] = {}
+_CLUSTERING_MEM_CACHE: dict[str, dict] = {}
 
 SOURCES = ['curated', 'moonlitdb', 'moonprot', 'metamoon', 'multitask', 'moondb_curated', 'moondb_predicted']
 ADVANCED_EDGE_LIMIT = 500_000
@@ -49,13 +57,120 @@ SIGNIFICANCE_LEGEND = (
 METRIC_LABELS = {
     'degree': 'Degree', 'strength': 'Weighted<br>strength', 'pagerank': 'PageRank',
     'mean_neighbor_degree': 'Mean neighbor<br>degree', 'core_number': 'Core<br>number',
-    'clustering': 'Clustering', 'betweenness_approx': 'Approximate<br>betweenness',
+    'clustering': 'Clustering', 'betweenness_approx': 'Betweenness<br>centrality',
+    'betweenness': 'Betweenness<br>centrality',
     'eigenvector': 'Eigenvector<br>centrality', 'bridging_coefficient': 'Bridging<br>coefficient',
     'bridging_centrality': 'Bridging<br>centrality',
     'participation': 'Community<br>participation', 'community_entropy': 'Community<br>entropy',
     'within_module_z': 'Within-module<br>z score',
+    'num_communities': 'Overlapping<br>modules',
+    'fuzzy_entropy': 'Fuzzy<br>entropy',
+    'fuzzy_participation': 'Fuzzy<br>participation',
+    'effective_clusters': 'Effective<br>clusters',
+    'top2_membership_ratio': 'Top-2<br>ambiguity ratio',
 }
 COLORSCALE = [[0, '#2166AC'], [.5, '#FFFFFF'], [1, '#B35806']]
+
+CLUSTERING_CATALOG: dict[str, dict[str, str]] = {
+    # 1. Classic / Hard Partitioning
+    'louvain': {
+        'label': 'Louvain Modularity (Classic Hard)',
+        'paradigm': 'classic',
+        'description': 'Multi-level modularity optimization (Blondel et al. 2008).',
+    },
+    'greedy_modularity': {
+        'label': 'Clauset–Newman–Moore Greedy Modularity (Classic Hard)',
+        'paradigm': 'classic',
+        'description': 'Agglomerative hierarchical modularity maximization (Clauset et al. 2004).',
+    },
+    'label_propagation': {
+        'label': 'Fast Consensus Label Propagation / LPA (Classic Hard)',
+        'paradigm': 'classic',
+        'description': 'Parameter-free epidemic neighborhood label consensus (Raghavan et al. 2007).',
+    },
+    'asyn_fluid': {
+        'label': 'Asynchronous Fluid Communities (Classic Hard)',
+        'paradigm': 'classic',
+        'description': 'Density-driven fluid expansion/contraction on connected components (Parés et al. 2018).',
+    },
+    'mcl': {
+        'label': 'Markov Cluster Algorithm / MCL (Flow Hard)',
+        'paradigm': 'classic',
+        'description': 'Stochastic flow expansion & inflation on the sparse transition matrix (van Dongen 2000).',
+    },
+    'walktrap_markov': {
+        'label': 'Walktrap Multi-Step Markov Flow (Flow Hard)',
+        'paradigm': 'classic',
+        'description': 'Short random-walk transition profile similarity + Ward/spectral partitioning (Pons & Latapy 2005).',
+    },
+    'spectral': {
+        'label': 'Normalized Laplacian Spectral Clustering (Spectral Hard)',
+        'paradigm': 'classic',
+        'description': 'Normalized graph Laplacian eigen-embedding + k-means discretization (Shi & Malik 2000).',
+    },
+    'ravasz_tom': {
+        'label': 'Ravasz Topological Overlap / TOM (Hierarchical Hard)',
+        'paradigm': 'classic',
+        'description': 'Shared-partner topological overlap matrix (Ravasz et al. 2002) + modularity partitioning.',
+    },
+    'k_core_shells': {
+        'label': 'k-Core Corona Connected Shells (Structural Hard)',
+        'paradigm': 'classic',
+        'description': 'Connected components of maximal k-core shells.',
+    },
+    # 2. Overlapping / Multi-Membership Clustering
+    'ego_splitting': {
+        'label': 'Ego-Splitting Persona Clustering (Overlapping)',
+        'paradigm': 'overlapping',
+        'description': 'Splits each protein into local ego-net personas, clusters the persona graph, and maps back to overlapping node communities (Epasto et al. 2017).',
+    },
+    'link_communities': {
+        'label': 'Ahn–Bagrow–Lehmann Link / Edge Communities (Overlapping)',
+        'paradigm': 'overlapping',
+        'description': 'Clusters edges by shared-partner Jaccard similarity and projects edge modules onto endpoint proteins (Ahn et al. 2010).',
+    },
+    'k_clique_percolation': {
+        'label': 'Clique Percolation Method / CFinder k=3 (Overlapping)',
+        'paradigm': 'overlapping',
+        'description': 'Unions of adjacent k-cliques sharing k-1 vertices (Palla et al. 2005).',
+    },
+    'demon': {
+        'label': 'DEMON Local Ego Consensus (Overlapping)',
+        'paradigm': 'overlapping',
+        'description': 'Democratic Estimate of Modular Organization via ego-minus-ego label propagation (Coscia et al. 2012).',
+    },
+    'mcode_complexes': {
+        'label': 'MCODE Protein Complex Detection + Fluff (Overlapping)',
+        'paradigm': 'overlapping',
+        'description': 'Local core-density vertex weighting + seed-and-extend with overlapping periphery (Bader & Hogue 2003).',
+    },
+    'bigclam_nmf': {
+        'label': 'BigCLAM Affiliation Graph Model (Overlapping)',
+        'paradigm': 'overlapping',
+        'description': 'Continuous non-negative community affiliation strengths thresholded into multi-community memberships (Yang & Leskovec 2013).',
+    },
+    # 3. Fuzzy / Soft-Membership Clustering
+    'fuzzy_c_means': {
+        'label': 'Spectral Fuzzy C-Means / FCM (Fuzzy Soft)',
+        'paradigm': 'fuzzy',
+        'description': 'Bezdek Fuzzy C-Means on the normalized Laplacian spectral embedding (fuzzifier m=2.0).',
+    },
+    'fuzzy_nmf': {
+        'label': 'Symmetric Non-Negative Matrix Factorization / SymNMF (Fuzzy Soft)',
+        'paradigm': 'fuzzy',
+        'description': 'Sparse multiplicative SymNMF (A ≈ H H^T) row-normalized into soft membership probabilities.',
+    },
+    'fuzzy_rwr_diffusion': {
+        'label': 'Fuzzy Random-Walk / Heat Diffusion Affiliation (Fuzzy Soft)',
+        'paradigm': 'fuzzy',
+        'description': 'Stationary RWR diffusion affinities toward module attractors normalized into soft probability vectors.',
+    },
+    'fuzzy_neighborhood': {
+        'label': 'Fuzzy Neighborhood Consensus (Fuzzy Soft)',
+        'paradigm': 'fuzzy',
+        'description': 'Dirichlet-smoothed neighbor-module probability distribution measuring partner dispersion across modules.',
+    },
+}
 
 
 # ---------------------------------------------------------------------------
@@ -265,49 +380,202 @@ def _pagerank(weights, personalization=None, alpha=.85, tolerance=1e-10, max_ite
     return score, {'converged': residual < tolerance, 'iterations': iteration, 'l1_residual': residual}
 
 
-def centrality_analysis(graph, cohort, extra=False, seed=42, landmarks=32):
-    """Grouped centralities; tests compare cohort with its network complement."""
-    mask = _selection(graph, cohort)
+def _graph_fingerprint(graph) -> str:
+    """Compute a fast deterministic SHA-256 fingerprint for a graph structure."""
+    h = hashlib.sha256()
+    nodes = [str(n) for n in graph['nodes']]
+    h.update(','.join(nodes).encode('utf-8'))
+    adj = graph['adj']
+    h.update(np.asarray(adj.indptr, dtype=np.int64).tobytes())
+    h.update(np.asarray(adj.indices, dtype=np.int64).tobytes())
+    weights = graph.get('weights')
+    if weights is not None and weights is not adj:
+        h.update(np.asarray(weights.data, dtype=np.float64).tobytes())
+    return h.hexdigest()[:16]
+
+
+def _brandes_chunk_worker(args):
+    """Exact Brandes shortest-path accumulation for a chunk of source nodes on CSR lists."""
+    n, indptr, indices, sources = args
+    cb = [0.0] * n
+    for s in sources:
+        if indptr[s] == indptr[s + 1]:
+            continue
+        stack = []
+        pred = [[] for _ in range(n)]
+        sigma = [0.0] * n
+        sigma[s] = 1.0
+        dist = [-1] * n
+        dist[s] = 0
+        queue = [s]
+        q_idx = 0
+        while q_idx < len(queue):
+            v = queue[q_idx]
+            q_idx += 1
+            stack.append(v)
+            dv = dist[v] + 1
+            sv = sigma[v]
+            for pos in range(indptr[v], indptr[v + 1]):
+                w = indices[pos]
+                dw = dist[w]
+                if dw < 0:
+                    queue.append(w)
+                    dist[w] = dv
+                    sigma[w] = sv
+                    pred[w].append(v)
+                elif dw == dv:
+                    sigma[w] += sv
+                    pred[w].append(v)
+        delta = [0.0] * n
+        while stack:
+            w = stack.pop()
+            coeff = (1.0 + delta[w]) / sigma[w]
+            for v in pred[w]:
+                delta[v] += sigma[v] * coeff
+            if w != s:
+                cb[w] += delta[w]
+    return np.asarray(cb, dtype=np.float64)
+
+
+def _exact_betweenness_csr(adj: sparse.csr_matrix, normalized: bool = True) -> np.ndarray:
+    """Compute exact Brandes betweenness centrality across all nodes (parallelized for large graphs)."""
+    n = adj.shape[0]
+    if n <= 2:
+        return np.zeros(n, dtype=np.float64)
+    if n <= 450:
+        net = nx.from_scipy_sparse_array(adj)
+        bc = nx.betweenness_centrality(net, k=None, normalized=normalized)
+        return np.asarray([bc[i] for i in range(n)], dtype=np.float64)
+
+    indptr = adj.indptr.tolist()
+    indices = adj.indices.tolist()
+    non_isolated = [u for u in range(n) if indptr[u] < indptr[u + 1]]
+    workers = min(max(1, (os.cpu_count() or 4) - 1), 12, max(1, len(non_isolated) // 100))
+    if workers <= 1:
+        total = _brandes_chunk_worker((n, indptr, indices, non_isolated))
+    else:
+        chunks = [non_isolated[i::workers] for i in range(workers)]
+        with ProcessPoolExecutor(max_workers=workers) as pool:
+            parts = list(pool.map(_brandes_chunk_worker, [(n, indptr, indices, chunk) for chunk in chunks if chunk]))
+        total = np.sum(parts, axis=0) if parts else np.zeros(n, dtype=np.float64)
+
+    total *= 0.5  # undirected graph
+    if normalized and n > 2:
+        total *= 2.0 / ((n - 1) * (n - 2))
+    return total
+
+
+def cached_network_centralities(graph, extra=False, seed=42, landmarks=None,
+                                use_cache=True, cache_dir: Path | None = None) -> tuple[pl.DataFrame, dict]:
+    """Compute graph-level node centralities (including exact betweenness) once and cache to disk."""
     degree = np.asarray(graph['degree'], dtype=float)
+    n = len(degree)
     adjacency = graph['adj']
     weights = graph.get('weights', adjacency)
+    exact_mode = landmarks is None or int(landmarks) >= n
+    fp = _graph_fingerprint(graph)
+    mode_tag = 'exact' if exact_mode else f'k{int(landmarks)}_s{int(seed)}'
+    cache_key = f'{fp}_extra{int(bool(extra))}_{mode_tag}'
+
+    if use_cache and cache_key in _CENTRALITY_MEM_CACHE:
+        df_cached, notes_cached = _CENTRALITY_MEM_CACHE[cache_key]
+        return df_cached.clone(), dict(notes_cached, cache_hit=True)
+
+    cdir = (Path(cache_dir) if cache_dir is not None else CACHE_ROOT / 'centralities')
+    parquet_path = cdir / f'centralities_{cache_key}.parquet'
+    meta_path = cdir / f'centralities_{cache_key}.json'
+
+    if use_cache and n >= 50 and parquet_path.exists() and meta_path.exists():
+        try:
+            df_disk = pl.read_parquet(parquet_path)
+            notes_disk = json.loads(meta_path.read_text(encoding='utf-8'))
+            if df_disk.height == n and df_disk['protein'].to_list() == [str(x) for x in graph['nodes']]:
+                notes_disk['cache_hit'] = True
+                notes_disk['cache_path'] = str(parquet_path)
+                _CENTRALITY_MEM_CACHE[cache_key] = (df_disk, notes_disk)
+                return df_disk.clone(), dict(notes_disk)
+        except Exception:
+            pass
+
     pagerank, convergence = _pagerank(weights)
     neighbor_degree = np.divide(np.asarray(adjacency @ degree).ravel(), degree,
-                                out=np.zeros(len(degree)), where=degree > 0)
+                                out=np.zeros(n), where=degree > 0)
     frame = pl.DataFrame({
-        'protein': graph['nodes'], 'is_moonlighting': mask,
-        'group': np.where(mask, 'Moonlighting', 'Background'), 'degree': degree,
-        'strength': np.asarray(weights.sum(axis=1)).ravel(), 'pagerank': pagerank,
+        'protein': [str(x) for x in graph['nodes']],
+        'degree': degree,
+        'strength': np.asarray(weights.sum(axis=1)).ravel(),
+        'pagerank': pagerank,
         'mean_neighbor_degree': neighbor_degree,
     })
-    names = ['degree', 'strength', 'pagerank', 'mean_neighbor_degree']
-    notes = {'pagerank': convergence, 'comparison': 'Two-sided Mann–Whitney U; Benjamini–Hochberg across displayed metrics; background excludes cohort proteins.'}
+    notes = {
+        'pagerank': convergence,
+        'comparison': 'Two-sided Mann–Whitney U; Benjamini–Hochberg across displayed metrics; background excludes cohort proteins.',
+        'cache_hit': False,
+    }
     if extra:
         network = _advanced_graph(graph)
-        n = len(degree)
         core = nx.core_number(network)
         clustering = nx.clustering(network)
-        sample = min(int(landmarks), n)
-        betweenness = nx.betweenness_centrality(network, k=sample, seed=int(seed), normalized=True)
+        if exact_mode:
+            betweenness_arr = _exact_betweenness_csr(adjacency, normalized=True)
+            notes['betweenness_mode'] = 'exact (all nodes, cached)'
+            notes['betweenness_landmarks'] = n
+        else:
+            sample = min(int(landmarks), n)
+            betweenness_dict = nx.betweenness_centrality(network, k=sample, seed=int(seed), normalized=True)
+            betweenness_arr = np.asarray([betweenness_dict[i] for i in range(n)], dtype=np.float64)
+            notes['betweenness_mode'] = f'landmark approximation (k={sample})'
+            notes['betweenness_landmarks'] = sample
+            notes['betweenness_seed'] = int(seed)
+
         frame = frame.with_columns(
             pl.Series('core_number', [core[i] for i in range(n)], dtype=pl.Int64),
             pl.Series('clustering', [clustering[i] for i in range(n)], dtype=pl.Float64),
-            pl.Series('betweenness_approx', [betweenness[i] for i in range(n)], dtype=pl.Float64))
+            pl.Series('betweenness_approx', betweenness_arr, dtype=pl.Float64),
+        )
         if n > 2:
             _, eigenvectors = eigsh(adjacency.astype(float), k=1, which='LA', tol=1e-8, v0=np.random.default_rng(seed).random(n))
             eigenvector = np.abs(eigenvectors[:, 0])
         else:
             _, eigenvectors = np.linalg.eigh(adjacency.toarray().astype(float))
             eigenvector = np.abs(eigenvectors[:, -1])
-        frame = frame.with_columns(pl.Series('eigenvector', eigenvector))
+        frame = frame.with_columns(pl.Series('eigenvector', eigenvector, dtype=pl.Float64))
         inverse_degree = np.divide(1., degree, out=np.zeros(n), where=degree > 0)
         neighbor_inverse = np.asarray(adjacency @ inverse_degree).ravel()
-        frame = frame.with_columns(pl.Series('bridging_coefficient', np.divide(inverse_degree, neighbor_inverse, out=np.zeros(n), where=neighbor_inverse > 0)))
+        frame = frame.with_columns(pl.Series('bridging_coefficient', np.divide(inverse_degree, neighbor_inverse, out=np.zeros(n), where=neighbor_inverse > 0), dtype=pl.Float64))
         frame = frame.with_columns((pl.col('betweenness_approx') * pl.col('bridging_coefficient')).alias('bridging_centrality'))
-        names += ['core_number', 'clustering', 'betweenness_approx', 'eigenvector', 'bridging_coefficient', 'bridging_centrality']
         notes['eigenvector'] = 'Unweighted leading adjacency eigenvector, L2-normalized; disconnected components with tied largest eigenvalues need not have a unique eigenvector.'
-        notes['betweenness_landmarks'] = sample
-        notes['betweenness_seed'] = int(seed)
+
+    if use_cache:
+        _CENTRALITY_MEM_CACHE[cache_key] = (frame, dict(notes))
+        if n >= 50:
+            try:
+                cdir.mkdir(parents=True, exist_ok=True)
+                frame.write_parquet(parquet_path)
+                notes['cache_path'] = str(parquet_path)
+                meta_path.write_text(json.dumps(notes, indent=2), encoding='utf-8')
+            except Exception:
+                pass
+    return frame.clone(), notes
+
+
+def centrality_analysis(graph, cohort, extra=False, seed=42, landmarks=None, use_cache=True):
+    """Grouped centralities (with exact cached betweenness by default); compares cohort with its network complement."""
+    mask = _selection(graph, cohort)
+    base_frame, notes = cached_network_centralities(
+        graph, extra=extra, seed=seed, landmarks=landmarks, use_cache=use_cache
+    )
+    frame = base_frame.with_columns(
+        pl.Series('is_moonlighting', mask),
+        pl.Series('group', np.where(mask, 'Moonlighting', 'Background')),
+    )
+    ordered_cols = ['protein', 'is_moonlighting', 'group', 'degree', 'strength', 'pagerank', 'mean_neighbor_degree']
+    names = ['degree', 'strength', 'pagerank', 'mean_neighbor_degree']
+    if extra:
+        extra_cols = ['core_number', 'clustering', 'betweenness_approx', 'eigenvector', 'bridging_coefficient', 'bridging_centrality']
+        ordered_cols += extra_cols
+        names += extra_cols
+    frame = frame.select(ordered_cols)
     return {'metrics': frame, 'tests': _comparison_table(frame, names), 'notes': notes}
 
 
@@ -410,49 +678,865 @@ def wiring_analysis(graph, cohort, max_nodes=100, seed=42):
                       'controls': 'Network complement, sampled without replacement in the same floor(log2 degree) bins as the sampled cohort.'}}
 
 
-def community_analysis(graph, cohort, seed=42, resolution=1.0):
-    """Full-network Louvain cartography plus cohort community enrichment."""
-    mask = _selection(graph, cohort)
+def _spectral_embedding(adjacency: sparse.csr_matrix, k: int, seed: int = 42) -> np.ndarray:
+    """Compute top-k normalized Laplacian spectral coordinates for a sparse graph."""
+    n = adjacency.shape[0]
+    k = max(2, min(int(k), max(2, n - 1)))
+    deg = np.asarray(adjacency.sum(axis=1)).ravel().astype(float)
+    inv_sqrt = np.divide(1.0, np.sqrt(deg), out=np.zeros(n), where=deg > 0)
+    norm_adj = sparse.diags(inv_sqrt) @ adjacency.astype(float) @ sparse.diags(inv_sqrt)
+    if n > k + 2:
+        try:
+            rng = np.random.default_rng(seed)
+            _, vecs = eigsh(norm_adj, k=k, which='LA', tol=1e-6, maxiter=1500, v0=rng.random(n))
+            emb = vecs[:, ::-1]
+        except Exception:
+            _, vecs = np.linalg.eigh(norm_adj.toarray())
+            emb = vecs[:, -k:][:, ::-1]
+    else:
+        _, vecs = np.linalg.eigh(norm_adj.toarray())
+        emb = vecs[:, -k:][:, ::-1]
+    norms = np.linalg.norm(emb, axis=1, keepdims=True)
+    return np.divide(emb, norms, out=np.zeros_like(emb), where=norms > 1e-12)
+
+
+def _kmeans_numpy(X: np.ndarray, k: int, seed: int = 42, max_iter: int = 60) -> tuple[np.ndarray, np.ndarray]:
+    """Deterministic k-means++ in NumPy returning (labels, centroids)."""
+    n, d = X.shape
+    k = max(1, min(int(k), n))
+    rng = np.random.default_rng(seed)
+    centers = np.empty((k, d), dtype=float)
+    first = int(rng.integers(0, n))
+    centers[0] = X[first]
+    dist_sq = np.sum((X - centers[0]) ** 2, axis=1)
+    for c in range(1, k):
+        total = float(dist_sq.sum())
+        if total > 1e-12:
+            probs = dist_sq / total
+            idx = int(rng.choice(n, p=probs))
+        else:
+            idx = int(rng.integers(0, n))
+        centers[c] = X[idx]
+        dist_sq = np.minimum(dist_sq, np.sum((X - centers[c]) ** 2, axis=1))
+    labels = np.zeros(n, dtype=int)
+    for _ in range(max_iter):
+        dists = np.sum((X[:, None, :] - centers[None, :, :]) ** 2, axis=2)
+        new_labels = np.argmin(dists, axis=1)
+        if np.array_equal(new_labels, labels):
+            break
+        labels = new_labels
+        for c in range(k):
+            members = X[labels == c]
+            if len(members):
+                centers[c] = members.mean(axis=0)
+    return labels, centers
+
+
+def _execute_clustering_algorithm(
+    graph,
+    network: nx.Graph,
+    algorithm: str = 'louvain',
+    resolution: float = 1.0,
+    seed: int = 42,
+    n_clusters: int = 0,
+    mcl_inflation: float = 2.0,
+    clique_k: int = 3,
+    fuzzy_m: float = 2.0,
+    membership_cutoff: float = 0.2,
+) -> tuple[list[set[int]], np.ndarray | None, dict]:
+    """Execute any classic, flow, overlapping, or fuzzy clustering algorithm on graph."""
+    algo = str(algorithm).lower().strip()
+    if algo not in CLUSTERING_CATALOG:
+        raise ValueError(f"Unknown clustering algorithm '{algorithm}'. Choose from: {', '.join(CLUSTERING_CATALOG)}")
+
+    adjacency: sparse.csr_matrix = graph['adj']
+    n = adjacency.shape[0]
+    indptr = adjacency.indptr
+    indices = adjacency.indices
+    deg = np.asarray(graph['degree'], dtype=float)
+    target_k = int(n_clusters) if int(n_clusters) >= 2 else max(2, min(32, int(round(math.sqrt(max(4, n)) / 1.5))))
+    extra_meta: dict = {'algorithm': algo, 'paradigm': CLUSTERING_CATALOG[algo]['paradigm']}
+
+    # ---- 1. CLASSIC / HARD PARTITIONING ----
+    if algo == 'louvain':
+        comms = [set(c) for c in nx.community.louvain_communities(network, seed=int(seed), resolution=float(resolution), weight=None)]
+        return comms, None, extra_meta
+
+    if algo == 'greedy_modularity':
+        comms = [set(c) for c in nx.community.greedy_modularity_communities(network, weight=None, resolution=float(resolution))]
+        return comms, None, extra_meta
+
+    if algo == 'label_propagation':
+        comms = [set(c) for c in nx.community.fast_label_propagation_communities(network, seed=int(seed))]
+        return comms, None, extra_meta
+
+    if algo == 'asyn_fluid':
+        comms = []
+        rng_k = max(2, min(target_k, max(2, n // 3)))
+        for comp in nx.connected_components(network):
+            sub = network.subgraph(comp)
+            if len(comp) <= 3:
+                comms.append(set(comp))
+            else:
+                k_sub = max(2, min(rng_k, len(comp) // 2))
+                try:
+                    for c in nx.community.asyn_fluidc(sub, k=k_sub, max_iter=100, seed=int(seed)):
+                        comms.append(set(c))
+                except Exception:
+                    comms.append(set(comp))
+        return comms, None, extra_meta
+
+    if algo == 'mcl':
+        inflation = max(1.2, float(mcl_inflation))
+        M = (adjacency + sparse.eye(n, format='csr')).astype(float)
+        col_sums = np.asarray(M.sum(axis=0)).ravel()
+        M = M @ sparse.diags(np.divide(1.0, col_sums, out=np.zeros(n), where=col_sums > 0))
+        for _ in range(18):
+            M = (M @ M).tocsr()
+            M.data = np.power(M.data, inflation)
+            col_sums = np.asarray(M.sum(axis=0)).ravel()
+            M = M @ sparse.diags(np.divide(1.0, col_sums, out=np.zeros(n), where=col_sums > 0))
+            M.data[M.data < 1e-4] = 0.0
+            M.eliminate_zeros()
+            if M.nnz <= n * 2:
+                break
+        sym = ((M + M.T) > 1e-3).astype(int)
+        n_comp, labels = connected_components(sym, directed=False)
+        buckets: dict[int, set[int]] = {}
+        for u, c in enumerate(labels):
+            buckets.setdefault(int(c), set()).add(u)
+        extra_meta['mcl_inflation'] = inflation
+        return list(buckets.values()), None, extra_meta
+
+    if algo == 'walktrap_markov':
+        inv_deg = np.divide(1.0, deg, out=np.zeros(n), where=deg > 0)
+        P = sparse.diags(inv_deg) @ adjacency.astype(float)
+        emb0 = _spectral_embedding(adjacency, k=min(target_k, 16), seed=int(seed))
+        walk_feat = (emb0 + P @ emb0 + (P @ (P @ emb0))) / 3.0
+        labels, _ = _kmeans_numpy(walk_feat, k=target_k, seed=int(seed))
+        buckets = {}
+        for u, c in enumerate(labels):
+            buckets.setdefault(int(c), set()).add(u)
+        return list(buckets.values()), None, extra_meta
+
+    if algo == 'spectral':
+        emb = _spectral_embedding(adjacency, k=min(target_k, 20), seed=int(seed))
+        labels, _ = _kmeans_numpy(emb, k=target_k, seed=int(seed))
+        buckets = {}
+        for u, c in enumerate(labels):
+            buckets.setdefault(int(c), set()).add(u)
+        return list(buckets.values()), None, extra_meta
+
+    if algo == 'ravasz_tom':
+        shared = (adjacency @ adjacency).tocoo()
+        rows, cols, vals = shared.row, shared.col, shared.data.astype(float)
+        mask_edge = rows < cols
+        rows, cols, vals = rows[mask_edge], cols[mask_edge], vals[mask_edge]
+        a_ij = np.asarray(adjacency[rows, cols]).ravel().astype(float)
+        denom = np.minimum(deg[rows], deg[cols]) + 1.0 - a_ij
+        tom_val = np.divide(vals + a_ij, denom, out=np.zeros_like(vals), where=denom > 0)
+        keep = (a_ij > 0) | (tom_val >= 0.15)
+        tom_graph = nx.Graph()
+        tom_graph.add_nodes_from(range(n))
+        for u, v, w in zip(rows[keep].tolist(), cols[keep].tolist(), tom_val[keep].tolist()):
+            tom_graph.add_edge(u, v, weight=float(w))
+        comms = [set(c) for c in nx.community.louvain_communities(tom_graph, weight='weight', resolution=float(resolution), seed=int(seed))]
+        return comms, None, extra_meta
+
+    if algo == 'k_core_shells':
+        cores = nx.core_number(network)
+        buckets = {}
+        for k_val in sorted(set(cores.values())):
+            shell_nodes = [u for u, c in cores.items() if c == k_val]
+            for comp in nx.connected_components(network.subgraph(shell_nodes)):
+                buckets[len(buckets)] = set(comp)
+        return list(buckets.values()), None, extra_meta
+
+    # ---- 2. OVERLAPPING / MULTI-MEMBERSHIP CLUSTERING ----
+    if algo == 'ego_splitting':
+        persona_graph = nx.Graph()
+        node_personas: dict[int, list[int]] = {}
+        neighbor_persona_map: dict[tuple[int, int], int] = {}
+        p_id = 0
+        for u in range(n):
+            nbrs = indices[indptr[u]:indptr[u + 1]]
+            if len(nbrs) == 0:
+                persona_graph.add_node(p_id)
+                node_personas[u] = [p_id]
+                p_id += 1
+                continue
+            ego_sub = adjacency[nbrs][:, nbrs]
+            n_c, comp_labels = connected_components(ego_sub, directed=False)
+            u_pids = []
+            for c_idx in range(n_c):
+                persona_graph.add_node(p_id)
+                u_pids.append(p_id)
+                for local_idx in np.flatnonzero(comp_labels == c_idx):
+                    v = int(nbrs[local_idx])
+                    neighbor_persona_map[(u, v)] = p_id
+                p_id += 1
+            node_personas[u] = u_pids
+
+        for u, v in network.edges():
+            pu = neighbor_persona_map.get((u, v))
+            pv = neighbor_persona_map.get((v, u))
+            if pu is not None and pv is not None:
+                persona_graph.add_edge(pu, pv)
+
+        p_comms = nx.community.louvain_communities(persona_graph, seed=int(seed), resolution=float(resolution), weight=None)
+        p_to_comm = {}
+        for c_idx, members in enumerate(p_comms):
+            for p_node in members:
+                p_to_comm[p_node] = c_idx
+
+        comm_sets: dict[int, set[int]] = {}
+        for u, pids in node_personas.items():
+            for pid in pids:
+                c_idx = p_to_comm[pid]
+                comm_sets.setdefault(c_idx, set()).add(u)
+        comms = [members for members in comm_sets.values() if members]
+        return comms, None, extra_meta
+
+    if algo == 'link_communities':
+        edges = list(network.edges())
+        if not edges:
+            return [{u} for u in range(n)], None, extra_meta
+        # Partition edges via line-graph / incident-partner Louvain
+        if len(edges) <= 25_000:
+            lg = nx.line_graph(network)
+            edge_comms = nx.community.louvain_communities(lg, seed=int(seed), resolution=float(resolution))
+            comms = []
+            covered = set()
+            for e_set in edge_comms:
+                if len(e_set) >= 2:
+                    nodes_in_c = {u for e in e_set for u in e}
+                    comms.append(nodes_in_c)
+                    covered.update(nodes_in_c)
+            for u in range(n):
+                if u not in covered:
+                    comms.append({u})
+            return comms, None, extra_meta
+        else:
+            # Scalable high-edge link clustering via base Louvain + cross-module bridge edge communities
+            base_comms = [set(c) for c in nx.community.louvain_communities(network, seed=int(seed), resolution=float(resolution))]
+            node_c = np.zeros(n, dtype=int)
+            for idx_c, c_set in enumerate(base_comms):
+                for u in c_set:
+                    node_c[u] = idx_c
+            pair_buckets: dict[tuple[int, int], set[int]] = {}
+            for u, v in edges:
+                cu, cv = int(node_c[u]), int(node_c[v])
+                if cu != cv:
+                    key = (min(cu, cv), max(cu, cv))
+                    pair_buckets.setdefault(key, set()).update((u, v))
+            for bridge_nodes in pair_buckets.values():
+                if len(bridge_nodes) >= 3:
+                    base_comms.append(bridge_nodes)
+            return base_comms, None, extra_meta
+
+    if algo == 'k_clique_percolation':
+        k_val = max(3, int(clique_k))
+        cpm = [set(c) for c in nx.community.k_clique_communities(network, k=k_val)]
+        covered = set().union(*cpm) if cpm else set()
+        # Fallback connected modules for non-clique nodes so every node has at least 1 community
+        rem = [u for u in range(n) if u not in covered]
+        if rem:
+            sub = network.subgraph(rem)
+            for comp in nx.connected_components(sub):
+                cpm.append(set(comp))
+        extra_meta['clique_k'] = k_val
+        return cpm, None, extra_meta
+
+    if algo == 'demon':
+        raw_modules: list[set[int]] = []
+        for u in range(n):
+            nbrs = indices[indptr[u]:indptr[u + 1]]
+            if len(nbrs) < 2:
+                continue
+            ego_sub = network.subgraph(nbrs.tolist())
+            for lpa_c in nx.community.fast_label_propagation_communities(ego_sub, seed=int(seed)):
+                if len(lpa_c) >= 2:
+                    mod = set(lpa_c)
+                    mod.add(u)
+                    raw_modules.append(mod)
+        # Deduplicate and merge modules with Jaccard >= 0.6
+        raw_modules.sort(key=len, reverse=True)
+        merged: list[set[int]] = []
+        for mod in raw_modules[:min(len(raw_modules), 1500)]:
+            placed = False
+            for existing in merged:
+                inter = len(mod & existing)
+                if inter / max(1, min(len(mod), len(existing))) >= 0.65:
+                    existing.update(mod)
+                    placed = True
+                    break
+            if not placed:
+                merged.append(set(mod))
+        covered = set().union(*merged) if merged else set()
+        for u in range(n):
+            if u not in covered:
+                merged.append({u})
+        return merged, None, extra_meta
+
+    if algo == 'mcode_complexes':
+        cores = nx.core_number(network)
+        weights = {}
+        for u in range(n):
+            nbrs = indices[indptr[u]:indptr[u + 1]].tolist()
+            if len(nbrs) < 2:
+                weights[u] = 0.0
+            else:
+                ego = adjacency[nbrs][:, nbrs]
+                e_cnt = ego.nnz // 2 + len(nbrs)
+                n_cnt = len(nbrs) + 1
+                density = (2.0 * e_cnt) / (n_cnt * (n_cnt - 1))
+                weights[u] = float(cores[u]) * density
+        order = sorted(range(n), key=lambda x: weights[x], reverse=True)
+        complexes: list[set[int]] = []
+        seeded: set[int] = set()
+        for seed_u in order:
+            if weights[seed_u] <= 0 or seed_u in seeded:
+                continue
+            comp = {seed_u}
+            w_seed = weights[seed_u]
+            frontier = set(indices[indptr[seed_u]:indptr[seed_u + 1]].tolist())
+            while frontier:
+                v = frontier.pop()
+                if v not in comp and weights[v] >= 0.2 * w_seed:
+                    comp.add(v)
+                    frontier.update(indices[indptr[v]:indptr[v + 1]].tolist())
+            # Fluff expansion: allow overlapping neighbors with local density >= 0.5
+            fluff = set()
+            for u in list(comp):
+                for v in indices[indptr[u]:indptr[u + 1]].tolist():
+                    if v not in comp:
+                        v_nbrs = set(indices[indptr[v]:indptr[v + 1]].tolist())
+                        if len(v_nbrs & comp) >= max(2, int(0.5 * len(v_nbrs))):
+                            fluff.add(v)
+            seeded.update(comp)
+            complexes.append(comp | fluff)
+        covered = set().union(*complexes) if complexes else set()
+        for u in range(n):
+            if u not in covered:
+                complexes.append({u})
+        return complexes, None, extra_meta
+
+    if algo == 'bigclam_nmf':
+        emb = np.maximum(0.0, _spectral_embedding(adjacency, k=min(target_k, 16), seed=int(seed)))
+        F = emb + 0.05
+        for _ in range(15):
+            AF = adjacency @ F
+            denom = F @ (F.T @ F) + 1e-9
+            F = np.maximum(0.0, F * (AF / denom))
+        row_max = np.maximum(F.max(axis=1, keepdims=True), 1e-9)
+        F_norm = F / row_max
+        row_sum = np.maximum(F.sum(axis=1, keepdims=True), 1e-9)
+        soft_u = F / row_sum
+        comms_dict: dict[int, set[int]] = {}
+        for u in range(n):
+            active = np.flatnonzero(F_norm[u] >= 0.35).tolist()
+            if not active:
+                active = [int(np.argmax(F[u]))]
+            for c_idx in active:
+                comms_dict.setdefault(int(c_idx), set()).add(u)
+        return list(comms_dict.values()), soft_u, extra_meta
+
+    # ---- 3. FUZZY / SOFT-MEMBERSHIP CLUSTERING ----
+    if algo == 'fuzzy_c_means':
+        emb = _spectral_embedding(adjacency, k=min(target_k, 16), seed=int(seed))
+        _, centers = _kmeans_numpy(emb, k=target_k, seed=int(seed), max_iter=35)
+        m_val = max(1.15, float(fuzzy_m))
+        power = 2.0 / (m_val - 1.0)
+        for _ in range(25):
+            dists = np.linalg.norm(emb[:, None, :] - centers[None, :, :], axis=2)
+            dists = np.maximum(dists, 1e-8)
+            inv_d = np.power(1.0 / dists, power)
+            U = inv_d / np.maximum(inv_d.sum(axis=1, keepdims=True), 1e-12)
+            um = np.power(U, m_val)
+            centers = (um.T @ emb) / np.maximum(um.sum(axis=0)[:, None], 1e-12)
+        comms_dict = {}
+        cutoff = max(1.0 / max(2, target_k) * 1.35, float(membership_cutoff))
+        for u in range(n):
+            active = np.flatnonzero(U[u] >= cutoff).tolist()
+            if not active:
+                active = [int(np.argmax(U[u]))]
+            for c_idx in active:
+                comms_dict.setdefault(int(c_idx), set()).add(u)
+        extra_meta['fuzzy_m'] = m_val
+        return list(comms_dict.values()), U, extra_meta
+
+    if algo == 'fuzzy_nmf':
+        rng = np.random.default_rng(seed)
+        H = np.abs(_spectral_embedding(adjacency, k=min(target_k, 16), seed=int(seed))) + 0.02 * rng.random((n, min(target_k, 16)))
+        for _ in range(20):
+            AH = adjacency @ H
+            HHtH = H @ (H.T @ H) + 1e-9
+            H = H * np.sqrt(np.maximum(0.0, AH / HHtH))
+        row_sum = np.maximum(H.sum(axis=1, keepdims=True), 1e-12)
+        U = H / row_sum
+        comms_dict = {}
+        cutoff = max(1.0 / max(2, U.shape[1]) * 1.35, float(membership_cutoff))
+        for u in range(n):
+            active = np.flatnonzero(U[u] >= cutoff).tolist()
+            if not active:
+                active = [int(np.argmax(U[u]))]
+            for c_idx in active:
+                comms_dict.setdefault(int(c_idx), set()).add(u)
+        return list(comms_dict.values()), U, extra_meta
+
+    if algo == 'fuzzy_rwr_diffusion':
+        base_comms = [set(c) for c in nx.community.louvain_communities(network, seed=int(seed), resolution=float(resolution))]
+        # Use top communities (up to 24) as diffusion attractors
+        sorted_comms = sorted(base_comms, key=len, reverse=True)[:min(len(base_comms), 24)]
+        k_c = len(sorted_comms)
+        inv_deg = np.divide(1.0, deg, out=np.zeros(n), where=deg > 0)
+        P_t = adjacency.T.multiply(inv_deg[None, :]).tocsr()
+        U = np.zeros((n, k_c), dtype=float)
+        restart = 0.25
+        for idx_c, members in enumerate(sorted_comms):
+            tele = np.zeros(n, dtype=float)
+            tele[list(members)] = 1.0 / max(1, len(members))
+            vec = tele.copy()
+            for _ in range(20):
+                vec = restart * tele + (1.0 - restart) * (P_t @ vec)
+            U[:, idx_c] = vec
+        row_sum = np.maximum(U.sum(axis=1, keepdims=True), 1e-12)
+        U = U / row_sum
+        comms_dict = {}
+        cutoff = max(1.0 / max(2, k_c) * 1.5, float(membership_cutoff))
+        for u in range(n):
+            active = np.flatnonzero(U[u] >= cutoff).tolist()
+            if not active:
+                active = [int(np.argmax(U[u]))]
+            for c_idx in active:
+                comms_dict.setdefault(int(c_idx), set()).add(u)
+        return list(comms_dict.values()), U, extra_meta
+
+    if algo == 'fuzzy_neighborhood':
+        base_comms = [set(c) for c in nx.community.louvain_communities(network, seed=int(seed), resolution=float(resolution))]
+        k_c = len(base_comms)
+        primary = np.zeros(n, dtype=int)
+        for idx_c, members in enumerate(base_comms):
+            for u in members:
+                primary[u] = idx_c
+        U = np.zeros((n, max(1, k_c)), dtype=float)
+        for u in range(n):
+            nbrs = indices[indptr[u]:indptr[u + 1]]
+            counts = np.bincount(primary[nbrs], minlength=k_c).astype(float)
+            counts[primary[u]] += 1.0  # self-prior
+            U[u] = counts / max(1.0, counts.sum())
+        comms_dict = {}
+        cutoff = max(1.0 / max(2, k_c) * 1.5, float(membership_cutoff))
+        for u in range(n):
+            active = np.flatnonzero(U[u] >= cutoff).tolist()
+            if not active:
+                active = [int(np.argmax(U[u]))]
+            for c_idx in active:
+                comms_dict.setdefault(int(c_idx), set()).add(u)
+        return list(comms_dict.values()), U, extra_meta
+
+    raise ValueError(f"Unsupported algorithm: {algorithm}")
+
+
+def run_cached_clustering(
+    graph,
+    algorithm: str = 'louvain',
+    resolution: float = 1.0,
+    seed: int = 42,
+    use_cache: bool = True,
+    cache_dir: Path | None = None,
+    **algo_params,
+) -> dict:
+    """Run any classic, overlapping, or fuzzy clustering algorithm once and cache on disk."""
+    algo = str(algorithm).lower().strip()
+    if algo not in CLUSTERING_CATALOG:
+        raise ValueError(f"Unknown clustering algorithm '{algorithm}'.")
+
+    adjacency: sparse.csr_matrix = graph['adj']
+    n = adjacency.shape[0]
+    fp = _graph_fingerprint(graph)
+    param_sig = json.dumps({'res': round(float(resolution), 4), 'seed': int(seed), **algo_params}, sort_keys=True)
+    param_hash = hashlib.sha256(param_sig.encode('utf-8')).hexdigest()[:10]
+    cache_key = f'{fp}_{algo}_{param_hash}'
+
+    if use_cache and cache_key in _CLUSTERING_MEM_CACHE:
+        cached = _CLUSTERING_MEM_CACHE[cache_key]
+        return {
+            'node_frame': cached['node_frame'].clone(),
+            'communities': [ list(c) for c in cached['communities'] ],
+            'meta': dict(cached['meta'], cache_hit=True),
+        }
+
+    cdir = Path(cache_dir) if cache_dir is not None else CACHE_ROOT / 'clusterings'
+    parquet_path = cdir / f'cluster_{cache_key}.parquet'
+    json_path = cdir / f'cluster_{cache_key}.json'
+
+    if use_cache and n >= 50 and parquet_path.exists() and json_path.exists():
+        try:
+            df_disk = pl.read_parquet(parquet_path)
+            payload = json.loads(json_path.read_text(encoding='utf-8'))
+            if df_disk.height == n and df_disk['protein'].to_list() == [str(x) for x in graph['nodes']]:
+                meta_disk = payload['meta']
+                meta_disk['cache_hit'] = True
+                meta_disk['cache_path'] = str(parquet_path)
+                comms_disk = payload['communities']
+                _CLUSTERING_MEM_CACHE[cache_key] = {
+                    'node_frame': df_disk,
+                    'communities': comms_disk,
+                    'meta': meta_disk,
+                }
+                return {
+                    'node_frame': df_disk.clone(),
+                    'communities': [list(c) for c in comms_disk],
+                    'meta': dict(meta_disk),
+                }
+        except Exception:
+            pass
+
     network = _advanced_graph(graph)
-    communities = nx.community.louvain_communities(network, seed=int(seed), resolution=float(resolution), weight=None)
-    assignments = np.empty(len(mask), dtype=int)
-    for label, members in enumerate(communities):
-        assignments[list(members)] = label
-    participation, entropy, within = np.zeros(len(mask)), np.zeros(len(mask)), np.zeros(len(mask))
-    adjacency = graph['adj']
-    for node in range(len(mask)):
-        neighbors = adjacency.indices[adjacency.indptr[node]:adjacency.indptr[node + 1]]
-        counts = np.bincount(assignments[neighbors], minlength=len(communities))
+    raw_communities, soft_u, extra_meta = _execute_clustering_algorithm(
+        graph, network, algorithm=algo, resolution=float(resolution), seed=int(seed), **algo_params
+    )
+    # Normalize communities to non-empty sorted lists of node indices
+    communities = [sorted(c) for c in raw_communities if len(c) > 0]
+    if not communities:
+        communities = [list(range(n))]
+    num_comms = len(communities)
+
+    # Track all communities each node belongs to, plus primary community (largest or highest soft membership)
+    node_comms: list[list[int]] = [[] for _ in range(n)]
+    comm_sizes = [len(c) for c in communities]
+    for c_idx, members in enumerate(communities):
+        for u in members:
+            node_comms[u].append(c_idx)
+    for u in range(n):
+        if not node_comms[u]:
+            node_comms[u].append(0)
+            communities[0].append(u)
+
+    assignments = np.zeros(n, dtype=int)
+    num_memberships = np.zeros(n, dtype=int)
+    comms_str = []
+    for u in range(n):
+        c_list = node_comms[u]
+        num_memberships[u] = len(c_list)
+        comms_str.append(';'.join(str(c) for c in c_list))
+        if soft_u is not None and soft_u.shape[1] >= num_comms:
+            assignments[u] = int(np.argmax(soft_u[u]))
+        else:
+            assignments[u] = max(c_list, key=lambda c: comm_sizes[c])
+
+    # Guimerà–Amaral participation, community entropy, and within-module z-score
+    participation = np.zeros(n, dtype=float)
+    entropy = np.zeros(n, dtype=float)
+    within = np.zeros(n, dtype=float)
+    indptr = adjacency.indptr
+    indices = adjacency.indices
+    for node in range(n):
+        neighbors = indices[indptr[node]:indptr[node + 1]]
+        counts = np.bincount(assignments[neighbors], minlength=num_comms)
         degree = len(neighbors)
         fractions = counts[counts > 0] / degree if degree else np.array([])
-        participation[node] = 1 - (fractions ** 2).sum() if degree else 0.
-        entropy[node] = -(fractions * np.log(fractions)).sum()
-        within[node] = counts[assignments[node]]
-    z = np.zeros(len(mask))
-    for community in communities:
-        indices = np.asarray(list(community), dtype=int)
-        std = within[indices].std()
-        if std > 0:
-            z[indices] = (within[indices] - within[indices].mean()) / std
-    frame = pl.DataFrame({
-        'protein': graph['nodes'], 'is_moonlighting': mask,
-        'group': np.where(mask, 'Moonlighting', 'Background'), 'community': assignments,
-        'participation': participation, 'community_entropy': entropy, 'within_module_z': z,
+        participation[node] = 1.0 - float((fractions ** 2).sum()) if degree else 0.0
+        entropy[node] = float(-(fractions * np.log(fractions)).sum()) if len(fractions) else 0.0
+        within[node] = float(counts[assignments[node]])
+
+    z = np.zeros(n, dtype=float)
+    for members in communities:
+        idx_arr = np.asarray(members, dtype=int)
+        if len(idx_arr) > 1:
+            std = within[idx_arr].std()
+            if std > 0:
+                z[idx_arr] = (within[idx_arr] - within[idx_arr].mean()) / std
+
+    # Fuzzy / soft membership metrics (from soft_u if available, else derived from multi-membership + neighbor affinities)
+    max_membership = np.ones(n, dtype=float)
+    top2_ratio = np.zeros(n, dtype=float)
+    fuzzy_entropy = np.zeros(n, dtype=float)
+    fuzzy_part = np.zeros(n, dtype=float)
+    effective_clusters = np.ones(n, dtype=float)
+
+    if soft_u is not None and soft_u.shape[0] == n and soft_u.shape[1] >= 1:
+        k_soft = soft_u.shape[1]
+        log_k = math.log(max(2, k_soft))
+        for u in range(n):
+            p = np.maximum(0.0, soft_u[u])
+            s = float(p.sum())
+            p = p / s if s > 0 else np.full(k_soft, 1.0 / k_soft)
+            pos = p[p > 1e-12]
+            h = float(-(pos * np.log(pos)).sum())
+            fuzzy_entropy[u] = h / log_k if k_soft > 1 else 0.0
+            fuzzy_part[u] = 1.0 - float((p ** 2).sum())
+            effective_clusters[u] = math.exp(h)
+            sorted_p = np.sort(p)[::-1]
+            max_membership[u] = float(sorted_p[0])
+            top2_ratio[u] = float(sorted_p[1] / sorted_p[0]) if len(sorted_p) > 1 and sorted_p[0] > 1e-12 else 0.0
+    else:
+        log_k = math.log(max(2, num_comms))
+        for u in range(n):
+            neighbors = indices[indptr[u]:indptr[u + 1]]
+            counts = np.bincount(assignments[neighbors], minlength=num_comms).astype(float)
+            for c_idx in node_comms[u]:
+                counts[c_idx] += 1.0
+            total_c = float(counts.sum())
+            p = counts / total_c if total_c > 0 else np.array([1.0])
+            pos = p[p > 1e-12]
+            h = float(-(pos * np.log(pos)).sum())
+            fuzzy_entropy[u] = h / log_k if num_comms > 1 else 0.0
+            fuzzy_part[u] = 1.0 - float((p ** 2).sum())
+            effective_clusters[u] = math.exp(h)
+            sorted_p = np.sort(p)[::-1]
+            max_membership[u] = float(sorted_p[0])
+            top2_ratio[u] = float(sorted_p[1] / sorted_p[0]) if len(sorted_p) > 1 and sorted_p[0] > 1e-12 else 0.0
+
+    # Compute modularity on primary hard partition
+    hard_buckets: dict[int, set[int]] = {}
+    for u, c_id in enumerate(assignments):
+        hard_buckets.setdefault(int(c_id), set()).add(u)
+    try:
+        mod_val = float(nx.community.modularity(network, list(hard_buckets.values()), weight=None, resolution=float(resolution)))
+    except Exception:
+        mod_val = float('nan')
+
+    node_frame = pl.DataFrame({
+        'protein': [str(x) for x in graph['nodes']],
+        'community': assignments,
+        'communities_str': comms_str,
+        'num_communities': num_memberships,
+        'is_overlapping_member': num_memberships > 1,
+        'participation': participation,
+        'community_entropy': entropy,
+        'within_module_z': z,
+        'max_membership': max_membership,
+        'top2_membership_ratio': top2_ratio,
+        'fuzzy_entropy': fuzzy_entropy,
+        'fuzzy_participation': fuzzy_part,
+        'effective_clusters': effective_clusters,
     })
+    meta = {
+        'algorithm': algo,
+        'algorithm_label': CLUSTERING_CATALOG[algo]['label'],
+        'paradigm': CLUSTERING_CATALOG[algo]['paradigm'],
+        'communities': num_comms,
+        'resolution': float(resolution),
+        'seed': int(seed),
+        'modularity': mod_val,
+        'overlapping_nodes': int((num_memberships > 1).sum()),
+        'overlapping_fraction': float((num_memberships > 1).mean()),
+        'mean_communities_per_node': float(num_memberships.mean()),
+        'cache_hit': False,
+        **extra_meta,
+    }
+
+    if use_cache:
+        _CLUSTERING_MEM_CACHE[cache_key] = {
+            'node_frame': node_frame,
+            'communities': communities,
+            'meta': dict(meta),
+        }
+        if n >= 50:
+            try:
+                cdir.mkdir(parents=True, exist_ok=True)
+                node_frame.write_parquet(parquet_path)
+                meta['cache_path'] = str(parquet_path)
+                json_path.write_text(json.dumps({'meta': meta, 'communities': communities}, indent=2), encoding='utf-8')
+            except Exception:
+                pass
+
+    return {
+        'node_frame': node_frame.clone(),
+        'communities': [list(c) for c in communities],
+        'meta': meta,
+    }
+
+
+def community_analysis(graph, cohort, seed=42, resolution=1.0, algorithm='louvain', use_cache=True, **algo_params):
+    """Full-network multi-paradigm clustering (Classic, Overlapping, Fuzzy) plus cohort enrichment (cached)."""
+    mask = _selection(graph, cohort)
+    cached_res = run_cached_clustering(
+        graph, algorithm=algorithm, resolution=resolution, seed=seed, use_cache=use_cache, **algo_params
+    )
+    base_df = cached_res['node_frame']
+    communities = cached_res['communities']
+    meta = cached_res['meta']
+
+    frame = base_df.with_columns(
+        pl.Series('is_moonlighting', mask),
+        pl.Series('group', np.where(mask, 'Moonlighting', 'Background')),
+    ).select([
+        'protein', 'is_moonlighting', 'group', 'community', 'communities_str',
+        'num_communities', 'is_overlapping_member',
+        'participation', 'community_entropy', 'within_module_z',
+        'fuzzy_entropy', 'fuzzy_participation', 'effective_clusters',
+        'top2_membership_ratio', 'max_membership',
+    ])
+
     rows = []
-    for community, members in enumerate(communities):
+    for community_id, members in enumerate(communities):
         members = list(members)
         count = int(mask[members].sum())
-        rows.append({'community': community, 'network_proteins': len(members), 'moonlighting_proteins': count,
-                     'expected': len(members) * mask.sum() / len(mask),
-                     'p_value': float(hypergeom.sf(count - 1, len(mask), int(mask.sum()), len(members)))})
+        rows.append({
+            'community': community_id,
+            'network_proteins': len(members),
+            'moonlighting_proteins': count,
+            'expected': len(members) * mask.sum() / len(mask),
+            'p_value': float(hypergeom.sf(count - 1, len(mask), int(mask.sum()), len(members))),
+        })
     enrichment = pl.DataFrame(rows)
     enrichment = enrichment.with_columns(pl.Series('fdr_bh', bh_adjust(enrichment['p_value'])))
-    return {'metrics': frame, 'enrichment': enrichment.sort('fdr_bh', maintain_order=True),
-            'tests': _comparison_table(frame, ['participation', 'community_entropy', 'within_module_z']),
-            'summary': {'communities': len(communities), 'resolution': float(resolution), 'seed': int(seed),
-                        'modularity': nx.community.modularity(network, communities, weight=None, resolution=float(resolution)),
-                        'scope': 'Full selected interactome; unweighted hard-partition Louvain. Community indices have no intrinsic biological meaning.'}}
+
+    test_metrics = [
+        'participation', 'community_entropy', 'within_module_z',
+        'num_communities', 'fuzzy_entropy', 'fuzzy_participation',
+        'effective_clusters', 'top2_membership_ratio',
+    ]
+    summary = {
+        'algorithm': meta['algorithm'],
+        'algorithm_label': meta['algorithm_label'],
+        'paradigm': meta['paradigm'],
+        'communities': len(communities),
+        'resolution': float(resolution),
+        'seed': int(seed),
+        'modularity': meta['modularity'],
+        'overlapping_nodes': meta['overlapping_nodes'],
+        'overlapping_fraction': meta['overlapping_fraction'],
+        'mean_communities_per_node': meta['mean_communities_per_node'],
+        'cache_hit': meta.get('cache_hit', False),
+        'cache_path': meta.get('cache_path'),
+        'scope': f"Full selected interactome; {meta['algorithm_label']} ({meta['paradigm']}). Cached per network and parameter signature.",
+    }
+    return {
+        'metrics': frame,
+        'enrichment': enrichment.sort('fdr_bh', maintain_order=True),
+        'tests': _comparison_table(frame, test_metrics),
+        'summary': summary,
+    }
+
+
+def compare_clustering_algorithms(
+    graph,
+    cohort,
+    algorithms: list[str] | None = None,
+    seed: int = 42,
+    resolution: float = 1.0,
+    use_cache: bool = True,
+) -> dict:
+    """Run, cache, and compare multiple clustering algorithms (Classic, Overlapping, Fuzzy) on the same network."""
+    algos = list(dict.fromkeys(algorithms or list(CLUSTERING_CATALOG.keys())))
+    mask = _selection(graph, cohort)
+    summary_rows = []
+    effect_rows = []
+    per_algorithm = {}
+    key_metrics = ['participation', 'community_entropy', 'within_module_z', 'num_communities', 'fuzzy_entropy', 'top2_membership_ratio']
+
+    for algo in algos:
+        res = community_analysis(graph, cohort, seed=seed, resolution=resolution, algorithm=algo, use_cache=use_cache)
+        per_algorithm[algo] = res
+        s = res['summary']
+        df = res['metrics']
+        enr = res['enrichment']
+        moon_ov = float(df.filter(pl.col('is_moonlighting'))['is_overlapping_member'].mean() or 0.0)
+        bg_ov = float(df.filter(~pl.col('is_moonlighting'))['is_overlapping_member'].mean() or 0.0)
+        sig_comms = int((enr['fdr_bh'] < 0.05).sum()) if len(enr) else 0
+
+        summary_rows.append({
+            'algorithm': algo,
+            'label': s['algorithm_label'],
+            'paradigm': s['paradigm'],
+            'communities': s['communities'],
+            'modularity': s['modularity'],
+            'overlapping_fraction': s['overlapping_fraction'],
+            'moonlighting_overlap_frac': moon_ov,
+            'background_overlap_frac': bg_ov,
+            'enriched_communities_bh': sig_comms,
+            'cache_hit': bool(s.get('cache_hit', False)),
+        })
+
+        for metric in key_metrics:
+            vals = df[metric].to_numpy().astype(float)
+            a, b = vals[mask], vals[~mask]
+            a, b = a[np.isfinite(a)], b[np.isfinite(b)]
+            avail = len(a) > 0 and len(b) > 0
+            u_res = mannwhitneyu(a, b, alternative='two-sided') if avail else None
+            rb = float(2.0 * u_res.statistic / (len(a) * len(b)) - 1.0) if avail else np.nan
+            effect_rows.append({
+                'group': algo,
+                'label': s['algorithm_label'],
+                'paradigm': s['paradigm'],
+                'metric': metric,
+                'query_n': len(a),
+                'background_n': len(b),
+                'query_median': float(np.median(a)) if len(a) else np.nan,
+                'background_median': float(np.median(b)) if len(b) else np.nan,
+                'rank_biserial': rb,
+                'p_value': float(u_res.pvalue) if avail else np.nan,
+            })
+
+    effects_df = pl.DataFrame(effect_rows).with_columns(
+        pl.Series('fdr_bh', bh_adjust([r['p_value'] for r in effect_rows]))
+    )
+    summary_df = pl.DataFrame(summary_rows)
+    return {
+        'summary_table': summary_df,
+        'effects': effects_df,
+        'per_algorithm': per_algorithm,
+        'summary': {
+            'algorithms_evaluated': len(algos),
+            'paradigms': sorted({CLUSTERING_CATALOG[a]['paradigm'] for a in algos}),
+            'resolution': float(resolution),
+            'seed': int(seed),
+            'correction': 'Benjamini–Hochberg across all algorithm-by-metric comparisons in the suite.',
+        },
+    }
+
+
+def clustering_comparison_heatmap(effects: pl.DataFrame) -> go.Figure:
+    """Render a rank-biserial effect heatmap across Classic, Overlapping, and Fuzzy clustering algorithms."""
+    if effects.is_empty():
+        return _base_heatmap('Multi-paradigm clustering comparison')
+    algos = effects['group'].unique(maintain_order=True).to_list()
+    metrics = effects['metric'].unique(maintain_order=True).to_list()
+    labels_map = {r['group']: f"[{r['paradigm'].upper()}] {r['group']}" for r in effects.iter_rows(named=True)}
+    lookup = {(r['group'], r['metric']): r for r in effects.iter_rows(named=True)}
+    z, text, hover = [], [], []
+    for algo in algos:
+        zr, tr, hr = [], [], []
+        for m in metrics:
+            row = lookup.get((algo, m))
+            if row is None or not _finite(row.get('rank_biserial')):
+                zr.append(None); tr.append('NA'); hr.append('Unavailable')
+                continue
+            eff = float(row['rank_biserial'])
+            stars = significance_label(row.get('fdr_bh'))
+            zr.append(eff)
+            tr.append(f'{eff:+.2f}<br>{stars}')
+            hr.append(
+                f"{row.get('label', algo)} · {_metric_label(m).replace('<br>', ' ')}<br>"
+                f"Paradigm: {row.get('paradigm')}<br>"
+                f"Rank-biserial (Moonlighting vs Background): {eff:+.4f}<br>"
+                f"Moonlighting median: {_fmt(row.get('query_median'))}<br>"
+                f"Background median: {_fmt(row.get('background_median'))}<br>"
+                f"BH-adjusted q: {_fmt(row.get('fdr_bh'), 6)} ({stars})"
+            )
+        z.append(zr); text.append(tr); hover.append(hr)
+    fig = go.Figure(go.Heatmap(
+        x=[_metric_label(m) for m in metrics],
+        y=[labels_map.get(a, a) for a in algos],
+        z=z, zmin=-1, zmax=1, zmid=0, colorscale=COLORSCALE,
+        text=text, texttemplate='%{text}', textfont=dict(size=12),
+        customdata=hover, hovertemplate='%{customdata}<extra></extra>',
+        xgap=3, ygap=3,
+        colorbar=dict(title='Rank-biserial<br>effect', tickvals=[-1, 0, 1], ticktext=['−1 · lower', '0 · equal', '+1 · higher']),
+    ))
+    fig.update_layout(
+        template='plotly_white',
+        title='Moonlighting topological roles across Classic, Overlapping & Fuzzy clustering algorithms',
+        height=max(420, 140 + 48 * len(algos)),
+        margin=dict(l=210, r=45, t=90, b=85),
+        yaxis=dict(title='Clustering algorithm', autorange='reversed'),
+        xaxis=dict(title='Clustering role metric', tickangle=0),
+    )
+    return fig
 
 
 # ---------------------------------------------------------------------------
@@ -802,7 +1886,7 @@ def go_enrichment(annotation_path, universe, cohort, aspect='BP', min_size=5,
 
 def compare_source_sets(graph, data: pl.DataFrame, sources: list[str],
                         reviewed_only=False, min_publications=0, extra=False,
-                        seed=42, landmarks=32, include_union=False):
+                        seed=42, landmarks=None, include_union=False):
     """Compute network metrics once, then test each source against the same control."""
     sources = list(dict.fromkeys(sources))
     if not sources:

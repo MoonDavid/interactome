@@ -11,9 +11,10 @@ ROOT=Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path: sys.path.insert(0,str(ROOT))
 from networks import discover_datasets, map_ids
 from moonlighting import (
-    GROUP_COLORS, GROUP_LABELS, SIGNIFICANCE_LEGEND, SOURCES,
-    centrality_analysis, centrality_heatmap, cohort_ids, cohesion_analysis,
-    community_analysis, compare_source_sets, cross_network_analysis,
+    CLUSTERING_CATALOG, GROUP_COLORS, GROUP_LABELS, SIGNIFICANCE_LEGEND, SOURCES,
+    centrality_analysis, centrality_heatmap, clustering_comparison_heatmap,
+    cohort_ids, cohesion_analysis, community_analysis,
+    compare_clustering_algorithms, compare_source_sets, cross_network_analysis,
     go_enrichment, graph_from_path, hub_enrichment_heatmap, load_moon_data,
     mapping_coverage, metric_figure, prepare_go_annotations,
     random_walk_analysis, robustness_analysis, save_analysis,
@@ -198,10 +199,9 @@ if tabs[0].open:
 if tabs[1].open:
     with tabs[1]:
         st.subheader('Identify hubs, bridges and influential proteins')
-        extra=setting(st.checkbox,'Include core number, clustering, eigenvector, approximate betweenness and bridging centrality',key='cent_extra')
-        landmarks=setting(st.number_input,'Betweenness landmarks (approximation)',8,256,32,8,key='cent_landmarks')
-        st.caption('Basic metrics: degree, weighted strength, PageRank and mean neighbor degree. PageRank uses probability affinities when available. Advanced metrics use unweighted topology and require ≤500,000 edges. Comparisons use two-sided Mann–Whitney U and BH across metrics; degree bias and network dependence affect interpretation.')
-        result=run_panel('centrality',{'advanced':extra,'landmarks':int(landmarks)},lambda:centrality_analysis(graph_for(),cohort,extra=extra,seed=int(seed),landmarks=int(landmarks)))
+        extra=setting(st.checkbox,'Include core number, clustering, eigenvector, exact betweenness and bridging centrality (cached)',key='cent_extra')
+        st.caption('Basic metrics: degree, weighted strength, PageRank and mean neighbor degree. PageRank uses probability affinities when available. Advanced metrics compute exact Brandes betweenness centrality across all nodes once per network and cache results in data/cache/centralities/ (≤500,000 edges). Comparisons use two-sided Mann–Whitney U and BH across metrics; degree bias and network dependence affect interpretation.')
+        result=run_panel('centrality',{'advanced':extra,'betweenness':'exact_cached'},lambda:centrality_analysis(graph_for(),cohort,extra=extra,seed=int(seed),landmarks=None))
         if result: summary(result); metric_plot(result,'cent')
 
 if tabs[2].open:
@@ -229,15 +229,34 @@ if tabs[3].open:
 
 if tabs[4].open:
     with tabs[4]:
-        st.subheader('Map proteins within and across communities')
-        resolution=setting(st.number_input,'Louvain resolution',min_value=0.1,max_value=5.0,value=1.0,step=0.1,key='community_resolution')
-        st.caption('Louvain partitions the full unweighted graph into non-overlapping modules. Participation and within-module z scores describe cross-module roles. Hypergeometric community enrichment uses all network proteins, with BH across every community. ≤500,000 edges.')
-        result=run_panel('communities',{'resolution':float(resolution)},lambda:community_analysis(graph_for(),cohort,seed=int(seed),resolution=float(resolution)))
+        st.subheader('Map proteins within and across communities (Classic, Overlapping & Fuzzy — cached)')
+        c_col1,c_col2=st.columns([2,1])
+        with c_col1:
+            cluster_algo=setting(st.selectbox,'Clustering algorithm (Classic / Overlapping / Fuzzy)',list(CLUSTERING_CATALOG.keys()),format_func=lambda a:f"[{CLUSTERING_CATALOG[a]['paradigm'].upper()}] {CLUSTERING_CATALOG[a]['label']}",key='community_algorithm')
+        with c_col2:
+            resolution=setting(st.number_input,'Resolution / granularity',min_value=0.1,max_value=5.0,value=1.0,step=0.1,key='community_resolution')
+        st.caption(f"{CLUSTERING_CATALOG[cluster_algo]['description']} Each algorithm runs once per network/parameter set and caches its partition, overlapping memberships, and fuzzy affiliation vectors in data/cache/clusterings/. Hypergeometric community enrichment uses all network proteins, with BH across every community. ≤500,000 edges.")
+        result=run_panel('communities',{'algorithm':cluster_algo,'resolution':float(resolution)},lambda:community_analysis(graph_for(),cohort,seed=int(seed),resolution=float(resolution),algorithm=cluster_algo))
         if result:
             summary(result)
-            fig=px.scatter(result['metrics'],x='within_module_z',y='participation',color='group',color_discrete_map=GROUP_COLORS,hover_data=['protein','community'],title='Within-module position and cross-module participation',labels={'within_module_z':'Within-module degree z score','participation':'Participation coefficient'})
+            fig=px.scatter(result['metrics'],x='within_module_z',y='participation',color='group',color_discrete_map=GROUP_COLORS,hover_data=['protein','community','num_communities','fuzzy_entropy','top2_membership_ratio'],title=f"Within-module position and cross-module participation ({CLUSTERING_CATALOG[cluster_algo]['label']})",labels={'within_module_z':'Within-module degree z score','participation':'Participation coefficient'})
             st.plotly_chart(fig,width='stretch')
             table(result['enrichment'],'community_enrichment'); metric_plot(result,'community')
+
+        st.divider()
+        st.subheader('Compare & cache multiple clustering algorithms (Classic + Overlapping + Fuzzy)')
+        default_suite=['louvain','greedy_modularity','label_propagation','mcl','walktrap_markov','spectral','ego_splitting','link_communities','k_clique_percolation','demon','mcode_complexes','bigclam_nmf','fuzzy_c_means','fuzzy_nmf','fuzzy_rwr_diffusion','fuzzy_neighborhood']
+        suite_algos=st.multiselect('Algorithms to run, cache & compare',list(CLUSTERING_CATALOG.keys()),default=default_suite,format_func=lambda a:f"[{CLUSTERING_CATALOG[a]['paradigm'].upper()}] {a}",key='community_suite_algos')
+        if suite_algos:
+            suite_res=run_panel('clustering_suite',{'algorithms':suite_algos,'resolution':float(resolution)},lambda:compare_clustering_algorithms(graph_for(),cohort,algorithms=suite_algos,seed=int(seed),resolution=float(resolution)))
+            if suite_res:
+                summary(suite_res)
+                table(suite_res['summary_table'],'clustering_suite_summary')
+                hm_fig=clustering_comparison_heatmap(suite_res['effects'])
+                st.plotly_chart(hm_fig,width='stretch',key='clustering_suite_heatmap')
+                st.download_button('Download clustering comparison heatmap (HTML)',hm_fig.to_html(include_plotlyjs=True),'clustering_comparison_heatmap.html','text/html',key='dl_clustering_suite_hm')
+                with st.expander('All algorithm-by-metric Mann–Whitney U tests & BH q-values'):
+                    table(suite_res['effects'],'clustering_suite_effects')
 
 if tabs[5].open:
     with tabs[5]:
@@ -318,12 +337,12 @@ if tabs[9].open:
         st.write('Display each source separately on the same axes. Source sets can overlap: a protein shared by two sources appears in both distributions. The shared background excludes the union of all selected sets.')
         compare_sources=st.multiselect('Source sets to compare',SOURCES,default=['moonprot','multitask','moonlitdb'],format_func=lambda source:GROUP_LABELS.get(source,source),key='compare_sources')
         include_union=setting(st.checkbox,'Show union of selected sets',value=True,key='compare_include_union')
-        compare_extra=setting(st.checkbox,'Include advanced centrality metrics',key='compare_extra')
+        compare_extra=setting(st.checkbox,'Include advanced centrality metrics (exact betweenness, cached)',key='compare_extra')
         st.caption('Union is created automatically from the selected sets, counting each canonical protein once. Union tests stay in the same BH correction even when its plots are hidden, so the stars remain consistent. This view uses its own source selection and the sidebar reviewed-entry and publication filters. Sidebar union/intersection settings apply to the other tabs. All selected source-versus-background tests and metrics share one Benjamini–Hochberg correction. Overlapping sets are not independent; stars do not test differences between sources.')
         if compare_sources:
-            parameters={'analysis_revision':'centrality_profiles_hubs_v1','sources':compare_sources,'include_union':True,'advanced':compare_extra,'landmarks':32,
+            parameters={'analysis_revision':'centrality_profiles_hubs_v1','sources':compare_sources,'include_union':True,'advanced':compare_extra,'landmarks':None,
                         'correction_scope':'Benjamini–Hochberg across all displayed set-versus-background tests and metrics, including the automatically computed Union'}
-            result=run_panel('source_comparison',parameters,lambda:compare_source_sets(graph_for(),moon,compare_sources,reviewed_only=reviewed_only,min_publications=min_pubs,extra=compare_extra,seed=int(seed),landmarks=32,include_union=True))
+            result=run_panel('source_comparison',parameters,lambda:compare_source_sets(graph_for(),moon,compare_sources,reviewed_only=reviewed_only,min_publications=min_pubs,extra=compare_extra,seed=int(seed),landmarks=None,include_union=True))
             if result:
                 summary(result)
                 display_result=dict(result)

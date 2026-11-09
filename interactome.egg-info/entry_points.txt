@@ -1,0 +1,2 @@
+[console_scripts]
+interactome-cluster = cluster_networks:main
