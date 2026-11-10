@@ -4,6 +4,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 import sys
+from time import monotonic_ns
 
 import plotly.express as px
 import polars as pl
@@ -15,6 +16,8 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from annotate_clusters import annotation_input, annotation_node_table
+from cluster_annotation_ui import annotation_panel
 from cytoscape_bridge import (
     CLUSTERMAKER_ALGORITHMS,
     CYTOHUBBA_METRICS,
@@ -63,7 +66,7 @@ st.set_page_config(
     layout='wide',
 )
 st.caption('HUMAN INTERACTOME ATLAS')
-st.title('Cytoscape Bridge & App Automation (Py4Cytoscape)')
+st.subheader('Cytoscape Desktop')
 st.write(
     'Extract moonlighting subnetworks, 1-hop linker bridges, and negative-curvature switch edges in Polars, '
     'explore them in the embedded Cytoscape.js viewer, push them to Cytoscape Desktop via `py4cytoscape`, '
@@ -71,10 +74,17 @@ st.write(
     'with results pulled back into Polars.'
 )
 
-datasets = discover_datasets(DATA)
+isoforms = st.session_state.get('isoform_policy', 'collapse')
+datasets = discover_datasets(DATA, isoforms=isoforms)
 if not datasets:
-    st.info('Prepare canonical networks on the Network Explorer page first.')
+    st.info('Prepare canonical networks on Interactomes Overview first.')
     st.stop()
+
+if st.session_state.get('cy_isoform_policy') != isoforms:
+    for result_key in ('cy_subnetwork', 'cm_result', 'mp_single_res', 'mp_suite_res',
+                       'na_result', 'diff_result', 'ch_result', 'str_result', 'last_sent_suid'):
+        st.session_state.pop(result_key, None)
+    st.session_state['cy_isoform_policy'] = isoforms
 
 
 @st.cache_data(show_spinner=False)
@@ -90,10 +100,16 @@ def cached_graph(path: str, mtime: int, size: int) -> dict:
 raw_path = DATA / 'allmoon_with_moonlitdb_human.csv'
 mapping_file = DATA / 'mappings/moonlighting_uniprot.json'
 if not mapping_file.exists():
-    st.warning('Resolve the moonlighting protein IDs on the Moonlighting Explorer page first.')
+    st.warning('Resolve the moonlighting protein IDs on Topological Analysis first.')
     st.stop()
 
 moon = cached_moon_data(raw_path.stat().st_mtime_ns, mapping_file.stat().st_mtime_ns)
+analysis = st.session_state.get('visualization_analysis_context', {})
+preferred = [name for name in st.session_state.get('overview_networks', []) if name in datasets]
+network_options = list(dict.fromkeys([*preferred, *datasets]))
+default_network = analysis.get('network')
+if default_network not in network_options:
+    default_network = network_options[0]
 
 with st.sidebar:
     st.title('Cytoscape Bridge')
@@ -103,20 +119,27 @@ with st.sidebar:
     base_url = build_base_url(cy_host, int(cy_port))
     st.caption(f'Endpoint: `{base_url}`')
 
-    st.subheader('Interactome & Cohort')
-    network_name = st.selectbox('Primary interactome', list(datasets), key='cy_network')
+    st.subheader('Interactome & Protein Set')
+    network_name = st.selectbox('Primary interactome', network_options,
+                                index=network_options.index(default_network), key='cy_network')
     sources = st.multiselect(
         'Moonlighting sources (empty = all)',
         SOURCES,
-        default=['moonprot', 'multitask', 'moonlitdb'],
+        default=analysis.get('sources', ['moonlitdb']),
         format_func=lambda s: GROUP_LABELS.get(s, s),
         key='cy_sources',
     )
-    require_all = st.checkbox('Require all selected sources', value=False, key='cy_require_all')
-    reviewed_only = st.checkbox('Reviewed source entries only', value=False, key='cy_reviewed')
-    min_pubs = st.number_input('Minimum MoonLitDB publications', 0, 10000, 0, 1, key='cy_min_pubs')
+    require_all = st.checkbox('Require all selected sources', value=analysis.get('require_all', False), key='cy_require_all')
+    reviewed_only = st.checkbox('Reviewed source entries only', value=analysis.get('reviewed_only', False), key='cy_reviewed')
+    min_pubs = st.number_input('Minimum MoonLitDB publications', 0, 10000, analysis.get('min_pubs', 0), 1, key='cy_min_pubs')
 
 cohort, selected_rows = cohort_ids(moon, sources, require_all, reviewed_only, min_pubs)
+network_path = datasets[network_name]
+network_stat = network_path.stat()
+subnetwork_inputs = (str(network_path), network_stat.st_mtime_ns, network_stat.st_size, frozenset(cohort))
+if st.session_state.get('cy_subnetwork_inputs') != subnetwork_inputs:
+    st.session_state.pop('cy_subnetwork', None)
+    st.session_state['cy_subnetwork_inputs'] = subnetwork_inputs
 
 
 def get_graph(name: str | None = None) -> dict:
@@ -189,7 +212,7 @@ with tab_sub:
 
     c1, c2, c3 = st.columns(3)
     mode_options = {
-        'cohort_linkers': 'Cohort + Top 1-Hop Linker Bridges',
+        'cohort_linkers': 'Protein Set + Top 1-Hop Linker Bridges',
         'ego_bridge': 'Protein Ego-Network & Ego-Fragmentation Bridge',
         'top_bridges': 'Top Bridging-Centrality Hubs & Incident Bridges',
         'multiplex': 'Cross-Network Multiplex Comparison (A vs B)',
@@ -406,6 +429,7 @@ with tab_cluster:
                             cohort=cohort,
                             base_url=base_url,
                         )
+                        cm_res['annotation_target'] = (base_url, target_suid, monotonic_ns())
                         st.session_state['cm_result'] = cm_res
                         if cm_res['cluster_column'] and 'cy_subnetwork' in st.session_state:
                             # Merge cluster column into active_sub['nodes'] if node IDs match
@@ -437,6 +461,7 @@ with tab_cluster:
                         st.session_state['cm_result'] = {
                             'command': f'inspect existing column {chosen_col}',
                             'cluster_column': chosen_col,
+                            'annotation_target': (base_url, target_suid, monotonic_ns()),
                             'node_table': ndf,
                             'cluster_enrichment': analysis['cluster_enrichment'],
                             'node_cluster_bridging': analysis['node_cluster_bridging'],
@@ -445,6 +470,48 @@ with tab_cluster:
                         st.warning(f'No cluster columns found yet in network {target_suid}. Available columns: {", ".join(ndf.columns)}')
                 except Exception as exc:
                     st.error(f'Failed to fetch Cytoscape tables: {exc}')
+
+            annotation = st.expander('Annotate Cytoscape clusters with GO and Reactome',
+                                     key='cy_cluster_annotation', on_change='rerun')
+            
+            if annotation.open:
+                with annotation:
+                    current = st.session_state.get('cm_result', {})
+                    target = current.get('annotation_target', ())
+                    current_column = current.get('cluster_column') if target[:2] == (base_url, target_suid) else None
+                    st.caption('The selected Cytoscape network supplies all background proteins. '
+                               'Use the full clustering network and rerun after editing its assignments.')
+                    fields = st.columns(3)
+                    accession_column = fields[0].text_input('UniProt node column', 'name', key='cy_annotation_protein').strip()
+                    cluster_column = fields[1].text_input(
+                        'Cluster node column', current_column or 'community',
+                        key=f'cy_annotation_column_{target_suid}_{current_column}',
+                    ).strip()
+                    separator = fields[2].text_input(
+                        'Text membership separator (optional)', key='cy_annotation_separator',
+                        help='Leave blank for a list column or single cluster IDs.',
+                    ) or None
+                    compare = st.checkbox('Compare with Cytoscape AutoAnnotate', key='cy_annotation_compare')
+                    comparison = None
+                    if compare:
+                        description_column = st.text_input(
+                            'Protein description node column (optional)', key='cy_annotation_description',
+                            help='AutoAnnotate also runs a separate pass using GO and Reactome term names.',
+                        ).strip() or None
+                        comparison = {'network': target_suid, 'uniprot_column': accession_column,
+                                      'description_column': description_column, 'base_url': base_url}
+                    if accession_column and cluster_column:
+                        annotation_panel(
+                            'cy_live_annotation', (base_url, target_suid, accession_column, cluster_column,
+                                                   separator, target if current_column else None),
+                            lambda: annotation_input(
+                                annotation_node_table(target_suid, base_url), target_suid,
+                                accession_column, cluster_column, separator, base_url,
+                            ),
+                            DATA, cytoscape=comparison,
+                        )
+                    else:
+                        st.info('Enter the UniProt and cluster node column names.')
 
     cm_result = st.session_state.get('cm_result')
     if cm_result:
@@ -577,7 +644,7 @@ with tab_apps:
             with st.container(border=True):
                 st.markdown('#### 2. Cytoscape `diffusion`')
                 diff_time = st.number_input('Diffusion time parameter', 0.001, 5.0, 0.1, 0.05, key='cy_diff_time')
-                if st.button('Run Heat Diffusion from Cohort Seeds', type='primary', width='stretch', disabled=selected_app_suid is None, key='btn_diff'):
+                if st.button('Run Heat Diffusion from Protein Set Seeds', type='primary', width='stretch', disabled=selected_app_suid is None, key='btn_diff'):
                     with st.spinner('Selecting moonlighting seeds and running Cytoscape heat diffusion…'):
                         try:
                             ndf_curr = fetch_cytoscape_table_polars(network=int(selected_app_suid), table='node', base_url=base_url)
@@ -585,7 +652,7 @@ with tab_apps:
                             net_nodes = set(ndf_curr[name_col].cast(pl.String).to_list())
                             seeds_in_cy = sorted(net_nodes & cohort)
                             if not seeds_in_cy:
-                                st.warning('No mapped moonlighting cohort nodes found in this Cytoscape network.')
+                                st.warning('No mapped moonlighting protein set nodes found in this Cytoscape network.')
                             else:
                                 st.session_state['diff_result'] = run_cytoscape_diffusion(
                                     seeds_in_cy,

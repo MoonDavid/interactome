@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-10T09:26:52.165378+00:00",
+  "sources": {
+    "network": {
+      "path": "C:\\projects\\interactome\\data\\processed_networks\\HuRI.parquet",
+      "size": 151418,
+      "mtime_ns": 1794296402256371500,
+      "sha256": "c8bacd77dad09fdd5a8a54d07f9876768f2d8a7069524e625ccd62725d8fc740"
+    },
+    "visualization": {
+      "network": "HuRI",
+      "scope": "Moonlighting + first neighbors",
+      "focus": "",
+      "moonlighting_sets": [
+        "moonlitdb"
+      ],
+      "edge_limit": 2000,
+      "displayed_edges": 2000,
+      "truncated": true,
+      "edges_sha256": "a781284fff856421257a94b52cb0888fa09a64b120b554592c76ba70bd1d20ef",
+      "algorithm": "louvain",
+      "resolution": 1.0,
+      "seed": 42
+    },
+    "go": {
+      "created_utc": "2026-11-10T09:26:49.142922+00:00",
+      "policy": "UniProtKB human primary taxon; exclude NOT; collapse numeric isoform suffix; GO ancestor propagation via is_a and part_of; evidence retained",
+      "sources": {
+        "gaf": {
+          "path": "C:\\projects\\interactome\\data\\GO\\HUMAN-uniprot.gaf.gz",
+          "size": 12109254,
+          "mtime_ns": 1794234165140993200
+        },
+        "obo": {
+          "path": "C:\\projects\\interactome\\data\\GO\\go-basic.obo",
+          "size": 32227785,
+          "mtime_ns": 1794234248139794700
+        }
+      },
+      "gaf_sha256": "a0afba19dfb1f8fa996bc1bdcd61fd0c9bd4cf0d2bf2509d09ac86993c0e70a2",
+      "obo_sha256": "b08d45b268b8c24ccb2513dbbbc7d4df9f6521c099b413f79eb31e06e0fa3bcc",
+      "gaf_headers": [
+        "!gaf-version: 2.2",
+        "!generated-by: UniProt",
+        "!date-generated: 2026-07-28 19:42",
+        "!go-version: http://purl.obolibrary.org/obo/go/releases/2026-07-26/extensions/go-plus.ofn"
+      ],
+      "ontology_headers": [
+        "format-version: 1.2",
+        "data-version: releases/2026-07-26"
+      ],
+      "audit": {
+        "source_rows": 910476,
+        "not_rows_excluded": 1497,
+        "nonhuman_or_nonuniprot_rows_excluded": 47765,
+        "unknown_or_obsolete_terms_excluded": 0
+      },
+      "direct_unique_evidence_rows": 437530,
+      "propagated_protein_term_rows": 1511426,
+      "proteins": 19775,
+      "terms": 20984
+    },
+    "reactome": {
+      "path": "C:\\projects\\interactome\\data\\reactome\\UniProt2Reactome.txt",
+      "size": 43219161,
+      "mtime_ns": 1794238025981646900,
+      "sha256": "e16cf600292fc592957daf696ab5ffd9373ed6b49582def5988ec5bedfcc48cf"
+    }
+  },
+  "parameters": {
+    "libraries": [
+      "GO_BP",
+      "GO_MF",
+      "GO_CC",
+      "Reactome"
+    ],
+    "min_background_hits": 5,
+    "min_label_hits": 2,
+    "max_qvalue": 0.05,
+    "ancestor_hit_jaccard_strictly_above": 0.7,
+    "test": "one-sided hypergeometric; one BH family across nonempty subsets and libraries",
+    "reactome_policy": "human R-HSA pathways in the supplied lowest-level mapping"
+  },
+  "coverage": {
+    "background": 8163,
+    "assigned": 977,
+    "unassigned": 7186,
+    "libraries": {
+      "GO_BP": {
+        "annotated_background": 6888,
+        "annotated_assigned": 825,
+        "eligible_terms": 5328
+      },
+      "GO_MF": {
+        "annotated_background": 7672,
+        "annotated_assigned": 925,
+        "eligible_terms": 1225
+      },
+      "GO_CC": {
+        "annotated_background": 7390,
+        "annotated_assigned": 898,
+        "eligible_terms": 906
+      },
+      "Reactome": {
+        "annotated_background": 4613,
+        "annotated_assigned": 551,
+        "eligible_terms": 1124
+      }
+    }
+  },
+  "clusters": 41,
+  "tested_subsets": 82,
+  "memberships_sha256": "9378fc755b93c77dff36f4d501f66381517f3fdf0910f58387b55c2b822bda62",
+  "tests": 703806,
+  "zero_hit_tests_omitted_from_table": 647058,
+  "cytoscape_comparison": {
+    "status": "not_requested"
+  }
+}

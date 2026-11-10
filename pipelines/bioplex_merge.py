@@ -8,9 +8,9 @@ from time import perf_counter
 
 import polars as pl
 
-DEFAULT_DATA_DIR = Path("/home/davide/data/PPI")
-
-DEFAULT_BIOPLEX_DIR = DEFAULT_DATA_DIR / "bioplex"
+DEFAULT_DATA_DIR = Path(__file__).resolve().parents[1] / "data"
+DEFAULT_BIOPLEX_DIR = DEFAULT_DATA_DIR / "raw_networks" / "bioplex"
+DEFAULT_OUTPUT_DIR = DEFAULT_DATA_DIR / "processed_networks"
 BIOPLEX_HEK293T_RELEASES = (
     ("v1.0", "BioPlex_HEK293T_v1.0.tsv"),
     ("v2.0", "BioPlex_HEK293T_v2.0.tsv"),
@@ -23,6 +23,8 @@ def merge_and_deduplicate_bioplex_hek293(
     min_pint: float = 0.0,
     write_merged_to_bioplex_dir: bool = True,
     verbose: bool = False,
+    *,
+    output_dir: Path | None = None,
 ) -> pl.DataFrame:
     """Return original BioPlex fields plus a single release-provenance column.
 
@@ -170,7 +172,11 @@ def merge_and_deduplicate_bioplex_hek293(
 
     if write_merged_to_bioplex_dir:
         # Export original fields plus source.
-        output = bioplex_dir / "BioPlex_HEK293T_merged_dedup"
+        destination = Path(output_dir) if output_dir is not None else (
+            DEFAULT_OUTPUT_DIR if bioplex_dir.resolve() == DEFAULT_BIOPLEX_DIR else bioplex_dir
+        )
+        destination.mkdir(parents=True, exist_ok=True)
+        output = destination / "BioPlex_HEK293T_merged_dedup"
         result.write_csv(output.with_suffix(".tsv"), separator="\t")
         result.write_parquet(output.with_suffix(".parquet"), compression="zstd")
         for suffix in (".tsv", ".parquet"):
@@ -182,20 +188,21 @@ def merge_and_deduplicate_bioplex_hek293(
 
 
 def main_cli() -> None:
-    """Merge release TSVs and export the deduplicated table beside the inputs."""
+    """Merge release TSVs and export the deduplicated table to processed networks."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--bioplex-dir", type=Path, default=DEFAULT_BIOPLEX_DIR,
                         help="Directory containing the three BioPlex HEK293T release TSVs")
     parser.add_argument("--min-pint", type=float, default=0.0,
                         help="Minimum interaction probability (default: no filtering)")
     parser.add_argument("--quiet", action="store_true", help="Suppress detailed build statistics")
+    parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
     args = parser.parse_args()
 
     # The function writes both TSV and Parquet; report the final interaction count.
     merged = merge_and_deduplicate_bioplex_hek293(
-        args.bioplex_dir, min_pint=args.min_pint, verbose=not args.quiet
+        args.bioplex_dir, min_pint=args.min_pint, verbose=not args.quiet, output_dir=args.output_dir,
     )
-    print(f"Saved {len(merged):,} unique interactions in {args.bioplex_dir}")
+    print(f"Saved {len(merged):,} unique interactions in {args.output_dir}")
 
 
 if __name__ == "__main__":

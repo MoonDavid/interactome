@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -uo pipefail
-cd -- "$(dirname -- "${BASH_SOURCE[0]}")"
+cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." || exit 1
+mkdir -p -- data/raw_networks/bioplex || exit 1
+cd -- data/raw_networks/bioplex || exit 1
 files=(
   "BioPlex_interactionList_v2.tsv|BioPlex_HEK293T_v1.0.tsv"
   "BioPlex_interactionList_v4a.tsv|BioPlex_HEK293T_v2.0.tsv"

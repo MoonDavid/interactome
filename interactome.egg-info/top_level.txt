@@ -1,4 +1,9 @@
+annotate_clusters
+cluster_annotation_ui
 cluster_networks
 cytoscape_bridge
+ego_analysis_ui
 moonlighting
+moonlighting_extensions
 networks
+pipelines

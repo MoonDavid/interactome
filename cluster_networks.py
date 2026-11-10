@@ -36,6 +36,10 @@ from networks import _fingerprint, _write_json, _write_parquet, discover_dataset
 app = typer.Typer(no_args_is_help=True, pretty_exceptions_enable=False,
                   help="Cluster canonical interactomes with native and research backends.")
 console = Console()
+
+
+
+
 MODULES = [
     'cdlib.algorithms', 'networkx.algorithms.community', 'igraph', 'leidenalg',
     'sknetwork.clustering', 'sknetwork.hierarchy', 'graspologic.partition',

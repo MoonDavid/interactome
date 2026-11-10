@@ -1,0 +1,10 @@
+{
+  "pagerank": {
+    "converged": true,
+    "iterations": 132,
+    "l1_residual": 8.570595470304421e-11
+  },
+  "comparison": "Two-sided Mann\u2013Whitney U; Benjamini\u2013Hochberg across displayed metrics; background excludes cohort proteins.",
+  "cache_hit": false,
+  "cache_path": "C:\\projects\\interactome\\data\\cache\\centralities\\centralities_19c2dae6a5cfb358_extra0_exact.parquet"
+}

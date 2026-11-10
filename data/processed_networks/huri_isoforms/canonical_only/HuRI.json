@@ -1,0 +1,80 @@
+{
+  "name": "HuRI",
+  "created_at": "2026-11-10T11:26:46.090750+00:00",
+  "normalization_policy": "Use PSI-MITAB UniProtKB interactor IDs directly; Unsuffixed accessions only; undirected; remove self-loops and duplicates; duplicate author_score=max; missing scores=null with edges retained",
+  "isoform_policy": "canonical_only",
+  "source": {
+    "path": "data\\raw_networks\\HuRI.psi",
+    "size": 169848924,
+    "mtime_ns": 1794296017705052000,
+    "sha256": "d6e8185519d18ce18cfa66f5eab66ecb1e711113f0b62810e0a145dd33a9ee12"
+  },
+  "output": {
+    "path": "data\\processed_networks\\huri_isoforms\\canonical_only\\HuRI.parquet",
+    "size": 120263,
+    "mtime_ns": 1794310006088578200,
+    "sha256": "89630964b2efb45525aa443df4a2f1bd9cb76f2647ade350757c0e920624097e"
+  },
+  "score_column": "author_score",
+  "invalid_score_policy": "retain base edges with null score; exclude from scored versions",
+  "input_rows": 171545,
+  "rows_without_two_uniprot_ids": 2789,
+  "source_self_loop_rows": 1626,
+  "rows_with_isoform_suffixes": 122590,
+  "rows_removed_by_isoform_policy": 122590,
+  "self_loops_after_isoform_policy": 0,
+  "duplicate_rows": 115555,
+  "filtering_stages": [
+    {
+      "stage": "Source interaction rows",
+      "nodes": 8259,
+      "edges": 171545,
+      "nodes_removed": 0,
+      "edges_removed": 0
+    },
+    {
+      "stage": "Keep rows with two supplied UniProt IDs (no external lookup)",
+      "nodes": 8190,
+      "edges": 168756,
+      "nodes_removed": 69,
+      "edges_removed": 2789
+    },
+    {
+      "stage": "Remove source self-loops",
+      "nodes": 8164,
+      "edges": 167130,
+      "nodes_removed": 26,
+      "edges_removed": 1626
+    },
+    {
+      "stage": "Deduplicate before accession normalization",
+      "nodes": 8164,
+      "edges": 51575,
+      "nodes_removed": 0,
+      "edges_removed": 115555
+    },
+    {
+      "stage": "Apply isoform policy / merge identical accession labels",
+      "nodes": 3214,
+      "edges": 13540,
+      "nodes_removed": 4950,
+      "edges_removed": 38035
+    },
+    {
+      "stage": "Remove self-loops after normalization",
+      "nodes": 3214,
+      "edges": 13540,
+      "nodes_removed": 0,
+      "edges_removed": 0
+    },
+    {
+      "stage": "Deduplicate after accession normalization",
+      "nodes": 3214,
+      "edges": 13540,
+      "nodes_removed": 0,
+      "edges_removed": 0
+    }
+  ],
+  "edges": 13540,
+  "nodes": 3214
+}

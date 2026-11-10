@@ -10,6 +10,37 @@ For every analysis, we explicitly list:
 
 ---
 
+## Implementation in Moonlighting Explorer
+
+The page groups the catalogue into five tabs with one analysis selector in each.
+The sections below also contain historical asset references and research proposals.
+The table records the methods added to the active application.
+
+| Analysis | What it computes and where it applies |
+| --- | --- |
+| Path centralities | Onion layers, reachable-fraction closeness, harmonic centrality, Katz, negative Bonacich, articulation points and landmark betweenness normalized by degree or centered within degree bins. |
+| Spectral roles | Exact adjacency exponential summaries on small networks and top-32 approximations on larger ones, 2-core non-backtracking centrality, and largest-component Fiedler geometry. |
+| Electrical & walk roles | Exact current-flow betweenness, information centrality, edge resistance and resistance curvature, heat and quantum return, and heat-wavelet energy on a selected component of up to 350 proteins. Kemeny deletion uses at most 80 proteins and requires the surviving graph to stay connected. Hodge harmonic participation uses at most 400 edges. |
+| Ego geometry | Degree-matched ego fragmentation, Burt constraint, square and Barrat clustering, centered open/closed wedge census, Simmelian brokerage, Forman curvature, random-walk entropy, and vertex-link homology. Optional split-ego walks, sampled hyperbolicity and descriptive ego portraits. huMAP2 adds weighted strong-wedge closure. |
+| Graphlet profiles | Standard orbits 0–14 and optional 58 five-node rooted classes, with the bowtie center named. Counts are exact for completed orders; an enumeration budget can leave higher orders unavailable. Log-count PCA uses complete profiles at the highest order with enough observations. |
+| Edge geometry | Landmark edge betweenness, embeddedness, Jaccard, optional sampled Ollivier–Ricci transport curvature, and ranked L3 nonedges. |
+| Module roles & brokerage | Guimerà–Amaral roles from cached Louvain and a degree-matched open-wedge Gould–Fernandez analysis. Undirected ties combine representative and gatekeeper roles. |
+| GO neighborhood geometry | Annotated-partner coverage, annotation Jaccard divergence, local Dirichlet energy and neighbor annotation dispersion using propagated GO terms. |
+| Protein metadata & wiring | Within-cohort degree associations, annotation availability, proximity to other OMIM-tagged cohort proteins, and optional exact-name matching of partner GO terms to MoonLitDB’s two function profiles. |
+| Cohort separation | Symmetric nearest-set separation on the largest connected component, with joint degree-bin shuffling that preserves source overlap. |
+| Removal curves & efficiency | Surviving largest component and sampled global efficiency at successive removal fractions, compared with degree-matched nulls. |
+| Multiplex roles | Two-layer degree participation, supra-graph PageRank and cohort-seeded restart walks using shared accessions for coupling. |
+| Score filtration | Inclusive thresholds for incident proteins, internal and boundary cohort edges, and overall counts using each network’s native score. A validated saved version supports thresholds at and above its own cutoff. |
+
+Further catalogue work includes structure-based interface competition, expression-weighted signaling entropy,
+directed controllability and percolation states, disease-wide proximity, PU/GNN prediction, literature-specific
+OCG/MoonGO, exact continuous core–periphery and hyperbolic fits, Ricci flow surgery, weighted Pržulj similarity,
+and unbounded graphlet and higher-order spectral computations. These require additional inputs, model choices,
+or computational validation. The implemented annotation and network measures support exploratory comparisons.
+Topology and annotation overlap alone cannot establish moonlighting or mutually exclusive binding.
+
+---
+
 ## 1. Data & Network Assets in the Workspace
 
 ### 1.1 Moonlighting Protein Dataset (`data/allmoon_with_moonlitdb_human.csv`)
@@ -26,15 +57,15 @@ Contains **847 unique human UniProt primary accessions** (`uniprot` column) and 
   - `moonprot_si_pdb`, `moonprot_si_quaternary`, `moonprot_si_scop`, `moonprot_si_cath`, `moonprot_si_tm_helix`, `moonprot_si_disprot`, `moonprot_si_disorder`, `moonprot_disease_omim`.
 
 ### 1.2 Canonical PPI Networks & Current Moonlighting Coverage
-All three primary networks are normalized to canonical primary human UniProt accessions in [`data/canonical/`](file:///home/davide/projects/interactome/data/canonical) via [`network_versions.py`](file:///home/davide/projects/interactome/network_versions.py):
+All three primary networks are normalized to canonical primary human UniProt accessions in [`data/processed_networks/`](file:///home/davide/projects/interactome/data/processed_networks) via [`network_versions.py`](file:///home/davide/projects/interactome/network_versions.py):
 
 | Network | Experimental / Computational Regime | Nodes | Edges | Moonlighting Proteins Present (of 847) |
 | :--- | :--- | ---: | ---: | ---: |
-| **HuRI** (`data/canonical/HuRI.parquet`) | Binary biophysical interactions (Yeast Two-Hybrid) | 8,093 | 51,161 | **444 (52.4%)** |
-| **BioPlex** (`data/canonical/BioPlex.parquet`) | Affinity Purification–Mass Spectrometry (AP-MS in HEK293T) | 13,858 | 128,593 | **740 (87.4%)** |
-| **huMAP2** (`data/canonical/huMAP2.parquet`) | Unfiltered weighted co-complex integration (all probabilities) | 15,397 | 17,303,596 | **793 (93.6%)** |
-| **huMAP2 ≥ 0.2** (`data/versions/huMAP2_0.2.parquet`) | Medium-to-high confidence integrated complexes | 6,698 | 15,232 | **536 (63.3%)** |
-| **huMAP2 ≥ 0.9** (`data/versions/huMAP2_0.9.parquet`) | Ultra-high confidence core complexes | 3,637 | 7,491 | **346 (40.9%)** |
+| **HuRI** (`data/processed_networks/HuRI.parquet`) | Binary biophysical interactions (Yeast Two-Hybrid) | 8,093 | 51,161 | **444 (52.4%)** |
+| **BioPlex** (`data/processed_networks/BioPlex.parquet`) | Affinity Purification–Mass Spectrometry (AP-MS in HEK293T) | 13,858 | 128,593 | **740 (87.4%)** |
+| **huMAP2** (`data/processed_networks/huMAP2.parquet`) | Unfiltered weighted co-complex integration (all probabilities) | 15,397 | 17,303,596 | **793 (93.6%)** |
+| **huMAP2 ≥ 0.2** (`data/processed_networks/versions/huMAP2_0.2.parquet`) | Medium-to-high confidence integrated complexes | 6,698 | 15,232 | **536 (63.3%)** |
+| **huMAP2 ≥ 0.9** (`data/processed_networks/versions/huMAP2_0.9.parquet`) | Ultra-high confidence core complexes | 3,637 | 7,491 | **346 (40.9%)** |
 
 ---
 

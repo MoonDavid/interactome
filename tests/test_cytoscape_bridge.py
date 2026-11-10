@@ -15,8 +15,10 @@ from cytoscape_bridge import (
     build_cycmd_script,
     build_multiplex_subnetwork_tables,
     build_subnetwork_tables,
+    build_topology_network_tables,
     check_cytoscape_connection,
     compute_cluster_enrichment_and_bridging,
+    cytoscape_topology_comparison,
     export_cx2_json,
     export_cytoscape_bundle_zip,
     export_graphml_string,
@@ -30,6 +32,67 @@ from cytoscape_bridge import (
     send_to_cytoscape,
     to_cytoscapejs_json,
 )
+
+
+def _topology_import(tmp_path):
+    path = tmp_path / 'network.parquet'
+    pl.DataFrame({'a': ['P1|Q1', 'P2', 'B1'], 'b': ['P2', 'B1', 'B2'],
+                  'pInt': [0.9, 0.8, None]}).write_parquet(path)
+    reference = build_topology_network_tables(path, {'Q1', 'P2'})
+    nodes = pl.DataFrame({'SUID': [10, 11, 12, 13], 'name': ['P1|Q1', 'P2', 'B1', 'B2'],
+                          'is_moonlighting': [False, False, True, True],
+                          'MCC': [10.0, 9.0, 1.0, float('nan')],
+                          'Unavailable': pl.Series([None] * 4, dtype=pl.Float64)})
+    edges = pl.DataFrame({'source': [10, 11, 12], 'target': [11, 12, 13]})
+    return reference, nodes, edges
+
+
+def test_full_topology_app_import_uses_current_membership_and_finite_values(tmp_path):
+    from moonlighting import bh_adjust, pool_network_comparisons
+
+    reference, nodes, edges = _topology_import(tmp_path)
+    assert reference['nodes'].height == 4
+    assert reference['edges']['pInt'].null_count() == 1
+    assert set(reference['nodes'].filter(pl.col('is_moonlighting'))['protein']) == {'P1|Q1', 'P2'}
+    result = cytoscape_topology_comparison(nodes.reverse(), edges, reference, {'Q1', 'P2'},
+                                            ['MCC', 'Unavailable'], 'MoonLitDB')
+    metrics = result['metrics']
+    assert metrics['protein'].to_list() == ['B1', 'B2', 'P1|Q1', 'P2']
+    assert set(metrics.filter(pl.col('group') == 'MoonLitDB')['protein']) == {'P1|Q1', 'P2'}
+    assert metrics['MCC'].null_count() == 1
+    pooled = pool_network_comparisons({'First': result, 'Second': result})
+    available = pooled['tests'].filter(pl.col('metric') == 'MCC')
+    assert available['query_n'].to_list() == [2, 2]
+    assert available['background_n'].to_list() == [1, 1]
+    assert (available['rank_biserial'] == 1.0).all()
+    missing = pooled['tests'].filter(pl.col('metric') == 'Unavailable')
+    assert missing['rank_biserial'].is_nan().all()
+    np.testing.assert_allclose(pooled['tests']['fdr_bh'].to_numpy(),
+                               bh_adjust(pooled['tests']['p_value'].to_numpy()), equal_nan=True)
+
+
+@pytest.mark.parametrize('change', ['missing_node', 'duplicate_node', 'changed_edge', 'self_loop', 'parallel_edge'])
+def test_topology_app_import_rejects_modified_source_graphs(tmp_path, change):
+    reference, nodes, edges = _topology_import(tmp_path)
+    if change == 'missing_node':
+        nodes = nodes.head(3)
+    elif change == 'duplicate_node':
+        nodes = pl.concat([nodes.head(3), nodes.head(1)])
+    elif change == 'changed_edge':
+        edges = pl.DataFrame({'source': [10, 10, 12], 'target': [11, 12, 13]})
+    elif change == 'self_loop':
+        edges = pl.DataFrame({'source': [10, 11, 12], 'target': [10, 12, 13]})
+    else:
+        edges = pl.concat([edges, edges.head(1)])
+    with pytest.raises(ValueError):
+        cytoscape_topology_comparison(nodes, edges, reference, {'Q1'}, ['MCC'])
+
+
+def test_topology_export_preserves_edge_guard(tmp_path, monkeypatch):
+    reference, nodes, edges = _topology_import(tmp_path)
+    monkeypatch.setattr('cytoscape_bridge.ADVANCED_EDGE_LIMIT', 2)
+    with pytest.raises(ValueError, match='500,000'):
+        build_topology_network_tables(tmp_path / 'network.parquet', {'Q1'})
 
 
 def _toy_graph() -> dict:
@@ -212,6 +275,7 @@ def test_py4cytoscape_bridge_with_mocks(monkeypatch):
 
     # Mock table fetch and clusterMaker2 / NetworkAnalyzer / cytoHubba / diffusion
     monkeypatch.setattr('py4cytoscape.get_network_suid', lambda network=None, base_url=None: 101)
+    monkeypatch.setattr('py4cytoscape.set_current_network', lambda network=None, base_url=None: None)
     monkeypatch.setattr('py4cytoscape.commands_post', lambda cmd, base_url=None: {'status': 'ok', 'cmd': cmd})
     monkeypatch.setattr('py4cytoscape.clear_selection', lambda type='both', network=None, base_url=None: None)
     monkeypatch.setattr('py4cytoscape.select_nodes', lambda nodes, by_col='name', preserve_current_selection=False, network=None, base_url=None: nodes)

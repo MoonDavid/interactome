@@ -5,10 +5,11 @@ import polars as pl
 import pytest
 
 import networks
+from moonlighting_extensions import cohort_filtration
 from networks import (
     build_canonical_networks, degree_distribution, discover_datasets,
     load_network, map_ids, membership_counts, normalize_identifier,
-    prepare_huri_swissprot, save_humap_version, save_scored_version,
+    save_humap_version, save_scored_version,
     score_column, summarize_network, threshold_curve, upset_figure,
     venn_figure,
 )
@@ -18,8 +19,81 @@ from networks import (
 # Network Topology Stats & Loading
 # ---------------------------------------------------------------------------
 
+def test_huri_psi_policies_use_source_accessions(tmp_path):
+    directory = tmp_path / 'raw_networks'
+    directory.mkdir()
+    (directory / 'HuRI.psi').write_text(
+        '#ID(s) interactor A\tID(s) interactor B\tAlt IDs\n'
+        'uniprotkb:P12345\tuniprotkb:Q67890\t-\n'
+        'uniprotkb:Q67890\tuniprotkb:P12345-2\t-\n'
+        'uniprotkb:P12345-1\tuniprotkb:P12345-2\t-\n'
+        'uniprotkb:Q67890\tuniprotkb:Q67890\t-\n'
+        'ensembl:ENSP123.1\tuniprotkb:Q67890\t-\n'
+    )
+    outputs = build_canonical_networks(
+        {'P12345': ['P99999'], 'ENSP123': ['P99999']}, tmp_path, names=('HuRI',),
+    )
+    expected = {
+        'collapse': [('P12345', 'Q67890')],
+        'canonical_only': [('P12345', 'Q67890')],
+        'retain': [('P12345', 'Q67890'), ('P12345-1', 'P12345-2'), ('P12345-2', 'Q67890')],
+    }
+    assert set(networks.available_huri_isoform_policies(tmp_path)) == set(expected)
+    for policy, pairs in expected.items():
+        path = discover_datasets(tmp_path, huri_isoforms=policy)['HuRI']
+        assert discover_datasets(tmp_path, isoforms=policy)['HuRI'] == path
+        assert pl.read_parquet(path).rows() == pairs
+        audit = json.loads(path.with_suffix('.json').read_text())
+        assert audit['isoform_policy'] == policy
+        assert audit['rows_without_two_uniprot_ids'] == 1
+        assert audit['source_self_loop_rows'] == 1
+    assert discover_datasets(tmp_path)['HuRI'] == outputs['HuRI']
+    audit = json.loads(outputs['HuRI'].with_suffix('.json').read_text())
+    assert audit['self_loops_after_isoform_policy'] == audit['duplicate_rows'] == 1
+    del audit['isoform_policy']
+    outputs['HuRI'].with_suffix('.json').write_text(json.dumps(audit))
+    assert 'HuRI' not in discover_datasets(tmp_path)
+
+
+@pytest.mark.parametrize('name,score', [(k, v) for k, v in networks.SCORE_COLUMNS.items() if k != 'HuRI'])
+def test_mapped_isoform_views_keep_native_scores_and_separate_versions(tmp_path, monkeypatch, name, score):
+    source = networks.network_source_path(tmp_path, name)
+    source.parent.mkdir()
+    header = 'Uniprot A\tUniprot B\tp(Interaction)\n' if name == 'BioPlex' else ''
+    source.write_text(header + 'P11111-2\tP22222\t0.9\nP22222\tP11111-2\t0.7\n'
+                      'P11111\tP22222\t0.5\nP11111-9\tP33333\t0.99\n')
+    current = {'P11111', 'P11111-2', 'P22222', 'P33333'}
+    monkeypatch.setattr(networks, '_current_uniprot_ids', lambda directory: (current, 'test-release'))
+    monkeypatch.setattr(networks, '_search_uniprot', lambda *args, **kwargs: ({'P11111': ['P11111']}, {}, set()))
+    mapping = networks.prepare_mapping(tmp_path)
+    build_canonical_networks(mapping, tmp_path, names=(name,))
+    collapsed = save_scored_version(name, 0.9, tmp_path)
+
+    assert networks.prepare_isoform_views(tmp_path, 'retain') == []
+    assert networks.prepare_isoform_views(tmp_path, 'canonical_only') == []
+    distinct = discover_datasets(tmp_path, isoforms='retain')
+    unsuffixed = discover_datasets(tmp_path, isoforms='canonical_only')
+    assert pl.read_parquet(distinct[name]).rows() == [('P11111', 'P22222', .5), ('P11111-2', 'P22222', .9)]
+    assert pl.read_parquet(unsuffixed[name]).rows() == [('P11111', 'P22222', .5)]
+    label = collapsed.stem
+    assert pl.read_parquet(distinct[label]).rows() == [('P11111-2', 'P22222', .9)]
+    assert pl.read_parquet(unsuffixed[label]).is_empty()
+    assert discover_datasets(tmp_path)[label] == collapsed
+    assert threshold_curve(tmp_path, [.9], name, parent=distinct[name])['edges'].item() == 1
+    result = cohort_filtration(tmp_path, name, {'P11111-2', 'P22222'}, parent=distinct[name])
+    assert result['table'].filter(pl.col('threshold') == .9)['cohort_internal_edges'].item() == 1
+    assert json.loads(distinct[label].with_suffix('.json').read_text())['score_column'] == score
+
+    distinct[label].unlink()
+    assert networks.prepare_isoform_views(tmp_path, 'retain') == []
+    assert distinct[label].is_file()
+    source.write_text(source.read_text() + 'P11111\tP33333\t0.75\n')
+    assert discover_datasets(tmp_path, isoforms='retain') == {}
+    assert networks.prepare_isoform_views(tmp_path, 'retain') == [name]
+
+
 def test_undirected_cleaning_and_components(tmp_path):
-    path = tmp_path / 'HuRI.tsv'
+    path = tmp_path / 'pairs.tsv'
     path.write_text('A\tB\nB\tA\nB\tC\nD\tE\nA\tA\n\tZ\n')
     net = load_network(path)
     stats = summarize_network(net)
@@ -70,27 +144,31 @@ def test_canonical_parquet_and_saved_version(tmp_path):
 # ---------------------------------------------------------------------------
 
 def fixture(root):
-    folder = root / 'networks'
+    folder = root / 'raw_networks'
     folder.mkdir()
-    (folder / 'HuRI.tsv').write_text('ENSG1\tENSG2\nENSG1\tENSG3\nENSG1\tENSG4\n')
-    (folder / 'BioPlex_HEK293T_merged_dedup.tsv').write_text('Uniprot A\tUniprot B\nP1-2\tP2\nP1\tP2\nP1-2\tP1\n')
+    (root / 'processed_networks').mkdir()
+    (folder / networks.HURI_PSI).write_text('uniprotkb:P1\tuniprotkb:P2\n')
+    (folder / networks.FILES[networks.TAGC_NAME]).write_text(
+        'Interactor,InteractionB\nENSG1,ENSG2\nENSG1,ENSG3\nENSG1,ENSG4\n')
+    ((root / 'processed_networks') / 'BioPlex_HEK293T_merged_dedup.tsv').write_text('Uniprot A\tUniprot B\nP1-2\tP2\nP1\tP2\nP1-2\tP1\n')
     with gzip.open(folder / 'humap2_ppis_ACC_20200821.pairsWprob.gz', 'wt') as out:
         out.write('P1-2\tP2\t0.2\nP2\tP1\t0.9\nP2\tP3\t0.5\nP4\tP5\t0.1\nP1-2\tP1\t0.99\n')
-    return {'ENSG1': ['P1', 'P3'], 'ENSG2': ['P2'], 'ENSG3': ['P1']}
+    return {**{f'P{i}': [f'P{i}'] for i in range(1, 14)}, 'P1-2': ['P1'],
+            'ENSG1': ['P1', 'P3'], 'ENSG2': ['P2'], 'ENSG3': ['P1']}
 
 
 def test_mapping_canonicalization_and_audit(tmp_path):
     mapping = fixture(tmp_path)
     paths = build_canonical_networks(mapping, tmp_path)
-    huri = pl.read_parquet(paths['HuRI'])
-    assert set(huri.iter_rows()) == {('P1', 'P2'), ('P2', 'P3'), ('P1', 'P3')}
+    tagc = pl.read_parquet(paths[networks.TAGC_NAME])
+    assert set(tagc.iter_rows()) == {('P1|P3', 'P2'), ('P1', 'P1|P3')}
     assert pl.read_parquet(paths['BioPlex']).rows() == [('P1', 'P2')]
     humap = pl.read_parquet(paths['huMAP2'])
     assert humap.filter((pl.col('a') == 'P1') & (pl.col('b') == 'P2'))['probability'][0] == .9
-    audit = json.loads(paths['HuRI'].with_suffix('.json').read_text())
+    audit = json.loads(paths[networks.TAGC_NAME].with_suffix('.json').read_text())
     assert audit['unmapped_ids'] == ['ENSG4']
     assert audit['unmapped_edge_rows'] == 1
-    assert audit['self_loop_rows'] == 1
+    assert audit['self_loop_rows'] == 0
 
 
 def test_versions_discovery_inclusive_curve_and_stale(tmp_path):
@@ -104,7 +182,7 @@ def test_versions_discovery_inclusive_curve_and_stale(tmp_path):
         {'threshold': .5, 'nodes': 3, 'edges': 2},
         {'threshold': .9, 'nodes': 2, 'edges': 1},
         {'threshold': 1., 'nodes': 0, 'edges': 0}]
-    meta = tmp_path / 'canonical/huMAP2.json'
+    meta = tmp_path / 'processed_networks/huMAP2.json'
     content = json.loads(meta.read_text())
     content['output']['sha256'] = 'changed'
     meta.write_text(json.dumps(content))
@@ -124,14 +202,63 @@ def test_explicit_unmapped_uniprot_drops_instead_of_suffix_fallback(tmp_path):
     assert audit['unmapped_edge_rows'] == 3
 
 
-def test_source_self_loop_removed_before_ambiguous_mapping_expands(tmp_path):
+def test_source_self_loop_removed_before_multilabel_mapping(tmp_path):
     mapping = fixture(tmp_path)
-    (tmp_path / 'networks/HuRI.tsv').write_text('ENSG1\tENSG1\nENSG1\tENSG2\n')
-    paths = build_canonical_networks(mapping, tmp_path)
-    assert set(pl.read_parquet(paths['HuRI']).iter_rows()) == {('P1', 'P2'), ('P2', 'P3')}
-    audit = json.loads(paths['HuRI'].with_suffix('.json').read_text())
+    source = networks.network_source_path(tmp_path, networks.TAGC_NAME)
+    source.write_text('Interactor,InteractionB\nENSG1,ENSG1\nENSG1,ENSG2\n')
+    path = build_canonical_networks(mapping, tmp_path, names=(networks.TAGC_NAME,))[networks.TAGC_NAME]
+    assert set(pl.read_parquet(path).iter_rows()) == {('P1|P3', 'P2')}
+    audit = json.loads(path.with_suffix('.json').read_text())
     assert audit['source_self_loop_rows'] == 1
     assert audit['self_loop_rows'] == 0
+
+
+def test_filtering_stages_preserve_multilabel_nodes_and_deduplicate_twice(tmp_path):
+    mapping = fixture(tmp_path)
+    source = networks.network_source_path(tmp_path, networks.TAGC_NAME)
+    source.write_text('Interactor,InteractionB\nA,B\nB,A\nA,C\nD,B\nE,B\nF,B\nD,A\nG,H\nA,A\n,B\n')
+    mapping.update({'A': ['P3', 'P1', 'P1'], 'B': ['P2'], 'C': ['P2'],
+                    'D': ['P1', 'P3'], 'E': [], 'F': ['P2'], 'G': ['P1'], 'H': ['P3']})
+    path = build_canonical_networks(mapping, tmp_path, names=(networks.TAGC_NAME,))[networks.TAGC_NAME]
+    assert pl.read_parquet(path).rows() == [('P1', 'P3'), ('P1|P3', 'P2')]
+    audit = json.loads(path.with_suffix('.json').read_text())
+    stages = audit['filtering_stages']
+    assert [(s['nodes'], s['edges']) for s in stages] == [
+        (8, 10), (8, 9), (8, 8), (8, 8), (8, 7), (7, 6), (4, 6), (4, 4), (4, 2), (4, 2)]
+    assert stages[4]['edges_removed'] == 1
+    assert stages[8]['edges_removed'] == 2
+    assert stages[6]['nodes_removed'] == 3
+    assert all(s['edges_removed'] >= 0 for s in stages)
+    annotations = pl.read_parquet(audit['node_annotations']['path'])
+    assert annotations.filter(pl.col('node') == 'P1|P3').row(0, named=True) == {
+        'node': 'P1|P3', 'source_ids': ['A', 'D'], 'uniprot_accessions': ['P1', 'P3']}
+    summary = summarize_network(load_network(path))
+    assert summary['nodes'] == 4
+    assert summary['mapped_accessions'] == 3
+    assert summary['parent_accessions'] == 3
+    table, missing = networks.filtering_audit_table({'TAGC': path})
+    assert not missing and table.height == len(stages)
+    source.write_text(source.read_text() + 'A,H\n')
+    assert networks.filtering_audit_table({'TAGC': path})[1] == ['TAGC']
+
+
+def test_duplicate_score_max_before_and_after_mapping_and_confidence_audit(tmp_path):
+    mapping = fixture(tmp_path)
+    source = networks.network_source_path(tmp_path, 'BioPlex')
+    source.write_text('Uniprot A\tUniprot B\tpInt\nA\tB\tbad\nB\tA\t0.5\nC\tB\t0.95\nZ\tB\t0.99\n')
+    mapping.update({'A': ['P1', 'P3'], 'C': ['P3', 'P1'], 'B': ['P2']})
+    path = build_canonical_networks(mapping, tmp_path, names=('BioPlex',))['BioPlex']
+    assert pl.read_parquet(path).rows() == [('P1|P3', 'P2', .95)]
+    audit = json.loads(path.with_suffix('.json').read_text())
+    assert audit['unmapped_ids'] == ['Z']
+    assert audit['invalid_score_rows'] == 1
+    version = save_scored_version('BioPlex', .95, tmp_path)
+    stages = json.loads(version.with_suffix('.json').read_text())['filtering_stages']
+    assert stages[-1]['stage'] == 'Inclusive pInt >= 0.95'
+    assert stages[-1]['nodes'] == 2 and stages[-1]['edges'] == 1
+    assert not networks.filtering_audit_table({'base': path, 'version': version})[1]
+    source.write_text(source.read_text() + 'B\tC\t0.4\n')
+    assert networks.filtering_audit_table({'base': path, 'version': version})[1] == ['base', 'version']
 
 
 def test_close_threshold_names_do_not_overwrite(tmp_path):
@@ -146,7 +273,7 @@ def test_close_threshold_names_do_not_overwrite(tmp_path):
 @pytest.mark.parametrize('header', ['pInt', 'p(Interaction)'])
 def test_bioplex_native_score_max_invalid_base_edges_and_inclusive_versions(tmp_path, header):
     mapping = fixture(tmp_path)
-    (tmp_path / 'networks/BioPlex_HEK293T_merged_dedup.tsv').write_text(
+    (tmp_path / 'processed_networks/BioPlex_HEK293T_merged_dedup.tsv').write_text(
         f'Uniprot A\tUniprot B\t{header}\n'
         'P1-2\tP2\t0.5\nP2\tP1\t0.95\nP2\tP3\t0.05\n'
         'P4\tP5\tbad\nP6\tP7\tNaN\nP8\tP9\t1.2\n'
@@ -180,17 +307,46 @@ def test_bioplex_native_score_max_invalid_base_edges_and_inclusive_versions(tmp_
 def test_unscored_bioplex_remains_supported_with_clear_filter_error(tmp_path):
     build_canonical_networks(fixture(tmp_path), tmp_path)
     assert score_column('BioPlex') == 'pInt'
+    assert score_column('HuRI') == 'author_score'
     with pytest.raises(ValueError, match='no pInt score column'):
         save_scored_version('BioPlex', .5, tmp_path)
     with pytest.raises(ValueError, match='no pInt score column'):
         threshold_curve(tmp_path, name='BioPlex')
-    with pytest.raises(ValueError, match='no supported'):
+    with pytest.raises(ValueError, match='no author_score score column'):
         save_scored_version('HuRI', .5, tmp_path)
+    with pytest.raises(ValueError, match='no supported'):
+        save_scored_version(networks.TAGC_NAME, .5, tmp_path)
+
+
+def test_huri_author_score_versions_and_curve(tmp_path):
+    source = networks.network_source_path(tmp_path, 'HuRI')
+    source.parent.mkdir(parents=True, exist_ok=True)
+    pad = '\t-' * 12
+    source.write_text(
+        f'uniprotkb:P11111-1\tuniprotkb:P22222{pad}\tauthor score: 0.94\n'
+        f'uniprotkb:P22222\tuniprotkb:P11111-2{pad}\tauthor score: 0.72\n'
+        f'uniprotkb:P11111\tuniprotkb:P33333{pad}\t-\n'
+    )
+    collapse_path = networks.prepare_huri_psi(tmp_path)
+    collapse_df = pl.read_parquet(collapse_path)
+    assert collapse_df.schema == {'a': pl.String, 'b': pl.String, 'author_score': pl.Float64}
+    assert collapse_df.rows() == [('P11111', 'P22222', .94), ('P11111', 'P33333', None)]
+    assert threshold_curve(tmp_path, [0., .5, .95], name='HuRI').to_dicts() == [
+        {'threshold': 0., 'nodes': 2, 'edges': 1},
+        {'threshold': .5, 'nodes': 2, 'edges': 1},
+        {'threshold': .95, 'nodes': 0, 'edges': 0},
+    ]
+    version = save_scored_version('HuRI', .9, tmp_path, isoforms='collapse')
+    assert pl.read_parquet(version).rows() == [('P11111', 'P22222', .94)]
+    assert 'HuRI_0.9' in discover_datasets(tmp_path, isoforms='collapse')
+    retain_version = save_scored_version('HuRI', .8, tmp_path, isoforms='retain')
+    assert pl.read_parquet(retain_version).rows() == [('P11111-1', 'P22222', .94)]
+    assert 'HuRI_0.8' in discover_datasets(tmp_path, isoforms='retain')
 
 
 def test_bioplex_discovery_requires_correct_native_score_metadata(tmp_path):
     mapping = fixture(tmp_path)
-    source = tmp_path / 'networks/BioPlex_HEK293T_merged_dedup.tsv'
+    source = tmp_path / 'processed_networks/BioPlex_HEK293T_merged_dedup.tsv'
     source.write_text('Uniprot A\tUniprot B\tpInt\nP1\tP2\t0.9\n')
     build_canonical_networks(mapping, tmp_path, names=('BioPlex',))
     version = save_scored_version('BioPlex', .5, tmp_path)
@@ -303,19 +459,53 @@ def test_mixed_humap_identifier_normalization():
     assert normalize_identifier('P24530-3') == ('UniProtKB_AC-ID', 'P24530')
 
 
-def test_huri_reviewed_filter_and_exclusion_audit(tmp_path):
-    (tmp_path / 'networks').mkdir()
-    (tmp_path / 'mappings').mkdir()
-    (tmp_path / 'networks/HuRI.tsv').write_text('G1\tG2\nG1\tG3\nG1\tG4\n')
-    (tmp_path / 'mappings/swissprot_human_accessions.tsv').write_text('Entry\nP1\nP2\nP3\n')
-    (tmp_path / 'mappings/swissprot_human_source.json').write_text('{"uniprot_release":"test"}')
-    mapping = {'G1': ['P1', 'Q1'], 'G2': ['P2', 'P3'], 'G3': ['Q3'], 'G4': []}
-    reviewed = prepare_huri_swissprot(mapping, tmp_path)
-    assert reviewed == {'G1': ['P1'], 'G2': ['P2', 'P3'], 'G3': [], 'G4': []}
-    rows = pl.read_csv(tmp_path / 'mappings/HuRI_swissprot_audit.tsv', separator='\t').to_dicts()
-    assert [row['status'] for row in rows] == ['reviewed_match', 'reviewed_match', 'other_matches_only', 'no_uniprot_match']
-    summary = json.loads((tmp_path / 'mappings/HuRI_swissprot_summary.json').read_text())
-    assert summary['genes_with_multiple_reviewed_matches'] == 1
-    assert summary['nonloop_source_rows_lacking_reviewed_endpoint'] == 2
-    path = build_canonical_networks(mapping, tmp_path, names=('HuRI',), huri_mapping=reviewed)['HuRI']
-    assert set(pl.read_parquet(path).iter_rows()) == {('P1', 'P2'), ('P1', 'P3')}
+def test_network_mapping_audits_isoforms_fallback_and_tagc(tmp_path, monkeypatch):
+    raw = tmp_path / 'raw_networks'
+    raw.mkdir()
+    (raw / networks.HURI_PSI).write_text(
+        'uniprotkb:P11111-3\tuniprotkb:P22222-9\nensembl:ENSP00001.3\tuniprotkb:P11111-3\n')
+    (raw / networks.FILES['TAGC_binary2025']).write_text(
+        'Interactor,InteractionB\nP22222-9,P33333\nP33333,P22222-9\nP00000,P33333\n')
+    (raw / networks.FILES['huMAP2']).write_text(
+        'sp|P11111-3|EXAMPLE_HUMAN\tP22222-9\t0.95\n')
+    calls = []
+
+    def search_batch(ids, directory, *, namespace):
+        calls.append((ids, namespace))
+        matches = {'P22222': ['P55555'], 'P33333': ['P44444', 'P66666'], 'ENSP00001': ['P44444']}
+        return {'mapping': {identifier: matches.get(identifier, []) for identifier in ids},
+                'isoforms': {}, 'uniprot_releases': ['test-release']}
+
+    monkeypatch.setattr(networks, '_current_uniprot_ids', lambda directory: ({'P11111-3'}, 'test-release'))
+    monkeypatch.setattr(networks, '_search_uniprot_batch', search_batch)
+    mapping = networks.prepare_mapping(tmp_path)
+    assert calls == [(['P00000', 'P22222', 'P33333'], 'UniProtKB_AC-ID'),
+                     (['ENSP00001'], 'Ensembl')]
+    audit = json.loads((tmp_path / 'mappings' / networks.NETWORK_MAPPING).read_text())
+    assert audit['entries']['P11111-3']['targets'] == ['P11111-3']
+    assert audit['entries']['P11111-3']['status'] == 'Exact isoform'
+    assert audit['entries']['P22222-9']['parent_query'] == 'P22222'
+    assert audit['entries']['P22222-9']['status'] == 'Parent fallback'
+    assert audit['entries']['P00000']['status'] == 'Unmapped'
+    assert audit['sources']['HuRI']['ids'] == ['P11111-3', 'P22222-9', 'ensembl:ENSP00001.3']
+    assert audit['entries']['ensembl:ENSP00001.3']['primary'] == ['P44444']
+    assert audit['sources']['huMAP2']['isoform_rows'] == 1
+    tagc = networks.build_canonical_networks(mapping, tmp_path, names=('TAGC_binary2025',))['TAGC_binary2025']
+    assert tagc.name == 'TAGC_binary2025.parquet'
+    assert pl.read_parquet(tagc).rows() == [('P44444|P66666', 'P55555')]
+    assert networks.discover_datasets(tmp_path) == {'TAGC_binary2025': tagc}
+    legacy = tagc.rename(tagc.with_name('TAGC.parquet'))
+    assert networks.discover_datasets(tmp_path) == {'TAGC_binary2025': legacy}
+
+
+def test_mapping_statistics_deduplicate_targets_and_retain_multiple_matches():
+    rows = pl.DataFrame({
+        'Network': ['A', 'A', 'B'],
+        'targets': [['P1-2', 'P2'], ['P2', 'P3', 'P4'], []],
+        'primary': [['P1', 'P2'], ['P2', 'P3', 'P4'], []],
+        'reviewed': [['P1', 'P2'], ['P2', 'P3'], []],
+    })
+    assert networks.mapping_target_statistics(rows).rows() == [
+        ('A', 2, 2, 2, 4, 4, 3),
+        ('B', 1, 0, 0, 0, 0, 0),
+    ]

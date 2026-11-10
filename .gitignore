@@ -6,5 +6,7 @@ __pycache__/
 *.tmp
 
 # Raw and unfiltered huMAP2 files (>100 MB); keep huMAP2_0.05 and higher versions
-data/networks/humap2_ppis_ACC_20200821.pairsWprob.gz
-data/canonical/huMAP2.parquet
+data/raw_networks/humap2_ppis_ACC_20200821.pairsWprob.gz
+data/processed_networks/huMAP2.parquet
+data/processed_networks/isoforms/
+data/mappings/uniprot_search/

@@ -7,36 +7,23 @@ These instructions apply throughout this repository.
 This project is a Streamlit application for comparing human protein interaction networks (HuRI, BioPlex HEK293T, and huMAP2) in a common UniProt accession space, and studying moonlighting proteins from AllMoon and MoonLitDB.
 
 - `app.py`: Human Interactome Atlas navigation and page names.
-- `pages/1_Network_Explorer.py`: network overview, topology summaries, dataset overlaps, huMAP2/BioPlex threshold versions, and mapping audits.
-- `pages/2_Moonlighting_Analysis.py`: coverage, centrality, cohesion, local wiring, communities, diffusion, GO enrichment, robustness, cross-network comparisons, and source-set comparisons.
+- `pages/1_Interactomes_overview.py`: network overview, topology summaries, dataset overlaps, huMAP2/BioPlex/HuRI threshold versions, and mapping audits.
+- `pages/2_Topological_analysis.py`: coverage, centrality, cohesion, local wiring, communities, diffusion, GO enrichment, robustness, cross-network comparisons, and source-set comparisons.
 - `networks.py`: canonical network preparation, official UniProt mapping, saved versions, provenance, network statistics, and overlap visualizations.
-- `moonlighting.py`: moonlighting cohort preparation, topology/diffusion/GO analyses, overlapping source-set comparisons against their shared union-complement background, distribution plots, and centrality/hub heatmaps.
+- `moonlighting.py`: moonlighting protein-set preparation, topology/diffusion/GO analyses, overlapping source-set comparisons against their shared union-complement background, distribution plots, and centrality/hub heatmaps.
 - `pipelines/bioplex_merge.py`: standalone BioPlex release merge pipeline.
 - `tests/`: tests for the current application (`test_networks.py` and `test_moonlighting.py`).
 - `README.md`: setup and current behavior. `MOONLIGHTING_TOPOLOGICAL_ANALYSES.md`: broader research catalogue, including methods not yet implemented.
 
 ## DataFrame manipulation and performance
 
-- **Use Polars for all DataFrame loading, filtering, joins, grouping, aggregation, deduplication, and reshaping in the active application.** Use `import polars as pl`.
-- Prefer Polars expressions and vectorized operations over Python row loops, row-wise callbacks, and pandas `apply`.
-- For large files, prefer lazy scans such as `pl.scan_parquet(...)`; push filters and column selection before collecting, and collect only the data needed.
-- Keep tabular processing and plotting inputs in Polars. Use NumPy arrays at scientific-library boundaries when needed; do not introduce pandas imports or conversions.
-- Preserve the archived legacy application unless explicitly asked to migrate it.
-- Preserve explicit schemas, accession strings, null handling, join cardinality, and deterministic output ordering. Avoid loading the full unfiltered huMAP2 graph into NetworkX unnecessarily.
+- **Use Polars for all DataFrame loading, filtering, joins, grouping, aggregation, deduplication, and reshaping in the active application.** 
 
 ## Data and scientific conventions
 
-- Source networks live in `data/networks/`; preserve raw inputs. Store mappings in `data/mappings/`, canonical Parquet networks in `data/canonical/`, threshold versions in `data/versions/`, plots in `data/plots/`, and analysis bundles in `data/analysis_runs/`.
-- Preserve source fingerprints, mapping audits, parameters, and provenance when producing derived data. Use existing writers and dataset discovery rather than bypassing their validation.
-- Canonical networks use human UniProt primary accessions, collapse isoform suffixes, represent undirected pairs consistently, and exclude self-loops. HuRI uses reviewed human Swiss-Prot mappings; preserve all reviewed matches when a gene maps to several entries.
-- For duplicate canonical huMAP2 pairs, retain the maximum probability. Probability filtering is inclusive (`probability >= cutoff`). Standard cutoffs are **0.05 and 0.95**; retain support for custom cutoffs. These are association scores, not statistical p-values.
-- BioPlex confidence filtering uses native `pInt` (source `p(Interaction)`), with duplicate maximums and inclusive cutoffs. Preserve base edges with invalid or missing scores as null, audit them, and exclude them from scored versions. Keep native scores distinct; huMAP2 and BioPlex scores are not calibrated across networks.
-- Threshold plots should mark both standard cutoffs with dashed lines and highlight exact retained-edge counts. Explain the coverage/stringency tradeoff without claiming the retention curve proves an optimal cutoff.
-- Nodes counted from edge lists are incident endpoints; do not imply that isolated proteins are included.
-- Moonlighting analyses use the selected network's full node set as the population. The cohort complement is unlabelled background, not validated negative proteins.
-- Default to separate MoonProt, Multitask and MoonLitDB comparisons. Automatically compute their deduplicated Union and show it with a checked-by-default visibility checkbox; hiding it must not change the BH correction family or require rerunning the analysis.
-- For simultaneous source-set comparisons, keep source memberships separate, report overlap, and exclude the union from the shared background. Correct across all source-by-metric tests in the run; plot significance asterisks from adjusted values only, never from sampled display data or unavailable tests.
-- Centrality heatmaps use rank-biserial effects versus the shared background; positive means higher centrality. Hub enrichment instead uses the full finite-valued network and a ties-inclusive 90th-percentile cutoff, with its own hypergeometric/BH test family. Keep these populations and correction families explicit, include Union even when hidden, and never replace unavailable effects or zero-denominator median folds with invented zeros.
+- Always annotate statistical significance in plots with asterisks wherever a valid test is available: `*` q < 0.05, `**` q < 0.01, `***` q < 0.001, `****` q < 0.0001. Use the existing `significance_label` helper and adjusted values from the full applicable correction family, never raw p-values or sampled display data. State the test, comparison population, correction family and thresholds in a caption or legend. Use `ns` for a valid non-significant test and `n/a` for an unavailable test. Do not invent tests or stars for descriptive plots, native confidence scores or missing results; explain when no test applies. Preserve effect sizes and directions alongside significance, with readable, unclipped labels.
+- Add contextual info boxes or expanders explaining what metrics measure, how to interpret higher/lower values, the comparison background or null model, and limitations. Use "protein set" in user-facing text and identify the selected source by name, such as MoonLitDB.
+- Source networks live in `data/raw_networks/`; preserve raw inputs. Store mappings in `data/mappings/`, canonical Parquet networks in `data/processed_networks/`, threshold versions in `data/processed_networks/versions/`, plots in `data/plots/`, and analysis bundles in `data/analysis_runs/`.
 - Preserve degree-bin matching (`floor(log2 degree)`), empirical-test +1 corrections, and GO multiple-testing correction over all eligible terms. Topology alone does not validate moonlighting or binding exclusivity.
 - Keep analysis tabs lazy and independently runnable, invalidate stale results when inputs change, and preserve the 500,000-edge guard for advanced NetworkX and permutation-heavy diffusion/removal analyses.
 

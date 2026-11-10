@@ -1,7 +1,11 @@
 README.md
+annotate_clusters.py
+cluster_annotation_ui.py
 cluster_networks.py
 cytoscape_bridge.py
+ego_analysis_ui.py
 moonlighting.py
+moonlighting_extensions.py
 networks.py
 pyproject.toml
 interactome.egg-info/PKG-INFO
@@ -10,7 +14,13 @@ interactome.egg-info/dependency_links.txt
 interactome.egg-info/entry_points.txt
 interactome.egg-info/requires.txt
 interactome.egg-info/top_level.txt
+pipelines/bioplex_merge.py
+pipelines/map_networks.py
+tests/test_annotate_clusters.py
 tests/test_cluster_networks.py
 tests/test_cytoscape_bridge.py
+tests/test_ego_levels.py
+tests/test_map_networks_script.py
 tests/test_moonlighting.py
+tests/test_moonlighting_extensions.py
 tests/test_networks.py

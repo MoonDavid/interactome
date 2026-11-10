@@ -2,9 +2,11 @@
 from __future__ import annotations
 
 from collections import Counter
+from collections.abc import Mapping
 from concurrent.futures import ProcessPoolExecutor
 from datetime import datetime, timezone
 from functools import lru_cache
+import gzip
 import hashlib
 import io
 from itertools import combinations
@@ -19,6 +21,7 @@ import networkx as nx
 import numpy as np
 import plotly.graph_objects as go
 import polars as pl
+from networks import matching_nodes
 from scipy import sparse
 from scipy.cluster.hierarchy import fcluster, linkage
 from scipy.sparse import coo_matrix
@@ -30,6 +33,7 @@ from scipy.stats import hypergeom, mannwhitneyu, rankdata, spearmanr
 CACHE_ROOT = Path(__file__).resolve().parent / 'data' / 'cache'
 _CENTRALITY_MEM_CACHE: dict[str, tuple[pl.DataFrame, dict]] = {}
 _CLUSTERING_MEM_CACHE: dict[str, dict] = {}
+_METHOD_MEM_CACHE: dict[str, dict] = {}
 
 SOURCES = ['curated', 'moonlitdb', 'moonprot', 'metamoon', 'multitask', 'moondb_curated', 'moondb_predicted']
 ADVANCED_EDGE_LIMIT = 500_000
@@ -41,13 +45,21 @@ GROUP_COLORS = {
     'curated': '#0072B2', 'moonlitdb': '#D55E00', 'moonprot': '#009E73',
     'metamoon': '#CC79A7', 'multitask': '#E69F00',
     'moondb_curated': '#56B4E9', 'moondb_predicted': '#8064A2',
-    'Union': '#7B3294', 'Moonlighting': '#0072B2', 'Background': '#737373',
+    'Curated': '#0072B2', 'MoonLitDB': '#D55E00', 'MoonProt': '#009E73',
+    'MetaMoon': '#CC79A7', 'Multitask': '#E69F00',
+    'MoonDB curated': '#56B4E9', 'MoonDB predicted': '#8064A2',
+    'Union': '#7B3294', 'All sources': '#7B3294', 'All sources (Union)': '#7B3294',
+    'Moonlighting': '#0072B2', 'Background': '#737373',
 }
 GROUP_LABELS = {
     'curated': 'Curated', 'moonlitdb': 'MoonLitDB', 'moonprot': 'MoonProt',
     'metamoon': 'MetaMoon', 'multitask': 'Multitask',
     'moondb_curated': 'MoonDB curated', 'moondb_predicted': 'MoonDB predicted',
-    'Union': 'Union', 'Moonlighting': 'Moonlighting', 'Background': 'Background',
+    'Curated': 'Curated', 'MoonLitDB': 'MoonLitDB', 'MoonProt': 'MoonProt',
+    'MetaMoon': 'MetaMoon', 'Multitask': 'Multitask',
+    'MoonDB curated': 'MoonDB curated', 'MoonDB predicted': 'MoonDB predicted',
+    'Union': 'Union', 'All sources': 'All sources', 'All sources (Union)': 'All sources (Union)',
+    'Moonlighting': 'Moonlighting', 'Background': 'Background',
 }
 SIGNIFICANCE_LEGEND = (
     'Asterisks compare each set with Background using BH-adjusted q-values: '
@@ -237,20 +249,23 @@ def graph_from_path(path):
 
 def mapping_coverage(graph, data, selected_ids):
     nodes = set(graph['nodes'])
-    mapped = nodes & selected_ids
+    mapped = matching_nodes(nodes, selected_ids)
+    labels = {label for node in nodes for label in str(node).split('|')}
+    matched_ids = labels & selected_ids
     audit = data.select('input_accession', 'canonical_id', 'mapping_status', 'Gene Names', 'Reviewed').with_columns(
         pl.col('canonical_id').is_in(sorted(selected_ids)).alias('in_selected_cohort'),
-        pl.col('canonical_id').is_in(sorted(nodes)).alias('in_network'))
+        pl.col('canonical_id').is_in(sorted(labels)).alias('in_network'))
     summary = {'network_nodes': len(nodes), 'network_edges': graph['edge_count'],
-               'cohort_canonical_ids': len(selected_ids), 'cohort_in_network': len(mapped),
-               'cohort_absent': len(selected_ids - nodes),
-               'coverage_fraction': len(mapped) / len(selected_ids) if selected_ids else 0,
+               'cohort_canonical_ids': len(selected_ids), 'cohort_in_network': len(matched_ids),
+               'cohort_network_nodes': len(mapped),
+               'cohort_absent': len(selected_ids - labels),
+               'coverage_fraction': len(matched_ids) / len(selected_ids) if selected_ids else 0,
                'comparison_nodes': len(nodes - mapped)}
     return {'summary': summary, 'audit': audit}
 
 
 def cross_network_analysis(first, second, cohort):
-    common = set(first['nodes']) & set(second['nodes']) & cohort
+    common = matching_nodes(set(first['nodes']) & set(second['nodes']), cohort)
     records = []
     percentiles = [rankdata(g['degree'], method='average') / max(1, len(g['nodes'])) for g in (first, second)]
     for protein in sorted(common):
@@ -317,6 +332,75 @@ def save_analysis(result, metadata, root=Path('data')):
     return path, content
 
 
+def _decode_archive(archive_bytes: bytes) -> dict:
+    """Reconstruct a result dictionary (with Polars DataFrames) from a result_archive ZIP."""
+    with zipfile.ZipFile(io.BytesIO(archive_bytes), 'r') as z:
+        manifest = json.loads(z.read('manifest.json'))
+        def decode(item):
+            if isinstance(item, dict):
+                if set(item.keys()) == {'table', 'rows'} and isinstance(item['table'], str) and item['table'].endswith('.csv'):
+                    csv_bytes = z.read(item['table'])
+                    return pl.read_csv(io.BytesIO(csv_bytes), try_parse_dates=False)
+                return {k: decode(v) for k, v in item.items()}
+            if isinstance(item, list):
+                return [decode(v) for v in item]
+            return item
+        return {
+            'metadata': manifest.get('metadata', {}),
+            'result': decode(manifest.get('results', {})),
+        }
+
+
+def cached_analysis_run(name: str, metadata: dict, compute_fn, root: Path = Path('data'),
+                        use_cache: bool = True) -> dict:
+    """Load an analysis result from memory/disk cache (`data/cache/methods/` or `data/analysis_runs/`) or compute and cache it."""
+    sig_payload = json.dumps(metadata, sort_keys=True, default=str)
+    signature = hashlib.sha256(sig_payload.encode('utf-8')).hexdigest()
+    short_sig = signature[:16]
+    cache_key = f'{name}_{short_sig}'
+
+    if use_cache and cache_key in _METHOD_MEM_CACHE:
+        cached = _METHOD_MEM_CACHE[cache_key]
+        return {**cached, 'cache_hit': True}
+
+    cache_dir = Path(root) / 'cache' / 'methods'
+    zip_cache = cache_dir / f'{cache_key}.zip'
+    if use_cache and zip_cache.is_file():
+        try:
+            archive_bytes = zip_cache.read_bytes()
+            decoded = _decode_archive(archive_bytes)
+            entry = {
+                'signature': signature,
+                'result': decoded['result'],
+                'file': str(zip_cache),
+                'archive': archive_bytes,
+                'cache_hit': True,
+            }
+            _METHOD_MEM_CACHE[cache_key] = entry
+            return entry
+        except Exception:
+            pass
+
+    result = compute_fn()
+    saved, archive = save_analysis(result, metadata, root)
+    if use_cache:
+        try:
+            cache_dir.mkdir(parents=True, exist_ok=True)
+            zip_cache.write_bytes(archive)
+        except Exception:
+            pass
+    entry = {
+        'signature': signature,
+        'result': result,
+        'file': str(saved),
+        'archive': archive,
+        'cache_hit': False,
+    }
+    if use_cache:
+        _METHOD_MEM_CACHE[cache_key] = entry
+    return entry
+
+
 # ---------------------------------------------------------------------------
 # Centralities, Cohesion, Local Ego Wiring & Louvain Cartography
 # ---------------------------------------------------------------------------
@@ -334,7 +418,8 @@ def bh_adjust(pvalues):
 
 
 def _selection(graph, cohort):
-    query = np.asarray([str(node) in cohort for node in graph['nodes']], dtype=bool)
+    present = matching_nodes(graph['nodes'], cohort)
+    query = np.asarray([str(node) in present for node in graph['nodes']], dtype=bool)
     if not query.any():
         raise ValueError('No selected moonlighting proteins occur in this network.')
     return query
@@ -346,7 +431,7 @@ def _advanced_graph(graph):
     return nx.from_scipy_sparse_array(graph['adj'])
 
 
-def _comparison_table(frame, metrics):
+def _comparison_table(frame, metrics, group='Moonlighting'):
     rows = []
     mask = frame['is_moonlighting'].to_numpy().astype(bool)
     for metric in metrics:
@@ -354,7 +439,7 @@ def _comparison_table(frame, metrics):
         a, b = values[mask], values[~mask]
         a, b = a[np.isfinite(a)], b[np.isfinite(b)]
         p = float(mannwhitneyu(a, b, alternative='two-sided').pvalue) if len(a) and len(b) else np.nan
-        rows.append({'metric': metric, 'query_n': len(a), 'background_n': len(b),
+        rows.append({'group': group, 'metric': metric, 'query_n': len(a), 'background_n': len(b),
                      'query_median': float(np.median(a)) if len(a) else np.nan,
                      'background_median': float(np.median(b)) if len(b) else np.nan,
                      'p_value': p})
@@ -559,7 +644,7 @@ def cached_network_centralities(graph, extra=False, seed=42, landmarks=None,
     return frame.clone(), notes
 
 
-def centrality_analysis(graph, cohort, extra=False, seed=42, landmarks=None, use_cache=True):
+def centrality_analysis(graph, cohort, extra=False, seed=42, landmarks=None, use_cache=True, set_name='Moonlighting'):
     """Grouped centralities (with exact cached betweenness by default); compares cohort with its network complement."""
     mask = _selection(graph, cohort)
     base_frame, notes = cached_network_centralities(
@@ -567,7 +652,7 @@ def centrality_analysis(graph, cohort, extra=False, seed=42, landmarks=None, use
     )
     frame = base_frame.with_columns(
         pl.Series('is_moonlighting', mask),
-        pl.Series('group', np.where(mask, 'Moonlighting', 'Background')),
+        pl.Series('group', np.where(mask, set_name, 'Background')),
     )
     ordered_cols = ['protein', 'is_moonlighting', 'group', 'degree', 'strength', 'pagerank', 'mean_neighbor_degree']
     names = ['degree', 'strength', 'pagerank', 'mean_neighbor_degree']
@@ -576,7 +661,7 @@ def centrality_analysis(graph, cohort, extra=False, seed=42, landmarks=None, use
         ordered_cols += extra_cols
         names += extra_cols
     frame = frame.select(ordered_cols)
-    return {'metrics': frame, 'tests': _comparison_table(frame, names), 'notes': notes}
+    return {'metrics': frame, 'tests': _comparison_table(frame, names, group=set_name), 'notes': notes}
 
 
 def _degree_bins(degree):
@@ -619,6 +704,12 @@ def cohesion_analysis(graph, cohort, permutations=100, seed=42, degree_matched=T
     other_volume = float(degree[~mask].sum())
     denominator = min(volume, other_volume)
     conductance = boundary / denominator if denominator > 0 else np.nan
+    edge_count = adjacency.nnz // 2
+    endpoint_fraction = volume / (volume + other_volume) if edge_count else np.nan
+    expected_same_status = endpoint_fraction ** 2 + (1 - endpoint_fraction) ** 2
+    observed_same_status = 1 - boundary / edge_count if edge_count else np.nan
+    assortativity = ((observed_same_status - expected_same_status) / (1 - expected_same_status)
+                     if 0 < endpoint_fraction < 1 else np.nan)
     rng = np.random.default_rng(seed)
     null = []
     for run in range(int(permutations)):
@@ -630,7 +721,9 @@ def cohesion_analysis(graph, cohort, permutations=100, seed=42, degree_matched=T
         'query_nodes': len(indices), 'internal_edges': edges,
         'density': 2 * edges / (len(indices) * (len(indices) - 1)) if len(indices) > 1 else 0.,
         'components': components, 'largest_component': lcc, 'boundary_edges': boundary,
-        'conductance': conductance, 'permutations': int(permutations), 'seed': int(seed),
+        'conductance': conductance, 'boundary_edges_per_cohort_protein': boundary / len(indices),
+        'cohort_status_assortativity': assortativity,
+        'permutations': int(permutations), 'seed': int(seed),
         'null_model': 'Whole-network sampling matched in floor(log2 degree) bins' if degree_matched else 'Uniform whole-network protein sampling',
         'internal_edges_null_mean': float(null['internal_edges'].mean()),
         'largest_component_null_mean': float(null['largest_component'].mean()),
@@ -642,7 +735,7 @@ def cohesion_analysis(graph, cohort, permutations=100, seed=42, degree_matched=T
     return {'summary': summary, 'null': null}
 
 
-def wiring_analysis(graph, cohort, max_nodes=100, seed=42):
+def wiring_analysis(graph, cohort, max_nodes=100, seed=42, set_name='Moonlighting'):
     """Exact ego statistics for a cohort sample and degree-binned controls."""
     _advanced_graph(graph)
     mask = _selection(graph, cohort)
@@ -665,15 +758,16 @@ def wiring_analysis(graph, cohort, max_nodes=100, seed=42):
         wedges = k * (k - 1) // 2
         rows.append({
             'protein': str(graph['nodes'][node]), 'is_moonlighting': bool(mask[node]),
-            'group': 'Moonlighting' if mask[node] else 'Background', 'degree': k,
+            'group': set_name if mask[node] else 'Background', 'degree': k,
             'triangles': int(triangles), 'clustering': triangles / wedges if wedges else 0.,
             'open_wedges': int(wedges - triangles), 'ego_components': int(components),
             'ego_component_entropy': entropy,
             'effective_size': k - 2 * triangles / k if k else 0.,
         })
+        
     frame = pl.DataFrame(rows)
     columns = ['triangles', 'clustering', 'open_wedges', 'ego_components', 'ego_component_entropy', 'effective_size']
-    return {'metrics': frame, 'tests': _comparison_table(frame, columns),
+    return {'metrics': frame, 'tests': _comparison_table(frame, columns, group=set_name),
             'notes': {'query_sample': len(query), 'control_sample': len(controls), 'seed': int(seed),
                       'controls': 'Network complement, sampled without replacement in the same floor(log2 degree) bins as the sampled cohort.'}}
 
@@ -1350,7 +1444,7 @@ def run_cached_clustering(
     }
 
 
-def community_analysis(graph, cohort, seed=42, resolution=1.0, algorithm='louvain', use_cache=True, **algo_params):
+def community_analysis(graph, cohort, seed=42, resolution=1.0, algorithm='louvain', use_cache=True, set_name='Moonlighting', **algo_params):
     """Full-network multi-paradigm clustering (Classic, Overlapping, Fuzzy) plus cohort enrichment (cached)."""
     mask = _selection(graph, cohort)
     cached_res = run_cached_clustering(
@@ -1362,7 +1456,7 @@ def community_analysis(graph, cohort, seed=42, resolution=1.0, algorithm='louvai
 
     frame = base_df.with_columns(
         pl.Series('is_moonlighting', mask),
-        pl.Series('group', np.where(mask, 'Moonlighting', 'Background')),
+        pl.Series('group', np.where(mask, set_name, 'Background')),
     ).select([
         'protein', 'is_moonlighting', 'group', 'community', 'communities_str',
         'num_communities', 'is_overlapping_member',
@@ -1420,6 +1514,7 @@ def compare_clustering_algorithms(
     seed: int = 42,
     resolution: float = 1.0,
     use_cache: bool = True,
+    set_name: str = 'Moonlighting',
 ) -> dict:
     """Run, cache, and compare multiple clustering algorithms (Classic, Overlapping, Fuzzy) on the same network."""
     algos = list(dict.fromkeys(algorithms or list(CLUSTERING_CATALOG.keys())))
@@ -1430,7 +1525,7 @@ def compare_clustering_algorithms(
     key_metrics = ['participation', 'community_entropy', 'within_module_z', 'num_communities', 'fuzzy_entropy', 'top2_membership_ratio']
 
     for algo in algos:
-        res = community_analysis(graph, cohort, seed=seed, resolution=resolution, algorithm=algo, use_cache=use_cache)
+        res = community_analysis(graph, cohort, seed=seed, resolution=resolution, algorithm=algo, use_cache=use_cache, set_name=set_name)
         per_algorithm[algo] = res
         s = res['summary']
         df = res['metrics']
@@ -1447,6 +1542,7 @@ def compare_clustering_algorithms(
             'modularity': s['modularity'],
             'overlapping_fraction': s['overlapping_fraction'],
             'moonlighting_overlap_frac': moon_ov,
+            f'{set_name.lower().replace(" ", "_")}_overlap_frac': moon_ov,
             'background_overlap_frac': bg_ov,
             'enriched_communities_bh': sig_comms,
             'cache_hit': bool(s.get('cache_hit', False)),
@@ -1544,8 +1640,7 @@ def clustering_comparison_heatmap(effects: pl.DataFrame) -> go.Figure:
 # ---------------------------------------------------------------------------
 
 def _cohort_indices(graph, cohort):
-    indices = np.array(sorted({graph['index'][protein] for protein in cohort
-                               if protein in graph['index']}), dtype=int)
+    indices = np.array(sorted({graph['index'][protein] for protein in matching_nodes(graph['nodes'], cohort)}), dtype=int)
     if not len(indices):
         raise ValueError('No selected cohort proteins are present in this network.')
     return indices
@@ -1727,7 +1822,7 @@ def _ontology(path):
             terms[current['id']] = current
             for alt in current['alt']:
                 alternate[alt] = current['id']
-    with Path(path).open() as stream:
+    with Path(path).open(encoding='utf-8') as stream:
         for raw in stream:
             line = raw.rstrip('\n')
             if line == '[Term]':
@@ -1781,7 +1876,8 @@ def prepare_go_annotations(output_dir=Path('data/annotations'), gaf_path=DEFAULT
     records, headers = [], []
     audit = {'source_rows': 0, 'not_rows_excluded': 0, 'nonhuman_or_nonuniprot_rows_excluded': 0,
              'unknown_or_obsolete_terms_excluded': 0}
-    with gaf_path.open() as stream:
+    open_gaf = gzip.open if gaf_path.suffix.lower() == '.gz' else open
+    with open_gaf(gaf_path, 'rt', encoding='utf-8') as stream:
         for raw in stream:
             if raw.startswith('!'):
                 if raw.startswith(('!gaf-version:', '!date-generated:', '!go-version:', '!generated-by:')):
@@ -1837,10 +1933,14 @@ def go_enrichment(annotation_path, universe, cohort, aspect='BP', min_size=5,
     if int(min_size) != min_size or min_size < 1:
         raise ValueError('min_size must be a positive integer')
     population = {str(x) for x in universe}
-    query = {str(x) for x in cohort} & population
+    query = matching_nodes(population, cohort)
     if not population or not query:
         raise ValueError('The network universe and mapped cohort must both contain proteins')
-    annotations = pl.scan_parquet(annotation_path).filter(pl.col('protein').is_in(sorted(population)))
+    node_labels = pl.DataFrame({'node': sorted(population)}).with_columns(
+        pl.col('node').str.split('|').alias('protein')).explode('protein')
+    annotations = (pl.scan_parquet(annotation_path)
+                   .join(node_labels.lazy(), on='protein', how='inner')
+                   .drop('protein').rename({'node': 'protein'}))
     if aspect != 'All':
         annotations = annotations.filter(pl.col('aspect') == {'BP': 'P', 'MF': 'F', 'CC': 'C'}[aspect])
     if exclude_iea:
@@ -1900,7 +2000,7 @@ def compare_source_sets(graph, data: pl.DataFrame, sources: list[str],
     selected = {source: cohort_ids(data, [source], reviewed_only=reviewed_only,
                                    min_publications=min_publications)[0]
                 for source in sources}
-    present = {source: ids & nodes for source, ids in selected.items()}
+    present = {source: matching_nodes(nodes, ids) for source, ids in selected.items()}
     union = set().union(*present.values())
     if not union:
         raise ValueError('No selected source-set proteins occur in this network.')
@@ -1973,7 +2073,7 @@ def compare_source_sets(graph, data: pl.DataFrame, sources: list[str],
         'source': groups,
         'selected_ids': [len(selected[source]) for source in groups],
         'network_ids': [len(present[source]) for source in groups],
-        'missing_ids': [len(selected[source] - nodes) for source in groups],
+        'missing_ids': [len(selected[source] - {label for node in nodes for label in str(node).split('|')}) for source in groups],
     })
     overlap = pl.DataFrame([
         {'source_a': first, 'source_b': second,
@@ -2076,7 +2176,7 @@ def metric_figure(frame: pl.DataFrame, metric: str, tests: pl.DataFrame | None =
                 candidates = tests.filter(pl.col('metric') == metric)
                 if 'group' in candidates.columns:
                     candidates = candidates.filter(pl.col('group') == group)
-                elif group != 'Moonlighting':
+                elif group == 'Background':
                     candidates = candidates.head(0)
                 if 'comparator' in candidates.columns:
                     candidates = candidates.filter(pl.col('comparator') == 'Background')
@@ -2129,8 +2229,10 @@ def metric_figure(frame: pl.DataFrame, metric: str, tests: pl.DataFrame | None =
                            xref='paper', yref='paper', showarrow=False)
         return fig
     if plot_kind != 'observed' and tests is not None and {'metric', 'fdr_bh'}.issubset(tests.columns):
+        non_bg_groups = [g for g in groups if g != 'Background']
+        fallback_group = non_bg_groups[0] if non_bg_groups else 'Moonlighting'
         for test in tests.filter(pl.col('metric') == metric).iter_rows(named=True):
-            group = test.get('group', 'Moonlighting')
+            group = test.get('group', fallback_group)
             comparator = test.get('comparator', 'Background')
             if group not in groups or comparator != 'Background' or 'Background' not in groups:
                 continue
@@ -2279,3 +2381,355 @@ def hub_enrichment_heatmap(table: pl.DataFrame) -> go.Figure:
                        font=dict(size=11, color='#444444'))
     _missing_labels(fig, z, metrics, groups)
     return fig
+
+
+def protein_set_network_summary(frame: pl.DataFrame, set_name: str = 'Protein set') -> pl.DataFrame:
+    """Label current and cached overview summaries without changing their stored schema."""
+    aliases = {
+        'Cohort proteins present': f'{set_name} proteins present',
+        'Protein set members present': f'{set_name} proteins present',
+        'Moonlighting proteins present': f'{set_name} proteins present',
+        'Cohort network nodes': f'{set_name} network nodes',
+        'Protein set network nodes': f'{set_name} network nodes',
+        'Cohort coverage (%)': f'{set_name} coverage (%)',
+        'Protein set coverage (%)': f'{set_name} coverage (%)',
+        'Moonlighting coverage (%)': f'{set_name} coverage (%)',
+    }
+    for old, new in aliases.items():
+        if old == new or old not in frame.columns:
+            continue
+        frame = frame.drop(old) if new in frame.columns else frame.rename({old: new})
+    return frame
+
+
+def multi_network_centrality_comparison(
+    graphs: Mapping[str, dict],
+    cohort: set[str],
+    extra: bool = False,
+    seed: int = 42,
+    landmarks: int | None = None,
+    use_cache: bool = True,
+    set_name: str = 'Moonlighting',
+) -> dict:
+    """Compute cached centralities across multiple networks and compare cohort vs background across networks."""
+    if not graphs:
+        raise ValueError('Provide at least one network to compare.')
+    metrics_frames = []
+    effect_records = []
+    hub_records = []
+    network_summaries = []
+    notes_by_network = {}
+
+    for net_name, graph in graphs.items():
+        nodes = set(map(str, graph['nodes']))
+        present = matching_nodes(nodes, cohort)
+        mask = np.asarray([str(node) in present for node in graph['nodes']], dtype=bool)
+        base_frame, notes = cached_network_centralities(
+            graph, extra=extra, seed=seed, landmarks=landmarks, use_cache=use_cache
+        )
+        notes_by_network[net_name] = notes
+        covered_labels = len(cohort & {label for node in nodes for label in str(node).split('|')})
+        n_nodes, n_edges = len(nodes), graph['edge_count']
+        network_summaries.append({
+            'Network': net_name,
+            'Nodes': n_nodes,
+            'Edges': n_edges,
+            'Mean degree': 2 * n_edges / n_nodes if n_nodes else 0.0,
+            'Density': 2 * n_edges / (n_nodes * (n_nodes - 1)) if n_nodes > 1 else 0.0,
+            'Cohort proteins present': covered_labels,
+            f'{set_name} proteins present': covered_labels,
+            'Cohort network nodes': int(mask.sum()),
+            'Cohort coverage (%)': 100.0 * covered_labels / len(cohort) if cohort else 0.0,
+            f'{set_name} coverage (%)': 100.0 * covered_labels / len(cohort) if cohort else 0.0,
+            'Background nodes': int((~mask).sum()),
+            'Cached': bool(notes.get('cache_hit', False)),
+        })
+        metric_cols = ['degree', 'strength', 'pagerank', 'mean_neighbor_degree']
+        if extra:
+            metric_cols += ['core_number', 'clustering', 'betweenness_approx', 'eigenvector', 'bridging_coefficient', 'bridging_centrality']
+        metric_cols = [c for c in metric_cols if c in base_frame.columns]
+
+        net_frame = base_frame.with_columns(
+            pl.lit(net_name).alias('network'),
+            pl.Series('is_moonlighting', mask),
+            pl.Series('group', np.where(mask, set_name, 'Background')),
+        ).select(['network', 'protein', 'is_moonlighting', 'group', *metric_cols])
+        metrics_frames.append(net_frame)
+
+        for metric in metric_cols:
+            vals = base_frame[metric].to_numpy().astype(float)
+            a, b = vals[mask], vals[~mask]
+            a, b = a[np.isfinite(a)], b[np.isfinite(b)]
+            avail = len(a) > 0 and len(b) > 0
+            test = mannwhitneyu(a, b, alternative='two-sided') if avail else None
+            q_med = float(np.median(a)) if len(a) else np.nan
+            bg_med = float(np.median(b)) if len(b) else np.nan
+            rb = float(2.0 * test.statistic / (len(a) * len(b)) - 1.0) if avail else np.nan
+            effect_records.append({
+                'group': net_name,
+                'network': net_name,
+                'comparator': 'Background',
+                'metric': metric,
+                'query_n': len(a),
+                'background_n': len(b),
+                'query_median': q_med,
+                'background_median': bg_med,
+                'rank_biserial': rb,
+                'median_difference': q_med - bg_med if avail else np.nan,
+                'median_fold': q_med / bg_med if avail and bg_med != 0 else np.nan,
+                'p_value': float(test.pvalue) if avail else np.nan,
+            })
+            finite_all = vals[np.isfinite(vals)]
+            cutoff = float(np.quantile(finite_all, 0.9)) if len(finite_all) else np.nan
+            pop_n = len(finite_all)
+            top_n = int((finite_all >= cutoff).sum()) if len(finite_all) else 0
+            hits = int((a >= cutoff).sum()) if len(a) and np.isfinite(cutoff) else 0
+            hub_avail = len(a) > 0 and pop_n > 0 and top_n > 0
+            hub_records.append({
+                'group': net_name,
+                'network': net_name,
+                'metric': metric,
+                'query_n': len(a),
+                'population_n': pop_n,
+                'top_n': top_n,
+                'query_top_n': hits,
+                'cutoff': cutoff,
+                'fold': (hits / len(a)) / (top_n / pop_n) if hub_avail else np.nan,
+                'p_value': float(hypergeom.sf(hits - 1, pop_n, top_n, len(a))) if hub_avail else np.nan,
+            })
+
+    combined_metrics = pl.concat(metrics_frames, how='diagonal_relaxed') if metrics_frames else pl.DataFrame()
+    effects_df = pl.DataFrame(effect_records, schema={
+        'group': pl.String, 'network': pl.String, 'comparator': pl.String, 'metric': pl.String,
+        'query_n': pl.Int64, 'background_n': pl.Int64,
+        'query_median': pl.Float64, 'background_median': pl.Float64,
+        'rank_biserial': pl.Float64, 'median_difference': pl.Float64,
+        'median_fold': pl.Float64, 'p_value': pl.Float64,
+    }).with_columns(pl.Series('fdr_bh', bh_adjust([r['p_value'] for r in effect_records])))
+
+    hubs_df = pl.DataFrame(hub_records, schema={
+        'group': pl.String, 'network': pl.String, 'metric': pl.String, 'query_n': pl.Int64,
+        'population_n': pl.Int64, 'top_n': pl.Int64, 'query_top_n': pl.Int64,
+        'cutoff': pl.Float64, 'fold': pl.Float64, 'p_value': pl.Float64,
+    }).with_columns(pl.Series('fdr_bh', bh_adjust([r['p_value'] for r in hub_records])))
+
+    return {
+        'networks': pl.DataFrame(network_summaries),
+        'metrics': combined_metrics,
+        'tests': effects_df,
+        'profiles': effects_df,
+        'hub_enrichment': hubs_df,
+        'notes': notes_by_network,
+    }
+
+
+def cross_network_metric_figure(
+    frame: pl.DataFrame,
+    metric: str,
+    tests: pl.DataFrame | None = None,
+    max_per_group: int = 5000,
+    seed: int = 42,
+    plot_kind: str = 'box',
+    log_scale: bool = False,
+    set_name: str | None = None,
+) -> go.Figure:
+    """Single unified plot showing how a metric varies for a protein set vs Background across multiple networks."""
+    if plot_kind not in {'box', 'violin', 'bar'}:
+        raise ValueError('plot_kind must be box, violin, or bar')
+    fig = go.Figure()
+    title = metric.replace('_', ' ').title()
+    target_group = set_name or (
+        [g for g in frame['group'].drop_nulls().unique(maintain_order=True).to_list() if g != 'Background']
+        if 'group' in frame.columns else []
+    )
+    target_name = target_group if isinstance(target_group, str) else (target_group[0] if target_group else 'Moonlighting')
+    label_name = GROUP_LABELS.get(target_name, target_name)
+    fig.update_layout(
+        template='plotly_white',
+        title=f'{title} across interactomes ({label_name} vs Background)',
+        yaxis_title=title + (' (log scale)' if log_scale else ''),
+        xaxis_title='Interactome network',
+        legend_title_text='Protein group',
+        height=520,
+        margin=dict(l=65, r=30, t=105, b=95),
+        boxmode='group',
+        violinmode='group',
+        barmode='group',
+        legend=dict(orientation='h', yanchor='top', y=-0.18, x=0),
+    )
+    if log_scale:
+        fig.update_yaxes(type='log')
+    if frame.is_empty() or not {'network', 'group', metric}.issubset(frame.columns) or not frame.schema[metric].is_numeric():
+        fig.add_annotation(text='No numeric distribution available', x=0.5, y=0.5,
+                           xref='paper', yref='paper', showarrow=False)
+        return fig
+
+    networks = frame['network'].drop_nulls().unique(maintain_order=True).to_list()
+    present = frame['group'].drop_nulls().unique(maintain_order=True).to_list()
+    groups = [g for g in GROUP_COLORS if g in present and g != 'Background']
+    groups += [g for g in present if g not in GROUP_COLORS]
+    if 'Background' in present:
+        groups.append('Background')
+    if len(groups) > 2:
+        fig.update_layout(title=f'{title} across interactomes by protein set')
+    for group in groups:
+        color = GROUP_COLORS.get(group, '#555555')
+        label = GROUP_LABELS.get(group, group)
+        sub = frame.filter((pl.col('group') == group) & pl.col(metric).is_finite())
+        if sub.is_empty():
+            continue
+        if plot_kind == 'bar':
+            means, sems, counts, x_nets = [], [], [], []
+            for net in networks:
+                net_rows = sub.filter(pl.col('network') == net)
+                if net_rows.is_empty():
+                    continue
+                vals = net_rows[metric]
+                x_nets.append(net)
+                means.append(float(vals.mean()))
+                sems.append(float(vals.std()) / math.sqrt(len(vals)) if len(vals) > 1 else 0.0)
+                counts.append(len(vals))
+            fig.add_trace(go.Bar(
+                x=x_nets, y=means, name=label, legendgroup=group, marker_color=color,
+                error_y=dict(type='data', array=sems, visible=True),
+                customdata=list(zip(sems, counts)),
+                hovertemplate='%{x} · ' + label + '<br>' + title + ' mean: %{y:.4g}<br>SEM: %{customdata[0]:.4g}<br>n: %{customdata[1]}<extra></extra>',
+            ))
+        elif plot_kind == 'box':
+            fig.add_trace(go.Box(
+                x=sub['network'].to_list(), y=sub[metric].to_list(), name=label,
+                legendgroup=group, marker_color=color, line_color=color,
+                boxpoints=False, boxmean=True,
+                hovertemplate='%{x} · ' + label + '<br>' + title + ': %{y}<extra></extra>',
+            ))
+        else:
+            sampled_parts = [
+                sub.filter(pl.col('network') == net).sample(
+                    n=min(sub.filter(pl.col('network') == net).height, max_per_group), seed=seed
+                )
+                for net in networks if not sub.filter(pl.col('network') == net).is_empty()
+            ]
+            sampled = pl.concat(sampled_parts) if sampled_parts else sub
+            proteins = sampled['protein'].to_list() if 'protein' in sampled.columns else [''] * sampled.height
+            fig.add_trace(go.Violin(
+                x=sampled['network'].to_list(), y=sampled[metric].to_list(), name=label,
+                legendgroup=group, scalegroup=group, scalemode='width',
+                line_color=color, fillcolor=color, opacity=0.75,
+                box_visible=True, meanline_visible=True, points=False, spanmode='hard',
+                customdata=proteins,
+                hovertemplate='%{x} · %{customdata}<br>' + title + ': %{y}<extra>' + label + '</extra>',
+            ))
+
+    fig.update_xaxes(categoryorder='array', categoryarray=networks)
+    if tests is not None and len(groups) <= 2 and {'metric', 'fdr_bh'}.issubset(tests.columns):
+        net_col = 'network' if 'network' in tests.columns else 'group'
+        for row in tests.filter(pl.col('metric') == metric).iter_rows(named=True):
+            net = row.get(net_col)
+            if net not in networks:
+                continue
+            q = row.get('fdr_bh')
+            stars = significance_label(q)
+            rb = row.get('rank_biserial')
+            rb_txt = f' (r={float(rb):+.2f})' if _finite(rb) else ''
+            hover = f'{net}: Moonlighting vs Background<br>BH-adjusted q = {_fmt(q, 6)}{rb_txt}'
+            fig.add_annotation(
+                x=net, y=1.05, xref='x', yref='paper',
+                text=f'<b>{stars}</b>{rb_txt}', hovertext=hover,
+                showarrow=False, font=dict(size=13, color='#0072B2'),
+            )
+        fig.add_annotation(
+            x=0, y=1.12, xref='paper', yref='paper', xanchor='left',
+            text='Stars & rank-biserial r compare Moonlighting vs Background within each network (BH-adjusted q across networks & metrics)',
+            showarrow=False, font=dict(size=11, color='#444444'),
+        )
+    return fig
+
+
+# ---------------------------------------------------------------------------
+# Pooling per-network results into one cross-network comparison
+# ---------------------------------------------------------------------------
+
+_POOL_EXCLUDED = {'network', 'protein', 'is_moonlighting', 'group', 'community', 'is_seed'}
+_EFFECT_SCHEMA = {
+    'network': pl.String, 'group': pl.String, 'metric': pl.String,
+    'query_n': pl.Int64, 'background_n': pl.Int64,
+    'query_median': pl.Float64, 'background_median': pl.Float64,
+    'rank_biserial': pl.Float64, 'median_difference': pl.Float64,
+    'median_fold': pl.Float64, 'p_value': pl.Float64,
+}
+
+
+def pool_network_comparisons(results: Mapping[str, dict], metrics_key: str = 'metrics') -> dict:
+    """Stack per-network metric tables and test every network-by-metric pair in one BH family.
+
+    Each result must hold a per-protein table with a ``group`` column labelled ``Moonlighting``
+    or ``Background``. The cohort is compared with that network's own background (two-sided
+    Mann–Whitney U, rank-biserial effect); Benjamini–Hochberg runs across all finite tests from
+    all networks together. Degree-matched samples stay as sampled by the original analysis.
+    """
+    frames, records, metric_order = [], [], []
+    for network, result in results.items():
+        frame = (result or {}).get(metrics_key)
+        if not isinstance(frame, pl.DataFrame) or frame.is_empty() or 'group' not in frame.columns:
+            continue
+        tested = result.get('tests')
+        if isinstance(tested, pl.DataFrame) and 'metric' in tested.columns:
+            metrics = [m for m in tested['metric'].to_list() if m in frame.columns and frame.schema[m].is_numeric()]
+        else:
+            metrics = [c for c, dtype in frame.schema.items() if dtype.is_numeric() and c not in _POOL_EXCLUDED]
+        metric_order += [m for m in metrics if m not in metric_order]
+        keep = [c for c in ('protein',) if c in frame.columns]
+        frames.append(frame.select(
+            pl.lit(network).alias('network'), *keep, pl.col('group').cast(pl.String),
+            *[pl.col(m).cast(pl.Float64) for m in metrics],
+        ))
+        mask = (frame['group'].cast(pl.String) != 'Background').to_numpy()
+        for metric in metrics:
+            values = frame[metric].cast(pl.Float64).to_numpy()
+            a, b = values[mask], values[~mask]
+            a, b = a[np.isfinite(a)], b[np.isfinite(b)]
+            available = len(a) > 0 and len(b) > 0
+            test = mannwhitneyu(a, b, alternative='two-sided') if available else None
+            q_med = float(np.median(a)) if len(a) else np.nan
+            b_med = float(np.median(b)) if len(b) else np.nan
+            records.append({
+                'network': network, 'group': network, 'metric': metric,
+                'query_n': len(a), 'background_n': len(b),
+                'query_median': q_med, 'background_median': b_med,
+                'rank_biserial': float(2 * test.statistic / (len(a) * len(b)) - 1) if available else np.nan,
+                'median_difference': q_med - b_med if available else np.nan,
+                'median_fold': q_med / b_med if available and b_med != 0 else np.nan,
+                'p_value': float(test.pvalue) if available else np.nan,
+            })
+    tests = pl.DataFrame(records, schema=_EFFECT_SCHEMA).with_columns(
+        pl.Series('fdr_bh', bh_adjust([r['p_value'] for r in records]), dtype=pl.Float64))
+    if metric_order and tests.height:
+        order = {m: i for i, m in enumerate(metric_order)}
+        networks = {n: i for i, n in enumerate(results)}
+        tests = tests.sort(pl.col('network').replace_strict(networks, return_dtype=pl.Int64),
+                           pl.col('metric').replace_strict(order, return_dtype=pl.Int64))
+    metrics = pl.concat(frames, how='diagonal_relaxed') if frames else pl.DataFrame()
+    return {
+        'metrics': metrics, 'tests': tests, 'metric_order': metric_order,
+        'correction': 'Benjamini–Hochberg across all finite network-by-metric tests in this comparison',
+    }
+
+
+def stack_network_tables(tables: Mapping[str, pl.DataFrame | None], p_column: str | None = None,
+                         q_column: str = 'fdr_bh') -> pl.DataFrame:
+    """Concatenate per-network tables with a leading ``network`` column.
+
+    When ``p_column`` is given, ``q_column`` is recomputed with Benjamini–Hochberg across every
+    finite p-value from all networks, so the correction family spans the whole comparison.
+    """
+    frames = [
+        table.with_columns(pl.lit(network).alias('network')).select('network', pl.exclude('network'))
+        for network, table in tables.items() if isinstance(table, pl.DataFrame) and table.height
+    ]
+    if not frames:
+        return pl.DataFrame()
+    stacked = pl.concat(frames, how='diagonal_relaxed')
+    if p_column and p_column in stacked.columns:
+        stacked = stacked.with_columns(pl.Series(
+            q_column, bh_adjust(stacked[p_column].cast(pl.Float64).to_numpy()), dtype=pl.Float64))
+    return stacked

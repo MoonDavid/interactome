@@ -1,0 +1,429 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-09T16:08:30.461274+00:00",
+  "sources": {
+    "network": {
+      "name": "HuRI",
+      "path": "C:\\projects\\interactome\\data\\canonical\\HuRI.parquet",
+      "size": 150444,
+      "mtime_ns": 1794226647650155400,
+      "sha256": "b7b054934c29ff28ed200aeaaec1786d53eb00a4542af2cf3c761d8859d11edc",
+      "audit": {
+        "name": "HuRI",
+        "created_at": "2026-11-09T09:16:38.141844+00:00",
+        "normalization_policy": "UniProt primary accessions; remove terminal numeric isoform suffix; expand all mapped accessions; undirected; remove source loops before mapping and canonical loops after mapping; huMAP duplicate score=max; HuRI restricted to reviewed Swiss-Prot entries",
+        "mapping_sha256": "f7e52c40403c6387b516d67dbc32af19386550a9bf00b4b8ba92790b23636ee2",
+        "source": {
+          "path": "data/networks/HuRI.tsv",
+          "size": 1681536,
+          "mtime_ns": 1794213342625447344,
+          "sha256": "4cdf94366ff6e23e71ef9ec81922e85b2b3a1fb08e938f7b00d86c027cf1ecd6"
+        },
+        "output": {
+          "path": "data/canonical/HuRI.parquet",
+          "size": 150444,
+          "mtime_ns": 1794215798141436316,
+          "sha256": "b7b054934c29ff28ed200aeaaec1786d53eb00a4542af2cf3c761d8859d11edc"
+        },
+        "input_rows": 52548,
+        "expanded_mapped_rows": 54026,
+        "unmapped_ids": [
+          "ENSG00000024862",
+          "ENSG00000033122",
+          "ENSG00000042304",
+          "ENSG00000084734",
+          "ENSG00000105501",
+          "ENSG00000106123",
+          "ENSG00000112096",
+          "ENSG00000118412",
+          "ENSG00000124208",
+          "ENSG00000125122",
+          "ENSG00000125462",
+          "ENSG00000130363",
+          "ENSG00000130487",
+          "ENSG00000137700",
+          "ENSG00000139656",
+          "ENSG00000142396",
+          "ENSG00000152133",
+          "ENSG00000158483",
+          "ENSG00000160818",
+          "ENSG00000161847",
+          "ENSG00000161981",
+          "ENSG00000163098",
+          "ENSG00000167608",
+          "ENSG00000173369",
+          "ENSG00000174370",
+          "ENSG00000174899",
+          "ENSG00000177125",
+          "ENSG00000178928",
+          "ENSG00000180872",
+          "ENSG00000181013",
+          "ENSG00000181222",
+          "ENSG00000182077",
+          "ENSG00000182230",
+          "ENSG00000182257",
+          "ENSG00000183729",
+          "ENSG00000184258",
+          "ENSG00000185594",
+          "ENSG00000185614",
+          "ENSG00000185689",
+          "ENSG00000185761",
+          "ENSG00000186493",
+          "ENSG00000187595",
+          "ENSG00000196312",
+          "ENSG00000197364",
+          "ENSG00000197536",
+          "ENSG00000197568",
+          "ENSG00000198054",
+          "ENSG00000203812",
+          "ENSG00000204183",
+          "ENSG00000212643",
+          "ENSG00000213029",
+          "ENSG00000214215",
+          "ENSG00000215271",
+          "ENSG00000215790",
+          "ENSG00000221972",
+          "ENSG00000221995",
+          "ENSG00000222047",
+          "ENSG00000230657",
+          "ENSG00000231887",
+          "ENSG00000241598",
+          "ENSG00000242019",
+          "ENSG00000243440",
+          "ENSG00000248405",
+          "ENSG00000250486",
+          "ENSG00000251655",
+          "ENSG00000254827",
+          "ENSG00000259288",
+          "ENSG00000270136",
+          "ENSG00000272196",
+          "ENSG00000273590",
+          "ENSG00000274267",
+          "ENSG00000274276",
+          "ENSG00000275895",
+          "ENSG00000275993",
+          "ENSG00000276076",
+          "ENSG00000276234",
+          "ENSG00000278272",
+          "ENSG00000278845",
+          "ENSG00000279968",
+          "ENSG00000280071",
+          "ENSG00000282034",
+          "ENSG00000283374"
+        ],
+        "unmapped_edge_rows": 616,
+        "one_to_many_ids": {
+          "ENSG00000147996": [
+            "Q5JTY5",
+            "Q5RIA9"
+          ],
+          "ENSG00000256671": [
+            "P0CW19",
+            "P0CW20"
+          ],
+          "ENSG00000213417": [
+            "P0C7H8",
+            "Q9BYR9"
+          ],
+          "ENSG00000212724": [
+            "P0C7H8",
+            "Q9BYR9"
+          ],
+          "ENSG00000120802": [
+            "P42166",
+            "P42167"
+          ],
+          "ENSG00000236424": [
+            "P0CV98",
+            "P0CW01"
+          ],
+          "ENSG00000101307": [
+            "O00241",
+            "Q5TFQ8"
+          ],
+          "ENSG00000188100": [
+            "B3EWG3",
+            "B3EWG5",
+            "B3EWG6"
+          ],
+          "ENSG00000278299": [
+            "Q6IPX1",
+            "Q8IZP1"
+          ],
+          "ENSG00000204388": [
+            "P0DMV8",
+            "P0DMV9"
+          ],
+          "ENSG00000255251": [
+            "E9PI22",
+            "P0DMB1"
+          ],
+          "ENSG00000256977": [
+            "P0CW19",
+            "P0CW20"
+          ],
+          "ENSG00000021645": [
+            "Q9HDB5",
+            "Q9Y4C0"
+          ],
+          "ENSG00000105327": [
+            "Q96PG8",
+            "Q9BXH1"
+          ],
+          "ENSG00000274611": [
+            "Q6IPX1",
+            "Q8IZP1"
+          ],
+          "ENSG00000264343": [
+            "P0DPK4",
+            "Q7Z3S9"
+          ],
+          "ENSG00000228927": [
+            "P0CV98",
+            "P0CW01"
+          ],
+          "ENSG00000174428": [
+            "Q6EKJ0",
+            "Q86UP8"
+          ],
+          "ENSG00000235699": [
+            "A0A1B0GTR3",
+            "P0DPH9"
+          ],
+          "ENSG00000204389": [
+            "P0DMV8",
+            "P0DMV9"
+          ],
+          "ENSG00000186184": [
+            "P0DPB5",
+            "P0DPB6"
+          ],
+          "ENSG00000236362": [
+            "O76087",
+            "P0CL80",
+            "P0CL81",
+            "P0CL82"
+          ],
+          "ENSG00000276430": [
+            "B3EWG3",
+            "B3EWG5",
+            "B3EWG6"
+          ],
+          "ENSG00000164871": [
+            "Q08648",
+            "Q6PDA7"
+          ],
+          "ENSG00000127922": [
+            "P60896",
+            "Q6ZVN7"
+          ],
+          "ENSG00000277758": [
+            "Q9BQS2",
+            "X6R8R1"
+          ],
+          "ENSG00000110680": [
+            "P01258",
+            "P06881"
+          ],
+          "ENSG00000205238": [
+            "A6NHP3",
+            "Q495Y8"
+          ],
+          "ENSG00000234278": [
+            "P86478",
+            "P86479",
+            "P86480",
+            "P86481",
+            "P86496"
+          ],
+          "ENSG00000204176": [
+            "Q9BQS2",
+            "X6R8R1"
+          ],
+          "ENSG00000204918": [
+            "P86478",
+            "P86479",
+            "P86480",
+            "P86481",
+            "P86496"
+          ],
+          "ENSG00000118507": [
+            "O43687",
+            "Q9P0M2"
+          ],
+          "ENSG00000143933": [
+            "P0DP23",
+            "P0DP24",
+            "P0DP25"
+          ],
+          "ENSG00000224440": [
+            "A0A1B0GTR3",
+            "P0DPH9"
+          ],
+          "ENSG00000215269": [
+            "O76087",
+            "P0CL80",
+            "P0CL81",
+            "P0CL82"
+          ],
+          "ENSG00000256060": [
+            "P0DI81",
+            "P0DI82"
+          ],
+          "ENSG00000204919": [
+            "P86478",
+            "P86479",
+            "P86480",
+            "P86481",
+            "P86496"
+          ],
+          "ENSG00000173678": [
+            "A6NHP3",
+            "Q495Y8"
+          ],
+          "ENSG00000198668": [
+            "P0DP23",
+            "P0DP24",
+            "P0DP25"
+          ],
+          "ENSG00000227151": [
+            "P86478",
+            "P86479",
+            "P86480",
+            "P86481",
+            "P86496"
+          ],
+          "ENSG00000255378": [
+            "E9PI22",
+            "P0DMB1"
+          ],
+          "ENSG00000160014": [
+            "P0DP23",
+            "P0DP24",
+            "P0DP25"
+          ],
+          "ENSG00000229665": [
+            "P86478",
+            "P86479",
+            "P86480",
+            "P86481",
+            "P86496"
+          ],
+          "ENSG00000189090": [
+            "B3EWG3",
+            "B3EWG5",
+            "B3EWG6"
+          ],
+          "ENSG00000196459": [
+            "P0DI81",
+            "P0DI82"
+          ]
+        },
+        "one_to_many_id_count": 45,
+        "source_self_loop_rows": 480,
+        "self_loop_rows": 53,
+        "invalid_score_rows": 0,
+        "edges": 51161,
+        "nodes": 8093
+      }
+    },
+    "clustering": {
+      "algorithm": "fuzzy_rwr_diffusion",
+      "resolution": 1.0,
+      "seed": 42
+    },
+    "go": {
+      "created_utc": "2026-11-09T16:08:23.301930+00:00",
+      "policy": "UniProtKB human primary taxon; exclude NOT; collapse numeric isoform suffix; GO ancestor propagation via is_a and part_of; evidence retained",
+      "sources": {
+        "gaf": {
+          "path": "C:\\projects\\interactome\\data\\GO\\HUMAN-uniprot.gaf.gz",
+          "size": 12109254,
+          "mtime_ns": 1794234165140993200
+        },
+        "obo": {
+          "path": "C:\\projects\\interactome\\data\\GO\\go-basic.obo",
+          "size": 32227785,
+          "mtime_ns": 1794234248139794700
+        }
+      },
+      "gaf_sha256": "a0afba19dfb1f8fa996bc1bdcd61fd0c9bd4cf0d2bf2509d09ac86993c0e70a2",
+      "obo_sha256": "b08d45b268b8c24ccb2513dbbbc7d4df9f6521c099b413f79eb31e06e0fa3bcc",
+      "gaf_headers": [
+        "!gaf-version: 2.2",
+        "!generated-by: UniProt",
+        "!date-generated: 2026-07-28 19:42",
+        "!go-version: http://purl.obolibrary.org/obo/go/releases/2026-07-26/extensions/go-plus.ofn"
+      ],
+      "ontology_headers": [
+        "format-version: 1.2",
+        "data-version: releases/2026-07-26"
+      ],
+      "audit": {
+        "source_rows": 910476,
+        "not_rows_excluded": 1497,
+        "nonhuman_or_nonuniprot_rows_excluded": 47765,
+        "unknown_or_obsolete_terms_excluded": 0
+      },
+      "direct_unique_evidence_rows": 437530,
+      "propagated_protein_term_rows": 1511426,
+      "proteins": 19775,
+      "terms": 20984
+    },
+    "reactome": {
+      "path": "C:\\projects\\interactome\\data\\reactome\\UniProt2Reactome.txt",
+      "size": 43219161,
+      "mtime_ns": 1794238025981646900,
+      "sha256": "e16cf600292fc592957daf696ab5ffd9373ed6b49582def5988ec5bedfcc48cf"
+    }
+  },
+  "parameters": {
+    "libraries": [
+      "GO_BP",
+      "GO_MF",
+      "GO_CC",
+      "Reactome"
+    ],
+    "min_background_hits": 5,
+    "min_label_hits": 2,
+    "max_qvalue": 0.05,
+    "ancestor_hit_jaccard_strictly_above": 0.7,
+    "test": "one-sided hypergeometric; one BH family across nonempty subsets and libraries",
+    "reactome_policy": "human R-HSA pathways in the supplied lowest-level mapping"
+  },
+  "coverage": {
+    "background": 8093,
+    "assigned": 8093,
+    "unassigned": 0,
+    "libraries": {
+      "GO_BP": {
+        "annotated_background": 7227,
+        "annotated_assigned": 7227,
+        "eligible_terms": 5453
+      },
+      "GO_MF": {
+        "annotated_background": 8019,
+        "annotated_assigned": 8019,
+        "eligible_terms": 1249
+      },
+      "GO_CC": {
+        "annotated_background": 7748,
+        "annotated_assigned": 7748,
+        "eligible_terms": 919
+      },
+      "Reactome": {
+        "annotated_background": 4805,
+        "annotated_assigned": 4805,
+        "eligible_terms": 1147
+      }
+    }
+  },
+  "clusters": 24,
+  "tested_subsets": 72,
+  "memberships_sha256": "a278b36196134a492fe7c9d8828f5fd59c06219721c572947830db9a6597a538",
+  "tests": 631296,
+  "zero_hit_tests_omitted_from_table": 456965,
+  "cytoscape_comparison": {
+    "status": "not_requested"
+  }
+}

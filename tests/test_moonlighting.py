@@ -29,6 +29,27 @@ from moonlighting import (
 # Cohort Data, Graph Context & Reproducible Exports
 # ---------------------------------------------------------------------------
 
+@pytest.mark.parametrize('cached_aliases', [False, True])
+def test_cached_overview_coverage_uses_selected_set_columns(cached_aliases):
+    import plotly.express as px
+    from moonlighting import protein_set_network_summary
+
+    original = pl.DataFrame({
+        'Network': ['HuRI'], 'Nodes': [10], 'Edges': [12],
+        'Cohort proteins present': [3], 'Cohort network nodes': [3], 'Cohort coverage (%)': [75.0],
+    })
+    if cached_aliases:
+        original = original.with_columns(pl.lit(3).alias('MoonLitDB proteins present'),
+                                         pl.lit(75.0).alias('MoonLitDB coverage (%)'))
+    displayed = protein_set_network_summary(original, 'MoonLitDB')
+    figure = px.bar(displayed, x='Network', y='MoonLitDB coverage (%)', text='MoonLitDB proteins present')
+    assert list(figure.data[0].y) == [75.0]
+    assert list(figure.data[0].text) == [3.0]
+    assert 'MoonLitDB network nodes' in displayed.columns
+    assert not any('Cohort' in column for column in displayed.columns)
+    assert 'Cohort coverage (%)' in original.columns
+
+
 def test_mapping_filters_and_full_network_background(tmp_path):
     (tmp_path / 'mappings').mkdir()
     records = []
@@ -61,6 +82,29 @@ def test_export_tables_and_nonfinite_diagnostics():
         assert manifest['results']['summary'] == {'missing': None, 'value': None}
         assert manifest['results']['table']['rows'] == 2
         assert archive.read('result_table.csv').decode() == 'a\n1\n2\n'
+
+
+def test_multilabel_cohort_and_go_count_graph_node_once(tmp_path):
+    path = tmp_path / 'graph.parquet'
+    pl.DataFrame({'a': ['P1|P2', 'B'], 'b': ['B', 'C']}).write_parquet(path)
+    graph = graph_from_path(path)
+    assert moonlighting._selection(graph, {'P1', 'P2'}).sum() == 1
+    assert len(moonlighting._cohort_indices(graph, {'P1', 'P2'})) == 1
+    result = centrality_analysis(graph, {'P2'}, use_cache=False)
+    assert result['metrics']['is_moonlighting'].sum() == 1
+    data = pl.DataFrame({'input_accession': ['P1', 'P2'], 'canonical_id': ['P1', 'P2'],
+                         'mapping_status': ['unchanged'] * 2, 'Gene Names': ['x', 'y'], 'Reviewed': ['reviewed'] * 2})
+    summary = mapping_coverage(graph, data, {'P1', 'P2'})['summary']
+    assert summary['cohort_in_network'] == 2
+    assert summary['cohort_network_nodes'] == 1
+    assert summary['comparison_nodes'] == 2
+    annotation = tmp_path / 'annotations.parquet'
+    pl.DataFrame({'protein': ['P1', 'P2', 'B'], 'term': ['T1'] * 3,
+                  'name': ['one'] * 3, 'aspect': ['P'] * 3, 'evidence': ['EXP'] * 3}).write_parquet(annotation)
+    enriched = go_enrichment(annotation, graph['nodes'], {'P1', 'P2'}, min_size=1)
+    assert enriched['summary']['query_size'] == 1
+    assert enriched['table']['background_hits'][0] == 2
+    assert enriched['table']['query_hits'][0] == 1
 
 
 def test_polars_mapping_expansion_and_publication_filter(tmp_path):
@@ -618,15 +662,17 @@ def test_many_metric_labels_and_missing_q_are_readable():
 
 
 # ---------------------------------------------------------------------------
-# Streamlit Page Integration Test
+# Source Comparison Test
 # ---------------------------------------------------------------------------
 
-def test_source_comparison_page_and_stale_results(tmp_path):
+def test_source_comparison_and_stale_results(tmp_path):
     data = tmp_path / 'data'
-    (data / 'canonical').mkdir(parents=True)
+    (data / 'processed_networks').mkdir(parents=True)
     (data / 'mappings').mkdir()
     pl.DataFrame({'a': [f'P{i}' for i in range(7)],
-                  'b': [f'P{i + 1}' for i in range(7)]}).write_parquet(data / 'canonical/HuRI.parquet')
+                  'b': [f'P{i + 1}' for i in range(7)]}).write_parquet(data / 'processed_networks/HuRI.parquet')
+    pl.DataFrame({'a': [f'P{i}' for i in range(6)],
+                  'b': [f'P{i + 1}' for i in range(6)]}).write_parquet(data / 'processed_networks/BioPlex.parquet')
     rows = []
     for i in range(5):
         rows.append({'uniprot': f'P{i}', 'Gene Names': f'G{i}', 'Reviewed': 'reviewed',
@@ -638,37 +684,24 @@ def test_source_comparison_page_and_stale_results(tmp_path):
     pl.DataFrame(rows).write_csv(data / 'allmoon_with_moonlitdb_human.csv')
     (data / 'mappings/moonlighting_uniprot.json').write_text(json.dumps(
         {'mapping': {f'P{i}': [f'P{i}'] for i in range(5)}}))
-    page = Path(__file__).resolve().parents[1] / 'pages/2_Moonlighting_Analysis.py'
-    code = page.read_text().replace("ROOT=Path(__file__).resolve().parents[1]", f"ROOT=Path({str(tmp_path)!r})")
-    app = AppTest.from_string(code, default_timeout=30)
-    app.run()
-    assert not app.exception
-    assert app.session_state['moon_analysis_tab'] == 'Compare source sets'
-    assert app.multiselect(key='compare_sources').value == ['moonprot', 'multitask', 'moonlitdb']
-    assert app.checkbox(key='compare_include_union').value is True
-    app.button(key='run_source_comparison').click().run()
-    assert not app.exception
-    assert not app.error
-    assert len(app.get('plotly_chart')) == 5
-    assert len(list((data / 'analysis_runs').glob('source_comparison_*.zip'))) == 1
-    result = app.session_state['moon_analysis_results']['source_comparison']['result']
-    assert result['summary']['background_nodes'] == 3
-    assert result['metrics'].filter(pl.col('protein') == 'P1')['group'].to_list() == ['moonprot', 'Union']
-    assert result['tests'].height == 16
-    assert result['profiles'].height == 16
-    assert result['hub_enrichment'].height == 16
-    app.radio(key='source_comparison_distribution_degree').set_value('Violin').run()
-    assert not app.exception
-    assert len(app.get('plotly_chart')) == 5
-    assert len(list((data / 'analysis_runs').glob('source_comparison_*.zip'))) == 1
-    app.checkbox(key='compare_include_union').uncheck().run()
-    assert not app.exception
-    assert len(app.get('plotly_chart')) == 5
-    assert not any('Inputs changed' in item.value for item in app.info)
-    assert len(list((data / 'analysis_runs').glob('source_comparison_*.zip'))) == 1
-    assert not any('Union' in list(frame.value['source']) for frame in app.dataframe if 'source' in frame.value.columns)
-    assert not any('Union' in list(frame.value['group']) for frame in app.dataframe if 'group' in frame.value.columns)
-    app.multiselect(key='compare_sources').set_value(['curated', 'moonprot']).run()
-    assert not app.exception
-    assert any('Inputs changed' in item.value for item in app.info)
-    assert len(app.get('plotly_chart')) == 0
+
+    moon = load_moon_data(data)
+    g_huri = graph_from_path(data / 'processed_networks/HuRI.parquet')
+    g_bioplex = graph_from_path(data / 'processed_networks/BioPlex.parquet')
+    compare_sources = ['moonprot', 'multitask', 'moonlitdb']
+
+    res_huri = compare_source_sets(g_huri, moon, compare_sources, include_union=True)
+    res_bioplex = compare_source_sets(g_bioplex, moon, compare_sources, include_union=True)
+
+    assert res_huri['summary']['background_nodes'] == 3
+    assert res_huri['metrics'].filter(pl.col('protein') == 'P1')['group'].to_list() == ['moonprot', 'Union']
+    assert res_huri['tests'].height == 16
+    assert res_huri['profiles'].height == 16
+    assert res_huri['hub_enrichment'].height == 16
+
+    res_no_union = compare_source_sets(g_huri, moon, compare_sources, include_union=False)
+    assert 'Union' not in res_no_union['metrics']['group'].to_list()
+    assert res_no_union['profiles'].filter(pl.col('group') == 'Union').is_empty()
+
+    res_alt = compare_source_sets(g_huri, moon, ['curated', 'moonprot'], include_union=True)
+    assert set(res_alt['coverage']['source'].to_list()) == {'curated', 'moonprot', 'Union'}

@@ -16,7 +16,7 @@ import cluster_networks as cli
 
 @pytest.fixture
 def graph_path(tmp_path):
-    path = tmp_path / 'canonical' / 'HuRI.parquet'
+    path = tmp_path / 'processed_networks' / 'HuRI.parquet'
     path.parent.mkdir()
     pl.DataFrame({'a': ['P1', 'P2', 'P1', 'P3', 'P4', 'P5', 'P4'],
                   'b': ['P2', 'P3', 'P3', 'P4', 'P5', 'P6', 'P6']}).write_parquet(path)

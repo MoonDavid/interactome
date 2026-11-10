@@ -1,0 +1,13 @@
+{
+  "pagerank": {
+    "converged": true,
+    "iterations": 70,
+    "l1_residual": 9.620003518150079e-11
+  },
+  "comparison": "Two-sided Mann\u2013Whitney U; Benjamini\u2013Hochberg across displayed metrics; background excludes cohort proteins.",
+  "cache_hit": false,
+  "betweenness_mode": "exact (all nodes, cached)",
+  "betweenness_landmarks": 13834,
+  "eigenvector": "Unweighted leading adjacency eigenvector, L2-normalized; disconnected components with tied largest eigenvalues need not have a unique eigenvector.",
+  "cache_path": "C:\\projects\\interactome\\data\\cache\\centralities\\centralities_1fabbc9ec1c6419d_extra1_exact.parquet"
+}

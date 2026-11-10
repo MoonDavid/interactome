@@ -1,44 +1,38 @@
 {
-  "created_utc": "2026-11-09T09:44:18.074851+00:00",
+  "created_utc": "2026-11-10T12:19:28.737587+00:00",
   "policy": "UniProtKB human primary taxon; exclude NOT; collapse numeric isoform suffix; GO ancestor propagation via is_a and part_of; evidence retained",
   "sources": {
     "gaf": {
-      "path": "/home/davide/data/GO/goa_human.gaf",
-      "size": 189589476,
-      "mtime_ns": 1760744080000000000
+      "path": "C:\\projects\\interactome\\data\\GO\\HUMAN-uniprot.gaf.gz",
+      "size": 12109254,
+      "mtime_ns": 1794234165140993200
     },
     "obo": {
-      "path": "/home/davide/data/GO/go-basic.obo",
-      "size": 31417323,
-      "mtime_ns": 1760744306000000000
+      "path": "C:\\projects\\interactome\\data\\GO\\go-basic.obo",
+      "size": 32227785,
+      "mtime_ns": 1794234248139794700
     }
   },
-  "gaf_sha256": "9b532ef65c396aabe4fc19ecbe6b800e0b5677f436338bfd474c1f3f6c262029",
-  "obo_sha256": "4e3ce039a6ad3d45e2752097625330152cc8ae97d35d824c7fcb0735b45d0fc3",
+  "gaf_sha256": "a0afba19dfb1f8fa996bc1bdcd61fd0c9bd4cf0d2bf2509d09ac86993c0e70a2",
+  "obo_sha256": "b08d45b268b8c24ccb2513dbbbc7d4df9f6521c099b413f79eb31e06e0fa3bcc",
   "gaf_headers": [
     "!gaf-version: 2.2",
-    "!generated-by: GOC",
-    "!date-generated: 2025-10-11T19:32",
-    "!generated-by: GOC",
-    "!date-generated: 2025-10-10T19:12",
     "!generated-by: UniProt",
-    "!date-generated: 2025-10-09 10:37",
-    "!go-version: http://purl.obolibrary.org/obo/go/releases/2025-10-05/extensions/go-plus.owl",
-    "!generated-by: PANTHER",
-    "!date-generated: 2025-10-01"
+    "!date-generated: 2026-07-28 19:42",
+    "!go-version: http://purl.obolibrary.org/obo/go/releases/2026-07-26/extensions/go-plus.ofn"
   ],
   "ontology_headers": [
     "format-version: 1.2",
-    "data-version: releases/2025-10-10"
+    "data-version: releases/2026-07-26"
   ],
   "audit": {
-    "source_rows": 972437,
-    "not_rows_excluded": 1489,
-    "nonhuman_or_nonuniprot_rows_excluded": 73691,
+    "source_rows": 910476,
+    "not_rows_excluded": 1497,
+    "nonhuman_or_nonuniprot_rows_excluded": 47765,
     "unknown_or_obsolete_terms_excluded": 0
   },
-  "direct_unique_evidence_rows": 484185,
-  "propagated_protein_term_rows": 1676501,
-  "proteins": 19818,
-  "terms": 21701
+  "direct_unique_evidence_rows": 437530,
+  "propagated_protein_term_rows": 1511426,
+  "proteins": 19775,
+  "terms": 20984
 }

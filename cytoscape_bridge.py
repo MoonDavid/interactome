@@ -14,11 +14,13 @@ import numpy as np
 import polars as pl
 import py4cytoscape as p4c
 import requests
+from networks import SCORE_COLUMNS, matching_nodes
 from scipy.sparse import coo_matrix
 from scipy.sparse.csgraph import connected_components
 from scipy.stats import hypergeom, mannwhitneyu
 
 from moonlighting import (
+    ADVANCED_EDGE_LIMIT,
     CLUSTERING_CATALOG,
     SOURCES,
     bh_adjust,
@@ -108,6 +110,92 @@ NETWORK_ANALYZER_METRICS: list[str] = [
     'NeighborhoodConnectivity', 'TopologicalCoefficient', 'Stress',
     'Radiality', 'AverageShortestPathLength', 'Eccentricity', 'Degree',
 ]
+
+
+def build_topology_network_tables(path: Path, cohort: set[str]) -> dict[str, pl.DataFrame]:
+    """Export a complete canonical network for app metrics, without building a NetworkX graph."""
+    scan = pl.scan_parquet(path)
+    count = scan.select(pl.len()).collect().item()
+    if count > ADVANCED_EDGE_LIMIT:
+        raise ValueError('Cytoscape topology analyses are limited to 500,000 edges; select a threshold version.')
+    score_columns = [c for c in SCORE_COLUMNS.values() if c in scan.collect_schema()]
+    edges = scan.select(pl.col('a').alias('source'), pl.col('b').alias('target'), *score_columns).collect()
+    if not edges.height:
+        raise ValueError('The selected network has no edges.')
+    proteins = pl.concat([edges['source'], edges['target'].rename('source')]).unique().sort()
+    present = sorted(matching_nodes(proteins, cohort))
+    nodes = pl.DataFrame({'protein': proteins}).with_columns(
+        pl.col('protein').alias('name'),
+        pl.col('protein').is_in(present).alias('is_moonlighting'),
+    )
+    return {'nodes': nodes, 'edges': edges}
+
+
+def cytoscape_topology_comparison(
+    node_table: pl.DataFrame,
+    edge_table: pl.DataFrame,
+    reference: dict[str, pl.DataFrame],
+    cohort: set[str],
+    metrics: list[str],
+    set_name: str = 'Moonlighting',
+) -> dict[str, Any]:
+    """Validate the full imported graph and label metric values from the current protein set.
+
+    Never trust old Cytoscape membership flags, missing rows, duplicated identifiers, or
+    metrics computed after changing the source graph. Missing/non-finite values stay null.
+    """
+    expected = reference['nodes'].select('protein').sort('protein')
+    labels = set(expected['protein'].to_list())
+    id_column = next((c for c in ('protein', 'name', 'id', 'shared name')
+                      if c in node_table.columns and node_table.height == len(labels)
+                      and node_table[c].null_count() == 0
+                      and set(node_table[c].cast(pl.String).to_list()) == labels), None)
+    if id_column is None:
+        raise ValueError('Imported nodes must match the full source network exactly using protein, name or id. '
+                         'Send the complete network again; subnetworks and edited node sets cannot use its background.')
+    if node_table[id_column].n_unique() != node_table.height:
+        raise ValueError('Cytoscape node identifiers are duplicated.')
+    if not {'source', 'target'}.issubset(edge_table.columns):
+        raise ValueError('The Cytoscape edge table must contain source and target endpoints.')
+    endpoints = edge_table.select(pl.col('source').cast(pl.String), pl.col('target').cast(pl.String))
+    if 'SUID' in node_table.columns:
+        lookup = node_table.select(pl.col('SUID').cast(pl.String).alias('suid'),
+                                   pl.col(id_column).cast(pl.String).alias('protein'))
+        for endpoint in ('source', 'target'):
+            endpoints = endpoints.join(lookup, left_on=endpoint, right_on='suid', how='left', validate='m:1').with_columns(
+                pl.coalesce('protein', endpoint).alias(endpoint)).drop('protein')
+    if endpoints.select(pl.any_horizontal(pl.all().is_null()).any()).item():
+        raise ValueError('Cytoscape edges have missing endpoints.')
+    if endpoints.filter(pl.col('source') == pl.col('target')).height:
+        raise ValueError('The Cytoscape graph has self-loops; send the source network again.')
+
+    def pairs(frame):
+        return frame.select(pl.min_horizontal('source', 'target').alias('a'),
+                            pl.max_horizontal('source', 'target').alias('b'))
+
+    imported = pairs(endpoints)
+    original = pairs(reference['edges'])
+    if (imported.height != original.height or imported.unique().height != imported.height
+            or imported.join(original, on=['a', 'b'], how='anti').height):
+        raise ValueError('The Cytoscape edges differ from the source network. Send it again before computing metrics.')
+    metrics = list(dict.fromkeys(metrics))
+    reserved = {'SUID', 'id', 'name', 'shared name', 'protein', 'is_moonlighting', 'selected', 'group', 'network'}
+    if not metrics or any(m not in node_table.columns or m in reserved for m in metrics):
+        raise ValueError('Choose available numeric app metric columns, excluding identifiers and membership flags.')
+    values = node_table.select(
+        pl.col(id_column).cast(pl.String).alias('protein'),
+        *[pl.when(pl.col(m).cast(pl.Float64, strict=False).is_finite())
+          .then(pl.col(m).cast(pl.Float64, strict=False)).otherwise(None).alias(m) for m in metrics],
+    )
+    present = sorted(matching_nodes(expected['protein'], cohort))
+    frame = expected.join(values, on='protein', how='left', validate='1:1', maintain_order='left').with_columns(
+        pl.col('protein').is_in(present).alias('is_moonlighting'),
+        pl.when(pl.col('protein').is_in(present)).then(pl.lit(set_name)).otherwise(pl.lit('Background')).alias('group'),
+    )
+    return {'metrics': frame, 'node_table': node_table, 'edge_table': edge_table,
+            'available_metrics': metrics,
+            'notes': {'population': 'Complete selected canonical network; current set versus its unlabelled complement.',
+                      'graph_validation': 'Exact node labels and undirected edge pairs match the exported source.'}}
 
 ROLE_COLORS: dict[str, str] = {
     'Moonlighting': '#0072B2',
@@ -241,7 +329,8 @@ def build_subnetwork_tables(
     degrees = graph['degree'].astype(np.int64)
     n_total = len(nodes_arr)
 
-    cohort_in_net = sorted(p for p in cohort if p in node_to_idx)
+    cohort = matching_nodes(graph['nodes'], cohort)
+    cohort_in_net = sorted(cohort)
     if not cohort_in_net:
         raise ValueError('No mapped cohort proteins are present in the selected network.')
 
@@ -572,7 +661,8 @@ def build_multiplex_subnetwork_tables(
     max_nodes: int = 120,
 ) -> dict[str, Any]:
     """Build a cross-network multiplex subnetwork comparing two canonical networks (e.g. HuRI vs BioPlex)."""
-    common_cohort = sorted((set(graph_a['nodes']) & set(graph_b['nodes'])) & cohort)
+    cohort = matching_nodes(set(graph_a['nodes']) | set(graph_b['nodes']), cohort)
+    common_cohort = sorted(set(graph_a['nodes']) & set(graph_b['nodes']) & cohort)
     if not common_cohort:
         raise ValueError(f'No selected cohort proteins are shared between {name_a} and {name_b}.')
 
@@ -874,7 +964,7 @@ def compute_cluster_enrichment_and_bridging(
     if 'is_moonlighting' in df.columns:
         df = df.with_columns(pl.col('is_moonlighting').cast(pl.Boolean).fill_null(False).alias('_is_moon'))
     elif cohort is not None:
-        df = df.with_columns(pl.col('_node_id').is_in(sorted(cohort)).alias('_is_moon'))
+        df = df.with_columns(pl.col('_node_id').is_in(sorted(matching_nodes(df['_node_id'], cohort))).alias('_is_moon'))
     else:
         df = df.with_columns(pl.lit(False).alias('_is_moon'))
 
@@ -1104,7 +1194,7 @@ def _mannwhitney_summary_polars(df: pl.DataFrame, metrics: list[str], cohort: se
     if 'is_moonlighting' in df.columns:
         mask = df['is_moonlighting'].cast(pl.Boolean).fill_null(False).to_numpy()
     elif cohort is not None:
-        mask = df[id_col].cast(pl.String).is_in(sorted(cohort)).to_numpy()
+        mask = df[id_col].cast(pl.String).is_in(sorted(matching_nodes(df[id_col], cohort))).to_numpy()
     else:
         return pl.DataFrame()
 
@@ -1150,7 +1240,8 @@ def run_network_analyzer(
 ) -> dict[str, Any]:
     """Run Cytoscape NetworkAnalyzer via py4cytoscape and return Polars node/edge metrics and statistical tests."""
     suid = p4c.get_network_suid(network, base_url=base_url)
-    cmd = f'analyzer analyze network="SUID:{suid}" directed=false'
+    p4c.set_current_network(network=suid, base_url=base_url)
+    cmd = 'analyzer analyze directed=false'
     resp = p4c.commands_post(cmd, base_url=base_url)
     node_df = fetch_cytoscape_table_polars(network=suid, table='node', base_url=base_url)
     edge_df = fetch_cytoscape_table_polars(network=suid, table='edge', base_url=base_url)
@@ -1229,13 +1320,15 @@ def render_cytoscapejs_html(
     layout_name: str = 'cose',
     highlight_bridges_only: bool = False,
     height: int = 620,
+    show_bridge_controls: bool = True,
 ) -> str:
     """Build a self-contained interactive Cytoscape.js viewer HTML widget for Streamlit."""
     cyjs = to_cytoscapejs_json(nodes_df, edges_df)
-    elements_json = json.dumps(cyjs['elements'])
+    elements_json = json.dumps(cyjs['elements']).replace('<', r'\u003c')
     safe_layout = html.escape(layout_name)
     safe_color_by = html.escape(color_by)
     bridge_flag = 'true' if highlight_bridges_only else 'false'
+    bridge_visibility = '' if show_bridge_controls else 'hidden'
 
     return f"""<!DOCTYPE html>
 <html>
@@ -1279,10 +1372,10 @@ def render_cytoscapejs_html(
   <span><b>Filter:</b>
     <input type="text" id="searchInput" placeholder="Gene / UniProt ID..."/>
   </span>
-  <label><input type="checkbox" id="bridgeToggle" {"checked" if bridge_flag == "true" else ""}/> Highlight bridge edges (&kappa;<sub>F</sub> &lt; 0 / 0 triangles)</label>
+  <label {bridge_visibility}><input type="checkbox" id="bridgeToggle" {"checked" if bridge_flag == "true" else ""}/> Highlight bridge edges (&kappa;<sub>F</sub> &lt; 0 / 0 triangles)</label>
   <button id="fitBtn">Fit View</button>
   <button id="pngBtn">Export PNG</button>
-  <span style="margin-left:auto;">
+  <span {bridge_visibility} style="margin-left:auto;">
     <span class="legend-dot" style="background:#0072B2;"></span>Moonlighting
     <span class="legend-dot" style="background:#D55E00;margin-left:8px;"></span>Linker
     <span class="legend-dot" style="background:#7F8C8D;margin-left:8px;"></span>Background
@@ -1292,13 +1385,18 @@ def render_cytoscapejs_html(
   <div id="cy"></div>
   <div id="inspector">
     <h4>Node / Edge Inspector</h4>
-    <div id="details">Click any node or interaction edge to inspect its topological &amp; moonlighting attributes.</div>
+    <div id="details">Click any node or interaction edge to inspect its attributes.</div>
   </div>
 </div>
 <script>
 const rawElements = {elements_json};
 const colorPalette = ['#0072B2', '#D55E00', '#009E73', '#CC79A7', '#E69F00', '#56B4E9', '#8064A2', '#2E8B57', '#CD5C5C', '#4682B4'];
 const colorByField = "{safe_color_by}";
+
+if (typeof cytoscape !== 'function') {{
+  document.getElementById('cy').textContent = 'Cytoscape.js could not load. Try the Apache ECharts viewer.';
+  throw new Error('Cytoscape.js could not load');
+}}
 
 function nodeColor(ele) {{
   const role = ele.data('node_role');
@@ -1339,7 +1437,7 @@ const cy = cytoscape({{
     {{
       selector: 'edge',
       style: {{
-        'width': 'mapData(score, 0, 1, 1.5, 3.5)',
+        'width': {'"mapData(score, 0, 1, 1.5, 3.5)"' if show_bridge_controls else '1.5'},
         'line-color': function(ele) {{
           if (ele.data('is_bridge_edge')) return '#C0392B';
           const c = ele.data('edge_class');
@@ -1427,16 +1525,19 @@ document.getElementById('pngBtn').addEventListener('click', function() {{
   a.click();
 }});
 
-cy.on('tap', 'node', function(evt) {{
+cy.on('tap', 'node, edge', function(evt) {{
   const d = evt.target.data();
-  const keys = Object.keys(d).filter(k => d[k] !== null && d[k] !== '');
-  document.getElementById('details').innerHTML = keys.map(k => `<div class="kv"><b>${{k}}:</b> ${{d[k]}}</div>`).join('');
-}});
-
-cy.on('tap', 'edge', function(evt) {{
-  const d = evt.target.data();
-  const keys = Object.keys(d).filter(k => d[k] !== null && d[k] !== '');
-  document.getElementById('details').innerHTML = keys.map(k => `<div class="kv"><b>${{k}}:</b> ${{d[k]}}</div>`).join('');
+  const details = document.getElementById('details');
+  details.replaceChildren();
+  for (const [key, value] of Object.entries(d)) {{
+    if (value === null || value === '') continue;
+    const row = document.createElement('div');
+    row.className = 'kv';
+    const label = document.createElement('b');
+    label.textContent = `${{key}}: `;
+    row.append(label, String(value));
+    details.append(row);
+  }}
 }});
 </script>
 </body>

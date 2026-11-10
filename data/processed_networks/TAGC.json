@@ -1,0 +1,41 @@
+{
+  "name": "TAGC",
+  "created_at": "2026-11-10T08:04:40.971417+00:00",
+  "normalization_policy": "UniProt primary accessions; remove terminal numeric isoform suffix; expand all mapped accessions; undirected; remove source loops before mapping and canonical loops after mapping; duplicate native score=max; BioPlex invalid scores=null with edges retained",
+  "mapping_sha256": "5be46f166be466516e56ed0988079afd97c0421b074751192c5eebd63e453c6b",
+  "source": {
+    "path": "data\\raw_networks\\TAGC_binaryInteractome2025.csv",
+    "size": 1631019,
+    "mtime_ns": 1794296428244551100,
+    "sha256": "19c81cacbdc643e3f7703ad1d4fc502545c7762d9fd48665fc43f7343654476e"
+  },
+  "output": {
+    "path": "data\\processed_networks\\TAGC.parquet",
+    "size": 314078,
+    "mtime_ns": 1794297880969417800,
+    "sha256": "832ff3b57b5e9e35bf5fdfae4e5c119c566f43282e4752e8a78730f60a00d0ed"
+  },
+  "input_rows": 108730,
+  "expanded_mapped_rows": 108651,
+  "unmapped_ids": [
+    "O43930",
+    "Q3SXR2",
+    "Q5SWW7"
+  ],
+  "unmapped_edge_rows": 81,
+  "one_to_many_ids": {
+    "P01562": [
+      "A0A087WWS6",
+      "P0DY56"
+    ]
+  },
+  "one_to_many_id_count": 1,
+  "source_self_loop_rows": 0,
+  "self_loop_rows": 0,
+  "invalid_score_rows": 0,
+  "score_column": null,
+  "source_score_column": null,
+  "invalid_score_policy": null,
+  "edges": 108651,
+  "nodes": 14236
+}

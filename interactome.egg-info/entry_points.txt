@@ -1,2 +1,3 @@
 [console_scripts]
+interactome-annotate = annotate_clusters:main
 interactome-cluster = cluster_networks:main
