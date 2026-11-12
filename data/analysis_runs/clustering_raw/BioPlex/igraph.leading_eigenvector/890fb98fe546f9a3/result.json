@@ -1,0 +1,452 @@
+{
+  "method": "igraph.leading_eigenvector",
+  "key": "890fb98fe546f9a3485e1ed946d38b922b67f7e560f1dff7e4bf97aab15ead6d",
+  "status": "success",
+  "nodes": 13834,
+  "edges": 128104,
+  "communities": 19,
+  "covered_nodes": 13834,
+  "unassigned_nodes": 0,
+  "overlapping_nodes": 0,
+  "details": {},
+  "elapsed_seconds": 1.11,
+  "peak_rss_bytes": 328519680,
+  "job": {
+    "network": "BioPlex",
+    "method": "igraph.leading_eigenvector",
+    "adapter": {
+      "id": "igraph.leading_eigenvector",
+      "backend": "igraph",
+      "name": "leading_eigenvector",
+      "family": "hierarchical",
+      "costly": true,
+      "dense": false
+    },
+    "provenance": {
+      "input": {
+        "path": "/home/davide/projects/interactome/data/processed_networks/BioPlex.parquet",
+        "size": 1291027,
+        "mtime_ns": 1794320412181407838,
+        "sha256": "f003d0b74df34903dd020a6137e97c4f2e6440d72f7faa0742f18b2835c10ded"
+      },
+      "audit": {
+        "name": "BioPlex",
+        "created_at": "2026-11-10T09:56:34.758373+00:00",
+        "normalization_policy": "UniProt primary accessions; remove terminal numeric isoform suffix; one node per sorted UniProt label set (pipe-separated); merge identical label sets; deduplicate undirected source pairs before mapping; remove source loops before mapping and canonical loops after mapping; duplicate native score=max; BioPlex invalid scores=null with edges retained",
+        "mapping_sha256": "092061960e7ac2a22f788c681cb19fd92ff02dd9510e4d745c97b675f18d35cd",
+        "source": {
+          "path": "data\\processed_networks\\BioPlex_HEK293T_merged_dedup.tsv",
+          "size": 14821869,
+          "mtime_ns": 1794226647840952300,
+          "sha256": "50b9f845ed02d61ee8e6cabd28be04ec224df959c6e2ba589332dedd40c3b0ca"
+        },
+        "output": {
+          "path": "data\\processed_networks\\BioPlex.parquet",
+          "size": 1291027,
+          "mtime_ns": 1794304594700648400,
+          "sha256": "f003d0b74df34903dd020a6137e97c4f2e6440d72f7faa0742f18b2835c10ded"
+        },
+        "input_rows": 141310,
+        "expanded_mapped_rows": 136677,
+        "node_identity": "sorted UniProt label set; multiple labels remain one node",
+        "filtering_stages": [
+          {
+            "stage": "Original BioPlex releases combined",
+            "nodes": 15208,
+            "edges": 198459,
+            "nodes_removed": 0,
+            "edges_removed": 0
+          },
+          {
+            "stage": "Release merge: remove missing endpoint IDs",
+            "nodes": 15208,
+            "edges": 198459,
+            "nodes_removed": 0,
+            "edges_removed": 0
+          },
+          {
+            "stage": "Release merge: remove source self-loops",
+            "nodes": 15208,
+            "edges": 198459,
+            "nodes_removed": 0,
+            "edges_removed": 0
+          },
+          {
+            "stage": "Release merge: deduplicate undirected pairs across releases",
+            "nodes": 15208,
+            "edges": 141310,
+            "nodes_removed": 0,
+            "edges_removed": 57149
+          },
+          {
+            "stage": "Source interaction rows",
+            "nodes": 15208,
+            "edges": 141310,
+            "nodes_removed": 0,
+            "edges_removed": 0
+          },
+          {
+            "stage": "Remove missing endpoint IDs",
+            "nodes": 15208,
+            "edges": 141310,
+            "nodes_removed": 0,
+            "edges_removed": 0
+          },
+          {
+            "stage": "Remove source self-loops",
+            "nodes": 15208,
+            "edges": 141310,
+            "nodes_removed": 0,
+            "edges_removed": 0
+          },
+          {
+            "stage": "Apply source isoform policy",
+            "nodes": 15208,
+            "edges": 141310,
+            "nodes_removed": 0,
+            "edges_removed": 0
+          },
+          {
+            "stage": "Deduplicate before UniProt mapping",
+            "nodes": 15208,
+            "edges": 141310,
+            "nodes_removed": 0,
+            "edges_removed": 0
+          },
+          {
+            "stage": "Remove edges with unmapped endpoints",
+            "nodes": 15040,
+            "edges": 136677,
+            "nodes_removed": 168,
+            "edges_removed": 4633
+          },
+          {
+            "stage": "Relabel nodes / merge identical UniProt label sets",
+            "nodes": 13834,
+            "edges": 136677,
+            "nodes_removed": 1206,
+            "edges_removed": 0
+          },
+          {
+            "stage": "Remove self-loops after mapping",
+            "nodes": 13834,
+            "edges": 136671,
+            "nodes_removed": 0,
+            "edges_removed": 6
+          },
+          {
+            "stage": "Deduplicate after UniProt mapping",
+            "nodes": 13834,
+            "edges": 128104,
+            "nodes_removed": 0,
+            "edges_removed": 8567
+          },
+          {
+            "stage": "Apply native score validity policy",
+            "nodes": 13834,
+            "edges": 128104,
+            "nodes_removed": 0,
+            "edges_removed": 0
+          }
+        ],
+        "node_annotations": {
+          "path": "data\\processed_networks\\node_annotations\\BioPlex.parquet",
+          "size": 134566,
+          "mtime_ns": 1794304594757357700,
+          "sha256": "0f7f58f3bfe03ab839746dbc740764244fb4ce3681f7bda39b5fb134a72d1441"
+        },
+        "original_release_sources": [
+          {
+            "path": "data\\raw_networks\\bioplex\\BioPlex_HEK293T_v1.0.tsv",
+            "size": 2329777,
+            "mtime_ns": 1793977768633467300,
+            "sha256": "06629583a2b03c3fc5ffcf4bc05b802354d3ceb28ff4cd4acecaa6fbd9214ca0"
+          },
+          {
+            "path": "data\\raw_networks\\bioplex\\BioPlex_HEK293T_v2.0.tsv",
+            "size": 5485753,
+            "mtime_ns": 1793977773953040100,
+            "sha256": "8d0c4cbbcd4efc4bf994aac080ce4a8468bc076c298d13bd4e0269958129c2fd"
+          },
+          {
+            "path": "data\\raw_networks\\bioplex\\BioPlex_HEK293T_v3.0.tsv",
+            "size": 12866060,
+            "mtime_ns": 1793977780244333600,
+            "sha256": "5a98def087fc77c7bf07aac79e2553fd64ea1a27a7d0c4617870476f3f120833"
+          }
+        ],
+        "original_release_stages_available": true,
+        "unmapped_ids": [
+          "A1A4T8",
+          "A2A457",
+          "A6NCE0",
+          "A6NE09",
+          "A6NEC0",
+          "A6NF79",
+          "A6NFD7",
+          "A6NGZ7",
+          "A6NK07",
+          "A6NM15",
+          "A8MSQ1",
+          "A8MT71",
+          "A8MUN9",
+          "A8MUS2",
+          "A8MWH4",
+          "A8MWQ6",
+          "A8MWS1",
+          "B0S7Y6",
+          "B0UZ92",
+          "B0UZR7",
+          "B0V056",
+          "B1AN89",
+          "B5MC01",
+          "B5ME26",
+          "B9ZVM9",
+          "C4AM82",
+          "C9J1K8",
+          "C9J2Z3",
+          "C9J4T5",
+          "C9J8V2",
+          "C9JBZ0",
+          "C9JG04",
+          "C9JHT4",
+          "C9JK41",
+          "C9JQR9",
+          "C9JTA0",
+          "C9JWH8",
+          "D3YTC4",
+          "D6RGH0",
+          "E2QRJ2",
+          "E5RJK6",
+          "E7EMM8",
+          "E7EN08",
+          "E7EP37",
+          "E7EPZ1",
+          "E7EQC9",
+          "E7EQZ3",
+          "E7EQZ9",
+          "E7ERF5",
+          "E7ESF1",
+          "E7ET02",
+          "E7ET31",
+          "E7ETV7",
+          "E7EU74",
+          "E7EVN5",
+          "E7EW20",
+          "E9PAU2",
+          "E9PBT0",
+          "E9PCH2",
+          "E9PD21",
+          "E9PD40",
+          "E9PDL1",
+          "E9PF65",
+          "E9PF96",
+          "E9PG51",
+          "E9PG96",
+          "E9PH15",
+          "E9PHH6",
+          "E9PHM4",
+          "F5GWF2",
+          "F5GZ33",
+          "F5GZ62",
+          "F5GZM1",
+          "F5H0B0",
+          "F5H0Y5",
+          "F5H1M0",
+          "F5H1R7",
+          "F5H1R9",
+          "F5H3A6",
+          "F5H460",
+          "F5H559",
+          "F5H593",
+          "F5H5G3",
+          "F5H5M9",
+          "F5H5R7",
+          "F5H792",
+          "F5H856",
+          "F5H8C6",
+          "F6TXG5",
+          "O43930",
+          "O60361",
+          "O75505",
+          "O95397",
+          "P0C5W0",
+          "Q12799",
+          "Q13067",
+          "Q2T9F4",
+          "Q3LFD5",
+          "Q3SXR2",
+          "Q494X1",
+          "Q4TT42",
+          "Q5SP12",
+          "Q5SWW7",
+          "Q5T1B1",
+          "Q5T6T3",
+          "Q5TGW6",
+          "Q6GMV1",
+          "Q6RUI8",
+          "Q7Z4U5-3",
+          "Q8IVM7",
+          "Q8IVU5",
+          "Q8N734",
+          "Q8WV35",
+          "Q96S07",
+          "Q99867",
+          "Q9NY84-2",
+          "Q9Y5M6",
+          "UNKNOWN"
+        ],
+        "unmapped_edge_rows": 4633,
+        "one_to_many_ids": {
+          "P0CG05": [
+            "P0DOY2",
+            "P0DOY3"
+          ],
+          "P01243": [
+            "P0DML2",
+            "P0DML3"
+          ],
+          "P02735": [
+            "P0DJI8",
+            "P0DJI9"
+          ],
+          "P62158": [
+            "P0DP23",
+            "P0DP24",
+            "P0DP25"
+          ],
+          "Q13748": [
+            "P0DPH7",
+            "P0DPH8"
+          ],
+          "P50224": [
+            "P0DMM9",
+            "P0DMN0"
+          ],
+          "Q9Y2S0": [
+            "P0DPB5",
+            "P0DPB6"
+          ],
+          "O14582": [
+            "P0DI81",
+            "P0DI82"
+          ],
+          "P33765": [
+            "P0DMS8",
+            "P0DMS9"
+          ],
+          "Q5VWM5": [
+            "P0DUQ1",
+            "P0DUQ2"
+          ],
+          "Q68DN6": [
+            "P0DJD0",
+            "P0DJD1"
+          ],
+          "P33765-2": [
+            "P0DMS8",
+            "P0DMS9"
+          ],
+          "P01562": [
+            "A0A087WWS6",
+            "P0DY56"
+          ],
+          "Q5VU13": [
+            "P0DPA2",
+            "P0DPA3"
+          ],
+          "Q9Y4X1-2": [
+            "P0DTE4",
+            "P0DTE5"
+          ],
+          "Q6NSH3": [
+            "P0DMU8",
+            "P0DMU9"
+          ],
+          "Q08AF8": [
+            "P0DX52",
+            "P0DX53"
+          ],
+          "P04745": [
+            "P0DTE7",
+            "P0DTE8",
+            "P0DUB6"
+          ],
+          "A2BFH1": [
+            "A0A0B4J2A2",
+            "P0DN37"
+          ],
+          "P0CG06": [
+            "P0DOY2",
+            "P0DOY3"
+          ],
+          "P08107": [
+            "P0DMV8",
+            "P0DMV9"
+          ],
+          "P00790": [
+            "P0DJD7",
+            "P0DJD8",
+            "P0DJD9"
+          ]
+        },
+        "one_to_many_id_count": 22,
+        "source_self_loop_rows": 0,
+        "self_loop_rows": 6,
+        "invalid_score_rows": 0,
+        "score_column": "pInt",
+        "source_score_column": "p(Interaction)",
+        "invalid_score_policy": "retain base edges with null score; exclude from scored versions",
+        "edges": 128104,
+        "nodes": 13834
+      }
+    },
+    "parameters": {
+      "seed": 42,
+      "resolution": 1.0,
+      "clusters": 16,
+      "dimensions": 16,
+      "clique_k": 3,
+      "inflation": 2.0,
+      "membership_cutoff": 0.2,
+      "costly_node_limit": 100000,
+      "dense_node_limit": 100000,
+      "threads": 16
+    },
+    "environment": {
+      "python": "3.13.13 (main, Apr 14 2026, 14:28:56) [Clang 22.1.3 ]",
+      "platform": "linux",
+      "polars": "2.1.0",
+      "numpy": "1.26.4",
+      "scipy": "1.17.1",
+      "networkx": "3.7",
+      "typer": "0.28.0",
+      "rich": "15.0.0",
+      "igraph": "1.0.0",
+      "leidenalg": "0.12.0",
+      "scikit-network": "0.33.5",
+      "scikit-learn": "1.9.1",
+      "cdlib": "0.4.1",
+      "graspologic": "3.4.4",
+      "karateclub": null,
+      "networkit": "11.3",
+      "cugraph-cu12": null,
+      "cudf-cu12": null,
+      "infomap": "2.16.0",
+      "markov-clustering": "0.0.6.dev0",
+      "hdbscan": "0.8.44"
+    },
+    "code_sha256": "613ac65dc87eb166d20519aa513187969e444cef03fcce1954b8e54b4a8d830f",
+    "schema_version": 1,
+    "semantics": "undirected binary topology; scores not used as weights",
+    "key": "890fb98fe546f9a3485e1ed946d38b922b67f7e560f1dff7e4bf97aab15ead6d",
+    "path": "/home/davide/projects/interactome/data/processed_networks/BioPlex.parquet",
+    "target": "/home/davide/projects/interactome/data/analysis_runs/clustering_raw/BioPlex/igraph.leading_eigenvector/890fb98fe546f9a3",
+    "worker_python": "/home/davide/projects/interactome/.venv-clustering/bin/python"
+  },
+  "cpu_seconds": 2.82,
+  "peak_cpu_percent": 281.7,
+  "peak_threads": 95,
+  "peak_gpu_sm_percent": null,
+  "peak_gpu_memory_mib": null
+}

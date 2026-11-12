@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/davide/projects/interactome/cluster_networks.py", line 489, in _worker
+    communities, soft, extra = execute(method, graph, p)
+                               ~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/davide/projects/interactome/cluster_networks.py", line 320, in execute
+    result = getattr(ig_graph(graph), f'community_{name}')(**kwargs)
+  File "/home/davide/projects/interactome/.venv-clustering/lib/python3.13/site-packages/igraph/community.py", line 98, in _community_leading_eigenvector
+    membership, _, q = GraphBase.community_leading_eigenvector(graph, clusters, **kwds)
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+igraph._igraph.InternalError: Error at src/community/leading_eigenvector.c:567: No eigenvalues to sufficient accuracy. -- ARPACK error

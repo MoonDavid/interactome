@@ -1,0 +1,43 @@
+/home/davide/projects/interactome/.venv-clustering/lib/python3.13/site-packages/cdlib/classes/node_clustering.py:158: SyntaxWarning: invalid escape sequence '\{'
+  .. math:: f(S) = \\frac{|\{u: u \\in S,| \{(u,v): v \\in S\}| > d_m\}| }{n_S}
+/home/davide/projects/interactome/.venv-clustering/lib/python3.13/site-packages/cdlib/classes/node_clustering.py:275: SyntaxWarning: invalid escape sequence '\{'
+  .. math:: max_{u \\in S} \\frac{|\{(u,v)\\in E: v \\not\\in S\}|}{d(u)}
+/home/davide/projects/interactome/.venv-clustering/lib/python3.13/site-packages/cdlib/classes/node_clustering.py:299: SyntaxWarning: invalid escape sequence '\{'
+  .. math:: \\frac{1}{n_S} \\sum_{u \\in S} \\frac{|\{(u,v)\\in E: v \\not\\in S\}|}{d(u)}
+/home/davide/projects/interactome/.venv-clustering/lib/python3.13/site-packages/cdlib/classes/node_clustering.py:322: SyntaxWarning: invalid escape sequence '\{'
+  .. math:: f(S) = \\frac{| \{ u:u \in S,| \{(u,v) \in E: v \in S \}| < d(u)/2 \}|}{n_S}
+/home/davide/projects/interactome/.venv-clustering/lib/python3.13/site-packages/cdlib/classes/node_clustering.py:346: SyntaxWarning: invalid escape sequence '\{'
+  .. math:: f(S) = \\frac{ | \{ u: u \in S,\{(v,w):v, w \in S,(u,v) \in E,(u,w) \in E,(v,w) \in E \} \\not = \\emptyset \} |}{n_S}
+/home/davide/projects/interactome/.venv-clustering/lib/python3.13/site-packages/cdlib/classes/node_clustering.py:689: SyntaxWarning: invalid escape sequence '\s'
+  .. math:: avg_embd(c) = \\frac{1}{|C|} \sum_{i \in C} \\frac{k_n^C}{k_n}
+/home/davide/projects/interactome/.venv-clustering/lib/python3.13/site-packages/cdlib/classes/node_clustering.py:982: SyntaxWarning: invalid escape sequence '\S'
+  $$ S_G(A,B) = \\frac{1}{2} \Sum_{i=1}^{r}\Sum_{j=1}^{s} min(\\frac{n^a(x^a_i)}{N^a}, \\frac{n^b_j(x^b_j)}{N^b}) \delta(x_i^a,x_j^b) $$
+/home/davide/projects/interactome/.venv-clustering/lib/python3.13/site-packages/cdlib/classes/node_clustering.py:1124: SyntaxWarning: invalid escape sequence '\s'
+  .. math:: FM = \\frac{N11}{ \sqrt{ (N11 + N10) * (N11 + N01) }}
+/home/davide/projects/interactome/.venv-clustering/lib/python3.13/site-packages/cdlib/evaluation/fitness.py:250: SyntaxWarning: invalid escape sequence '\s'
+  .. math:: avg_embd(c) = \\frac{1}{|C|} \sum_{i \in C} \\frac{k_n^C}{k_n}
+/home/davide/projects/interactome/.venv-clustering/lib/python3.13/site-packages/cdlib/evaluation/fitness.py:434: SyntaxWarning: invalid escape sequence '\{'
+  .. math:: f(S) = \\frac{|\{u: u \\in S,| \{(u,v): v \\in S\}| > d_m\}| }{n_S}
+/home/davide/projects/interactome/.venv-clustering/lib/python3.13/site-packages/cdlib/evaluation/fitness.py:667: SyntaxWarning: invalid escape sequence '\{'
+  .. math:: max_{u \\in S} \\frac{|\{(u,v)\\in E: v \\not\\in S\}|}{d(u)}
+/home/davide/projects/interactome/.venv-clustering/lib/python3.13/site-packages/cdlib/evaluation/fitness.py:705: SyntaxWarning: invalid escape sequence '\{'
+  .. math:: \\frac{1}{n_S} \\sum_{u \\in S} \\frac{|\{(u,v)\\in E: v \\not\\in S\}|}{d(u)}
+/home/davide/projects/interactome/.venv-clustering/lib/python3.13/site-packages/cdlib/evaluation/fitness.py:743: SyntaxWarning: invalid escape sequence '\{'
+  .. math:: f(S) = \\frac{| \{ u:u \in S,| \{(u,v) \in E: v \in S \}| < d(u)/2 \}|}{n_S}
+/home/davide/projects/interactome/.venv-clustering/lib/python3.13/site-packages/cdlib/evaluation/fitness.py:789: SyntaxWarning: invalid escape sequence '\{'
+  .. math:: f(S) = \\frac{ | \{ u: u \in S,\{(v,w):v, w \in S,(u,v) \in E,(u,w) \in E,(v,w) \in E \} \\not = \\emptyset \} |}{n_S}
+/home/davide/projects/interactome/.venv-clustering/lib/python3.13/site-packages/cdlib/evaluation/fitness.py:964: SyntaxWarning: invalid escape sequence '\l'
+  .. math:: Q(S) = \\sum_{C \\in S} \\frac{1}{n_C} ( \\sum_{i \\in C} 2 * \lambda * k^{int}_{iC} - \\sum_{i \\in C} 2 * (1 - \lambda) * k^{out}_{iC})
+/home/davide/projects/interactome/.venv-clustering/lib/python3.13/site-packages/cdlib/evaluation/comparison.py:507: SyntaxWarning: invalid escape sequence '\S'
+  $$ S_G(A,B) = \\frac{1}{2} \Sum_{i=1}^{r}\Sum_{j=1}^{s} min(\\frac{n^a(x^a_i)}{N^a}, \\frac{n^b_j(x^b_j)}{N^b}) \delta(x_i^a,x_j^b) $$
+/home/davide/projects/interactome/.venv-clustering/lib/python3.13/site-packages/cdlib/evaluation/comparison.py:697: SyntaxWarning: invalid escape sequence '\s'
+  .. math:: FM = \\frac{N11}{ \sqrt{ (N11 + N10) * (N11 + N01) }}
+/home/davide/projects/interactome/.venv-clustering/lib/python3.13/site-packages/cdlib/algorithms/crisp_partition.py:677: SyntaxWarning: invalid escape sequence '\m'
+  .. math:: Q = \\sum_{ij} \\left(A_{ij} - \\gamma \\frac{k_i^\mathrm{out} k_j^\mathrm{in}}{m} \\right)\\delta(\\sigma_i, \\sigma_j),
+/home/davide/projects/interactome/.venv-clustering/lib/python3.13/site-packages/cdlib/algorithms/internal/SiblinarityAntichain.py:69: SyntaxWarning: invalid escape sequence '\s'
+  Q = \sum_{u \in partition1} \sum_{v \in partition2}
+/home/davide/projects/interactome/.venv-clustering/lib/python3.13/site-packages/cdlib/algorithms/internal/SiblinarityAntichain.py:125: SyntaxWarning: invalid escape sequence '\s'
+  Q = \sum_{u \in partition1} \sum_{v \in partition2}
+Note: to be able to use all crisp methods, you need to install some additional packages:  {'bayanpy', 'graph_tool', 'wurlitzer'}
+Note: to be able to use all crisp methods, you need to install some additional packages:  {'hidef', 'pyclustering', 'ASLPAw', 'torch'}
+Note: to be able to use all crisp methods, you need to install some additional packages:  {'wurlitzer'}

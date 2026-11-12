@@ -1,0 +1,4 @@
+/home/davide/projects/interactome/.venv-clustering/lib/python3.13/site-packages/sklearn/manifold/_spectral_embedding.py:325: UserWarning: Graph is not fully connected, spectral embedding may not work as expected.
+  warnings.warn(
+/home/davide/projects/interactome/.venv-clustering/lib/python3.13/site-packages/sklearn/cluster/_optics.py:1086: RuntimeWarning: divide by zero encountered in divide
+  ratio = reachability_plot[:-1] / reachability_plot[1:]

@@ -1,0 +1,275 @@
+Using CPython 3.13.13
+Removed virtual environment at: .venv-clustering
+Creating virtual environment at: .venv-clustering
+   Building numpy==1.26.4
+Downloading kiwisolver (1.4MiB)
+Downloading fonttools (5.2MiB)
+Downloading rapidfuzz (3.0MiB)
+Downloading llvmlite (56.9MiB)
+Downloading scikit-learn (8.7MiB)
+Downloading matplotlib (9.4MiB)
+Downloading chardet (1.6MiB)
+Downloading pillow (6.8MiB)
+Downloading numba (3.7MiB)
+Downloading pydantic-core (2.2MiB)
+Downloading pyarrow (47.8MiB)
+Downloading pandas (11.7MiB)
+Downloading scikit-network (7.6MiB)
+Downloading hdbscan (5.6MiB)
+Downloading statsmodels (9.8MiB)
+Downloading networkit (11.6MiB)
+Downloading pot (31.4MiB)
+Downloading infomap (21.1MiB)
+Downloading gensim (26.5MiB)
+ Downloaded kiwisolver
+ Downloaded chardet
+ Downloaded pydantic-core
+ Downloaded rapidfuzz
+ Downloaded numba
+ Downloaded fonttools
+ Downloaded pillow
+ Downloaded hdbscan
+ Downloaded scikit-learn
+ Downloaded matplotlib
+ Downloaded scikit-network
+ Downloaded statsmodels
+ Downloaded pandas
+ Downloaded networkit
+ Downloaded infomap
+ Downloaded gensim
+ Downloaded pyarrow
+ Downloaded llvmlite
+ Downloaded pot
+      Built numpy==1.26.4
+Installed 131 packages in 2.25s
+╭───────────────────────── Interactome clustering lab ─────────────────────────╮
+│ 205 jobs | 5 networks | 41 methods                                           │
+│ Results: /home/davide/projects/interactome/data/analysis_runs/clustering_raw │
+│ Unweighted topology | missing backends and guarded jobs are reported         │
+│ explicitly                                                                   │
+╰──────────────────────────────────────────────────────────────────────────────╯
+SUCCESS HuRI / cugraph.louvain | 1.6s | peak RAM 1,065.5 MiB
+SUCCESS HuRI / cugraph.leiden | 1.8s | peak RAM 1,141.9 MiB
+SUCCESS HuRI / cugraph.ecg | 5.0s | peak RAM 1,077.5 MiB
+SUCCESS HuRI / atlas.asyn_fluid | 1.0s | peak RAM 249.2 MiB
+SUCCESS HuRI / atlas.ravasz_tom | 5.8s | peak RAM 961.5 MiB
+SUCCESS HuRI / atlas.k_core_shells | 0.5s | peak RAM 244.7 MiB
+SUCCESS HuRI / atlas.ego_splitting | 2.9s | peak RAM 351.1 MiB
+SUCCESS HuRI / atlas.link_communities | 0.8s | peak RAM 270.6 MiB
+SUCCESS HuRI / atlas.demon | 2.8s | peak RAM 247.4 MiB
+SUCCESS HuRI / atlas.mcode_complexes | 1.1s | peak RAM 248.4 MiB
+SUCCESS HuRI / atlas.bigclam_nmf | 0.6s | peak RAM 251.6 MiB
+SUCCESS HuRI / atlas.fuzzy_c_means | 0.9s | peak RAM 282.8 MiB
+SUCCESS HuRI / atlas.fuzzy_nmf | 0.6s | peak RAM 250.3 MiB
+SUCCESS HuRI / atlas.fuzzy_rwr_diffusion | 0.9s | peak RAM 271.8 MiB
+SUCCESS HuRI / atlas.fuzzy_neighborhood | 0.9s | peak RAM 271.4 MiB
+SUCCESS HuRI / networkx.k_clique_communities | 29.6s | peak RAM 1,581.4 MiB
+SUCCESS HuRI / igraph.infomap | 2.4s | peak RAM 287.2 MiB
+SUCCESS HuRI / igraph.label_propagation | 0.6s | peak RAM 264.8 MiB
+SUCCESS HuRI / igraph.fastgreedy | 1.1s | peak RAM 265.2 MiB
+SUCCESS HuRI / igraph.walktrap | 3.6s | peak RAM 725.7 MiB
+SUCCESS HuRI / igraph.leading_eigenvector | 0.7s | peak RAM 270.9 MiB
+SUCCESS HuRI / sknetwork_hierarchy.Paris | 0.8s | peak RAM 246.0 MiB
+SUCCESS HuRI / sklearn.MiniBatchKMeans | 7.0s | peak RAM 457.5 MiB
+SUCCESS HuRI / sklearn.Birch | 5.9s | peak RAM 451.8 MiB
+SUCCESS HuRI / sklearn.DBSCAN | 6.6s | peak RAM 2,570.8 MiB
+SUCCESS HuRI / sklearn.OPTICS | 9.9s | peak RAM 449.6 MiB
+SUCCESS HuRI / sklearn.MeanShift | 10.1s | peak RAM 502.9 MiB
+SUCCESS HuRI / sklearn.SpectralClustering | 6.0s | peak RAM 452.3 MiB
+SUCCESS HuRI / cdlib.ego_networks | 4.3s | peak RAM 424.5 MiB
+SUCCESS HuRI / cdlib.slpa | 14.1s | peak RAM 427.7 MiB
+SUCCESS HuRI / cdlib.angel | 23.9s | peak RAM 422.7 MiB
+SUCCESS HuRI / cdlib.surprise_communities | 1.7s | peak RAM 426.2 MiB
+SUCCESS HuRI / cdlib.significance_communities | 1.6s | peak RAM 426.9 MiB
+SUCCESS HuRI / karateclub.DANMF | 36.2s | peak RAM 2,237.4 MiB
+SUCCESS HuRI / karateclub.MNMF | 7.1s | peak RAM 384.6 MiB
+SUCCESS HuRI / karateclub.NNSED | 6.5s | peak RAM 894.0 MiB
+SUCCESS HuRI / karateclub.EdMot | 1.3s | peak RAM 331.8 MiB
+SUCCESS HuRI / karateclub.SCD | 9.3s | peak RAM 326.1 MiB
+SUCCESS HuRI / karateclub.GEMSEC | 630.3s | peak RAM 532.6 MiB
+SUCCESS HuRI / markov_clustering.mcl | 2.1s | peak RAM 592.1 MiB
+SUCCESS HuRI / hdbscan.HDBSCAN | 6.3s | peak RAM 450.4 MiB
+SUCCESS BioPlex / cugraph.louvain | 1.8s | peak RAM 1,067.3 MiB
+SUCCESS BioPlex / cugraph.leiden | 1.8s | peak RAM 1,137.5 MiB
+SUCCESS BioPlex / cugraph.ecg | 11.3s | peak RAM 1,077.6 MiB
+SUCCESS BioPlex / atlas.asyn_fluid | 3.0s | peak RAM 321.0 MiB
+SUCCESS BioPlex / atlas.ravasz_tom | 8.1s | peak RAM 1,132.2 MiB
+SUCCESS BioPlex / atlas.k_core_shells | 0.7s | peak RAM 321.5 MiB
+SUCCESS BioPlex / atlas.ego_splitting | 9.0s | peak RAM 556.2 MiB
+SUCCESS BioPlex / atlas.link_communities | 1.6s | peak RAM 373.1 MiB
+SUCCESS BioPlex / atlas.demon | 4.8s | peak RAM 319.5 MiB
+SUCCESS BioPlex / atlas.mcode_complexes | 3.2s | peak RAM 322.9 MiB
+SUCCESS BioPlex / atlas.bigclam_nmf | 0.9s | peak RAM 326.8 MiB
+SUCCESS BioPlex / atlas.fuzzy_c_means | 1.5s | peak RAM 373.7 MiB
+SUCCESS BioPlex / atlas.fuzzy_nmf | 0.8s | peak RAM 326.8 MiB
+SUCCESS BioPlex / atlas.fuzzy_rwr_diffusion | 1.7s | peak RAM 369.1 MiB
+SUCCESS BioPlex / atlas.fuzzy_neighborhood | 1.6s | peak RAM 362.6 MiB
+SUCCESS BioPlex / networkx.k_clique_communities | 2490.3s | peak RAM 85,776.9 
+MiB
+SUCCESS BioPlex / igraph.infomap | 3.0s | peak RAM 356.4 MiB
+SUCCESS BioPlex / igraph.label_propagation | 0.6s | peak RAM 309.2 MiB
+SUCCESS BioPlex / igraph.fastgreedy | 2.2s | peak RAM 309.6 MiB
+SUCCESS BioPlex / igraph.walktrap | 11.1s | peak RAM 1,678.1 MiB
+SUCCESS BioPlex / igraph.leading_eigenvector | 1.1s | peak RAM 313.3 MiB
+SUCCESS BioPlex / sknetwork_hierarchy.Paris | 1.5s | peak RAM 297.1 MiB
+SUCCESS BioPlex / sklearn.MiniBatchKMeans | 79.6s | peak RAM 1,150.9 MiB
+SUCCESS BioPlex / sklearn.Birch | 78.6s | peak RAM 1,151.6 MiB
+SUCCESS BioPlex / sklearn.DBSCAN | 81.0s | peak RAM 3,899.6 MiB
+SUCCESS BioPlex / sklearn.OPTICS | 87.6s | peak RAM 1,151.1 MiB
+SUCCESS BioPlex / sklearn.MeanShift | 171.8s | peak RAM 1,150.9 MiB
+SUCCESS BioPlex / sklearn.SpectralClustering | 79.4s | peak RAM 1,152.7 MiB
+SUCCESS BioPlex / cdlib.ego_networks | 5.3s | peak RAM 483.1 MiB
+SUCCESS BioPlex / cdlib.slpa | 35.8s | peak RAM 501.8 MiB
+SUCCESS BioPlex / cdlib.angel | 393.7s | peak RAM 591.2 MiB
+SUCCESS BioPlex / cdlib.surprise_communities | 3.0s | peak RAM 488.5 MiB
+SUCCESS BioPlex / cdlib.significance_communities | 2.9s | peak RAM 497.8 MiB
+SUCCESS BioPlex / karateclub.DANMF | 113.6s | peak RAM 5,912.4 MiB
+SUCCESS BioPlex / karateclub.MNMF | 11.5s | peak RAM 518.7 MiB
+SUCCESS BioPlex / karateclub.NNSED | 6.6s | peak RAM 1,887.8 MiB
+SUCCESS BioPlex / karateclub.EdMot | 5.2s | peak RAM 418.4 MiB
+SUCCESS BioPlex / karateclub.SCD | 21.3s | peak RAM 412.5 MiB
+SUCCESS BioPlex / karateclub.GEMSEC | 1083.7s | peak RAM 736.2 MiB
+SUCCESS BioPlex / markov_clustering.mcl | 5.1s | peak RAM 1,430.8 MiB
+SUCCESS BioPlex / hdbscan.HDBSCAN | 79.8s | peak RAM 1,150.5 MiB
+SUCCESS TAGC_binary2025 / cugraph.louvain | 1.8s | peak RAM 1,105.4 MiB
+SUCCESS TAGC_binary2025 / cugraph.leiden | 1.9s | peak RAM 1,173.8 MiB
+SUCCESS TAGC_binary2025 / cugraph.ecg | 9.6s | peak RAM 1,074.7 MiB
+SUCCESS TAGC_binary2025 / atlas.asyn_fluid | 2.4s | peak RAM 299.3 MiB
+SUCCESS TAGC_binary2025 / atlas.ravasz_tom | 15.9s | peak RAM 2,237.0 MiB
+SUCCESS TAGC_binary2025 / atlas.k_core_shells | 0.7s | peak RAM 297.9 MiB
+SUCCESS TAGC_binary2025 / atlas.ego_splitting | 6.7s | peak RAM 493.0 MiB
+SUCCESS TAGC_binary2025 / atlas.link_communities | 1.4s | peak RAM 350.2 MiB
+SUCCESS TAGC_binary2025 / atlas.demon | 6.0s | peak RAM 301.5 MiB
+SUCCESS TAGC_binary2025 / atlas.mcode_complexes | 3.9s | peak RAM 303.8 MiB
+SUCCESS TAGC_binary2025 / atlas.bigclam_nmf | 0.8s | peak RAM 310.1 MiB
+SUCCESS TAGC_binary2025 / atlas.fuzzy_c_means | 1.4s | peak RAM 367.2 MiB
+SUCCESS TAGC_binary2025 / atlas.fuzzy_nmf | 0.8s | peak RAM 304.5 MiB
+SUCCESS TAGC_binary2025 / atlas.fuzzy_rwr_diffusion | 1.5s | peak RAM 342.5 MiB
+SUCCESS TAGC_binary2025 / atlas.fuzzy_neighborhood | 1.5s | peak RAM 344.9 MiB
+SUCCESS TAGC_binary2025 / networkx.k_clique_communities | 46.6s | peak RAM 
+2,244.6 MiB
+SUCCESS TAGC_binary2025 / igraph.infomap | 2.4s | peak RAM 341.4 MiB
+SUCCESS TAGC_binary2025 / igraph.label_propagation | 0.6s | peak RAM 295.2 MiB
+SUCCESS TAGC_binary2025 / igraph.fastgreedy | 3.0s | peak RAM 297.2 MiB
+SUCCESS TAGC_binary2025 / igraph.walktrap | 11.7s | peak RAM 1,782.3 MiB
+SUCCESS TAGC_binary2025 / igraph.leading_eigenvector | 1.4s | peak RAM 292.9 MiB
+SUCCESS TAGC_binary2025 / sknetwork_hierarchy.Paris | 1.3s | peak RAM 282.2 MiB
+SUCCESS TAGC_binary2025 / sklearn.MiniBatchKMeans | 59.1s | peak RAM 1,021.3 MiB
+SUCCESS TAGC_binary2025 / sklearn.Birch | 61.2s | peak RAM 1,020.5 MiB
+SUCCESS TAGC_binary2025 / sklearn.DBSCAN | 61.3s | peak RAM 6,812.7 MiB
+SUCCESS TAGC_binary2025 / sklearn.OPTICS | 74.0s | peak RAM 1,021.1 MiB
+SUCCESS TAGC_binary2025 / sklearn.MeanShift | 93.1s | peak RAM 1,021.3 MiB
+SUCCESS TAGC_binary2025 / sklearn.SpectralClustering | 62.2s | peak RAM 1,021.0 
+MiB
+SUCCESS TAGC_binary2025 / cdlib.ego_networks | 4.0s | peak RAM 488.9 MiB
+SUCCESS TAGC_binary2025 / cdlib.slpa | 28.7s | peak RAM 487.8 MiB
+SUCCESS TAGC_binary2025 / cdlib.angel | 233.6s | peak RAM 487.3 MiB
+SUCCESS TAGC_binary2025 / cdlib.surprise_communities | 2.7s | peak RAM 470.8 MiB
+SUCCESS TAGC_binary2025 / cdlib.significance_communities | 2.7s | peak RAM 479.2
+MiB
+SUCCESS TAGC_binary2025 / karateclub.DANMF | 125.9s | peak RAM 5,946.2 MiB
+SUCCESS TAGC_binary2025 / karateclub.MNMF | 5.4s | peak RAM 558.2 MiB
+SUCCESS TAGC_binary2025 / karateclub.NNSED | 11.7s | peak RAM 1,947.4 MiB
+SUCCESS TAGC_binary2025 / karateclub.EdMot | 2.7s | peak RAM 398.6 MiB
+SUCCESS TAGC_binary2025 / karateclub.SCD | 19.9s | peak RAM 395.3 MiB
+SUCCESS TAGC_binary2025 / karateclub.GEMSEC | 1111.1s | peak RAM 739.2 MiB
+SUCCESS TAGC_binary2025 / markov_clustering.mcl | 4.5s | peak RAM 1,011.2 MiB
+SUCCESS TAGC_binary2025 / hdbscan.HDBSCAN | 59.0s | peak RAM 1,020.7 MiB
+SUCCESS huMAP2_0.05 / cugraph.louvain | 1.6s | peak RAM 1,062.1 MiB
+SUCCESS huMAP2_0.05 / cugraph.leiden | 1.5s | peak RAM 1,090.1 MiB
+SUCCESS huMAP2_0.05 / cugraph.ecg | 3.3s | peak RAM 1,056.7 MiB
+SUCCESS huMAP2_0.05 / atlas.asyn_fluid | 0.8s | peak RAM 226.0 MiB
+SUCCESS huMAP2_0.05 / atlas.ravasz_tom | 1.2s | peak RAM 332.2 MiB
+SUCCESS huMAP2_0.05 / atlas.k_core_shells | 0.5s | peak RAM 226.1 MiB
+SUCCESS huMAP2_0.05 / atlas.ego_splitting | 1.7s | peak RAM 263.9 MiB
+SUCCESS huMAP2_0.05 / atlas.link_communities | 0.7s | peak RAM 238.6 MiB
+SUCCESS huMAP2_0.05 / atlas.demon | 1.2s | peak RAM 228.5 MiB
+SUCCESS huMAP2_0.05 / atlas.mcode_complexes | 0.8s | peak RAM 233.9 MiB
+SUCCESS huMAP2_0.05 / atlas.bigclam_nmf | 0.6s | peak RAM 258.0 MiB
+SUCCESS huMAP2_0.05 / atlas.fuzzy_c_means | 1.0s | peak RAM 264.4 MiB
+SUCCESS huMAP2_0.05 / atlas.fuzzy_nmf | 0.7s | peak RAM 255.2 MiB
+SUCCESS huMAP2_0.05 / atlas.fuzzy_rwr_diffusion | 0.8s | peak RAM 260.0 MiB
+SUCCESS huMAP2_0.05 / atlas.fuzzy_neighborhood | 0.8s | peak RAM 300.8 MiB
+SUCCESS huMAP2_0.05 / networkx.k_clique_communities | 12.3s | peak RAM 1,062.4 
+MiB
+SUCCESS huMAP2_0.05 / igraph.infomap | 1.3s | peak RAM 273.7 MiB
+SUCCESS huMAP2_0.05 / igraph.label_propagation | 0.6s | peak RAM 252.7 MiB
+SUCCESS huMAP2_0.05 / igraph.fastgreedy | 0.7s | peak RAM 257.3 MiB
+SUCCESS huMAP2_0.05 / igraph.walktrap | 1.6s | peak RAM 340.1 MiB
+FAILED huMAP2_0.05 / igraph.leading_eigenvector | 0.5s | peak RAM 247.6 MiB
+InternalError: Error at src/community/leading_eigenvector.c:567: No eigenvalues 
+to sufficient accuracy. -- ARPACK error
+SUCCESS huMAP2_0.05 / sknetwork_hierarchy.Paris | 0.5s | peak RAM 226.1 MiB
+SUCCESS huMAP2_0.05 / sklearn.MiniBatchKMeans | 2.1s | peak RAM 327.5 MiB
+SUCCESS huMAP2_0.05 / sklearn.Birch | 2.1s | peak RAM 327.0 MiB
+SUCCESS huMAP2_0.05 / sklearn.DBSCAN | 2.8s | peak RAM 3,227.5 MiB
+SUCCESS huMAP2_0.05 / sklearn.OPTICS | 8.1s | peak RAM 328.6 MiB
+SUCCESS huMAP2_0.05 / sklearn.MeanShift | 7.4s | peak RAM 510.1 MiB
+SUCCESS huMAP2_0.05 / sklearn.SpectralClustering | 1.8s | peak RAM 327.4 MiB
+SUCCESS huMAP2_0.05 / cdlib.ego_networks | 1.9s | peak RAM 405.6 MiB
+SUCCESS huMAP2_0.05 / cdlib.slpa | 8.7s | peak RAM 402.3 MiB
+SUCCESS huMAP2_0.05 / cdlib.angel | 3.8s | peak RAM 397.9 MiB
+SUCCESS huMAP2_0.05 / cdlib.surprise_communities | 1.4s | peak RAM 400.8 MiB
+SUCCESS huMAP2_0.05 / cdlib.significance_communities | 1.3s | peak RAM 399.2 MiB
+SUCCESS huMAP2_0.05 / karateclub.DANMF | 42.0s | peak RAM 2,325.9 MiB
+SUCCESS huMAP2_0.05 / karateclub.MNMF | 3.1s | peak RAM 336.8 MiB
+SUCCESS huMAP2_0.05 / karateclub.NNSED | 6.0s | peak RAM 903.1 MiB
+SUCCESS huMAP2_0.05 / karateclub.EdMot | 1.0s | peak RAM 310.0 MiB
+SUCCESS huMAP2_0.05 / karateclub.SCD | 5.0s | peak RAM 297.0 MiB
+SUCCESS huMAP2_0.05 / karateclub.GEMSEC | 664.7s | peak RAM 533.3 MiB
+SUCCESS huMAP2_0.05 / markov_clustering.mcl | 1.6s | peak RAM 389.3 MiB
+SUCCESS huMAP2_0.05 / hdbscan.HDBSCAN | 2.6s | peak RAM 327.7 MiB
+SUCCESS huMAP2_0.95 / cugraph.louvain | 1.6s | peak RAM 1,057.5 MiB
+SUCCESS huMAP2_0.95 / cugraph.leiden | 1.5s | peak RAM 1,126.4 MiB
+SUCCESS huMAP2_0.95 / cugraph.ecg | 2.6s | peak RAM 1,122.4 MiB
+SUCCESS huMAP2_0.95 / atlas.asyn_fluid | 0.4s | peak RAM 218.6 MiB
+SUCCESS huMAP2_0.95 / atlas.ravasz_tom | 0.5s | peak RAM 220.2 MiB
+SUCCESS huMAP2_0.95 / atlas.k_core_shells | 0.4s | peak RAM 218.6 MiB
+SUCCESS huMAP2_0.95 / atlas.ego_splitting | 0.8s | peak RAM 223.8 MiB
+SUCCESS huMAP2_0.95 / atlas.link_communities | 1.3s | peak RAM 279.1 MiB
+SUCCESS huMAP2_0.95 / atlas.demon | 0.5s | peak RAM 218.6 MiB
+SUCCESS huMAP2_0.95 / atlas.mcode_complexes | 0.4s | peak RAM 218.6 MiB
+SUCCESS huMAP2_0.95 / atlas.bigclam_nmf | 0.4s | peak RAM 222.6 MiB
+SUCCESS huMAP2_0.95 / atlas.fuzzy_c_means | 0.5s | peak RAM 222.6 MiB
+SUCCESS huMAP2_0.95 / atlas.fuzzy_nmf | 0.4s | peak RAM 221.7 MiB
+SUCCESS huMAP2_0.95 / atlas.fuzzy_rwr_diffusion | 0.5s | peak RAM 224.1 MiB
+SUCCESS huMAP2_0.95 / atlas.fuzzy_neighborhood | 0.5s | peak RAM 251.6 MiB
+SUCCESS huMAP2_0.95 / networkx.k_clique_communities | 0.4s | peak RAM 219.3 MiB
+SUCCESS huMAP2_0.95 / igraph.infomap | 0.7s | peak RAM 251.2 MiB
+SUCCESS huMAP2_0.95 / igraph.label_propagation | 0.5s | peak RAM 240.7 MiB
+SUCCESS huMAP2_0.95 / igraph.fastgreedy | 0.5s | peak RAM 241.3 MiB
+SUCCESS huMAP2_0.95 / igraph.walktrap | 0.6s | peak RAM 241.8 MiB
+FAILED huMAP2_0.95 / igraph.leading_eigenvector | 0.5s | peak RAM 234.5 MiB
+InternalError: Error at src/community/leading_eigenvector.c:567: No eigenvalues 
+to sufficient accuracy. -- ARPACK error
+SUCCESS huMAP2_0.95 / sknetwork_hierarchy.Paris | 0.4s | peak RAM 219.9 MiB
+SUCCESS huMAP2_0.95 / sklearn.MiniBatchKMeans | 0.8s | peak RAM 299.6 MiB
+SUCCESS huMAP2_0.95 / sklearn.Birch | 0.8s | peak RAM 298.7 MiB
+SUCCESS huMAP2_0.95 / sklearn.DBSCAN | 0.8s | peak RAM 662.8 MiB
+SUCCESS huMAP2_0.95 / sklearn.OPTICS | 3.2s | peak RAM 302.2 MiB
+SUCCESS huMAP2_0.95 / sklearn.MeanShift | 2.7s | peak RAM 361.3 MiB
+SUCCESS huMAP2_0.95 / sklearn.SpectralClustering | 0.7s | peak RAM 301.3 MiB
+SUCCESS huMAP2_0.95 / cdlib.ego_networks | 1.2s | peak RAM 381.4 MiB
+SUCCESS huMAP2_0.95 / cdlib.slpa | 2.9s | peak RAM 378.1 MiB
+SUCCESS huMAP2_0.95 / cdlib.angel | 1.3s | peak RAM 377.6 MiB
+SUCCESS huMAP2_0.95 / cdlib.surprise_communities | 1.1s | peak RAM 380.9 MiB
+SUCCESS huMAP2_0.95 / cdlib.significance_communities | 1.1s | peak RAM 380.2 MiB
+SUCCESS huMAP2_0.95 / karateclub.DANMF | 5.5s | peak RAM 592.8 MiB
+SUCCESS huMAP2_0.95 / karateclub.MNMF | 1.0s | peak RAM 295.8 MiB
+SUCCESS huMAP2_0.95 / karateclub.NNSED | 1.2s | peak RAM 369.2 MiB
+SUCCESS huMAP2_0.95 / karateclub.EdMot | 0.5s | peak RAM 282.2 MiB
+SUCCESS huMAP2_0.95 / karateclub.SCD | 1.6s | peak RAM 283.2 MiB
+SUCCESS huMAP2_0.95 / karateclub.GEMSEC | 249.6s | peak RAM 367.6 MiB
+SUCCESS huMAP2_0.95 / markov_clustering.mcl | 0.9s | peak RAM 312.3 MiB
+SUCCESS huMAP2_0.95 / hdbscan.HDBSCAN | 0.9s | peak RAM 297.4 MiB
+huMAP2_0.95 / hdbscan.HDBSCAN | 1.0s | CPU 269.9% | RAM 292.3 MiB (peak 29… 20… 
+    Run status    
+┏━━━━━━━━━┳━━━━━━┓
+┃ Status  ┃ Jobs ┃
+┡━━━━━━━━━╇━━━━━━┩
+│ failed  │    2 │
+│ success │  203 │
+└─────────┴──────┘
+Summary: 
+/home/davide/projects/interactome/data/analysis_runs/clustering_raw/summary.parq
+uet

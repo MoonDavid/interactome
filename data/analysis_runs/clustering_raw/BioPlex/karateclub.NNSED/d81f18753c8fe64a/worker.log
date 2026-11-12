@@ -1,0 +1,3 @@
+Checking main diagonal existance:   0%|          | 0/13834 [00:00<?, ?it/s]/home/davide/projects/interactome/.venv-karateclub/lib/python3.11/site-packages/karateclub/estimator.py:66: UserWarning: Please do be advised that the graph you have provided does not contain (some) edges in the main diagonal, for instance the self-loop constitued of (0, 0). These selfloops are necessary to ensure that the graph is traversable, and for this reason we create a copy of the graph and add therein the missing edges. Since we are creating a copy, this will immediately duplicate the memory requirements. To avoid this double allocation, you can provide the graph with the selfloops.
+  warnings.warn(
+                                                                           

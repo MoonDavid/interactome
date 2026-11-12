@@ -5,6 +5,7 @@ workers; listing methods never imports heavyweight or GPU packages.
 """
 from __future__ import annotations
 
+import ast
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 import hashlib
@@ -36,10 +37,6 @@ from networks import _fingerprint, _write_json, _write_parquet, discover_dataset
 app = typer.Typer(no_args_is_help=True, pretty_exceptions_enable=False,
                   help="Cluster canonical interactomes with native and research backends.")
 console = Console()
-
-
-
-
 MODULES = [
     'cdlib.algorithms', 'networkx.algorithms.community', 'igraph', 'leidenalg',
     'sknetwork.clustering', 'sknetwork.hierarchy', 'graspologic.partition',
@@ -114,9 +111,39 @@ def versions() -> dict:
 
 def source_digest() -> str:
     digest = hashlib.sha256()
-    for name in ('cluster_networks.py', 'moonlighting.py', 'networks.py'):
+    # CLI planning and reporting do not affect a worker's clustering result.
+    cli_only = {'source_digest', 'inventory', 'list_methods', 'select_methods',
+                'compatible_source_digests', 'reusable', 'worker_resources', 'gpu_resources',
+                'resource_label', 'worker_runtimes', 'run', 'inspect_module', 'main'}
+    source = ast.parse(Path(__file__).read_bytes())
+    source.body = [node for node in source.body
+                   if not (isinstance(node, ast.FunctionDef) and node.name in cli_only)]
+    digest.update(ast.dump(source).encode())
+    for name in ('moonlighting.py', 'networks.py'):
         digest.update(Path(__file__).with_name(name).read_bytes())
     return digest.hexdigest()
+
+
+def compatible_source_digests(current: str, backend: str = '') -> tuple[str, ...]:
+    # The signed vertex-ID change is confined to cuGraph. Keep CPU results
+    # from the preceding worker code. AST fingerprints vary by Python version.
+    before_gpu_fix = {
+        '7529cbfb85192af408f4025557225e61e878556dc18cee7274af7c3aaef168d9':
+            '12d1eeed99a219eeb5b997520ba97d96fcb3b89e33e0cd284e604cf1b0a81b39',
+        'c4e8981d32618a0e0af39bd26ee12f9e6b2df40cd79d17fe03dd76f88cdc1672':
+            'e123f4b41dac9c3740cd73b1e82456ab05974ed94134e60f46de2b272c7cc0d5',
+        '3956bda40c3cabc5bc50a91b7b444b85f9a3ea5d0ec664fbcd55e22933b71a34':
+            '6f15a9000373e1db55bbdc63b34976e69cf92be22734cee016159e7072dac95a',
+    }.get(current)
+    if before_gpu_fix and backend != 'cugraph':
+        return (current, *compatible_source_digests(before_gpu_fix, backend))
+    # The two previous default schedules used identical worker code. Only
+    # accept their full-file hashes while that worker fingerprint still matches.
+    if current == '12d1eeed99a219eeb5b997520ba97d96fcb3b89e33e0cd284e604cf1b0a81b39':
+        return (current,
+                '9ae2d0f425598a158df90c5f0faad233fa0650ecacbd10d7862a71249204ac94',
+                '989355798e48edb82bf2748911c68c322f369159e4640cc58f521726b42729ba')
+    return (current,)
 
 
 @app.command()
@@ -158,10 +185,44 @@ def list_methods():
     console.print(table)
 
 
-def select_methods(patterns: list[str]) -> list[Method]:
+def select_methods(patterns: list[str] | None) -> list[Method]:
     available = catalog()
-    if not patterns or patterns == ['all']:
-        return list(available.values())
+    if not patterns:
+        # First ID in each group is the default representative. Other IDs
+        # include backend wrappers and variants of the same method family.
+        families = (
+            ('cugraph.louvain', 'igraph.multilevel', 'atlas.louvain',
+             'networkx.louvain_communities', 'sknetwork.Louvain',
+             'sknetwork_hierarchy.LouvainHierarchy', 'cdlib.louvain', 'networkit.PLM'),
+            ('cugraph.leiden', 'igraph.leiden', 'leidenalg.RBConfigurationVertexPartition',
+             'leidenalg.CPMVertexPartition', 'leidenalg.ModularityVertexPartition',
+             'sknetwork.Leiden', 'graspologic_partition.leiden',
+             'graspologic_partition.hierarchical_leiden', 'cdlib.leiden',
+             'networkit.ParallelLeiden'),
+            ('igraph.label_propagation', 'atlas.label_propagation',
+             'networkx.fast_label_propagation_communities', 'networkx.asyn_lpa_communities',
+             'networkx.label_propagation_communities', 'sknetwork.PropagationClustering',
+             'cdlib.label_propagation', 'networkit.PLP'),
+            ('igraph.infomap', 'cdlib.infomap', 'infomap.Infomap'),
+            ('igraph.fastgreedy', 'atlas.greedy_modularity', 'networkx.greedy_modularity_communities'),
+            ('igraph.walktrap', 'atlas.walktrap_markov', 'cdlib.walktrap'),
+            ('markov_clustering.mcl', 'atlas.mcl'),
+            ('sklearn.SpectralClustering', 'atlas.spectral'),
+            ('networkx.k_clique_communities', 'atlas.k_clique_percolation', 'cdlib.kclique'),
+            ('atlas.ego_splitting', 'karateclub.EgoNetSplitter'),
+            ('atlas.demon', 'cdlib.demon'),
+            ('atlas.bigclam_nmf', 'karateclub.BigClam'),
+            ('atlas.fuzzy_nmf', 'karateclub.SymmNMF'),
+            ('sklearn.MiniBatchKMeans', 'sklearn.KMeans', 'graspologic_cluster.KMeansCluster'),
+        )
+        excluded = {'networkx.girvan_newman', 'igraph.edge_betweenness',
+                    'graspologic_cluster.AutoGMMCluster',
+                    'sklearn.AffinityPropagation', 'sklearn.AgglomerativeClustering'}
+        excluded.update(adapter for _, *alternatives in families for adapter in alternatives)
+        return sorted((m for m in available.values() if m.id not in excluded),
+                      key=lambda m: m.backend != 'cugraph')
+    if patterns == ['all']:
+        return sorted(available.values(), key=lambda m: m.backend != 'cugraph')
     selected = {}
     for pattern in patterns:
         matches = [m for m in available.values() if pattern == m.id or pattern == m.backend]
@@ -354,7 +415,9 @@ def execute(method: Method, graph: dict, p: dict):
         import cudf
         import cugraph
         network = cugraph.Graph(directed=False)
-        edges = cudf.DataFrame({'src': graph['u'], 'dst': graph['v']})
+        # cuGraph requires signed IDs when the graph is already renumbered.
+        edges = cudf.DataFrame({'src': graph['u'].astype(np.int64),
+                                'dst': graph['v'].astype(np.int64)})
         network.from_cudf_edgelist(edges, source='src', destination='dst', renumber=False)
         func = getattr(cugraph, name)
         kwargs = {'resolution': resolution} if 'resolution' in inspect.signature(func).parameters else {}
@@ -447,6 +510,10 @@ def _worker(job: dict) -> int:
         result.update(reason=f'{type(exc).__name__}: {exc}')
         traceback.print_exc()
     result['elapsed_seconds'] = round(time.monotonic() - started, 3)
+    if sys.platform.startswith('linux') or sys.platform == 'darwin':
+        import resource
+        peak = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+        result['peak_rss_bytes'] = peak if sys.platform == 'darwin' else peak * 1024
     result['job'] = job
     _write_json(target / 'result.json', result)
     return 0 if result['status'] in {'success', 'skipped', 'unavailable'} else 1
@@ -466,12 +533,103 @@ def reusable(target: Path, key: str) -> dict | None:
     return None
 
 
+def worker_resources(pid: int) -> dict:
+    sample = {}
+    try:
+        fields = Path(f'/proc/{pid}/stat').read_text().rsplit(')', 1)[1].split()
+        sample['cpu_seconds'] = (int(fields[11]) + int(fields[12])) / os.sysconf('SC_CLK_TCK')
+        for line in Path(f'/proc/{pid}/status').read_text(encoding='utf-8').splitlines():
+            name, _, value = line.partition(':')
+            if name in {'VmRSS', 'VmHWM'}:
+                key = 'rss_bytes' if name == 'VmRSS' else 'peak_rss_bytes'
+                sample[key] = int(value.split()[0]) * 1024
+            elif name == 'Threads':
+                sample['threads'] = int(value)
+    except (OSError, ValueError, IndexError, AttributeError):
+        pass
+    return sample
+
+
+def gpu_resources(pid: int) -> dict:
+    """Sample NVIDIA compute activity and framebuffer memory for this PID."""
+    try:
+        report = subprocess.run(['nvidia-smi', 'pmon', '-c', '1', '-s', 'um'],
+                                capture_output=True, text=True, timeout=1, check=True)
+    except (OSError, subprocess.SubprocessError):
+        return {}
+    columns, devices = [], []
+    for line in report.stdout.splitlines():
+        if line.startswith('#'):
+            header = line[1:].split()
+            if 'pid' in header and 'sm' in header and 'fb' in header:
+                columns = header
+            continue
+        values = dict(zip(columns, line.split()))
+        if values.get('pid') == str(pid):
+            devices.append(values)
+    sample = {}
+    if devices and all(d['sm'].isdigit() for d in devices):
+        sample['gpu_sm_percent'] = max(int(d['sm']) for d in devices)
+    if devices and all(d['fb'].isdigit() for d in devices):
+        sample['gpu_memory_mib'] = sum(int(d['fb']) for d in devices)
+    return sample
+
+
+def resource_label(elapsed: float, sample: dict, thread_limit: int) -> str:
+    def metric(key, unit, scale=1):
+        value = sample.get(key)
+        return f'{value / scale:,.1f}{unit}' if value is not None else 'n/a'
+
+    return (f'{elapsed:.1f}s | CPU {metric("cpu_percent", "%")} | '
+            f'RAM {metric("rss_bytes", " MiB", 2**20)} (peak {metric("peak_rss_bytes", " MiB", 2**20)}) | '
+            f'Threads {sample.get("threads", "n/a")} (limit {thread_limit}) | '
+            f'GPU SM {metric("gpu_sm_percent", "%")} / VRAM {metric("gpu_memory_mib", " MiB")}')
+
+
+def worker_runtimes(methods: list[Method]) -> dict[str, tuple[str, dict]]:
+    """Select an interpreter and capture its package versions for each backend."""
+    default = (sys.executable, versions())
+    runtimes = dict.fromkeys((method.backend for method in methods), default)
+    script = Path(__file__).resolve()
+    # Read metadata without importing the scientific stack or initializing CUDA.
+    version_probe = """
+import json
+import sys
+from importlib import metadata
+
+packages = {d.metadata['Name'].lower(): d.version for d in metadata.distributions()
+            if d.metadata['Name']}
+result = {name: packages.get(name) for name in json.loads(sys.argv[1])}
+result.update(python=sys.version, platform=sys.platform)
+result.update({name: version for name, version in packages.items()
+               if name.startswith(('cudf', 'cugraph', 'pylibcugraph', 'cupy', 'rmm', 'libcugraph'))})
+print(json.dumps(result))
+"""
+    for backend in ('karateclub', 'cugraph'):
+        if backend not in runtimes:
+            continue
+        env_dir = script.parent / f'.venv-{backend}'
+        python = env_dir / ('Scripts/python.exe' if os.name == 'nt' else 'bin/python')
+        if not python.is_file():
+            continue
+        try:
+            probe = subprocess.run([str(python), '-I', '-c', version_probe, json.dumps(PACKAGES)],
+                                   capture_output=True, text=True, check=True, timeout=30)
+            runtimes[backend] = str(python), json.loads(probe.stdout)
+        except (OSError, subprocess.SubprocessError, ValueError) as exc:
+            raise typer.BadParameter(f'Cannot read the {backend} worker environment at {python}: {exc}') from exc
+    return runtimes
+
+
 @app.command()
 def run(
     root: Annotated[Path, typer.Option(help='Existing prepared data root.')] = Path('data'),
     output: Annotated[Path, typer.Option(help='Results directory; reuse to resume.')] = Path('data/analysis_runs/clustering'),
     network: Annotated[list[str] | None, typer.Option(help='Repeat dataset names; default: all discovered networks/versions.')] = None,
-    method: Annotated[list[str] | None, typer.Option(help='Repeat adapter IDs or backend names; default: all.')] = None,
+    method: Annotated[list[str] | None, typer.Option(
+        help='Repeat adapter IDs or backend names. Default uses one adapter per method family '
+             'and skips Girvan–Newman, edge betweenness, AutoGMM, affinity propagation and '
+             'agglomerative clustering. Use all to include every adapter.')] = None,
     seed: Annotated[int, typer.Option(min=1, max=2**32 - 1)] = 42,
     resolution: Annotated[float, typer.Option(min=0.000001)] = 1.0,
     clusters: Annotated[int, typer.Option(min=2)] = 16,
@@ -479,10 +637,10 @@ def run(
     clique_k: Annotated[int, typer.Option(min=2)] = 3,
     inflation: Annotated[float, typer.Option(min=1.01)] = 2.0,
     membership_cutoff: Annotated[float, typer.Option(min=0, max=1)] = 0.2,
-    timeout: Annotated[float, typer.Option(min=1, help='Seconds per worker, including startup and IO.')] = 300,
-    costly_node_limit: Annotated[int, typer.Option(min=1, help='Raise explicitly for costly methods.')] = 5000,
-    dense_node_limit: Annotated[int, typer.Option(min=1)] = 3000,
-    threads: Annotated[int, typer.Option(min=1)] = 1,
+    timeout: Annotated[float, typer.Option(min=1, help='Seconds per worker, including startup and IO.')] = 3600,
+    costly_node_limit: Annotated[int, typer.Option(min=1, help='Maximum nodes for costly methods.')] = 100_000,
+    dense_node_limit: Annotated[int, typer.Option(min=1, help='Maximum nodes for dense methods.')] = 100_000,
+    threads: Annotated[int, typer.Option(min=1)] = 16,
     resume: Annotated[bool, typer.Option('--resume/--no-resume')] = True,
     dry_run: Annotated[bool, typer.Option(help='Write a plan without executing clustering.')] = False,
 ):
@@ -494,14 +652,16 @@ def run(
         raise typer.BadParameter(f'Unknown/unprepared datasets: {sorted(missing)}; available: {list(datasets)}')
     if not names:
         raise typer.BadParameter('No prepared canonical datasets found. Prepare networks first.')
-    methods = select_methods(method or ['all'])
+    methods = select_methods(method)
     params = dict(seed=seed, resolution=resolution, clusters=clusters, dimensions=dimensions,
                   clique_k=clique_k, inflation=inflation, membership_cutoff=membership_cutoff,
                   costly_node_limit=costly_node_limit, dense_node_limit=dense_node_limit, threads=threads)
     if not all(math.isfinite(v) for v in (resolution, inflation, membership_cutoff, timeout)):
         raise typer.BadParameter('Numeric options must be finite')
     output = output.resolve()
-    environment, code_hash = versions(), source_digest()
+    runtimes, code_hash = worker_runtimes(methods), source_digest()
+    compatible_hashes = {backend: compatible_source_digests(code_hash, backend)
+                         if resume else (code_hash,) for backend in runtimes}
     jobs = []
     for name in dict.fromkeys(names):
         path = datasets[name].resolve()
@@ -509,13 +669,22 @@ def run(
         if path.with_suffix('.json').exists():
             provenance['audit'] = json.loads(path.with_suffix('.json').read_text(encoding='utf-8'))
         for adapter in methods:
+            python, environment = runtimes[adapter.backend]
             identity = dict(network=name, method=adapter.id, adapter=asdict(adapter),
                             provenance=provenance, parameters=params, environment=environment,
                             code_sha256=code_hash, schema_version=SCHEMA_VERSION,
                             semantics='undirected binary topology; scores not used as weights')
-            key = hashlib.sha256(json.dumps(identity, sort_keys=True).encode()).hexdigest()
-            target = output / name / adapter.id / key[:16]
-            jobs.append(dict(identity, key=key, path=str(path), target=str(target)))
+            for compatible_hash in compatible_hashes[adapter.backend]:
+                candidate = dict(identity, code_sha256=compatible_hash)
+                key = hashlib.sha256(json.dumps(candidate, sort_keys=True).encode()).hexdigest()
+                target = output / name / adapter.id / key[:16]
+                job = dict(candidate, key=key, path=str(path), target=str(target), worker_python=python)
+                if compatible_hash == code_hash:
+                    planned = job
+                if resume and reusable(target, key) is not None:
+                    planned = job
+                    break
+            jobs.append(planned)
     _write_json(output / 'plan.json', {'created_utc': datetime.now(timezone.utc).isoformat(),
                                      'timeout_seconds': timeout, 'jobs': jobs})
     console.print(Panel(f'[bold cyan]{len(jobs)} jobs[/bold cyan] | {len(set(names))} networks | '
@@ -526,6 +695,8 @@ def run(
         console.print('Plan saved; no clustering executed.')
         return
     results = []
+    live_path = output / 'live.json'
+    run_started = time.monotonic()
     env = dict(os.environ)
     for name in ('OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS', 'NUMEXPR_NUM_THREADS'):
         env[name] = str(threads)
@@ -535,42 +706,105 @@ def run(
         task = progress.add_task('Starting', total=len(jobs))
         for job in jobs:
             target = Path(job['target'])
-            progress.update(task, description=f'{job["network"]} / {job["method"]}')
+            label = f'{job["network"]} / {job["method"]}'
+            progress.update(task, description=label)
+            live = dict(status='running', network=job['network'], method=job['method'],
+                        completed_jobs=len(results), total_jobs=len(jobs),
+                        thread_limit=threads, timeout_seconds=timeout)
             result = reusable(target, job['key']) if resume else None
             cached = result is not None
             if not cached:
                 _write_json(target / 'job.json', job)
                 (target / 'result.json').unlink(missing_ok=True)
                 started = time.monotonic()
+                peaks, gpu, previous = {}, {}, {}
+                previous_time = started
+                next_sample, next_gpu = started, started + 2
                 try:
                     with (target / 'worker.log').open('w', encoding='utf-8') as log:
-                        proc = subprocess.Popen([sys.executable, str(Path(__file__).resolve()),
+                        proc = subprocess.Popen([job['worker_python'], str(Path(__file__).resolve()),
                                                  '_worker', str(target / 'job.json')],
                                                 stdout=log, stderr=subprocess.STDOUT, env=env)
                         try:
-                            proc.wait(timeout=timeout)
-                        except (subprocess.TimeoutExpired, KeyboardInterrupt):
+                            deadline = started + timeout
+                            while True:
+                                now = time.monotonic()
+                                if now >= next_sample:
+                                    sample = worker_resources(proc.pid)
+                                    if 'cpu_seconds' in sample and 'cpu_seconds' in previous:
+                                        sample['cpu_percent'] = round(
+                                            100 * (sample['cpu_seconds'] - previous['cpu_seconds'])
+                                            / (now - previous_time), 1)
+                                    previous, previous_time = sample, now
+                                    if now >= next_gpu:
+                                        gpu = gpu_resources(proc.pid)
+                                        next_gpu = now + 5
+                                    sample.update(gpu)
+                                    for key in ('cpu_seconds', 'cpu_percent', 'peak_rss_bytes',
+                                                'threads', 'gpu_sm_percent', 'gpu_memory_mib'):
+                                        if key in sample:
+                                            peaks[key] = max(peaks.get(key, 0), sample[key])
+                                    elapsed = now - started
+                                    progress.update(task, description=f'{label} | {resource_label(elapsed, sample, threads)}')
+                                    _write_json(live_path, dict(
+                                        live, pid=proc.pid, elapsed_seconds=round(elapsed, 3),
+                                        run_elapsed_seconds=round(now - run_started, 3),
+                                        updated_utc=datetime.now(timezone.utc).isoformat(), resources=sample))
+                                    next_sample = now + 1
+                                remaining = deadline - time.monotonic()
+                                if remaining <= 0:
+                                    raise subprocess.TimeoutExpired(proc.args, timeout)
+                                try:
+                                    proc.wait(timeout=min(0.5, remaining))
+                                    break
+                                except subprocess.TimeoutExpired:
+                                    continue
+                        except (subprocess.TimeoutExpired, KeyboardInterrupt) as exc:
                             proc.kill()
                             proc.wait()
+                            if isinstance(exc, KeyboardInterrupt):
+                                _write_json(live_path, dict(live, status='interrupted'))
                             raise
-                    result = json.loads((target / 'result.json').read_text(encoding='utf-8'))
-                    if result.get('key') != job['key'] or proc.returncode not in (0, 1):
+                    if proc.returncode not in (0, 1):
                         raise ValueError(f'Worker exited with code {proc.returncode}')
+                    result = json.loads((target / 'result.json').read_text(encoding='utf-8'))
+                    if result.get('key') != job['key']:
+                        raise ValueError('Worker returned a result for a different job')
                 except (subprocess.TimeoutExpired, OSError, ValueError) as exc:
                     result = dict(status='timeout' if isinstance(exc, subprocess.TimeoutExpired) else 'failed',
                                   reason=str(exc), key=job['key'], method=job['method'],
                                   elapsed_seconds=round(time.monotonic() - started, 3), job=job)
-                    _write_json(target / 'result.json', result)
+                if 'peak_rss_bytes' in peaks:
+                    result['peak_rss_bytes'] = max(peaks['peak_rss_bytes'], result.get('peak_rss_bytes', 0))
+                result.update(cpu_seconds=peaks.get('cpu_seconds'),
+                              peak_cpu_percent=peaks.get('cpu_percent'),
+                              peak_threads=peaks.get('threads'),
+                              peak_gpu_sm_percent=peaks.get('gpu_sm_percent'),
+                              peak_gpu_memory_mib=peaks.get('gpu_memory_mib'))
+                _write_json(target / 'result.json', result)
             row = {k: result.get(k) for k in ('status', 'nodes', 'edges', 'communities',
-                    'covered_nodes', 'unassigned_nodes', 'overlapping_nodes', 'elapsed_seconds', 'reason')}
-            row.update(network=job['network'], method=job['method'], resumed=cached, target=str(target))
+                    'covered_nodes', 'unassigned_nodes', 'overlapping_nodes', 'elapsed_seconds',
+                    'peak_rss_bytes', 'cpu_seconds', 'peak_cpu_percent', 'peak_threads',
+                    'peak_gpu_sm_percent', 'peak_gpu_memory_mib', 'reason')}
+            row.update(network=job['network'], method=job['method'], resumed=cached,
+                       thread_limit=threads, target=str(target))
             results.append(row)
             # Checkpoint after every job, including failures/timeouts.
             _write_json(output / 'summary.json', results)
-            _write_parquet(output / 'summary.parquet', pl.from_dicts(results, infer_schema_length=None))
+            _write_parquet(output / 'summary.parquet', pl.from_dicts(
+                results, infer_schema_length=None, schema_overrides={
+                    'peak_rss_bytes': pl.Int64, 'cpu_seconds': pl.Float64,
+                    'peak_cpu_percent': pl.Float64, 'peak_threads': pl.Int64,
+                    'peak_gpu_sm_percent': pl.Int64, 'peak_gpu_memory_mib': pl.Int64}))
+            _write_json(live_path, dict(row, completed_jobs=len(results), total_jobs=len(jobs),
+                                       run_elapsed_seconds=round(time.monotonic() - run_started, 3),
+                                       updated_utc=datetime.now(timezone.utc).isoformat()))
             color = {'success': 'green', 'unavailable': 'yellow', 'skipped': 'yellow'}.get(result['status'], 'red')
+            peak_rss = row['peak_rss_bytes']
+            memory = f' | peak RAM {peak_rss / 2**20:,.1f} MiB' if peak_rss is not None else ' | peak RAM unavailable'
             progress.console.print(f'[{color}]{result["status"].upper()}[/{color}] '
-                                   f'{job["network"]} / {job["method"]}' + (' (resumed)' if cached else ''))
+                                   f'{label} | {row["elapsed_seconds"]:.1f}s{memory}'
+                                   + (' (resumed)' if cached else ''))
             if result.get('reason'):
                 progress.console.print(result['reason'], markup=False)
             progress.advance(task)

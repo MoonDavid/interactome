@@ -1,0 +1,765 @@
+   Building gensim==4.4.0
+   Building scikit-network==0.33.5
+   Building interactome @ file:///home/davide/projects/interactome
+Downloading fonttools (5.1MiB)
+Downloading scikit-learn (8.7MiB)
+Downloading rapidfuzz (3.0MiB)
+Downloading kiwisolver (1.4MiB)
+Downloading numba (3.7MiB)
+Downloading matplotlib (10.4MiB)
+Downloading pyarrow (47.8MiB)
+Downloading pot (31.4MiB)
+Downloading pydantic-core (2.2MiB)
+Downloading hdbscan (5.5MiB)
+Downloading llvmlite (56.9MiB)
+Downloading infomap (21.0MiB)
+Downloading networkit (11.7MiB)
+ Downloaded kiwisolver
+ Downloaded pydantic-core
+ Downloaded rapidfuzz
+ Downloaded numba
+ Downloaded fonttools
+ Downloaded hdbscan
+      Built interactome @ file:///home/davide/projects/interactome
+ Downloaded scikit-learn
+ Downloaded matplotlib
+ Downloaded networkit
+ Downloaded infomap
+  × Failed to build `gensim==4.4.0`
+  ├─▶ The build backend returned an error
+  ╰─▶ Call to `setuptools.build_meta:__legacy__.build_wheel` failed (exit
+      status: 1)
+
+      [stdout]
+      running bdist_wheel
+      running build
+      running build_py
+      running egg_info
+      writing gensim.egg-info/PKG-INFO
+      writing dependency_links to gensim.egg-info/dependency_links.txt
+      writing requirements to gensim.egg-info/requires.txt
+      writing top-level names to gensim.egg-info/top_level.txt
+      reading manifest file 'gensim.egg-info/SOURCES.txt'
+      reading manifest template 'MANIFEST.in'
+      adding license file 'COPYING'
+      writing manifest file 'gensim.egg-info/SOURCES.txt'
+      running build_ext
+      building 'gensim.models.word2vec_inner' extension
+      cc -pthread -fno-strict-overflow -Wsign-compare
+      -Wunreachable-code -DNDEBUG -g -O3 -Wall -fPIC -fPIC
+      -I/home/davide/.cache/uv/builds-v0/.tmpAUSKh5/include
+      -I/home/davide/.local/share/uv/python/cpython-3.14.0-linux-x86_64-gnu/include/python3.14
+      -I/home/davide/.cache/uv/builds-v0/.tmpAUSKh5/lib/python3.14/site-packages/numpy/_core/include
+      -c gensim/models/word2vec_inner.c -o
+      build/temp.linux-x86_64-cpython-314/gensim/models/word2vec_inner.o
+
+      [stderr]
+      /home/davide/.cache/uv/builds-v0/.tmpAUSKh5/lib/python3.14/site-packages/setuptools/_distutils/dist.py:318:
+      UserWarning: Unknown distribution option: 'test_suite'
+        warnings.warn(msg)
+      /home/davide/.cache/uv/builds-v0/.tmpAUSKh5/lib/python3.14/site-packages/setuptools/_distutils/dist.py:318:
+      UserWarning: Unknown distribution option: 'tests_require'
+        warnings.warn(msg)
+      /home/davide/.cache/uv/builds-v0/.tmpAUSKh5/lib/python3.14/site-packages/setuptools/command/build_py.py:215:
+      _Warning: Package 'gensim.test.test_data' is absent from the `packages`
+      configuration.
+      !!
+
+      
+      ********************************************************************************
+              ############################
+              # Package would be ignored #
+              ############################
+              Python recognizes 'gensim.test.test_data' as an importable
+      package[^1],
+              but it is absent from setuptools' `packages` configuration.
+
+              This leads to an ambiguous overall configuration. If you want to
+      distribute this
+              package, please make sure that 'gensim.test.test_data' is
+      explicitly added
+              to the `packages` configuration field.
+
+              Alternatively, you can also rely on setuptools' discovery
+      methods
+              (for example by using
+      `find_namespace_packages(...)`/`find_namespace:`
+              instead of `find_packages(...)`/`find:`).
+
+              You can read more about "package discovery" on setuptools
+      documentation page:
+
+              -
+      https://setuptools.pypa.io/en/latest/userguide/package_discovery.html
+
+              If you don't want 'gensim.test.test_data' to be distributed
+      and are
+              already explicitly excluding 'gensim.test.test_data' via
+              `find_namespace_packages(...)/find_namespace` or
+      `find_packages(...)/find`,
+              you can try to use `exclude_package_data`, or
+      `include-package-data=False` in
+              combination with a more fine grained `package-data`
+      configuration.
+
+              You can read more about "package data files" on setuptools
+      documentation page:
+
+              - https://setuptools.pypa.io/en/latest/userguide/datafiles.html
+
+
+              [^1]: For Python, any directory (with suitable naming) can be
+      imported,
+                    even if it does not contain any `.py` files.
+                    On the other hand, currently there is no concept of
+      package data
+                    directory, all directories are treated like packages.
+      
+      ********************************************************************************
+
+      !!
+        check.warn(importable)
+      /home/davide/.cache/uv/builds-v0/.tmpAUSKh5/lib/python3.14/site-packages/setuptools/command/build_py.py:215:
+      _Warning: Package 'gensim.test.test_data.DTM' is absent from the
+      `packages` configuration.
+      !!
+
+      
+      ********************************************************************************
+              ############################
+              # Package would be ignored #
+              ############################
+              Python recognizes 'gensim.test.test_data.DTM' as an importable
+      package[^1],
+              but it is absent from setuptools' `packages` configuration.
+
+              This leads to an ambiguous overall configuration. If you want to
+      distribute this
+              package, please make sure that 'gensim.test.test_data.DTM' is
+      explicitly added
+              to the `packages` configuration field.
+
+              Alternatively, you can also rely on setuptools' discovery
+      methods
+              (for example by using
+      `find_namespace_packages(...)`/`find_namespace:`
+              instead of `find_packages(...)`/`find:`).
+
+              You can read more about "package discovery" on setuptools
+      documentation page:
+
+              -
+      https://setuptools.pypa.io/en/latest/userguide/package_discovery.html
+
+              If you don't want 'gensim.test.test_data.DTM' to be distributed
+      and are
+              already explicitly excluding 'gensim.test.test_data.DTM' via
+              `find_namespace_packages(...)/find_namespace` or
+      `find_packages(...)/find`,
+              you can try to use `exclude_package_data`, or
+      `include-package-data=False` in
+              combination with a more fine grained `package-data`
+      configuration.
+
+              You can read more about "package data files" on setuptools
+      documentation page:
+
+              - https://setuptools.pypa.io/en/latest/userguide/datafiles.html
+
+
+              [^1]: For Python, any directory (with suitable naming) can be
+      imported,
+                    even if it does not contain any `.py` files.
+                    On the other hand, currently there is no concept of
+      package data
+                    directory, all directories are treated like packages.
+      
+      ********************************************************************************
+
+      !!
+        check.warn(importable)
+      /home/davide/.cache/uv/builds-v0/.tmpAUSKh5/lib/python3.14/site-packages/setuptools/command/build_py.py:215:
+      _Warning: Package 'gensim.test.test_data.PathLineSentences' is absent
+      from the `packages` configuration.
+      !!
+
+      
+      ********************************************************************************
+              ############################
+              # Package would be ignored #
+              ############################
+              Python recognizes 'gensim.test.test_data.PathLineSentences' as
+      an importable package[^1],
+              but it is absent from setuptools' `packages` configuration.
+
+              This leads to an ambiguous overall configuration. If you want to
+      distribute this
+              package, please make sure that
+      'gensim.test.test_data.PathLineSentences' is explicitly added
+              to the `packages` configuration field.
+
+              Alternatively, you can also rely on setuptools' discovery
+      methods
+              (for example by using
+      `find_namespace_packages(...)`/`find_namespace:`
+              instead of `find_packages(...)`/`find:`).
+
+              You can read more about "package discovery" on setuptools
+      documentation page:
+
+              -
+      https://setuptools.pypa.io/en/latest/userguide/package_discovery.html
+
+              If you don't want 'gensim.test.test_data.PathLineSentences' to
+      be distributed and are
+              already explicitly excluding
+      'gensim.test.test_data.PathLineSentences' via
+              `find_namespace_packages(...)/find_namespace` or
+      `find_packages(...)/find`,
+              you can try to use `exclude_package_data`, or
+      `include-package-data=False` in
+              combination with a more fine grained `package-data`
+      configuration.
+
+              You can read more about "package data files" on setuptools
+      documentation page:
+
+              - https://setuptools.pypa.io/en/latest/userguide/datafiles.html
+
+
+              [^1]: For Python, any directory (with suitable naming) can be
+      imported,
+                    even if it does not contain any `.py` files.
+                    On the other hand, currently there is no concept of
+      package data
+                    directory, all directories are treated like packages.
+      
+      ********************************************************************************
+
+      !!
+        check.warn(importable)
+      /home/davide/.cache/uv/builds-v0/.tmpAUSKh5/lib/python3.14/site-packages/setuptools/command/build_py.py:215:
+      _Warning: Package 'gensim.test.test_data.old_d2v_models' is absent from
+      the `packages` configuration.
+      !!
+
+      
+      ********************************************************************************
+              ############################
+              # Package would be ignored #
+              ############################
+              Python recognizes 'gensim.test.test_data.old_d2v_models' as an
+      importable package[^1],
+              but it is absent from setuptools' `packages` configuration.
+
+              This leads to an ambiguous overall configuration. If you want to
+      distribute this
+              package, please make sure that
+      'gensim.test.test_data.old_d2v_models' is explicitly added
+              to the `packages` configuration field.
+
+              Alternatively, you can also rely on setuptools' discovery
+      methods
+              (for example by using
+      `find_namespace_packages(...)`/`find_namespace:`
+              instead of `find_packages(...)`/`find:`).
+
+              You can read more about "package discovery" on setuptools
+      documentation page:
+
+              -
+      https://setuptools.pypa.io/en/latest/userguide/package_discovery.html
+
+              If you don't want 'gensim.test.test_data.old_d2v_models' to be
+      distributed and are
+              already explicitly excluding
+      'gensim.test.test_data.old_d2v_models' via
+              `find_namespace_packages(...)/find_namespace` or
+      `find_packages(...)/find`,
+              you can try to use `exclude_package_data`, or
+      `include-package-data=False` in
+              combination with a more fine grained `package-data`
+      configuration.
+
+              You can read more about "package data files" on setuptools
+      documentation page:
+
+              - https://setuptools.pypa.io/en/latest/userguide/datafiles.html
+
+
+              [^1]: For Python, any directory (with suitable naming) can be
+      imported,
+                    even if it does not contain any `.py` files.
+                    On the other hand, currently there is no concept of
+      package data
+                    directory, all directories are treated like packages.
+      
+      ********************************************************************************
+
+      !!
+        check.warn(importable)
+      /home/davide/.cache/uv/builds-v0/.tmpAUSKh5/lib/python3.14/site-packages/setuptools/command/build_py.py:215:
+      _Warning: Package 'gensim.test.test_data.old_w2v_models' is absent from
+      the `packages` configuration.
+      !!
+
+      
+      ********************************************************************************
+              ############################
+              # Package would be ignored #
+              ############################
+              Python recognizes 'gensim.test.test_data.old_w2v_models' as an
+      importable package[^1],
+              but it is absent from setuptools' `packages` configuration.
+
+              This leads to an ambiguous overall configuration. If you want to
+      distribute this
+              package, please make sure that
+      'gensim.test.test_data.old_w2v_models' is explicitly added
+              to the `packages` configuration field.
+
+              Alternatively, you can also rely on setuptools' discovery
+      methods
+              (for example by using
+      `find_namespace_packages(...)`/`find_namespace:`
+              instead of `find_packages(...)`/`find:`).
+
+              You can read more about "package discovery" on setuptools
+      documentation page:
+
+              -
+      https://setuptools.pypa.io/en/latest/userguide/package_discovery.html
+
+              If you don't want 'gensim.test.test_data.old_w2v_models' to be
+      distributed and are
+              already explicitly excluding
+      'gensim.test.test_data.old_w2v_models' via
+              `find_namespace_packages(...)/find_namespace` or
+      `find_packages(...)/find`,
+              you can try to use `exclude_package_data`, or
+      `include-package-data=False` in
+              combination with a more fine grained `package-data`
+      configuration.
+
+              You can read more about "package data files" on setuptools
+      documentation page:
+
+              - https://setuptools.pypa.io/en/latest/userguide/datafiles.html
+
+
+              [^1]: For Python, any directory (with suitable naming) can be
+      imported,
+                    even if it does not contain any `.py` files.
+                    On the other hand, currently there is no concept of
+      package data
+                    directory, all directories are treated like packages.
+      
+      ********************************************************************************
+
+      !!
+        check.warn(importable)
+      gensim/models/word2vec_inner.c:853:1: warning: ‘Py_UNICODE’ is
+      deprecated [-Wdeprecated-declarations]
+        853 | static CYTHON_INLINE size_t __Pyx_Py_UNICODE_strlen(const
+      Py_UNICODE *u) {
+            | ^~~~~~
+      gensim/models/word2vec_inner.c: In function ‘__Pyx_Py_UNICODE_strlen’:
+      gensim/models/word2vec_inner.c:854:5: warning: ‘Py_UNICODE’ is
+      deprecated [-Wdeprecated-declarations]
+        854 |     const Py_UNICODE *u_end = u;
+            |     ^~~~~
+      In file included from
+      /home/davide/.local/share/uv/python/cpython-3.14.0-linux-x86_64-gnu/include/python3.14/Python.h:71,
+                       from gensim/models/word2vec_inner.c:25:
+      gensim/models/word2vec_inner.c: In function
+      ‘__pyx_f_5numpy_PyDataType_SHAPE’:
+      gensim/models/word2vec_inner.c:9364:39: error: ‘PyArray_Descr’ {aka
+      ‘struct _PyArray_Descr’} has no member named ‘subarray’
+       9364 |     __Pyx_INCREF(((PyObject*)__pyx_v_d->subarray->shape));
+            |                                       ^~
+      /home/davide/.local/share/uv/python/cpython-3.14.0-linux-x86_64-gnu/include/python3.14/pyport.h:37:38:
+      note: in definition of macro ‘_Py_CAST’
+         37 | #define _Py_CAST(type, expr) ((type)(expr))
+            |                                      ^~~~
+      /home/davide/.local/share/uv/python/cpython-3.14.0-linux-x86_64-gnu/include/python3.14/refcount.h:304:35:
+      note: in expansion of macro ‘_PyObject_CAST’
+        304 | #  define Py_INCREF(op) Py_INCREF(_PyObject_CAST(op))
+            |                                   ^~~~~~~~~~~~~~
+      gensim/models/word2vec_inner.c:1447:27: note: in expansion of macro
+      ‘Py_INCREF’
+       1447 |   #define __Pyx_INCREF(r) Py_INCREF(r)
+            |                           ^~~~~~~~~
+      gensim/models/word2vec_inner.c:9364:5: note: in expansion of macro
+      ‘__Pyx_INCREF’
+       9364 |     __Pyx_INCREF(((PyObject*)__pyx_v_d->subarray->shape));
+            |     ^~~~~~~~~~~~
+      gensim/models/word2vec_inner.c:9365:36: error: ‘PyArray_Descr’ {aka
+      ‘struct _PyArray_Descr’} has no member named ‘subarray’
+       9365 |     __pyx_r = ((PyObject*)__pyx_v_d->subarray->shape);
+            |                                    ^~
+      gensim/models/word2vec_inner.c: In function
+      ‘__pyx_pymod_exec_word2vec_inner’:
+      gensim/models/word2vec_inner.c:1686:63: error: ‘PyDictObject’ has no
+      member named ‘ma_version_tag’
+       1686 | #define __PYX_GET_DICT_VERSION(dict)
+      (((PyDictObject*)(dict))->ma_version_tag)
+            |                                                               ^~
+      gensim/models/word2vec_inner.c:962:43: note: in definition of macro
+      ‘likely’
+        962 |   #define likely(x)   __builtin_expect(!!(x), 1)
+            |                                           ^
+      gensim/models/word2vec_inner.c:1714:43: note: in expansion of macro
+      ‘__PYX_GET_DICT_VERSION’
+       1714 |     (var) = (likely(__pyx_dict_version ==
+      __PYX_GET_DICT_VERSION(__pyx_d))) ?\
+            |                                           ^~~~~~~~~~~~~~~~~~~~~~
+      gensim/models/word2vec_inner.c:10747:3: note: in expansion of macro
+      ‘__Pyx_GetModuleGlobalName’
+      10747 |   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if
+      (unlikely(!__pyx_t_2)) __PYX_ERR(0, 25, __pyx_L1_error)
+            |   ^~~~~~~~~~~~~~~~~~~~~~~~~
+      gensim/models/word2vec_inner.c:1686:63: error: ‘PyDictObject’ has no
+      member named ‘ma_version_tag’
+       1686 | #define __PYX_GET_DICT_VERSION(dict)
+      (((PyDictObject*)(dict))->ma_version_tag)
+            |                                                               ^~
+      gensim/models/word2vec_inner.c:962:43: note: in definition of macro
+      ‘likely’
+        962 |   #define likely(x)   __builtin_expect(!!(x), 1)
+            |                                           ^
+      gensim/models/word2vec_inner.c:1714:43: note: in expansion of macro
+      ‘__PYX_GET_DICT_VERSION’
+       1714 |     (var) = (likely(__pyx_dict_version ==
+      __PYX_GET_DICT_VERSION(__pyx_d))) ?\
+            |                                           ^~~~~~~~~~~~~~~~~~~~~~
+      gensim/models/word2vec_inner.c:10762:3: note: in expansion of macro
+      ‘__Pyx_GetModuleGlobalName’
+      10762 |   __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_fblas); if
+      (unlikely(!__pyx_t_1)) __PYX_ERR(0, 29, __pyx_L1_error)
+            |   ^~~~~~~~~~~~~~~~~~~~~~~~~
+      gensim/models/word2vec_inner.c:1686:63: error: ‘PyDictObject’ has no
+      member named ‘ma_version_tag’
+       1686 | #define __PYX_GET_DICT_VERSION(dict)
+      (((PyDictObject*)(dict))->ma_version_tag)
+            |                                                               ^~
+      gensim/models/word2vec_inner.c:962:43: note: in definition of macro
+      ‘likely’
+        962 |   #define likely(x)   __builtin_expect(!!(x), 1)
+            |                                           ^
+      gensim/models/word2vec_inner.c:1714:43: note: in expansion of macro
+      ‘__PYX_GET_DICT_VERSION’
+       1714 |     (var) = (likely(__pyx_dict_version ==
+      __PYX_GET_DICT_VERSION(__pyx_d))) ?\
+            |                                           ^~~~~~~~~~~~~~~~~~~~~~
+      gensim/models/word2vec_inner.c:10780:3: note: in expansion of macro
+      ‘__Pyx_GetModuleGlobalName’
+      10780 |   __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_fblas); if
+      (unlikely(!__pyx_t_1)) __PYX_ERR(0, 30, __pyx_L1_error)
+            |   ^~~~~~~~~~~~~~~~~~~~~~~~~
+      gensim/models/word2vec_inner.c:1686:63: error: ‘PyDictObject’ has no
+      member named ‘ma_version_tag’
+       1686 | #define __PYX_GET_DICT_VERSION(dict)
+      (((PyDictObject*)(dict))->ma_version_tag)
+            |                                                               ^~
+      gensim/models/word2vec_inner.c:962:43: note: in definition of macro
+      ‘likely’
+        962 |   #define likely(x)   __builtin_expect(!!(x), 1)
+            |                                           ^
+      gensim/models/word2vec_inner.c:1714:43: note: in expansion of macro
+      ‘__PYX_GET_DICT_VERSION’
+       1714 |     (var) = (likely(__pyx_dict_version ==
+      __PYX_GET_DICT_VERSION(__pyx_d))) ?\
+            |                                           ^~~~~~~~~~~~~~~~~~~~~~
+      gensim/models/word2vec_inner.c:10798:3: note: in expansion of macro
+      ‘__Pyx_GetModuleGlobalName’
+      10798 |   __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_fblas); if
+      (unlikely(!__pyx_t_1)) __PYX_ERR(0, 31, __pyx_L1_error)
+            |   ^~~~~~~~~~~~~~~~~~~~~~~~~
+      gensim/models/word2vec_inner.c:1686:63: error: ‘PyDictObject’ has no
+      member named ‘ma_version_tag’
+       1686 | #define __PYX_GET_DICT_VERSION(dict)
+      (((PyDictObject*)(dict))->ma_version_tag)
+            |                                                               ^~
+      gensim/models/word2vec_inner.c:962:43: note: in definition of macro
+      ‘likely’
+        962 |   #define likely(x)   __builtin_expect(!!(x), 1)
+            |                                           ^
+      gensim/models/word2vec_inner.c:1714:43: note: in expansion of macro
+      ‘__PYX_GET_DICT_VERSION’
+       1714 |     (var) = (likely(__pyx_dict_version ==
+      __PYX_GET_DICT_VERSION(__pyx_d))) ?\
+            |                                           ^~~~~~~~~~~~~~~~~~~~~~
+      gensim/models/word2vec_inner.c:10816:3: note: in expansion of macro
+      ‘__Pyx_GetModuleGlobalName’
+      10816 |   __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_fblas); if
+      (unlikely(!__pyx_t_1)) __PYX_ERR(0, 32, __pyx_L1_error)
+            |   ^~~~~~~~~~~~~~~~~~~~~~~~~
+      gensim/models/word2vec_inner.c:1686:63: error: ‘PyDictObject’ has no
+      member named ‘ma_version_tag’
+       1686 | #define __PYX_GET_DICT_VERSION(dict)
+      (((PyDictObject*)(dict))->ma_version_tag)
+            |                                                               ^~
+      gensim/models/word2vec_inner.c:962:43: note: in definition of macro
+      ‘likely’
+        962 |   #define likely(x)   __builtin_expect(!!(x), 1)
+            |                                           ^
+      gensim/models/word2vec_inner.c:1714:43: note: in expansion of macro
+      ‘__PYX_GET_DICT_VERSION’
+       1714 |     (var) = (likely(__pyx_dict_version ==
+      __PYX_GET_DICT_VERSION(__pyx_d))) ?\
+            |                                           ^~~~~~~~~~~~~~~~~~~~~~
+      gensim/models/word2vec_inner.c:10834:3: note: in expansion of macro
+      ‘__Pyx_GetModuleGlobalName’
+      10834 |   __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_fblas); if
+      (unlikely(!__pyx_t_1)) __PYX_ERR(0, 33, __pyx_L1_error)
+            |   ^~~~~~~~~~~~~~~~~~~~~~~~~
+      gensim/models/word2vec_inner.c:1686:63: error: ‘PyDictObject’ has no
+      member named ‘ma_version_tag’
+       1686 | #define __PYX_GET_DICT_VERSION(dict)
+      (((PyDictObject*)(dict))->ma_version_tag)
+            |                                                               ^~
+      gensim/models/word2vec_inner.c:962:43: note: in definition of macro
+      ‘likely’
+        962 |   #define likely(x)   __builtin_expect(!!(x), 1)
+            |                                           ^
+      gensim/models/word2vec_inner.c:1714:43: note: in expansion of macro
+      ‘__PYX_GET_DICT_VERSION’
+       1714 |     (var) = (likely(__pyx_dict_version ==
+      __PYX_GET_DICT_VERSION(__pyx_d))) ?\
+            |                                           ^~~~~~~~~~~~~~~~~~~~~~
+      gensim/models/word2vec_inner.c:10852:3: note: in expansion of macro
+      ‘__Pyx_GetModuleGlobalName’
+      10852 |   __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_fblas); if
+      (unlikely(!__pyx_t_1)) __PYX_ERR(0, 34, __pyx_L1_error)
+            |   ^~~~~~~~~~~~~~~~~~~~~~~~~
+      gensim/models/word2vec_inner.c:1686:63: error: ‘PyDictObject’ has no
+      member named ‘ma_version_tag’
+       1686 | #define __PYX_GET_DICT_VERSION(dict)
+      (((PyDictObject*)(dict))->ma_version_tag)
+            |                                                               ^~
+      gensim/models/word2vec_inner.c:962:43: note: in definition of macro
+      ‘likely’
+        962 |   #define likely(x)   __builtin_expect(!!(x), 1)
+            |                                           ^
+      gensim/models/word2vec_inner.c:1714:43: note: in expansion of macro
+      ‘__PYX_GET_DICT_VERSION’
+       1714 |     (var) = (likely(__pyx_dict_version ==
+      __PYX_GET_DICT_VERSION(__pyx_d))) ?\
+            |                                           ^~~~~~~~~~~~~~~~~~~~~~
+      gensim/models/word2vec_inner.c:10947:3: note: in expansion of macro
+      ‘__Pyx_GetModuleGlobalName’
+      10947 |   __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_init); if
+      (unlikely(!__pyx_t_1)) __PYX_ERR(0, 960, __pyx_L1_error)
+            |   ^~~~~~~~~~~~~~~~~~~~~~~~~
+      gensim/models/word2vec_inner.c: In function ‘__Pyx_PyInt_NeObjC’:
+      gensim/models/word2vec_inner.c:11068:51: error: ‘PyLongObject’ {aka
+      ‘struct _longobject’} has no member named ‘ob_digit’
+      11068 |         const digit* digits = ((PyLongObject*)op1)->ob_digit;
+            |                                                   ^~
+      gensim/models/word2vec_inner.c: In function ‘__Pyx_Raise’:
+      gensim/models/word2vec_inner.c:11918:34: error: ‘PyThreadState’ {aka
+      ‘struct _ts’} has no member named ‘curexc_traceback’
+      11918 |         PyObject* tmp_tb = tstate->curexc_traceback;
+            |                                  ^~
+      gensim/models/word2vec_inner.c:11921:19: error: ‘PyThreadState’ {aka
+      ‘struct _ts’} has no member named ‘curexc_traceback’
+      11921 |             tstate->curexc_traceback = tb;
+            |                   ^~
+      gensim/models/word2vec_inner.c: In function ‘__Pyx_get_tp_dict_version’:
+      gensim/models/word2vec_inner.c:1686:63: error: ‘PyDictObject’ has no
+      member named ‘ma_version_tag’
+       1686 | #define __PYX_GET_DICT_VERSION(dict)
+      (((PyDictObject*)(dict))->ma_version_tag)
+            |                                                               ^~
+      gensim/models/word2vec_inner.c:12062:27: note: in expansion of macro
+      ‘__PYX_GET_DICT_VERSION’
+      12062 |     return likely(dict) ? __PYX_GET_DICT_VERSION(dict) : 0;
+            |                           ^~~~~~~~~~~~~~~~~~~~~~
+      gensim/models/word2vec_inner.c: In function
+      ‘__Pyx_get_object_dict_version’:
+      gensim/models/word2vec_inner.c:1686:63: error: ‘PyDictObject’ has no
+      member named ‘ma_version_tag’
+       1686 | #define __PYX_GET_DICT_VERSION(dict)
+      (((PyDictObject*)(dict))->ma_version_tag)
+            |                                                               ^~
+      gensim/models/word2vec_inner.c:12074:36: note: in expansion of macro
+      ‘__PYX_GET_DICT_VERSION’
+      12074 |     return (dictptr && *dictptr) ?
+      __PYX_GET_DICT_VERSION(*dictptr) : 0;
+            |                                    ^~~~~~~~~~~~~~~~~~~~~~
+      gensim/models/word2vec_inner.c: In function
+      ‘__Pyx_object_dict_version_matches’:
+      gensim/models/word2vec_inner.c:1686:63: error: ‘PyDictObject’ has no
+      member named ‘ma_version_tag’
+       1686 | #define __PYX_GET_DICT_VERSION(dict)
+      (((PyDictObject*)(dict))->ma_version_tag)
+            |                                                               ^~
+      gensim/models/word2vec_inner.c:963:43: note: in definition of macro
+      ‘unlikely’
+        963 |   #define unlikely(x) __builtin_expect(!!(x), 0)
+            |                                           ^
+      gensim/models/word2vec_inner.c:12078:56: note: in expansion of macro
+      ‘__PYX_GET_DICT_VERSION’
+      12078 |     if (unlikely(!dict) || unlikely(tp_dict_version !=
+      __PYX_GET_DICT_VERSION(dict)))
+            |
+      ^~~~~~~~~~~~~~~~~~~~~~
+      gensim/models/word2vec_inner.c: In function
+      ‘__Pyx__GetModuleGlobalName’:
+      gensim/models/word2vec_inner.c:1686:63: error: ‘PyDictObject’ has no
+      member named ‘ma_version_tag’
+       1686 | #define __PYX_GET_DICT_VERSION(dict)
+      (((PyDictObject*)(dict))->ma_version_tag)
+            |                                                               ^~
+      gensim/models/word2vec_inner.c:1688:21: note: in expansion of macro
+      ‘__PYX_GET_DICT_VERSION’
+       1688 |     (version_var) = __PYX_GET_DICT_VERSION(dict);\
+            |                     ^~~~~~~~~~~~~~~~~~~~~~
+      gensim/models/word2vec_inner.c:12095:5: note: in expansion of macro
+      ‘__PYX_UPDATE_DICT_CACHE’
+      12095 |     __PYX_UPDATE_DICT_CACHE(__pyx_d, result, *dict_cached_value,
+      *dict_version)
+            |     ^~~~~~~~~~~~~~~~~~~~~~~
+      gensim/models/word2vec_inner.c: In function ‘__Pyx_CLineForTraceback’:
+      gensim/models/word2vec_inner.c:1686:63: error: ‘PyDictObject’ has no
+      member named ‘ma_version_tag’
+       1686 | #define __PYX_GET_DICT_VERSION(dict)
+      (((PyDictObject*)(dict))->ma_version_tag)
+            |                                                               ^~
+      gensim/models/word2vec_inner.c:962:43: note: in definition of macro
+      ‘likely’
+        962 |   #define likely(x)   __builtin_expect(!!(x), 1)
+            |                                           ^
+      gensim/models/word2vec_inner.c:1693:16: note: in expansion of macro
+      ‘__PYX_GET_DICT_VERSION’
+       1693 |     if (likely(__PYX_GET_DICT_VERSION(DICT) ==
+      __pyx_dict_version)) {\
+            |                ^~~~~~~~~~~~~~~~~~~~~~
+      gensim/models/word2vec_inner.c:12176:9: note: in expansion of macro
+      ‘__PYX_PY_DICT_LOOKUP_IF_MODIFIED’
+      12176 |         __PYX_PY_DICT_LOOKUP_IF_MODIFIED(
+            |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      gensim/models/word2vec_inner.c:1686:63: error: ‘PyDictObject’ has no
+      member named ‘ma_version_tag’
+       1686 | #define __PYX_GET_DICT_VERSION(dict)
+      (((PyDictObject*)(dict))->ma_version_tag)
+            |                                                               ^~
+      gensim/models/word2vec_inner.c:1697:30: note: in expansion of macro
+      ‘__PYX_GET_DICT_VERSION’
+       1697 |         __pyx_dict_version = __PYX_GET_DICT_VERSION(DICT);\
+            |                              ^~~~~~~~~~~~~~~~~~~~~~
+      gensim/models/word2vec_inner.c:12176:9: note: in expansion of macro
+      ‘__PYX_PY_DICT_LOOKUP_IF_MODIFIED’
+      12176 |         __PYX_PY_DICT_LOOKUP_IF_MODIFIED(
+            |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      gensim/models/word2vec_inner.c: In function
+      ‘__Pyx_PyInt_As_PY_LONG_LONG’:
+      gensim/models/word2vec_inner.c:12812:53: error: ‘PyLongObject’ {aka
+      ‘struct _longobject’} has no member named ‘ob_digit’
+      12812 |             const digit* digits = ((PyLongObject*)x)->ob_digit;
+            |                                                     ^~
+      gensim/models/word2vec_inner.c:12867:53: error: ‘PyLongObject’ {aka
+      ‘struct _longobject’} has no member named ‘ob_digit’
+      12867 |             const digit* digits = ((PyLongObject*)x)->ob_digit;
+            |                                                     ^~
+      gensim/models/word2vec_inner.c:12953:27: error: too few arguments to
+      function ‘_PyLong_AsByteArray’; expected 6, have 5
+      12953 |                 int ret = _PyLong_AsByteArray((PyLongObject *)v,
+            |                           ^~~~~~~~~~~~~~~~~~~
+      In file included from
+      /home/davide/.local/share/uv/python/cpython-3.14.0-linux-x86_64-gnu/include/python3.14/longobject.h:171,
+                       from
+      /home/davide/.local/share/uv/python/cpython-3.14.0-linux-x86_64-gnu/include/python3.14/Python.h:91:
+      /home/davide/.local/share/uv/python/cpython-3.14.0-linux-x86_64-gnu/include/python3.14/cpython/longobject.h:84:17:
+      note: declared here
+         84 | PyAPI_FUNC(int) _PyLong_AsByteArray(PyLongObject* v,
+            |                 ^~~~~~~~~~~~~~~~~~~
+      gensim/models/word2vec_inner.c: In function ‘__Pyx_PyInt_As_int’:
+      gensim/models/word2vec_inner.c:13046:53: error: ‘PyLongObject’ {aka
+      ‘struct _longobject’} has no member named ‘ob_digit’
+      13046 |             const digit* digits = ((PyLongObject*)x)->ob_digit;
+            |                                                     ^~
+      gensim/models/word2vec_inner.c:13101:53: error: ‘PyLongObject’ {aka
+      ‘struct _longobject’} has no member named ‘ob_digit’
+      13101 |             const digit* digits = ((PyLongObject*)x)->ob_digit;
+            |                                                     ^~
+      gensim/models/word2vec_inner.c:13187:27: error: too few arguments to
+      function ‘_PyLong_AsByteArray’; expected 6, have 5
+      13187 |                 int ret = _PyLong_AsByteArray((PyLongObject *)v,
+            |                           ^~~~~~~~~~~~~~~~~~~
+      /home/davide/.local/share/uv/python/cpython-3.14.0-linux-x86_64-gnu/include/python3.14/cpython/longobject.h:84:17:
+      note: declared here
+         84 | PyAPI_FUNC(int) _PyLong_AsByteArray(PyLongObject* v,
+            |                 ^~~~~~~~~~~~~~~~~~~
+      gensim/models/word2vec_inner.c: In function
+      ‘__Pyx_PyInt_As_unsigned_PY_LONG_LONG’:
+      gensim/models/word2vec_inner.c:13242:53: error: ‘PyLongObject’ {aka
+      ‘struct _longobject’} has no member named ‘ob_digit’
+      13242 |             const digit* digits = ((PyLongObject*)x)->ob_digit;
+            |                                                     ^~
+      gensim/models/word2vec_inner.c:13297:53: error: ‘PyLongObject’ {aka
+      ‘struct _longobject’} has no member named ‘ob_digit’
+      13297 |             const digit* digits = ((PyLongObject*)x)->ob_digit;
+            |                                                     ^~
+      gensim/models/word2vec_inner.c:13383:27: error: too few arguments to
+      function ‘_PyLong_AsByteArray’; expected 6, have 5
+      13383 |                 int ret = _PyLong_AsByteArray((PyLongObject *)v,
+            |                           ^~~~~~~~~~~~~~~~~~~
+      /home/davide/.local/share/uv/python/cpython-3.14.0-linux-x86_64-gnu/include/python3.14/cpython/longobject.h:84:17:
+      note: declared here
+         84 | PyAPI_FUNC(int) _PyLong_AsByteArray(PyLongObject* v,
+            |                 ^~~~~~~~~~~~~~~~~~~
+      gensim/models/word2vec_inner.c: In function ‘__Pyx_PyInt_As_npy_uint32’:
+      gensim/models/word2vec_inner.c:13438:53: error: ‘PyLongObject’ {aka
+      ‘struct _longobject’} has no member named ‘ob_digit’
+      13438 |             const digit* digits = ((PyLongObject*)x)->ob_digit;
+            |                                                     ^~
+      gensim/models/word2vec_inner.c:13493:53: error: ‘PyLongObject’ {aka
+      ‘struct _longobject’} has no member named ‘ob_digit’
+      13493 |             const digit* digits = ((PyLongObject*)x)->ob_digit;
+            |                                                     ^~
+      gensim/models/word2vec_inner.c:13579:27: error: too few arguments to
+      function ‘_PyLong_AsByteArray’; expected 6, have 5
+      13579 |                 int ret = _PyLong_AsByteArray((PyLongObject *)v,
+            |                           ^~~~~~~~~~~~~~~~~~~
+      /home/davide/.local/share/uv/python/cpython-3.14.0-linux-x86_64-gnu/include/python3.14/cpython/longobject.h:84:17:
+      note: declared here
+         84 | PyAPI_FUNC(int) _PyLong_AsByteArray(PyLongObject* v,
+            |                 ^~~~~~~~~~~~~~~~~~~
+      gensim/models/word2vec_inner.c: In function ‘__Pyx_PyInt_As_long’:
+      gensim/models/word2vec_inner.c:13634:53: error: ‘PyLongObject’ {aka
+      ‘struct _longobject’} has no member named ‘ob_digit’
+      13634 |             const digit* digits = ((PyLongObject*)x)->ob_digit;
+            |                                                     ^~
+      gensim/models/word2vec_inner.c:13689:53: error: ‘PyLongObject’ {aka
+      ‘struct _longobject’} has no member named ‘ob_digit’
+      13689 |             const digit* digits = ((PyLongObject*)x)->ob_digit;
+            |                                                     ^~
+      gensim/models/word2vec_inner.c:13775:27: error: too few arguments to
+      function ‘_PyLong_AsByteArray’; expected 6, have 5
+      13775 |                 int ret = _PyLong_AsByteArray((PyLongObject *)v,
+            |                           ^~~~~~~~~~~~~~~~~~~
+      /home/davide/.local/share/uv/python/cpython-3.14.0-linux-x86_64-gnu/include/python3.14/cpython/longobject.h:84:17:
+      note: declared here
+         84 | PyAPI_FUNC(int) _PyLong_AsByteArray(PyLongObject* v,
+            |                 ^~~~~~~~~~~~~~~~~~~
+      gensim/models/word2vec_inner.c: In function ‘__Pyx_PyIndex_AsSsize_t’:
+      gensim/models/word2vec_inner.c:14208:45: error: ‘PyLongObject’ {aka
+      ‘struct _longobject’} has no member named ‘ob_digit’
+      14208 |     const digit* digits = ((PyLongObject*)b)->ob_digit;
+            |                                             ^~
+      error: Command '['cc', '-pthread', '-fno-strict-overflow',
+      '-Wsign-compare', '-Wunreachable-code',
+      '-DNDEBUG', '-g', '-O3', '-Wall', '-fPIC', '-fPIC',
+      '-I/home/davide/.cache/uv/builds-v0/.tmpAUSKh5/include',
+      '-I/home/davide/.local/share/uv/python/cpython-3.14.0-linux-x86_64-gnu/include/python3.14',
+      '-I/home/davide/.cache/uv/builds-v0/.tmpAUSKh5/lib/python3.14/site-packages/numpy/_core/include',
+      '-c', 'gensim/models/word2vec_inner.c', '-o',
+      'build/temp.linux-x86_64-cpython-314/gensim/models/word2vec_inner.o']'
+      returned non-zero exit status 1.
+
+      hint: This usually indicates a problem with the package or the build
+      environment.
+  help: `gensim` (v4.4.0) was included because
+        `interactome[clustering-research]` (v0.1.0) depends on `graspologic`
+        (v3.4.4) which depends on `gensim`

@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/home/davide/projects/interactome/cluster_networks.py", line 426, in _worker
+    communities, soft, extra = execute(method, graph, p)
+                               ~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/davide/projects/interactome/cluster_networks.py", line 316, in execute
+    from cdlib import algorithms
+ModuleNotFoundError: No module named 'cdlib'

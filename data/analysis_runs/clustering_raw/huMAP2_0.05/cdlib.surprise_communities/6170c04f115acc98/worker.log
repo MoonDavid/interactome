@@ -1,0 +1,3 @@
+Note: to be able to use all crisp methods, you need to install some additional packages:  {'bayanpy', 'graph_tool', 'wurlitzer'}
+Note: to be able to use all crisp methods, you need to install some additional packages:  {'hidef', 'pyclustering', 'ASLPAw', 'torch'}
+Note: to be able to use all crisp methods, you need to install some additional packages:  {'wurlitzer'}

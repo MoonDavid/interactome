@@ -1,0 +1,148 @@
+{
+  "method": "igraph.walktrap",
+  "key": "c8ea5e9e2a7a0dc7463919d7485f82063ea412bca0c9098afa935909f3ab5f78",
+  "status": "skipped",
+  "reason": "Cost guard: 8,163 nodes exceeds 5,000",
+  "elapsed_seconds": 0.264,
+  "job": {
+    "network": "HuRI",
+    "method": "igraph.walktrap",
+    "adapter": {
+      "id": "igraph.walktrap",
+      "backend": "igraph",
+      "name": "walktrap",
+      "family": "hierarchical",
+      "costly": true,
+      "dense": false
+    },
+    "provenance": {
+      "input": {
+        "path": "/home/davide/projects/interactome/data/processed_networks/HuRI.parquet",
+        "size": 428882,
+        "mtime_ns": 1794320412232408625,
+        "sha256": "5f1e8b6af1b7016c1da34dc1ad99475dc19d25b5b9da7cd19d24a8593f810e2c"
+      },
+      "audit": {
+        "name": "HuRI",
+        "created_at": "2026-11-10T11:26:46.059675+00:00",
+        "normalization_policy": "Use PSI-MITAB UniProtKB interactor IDs directly; Collapse to parent accessions; undirected; remove self-loops and duplicates; duplicate author_score=max; missing scores=null with edges retained",
+        "isoform_policy": "collapse",
+        "source": {
+          "path": "data\\raw_networks\\HuRI.psi",
+          "size": 169848924,
+          "mtime_ns": 1794296017705052000,
+          "sha256": "d6e8185519d18ce18cfa66f5eab66ecb1e711113f0b62810e0a145dd33a9ee12"
+        },
+        "output": {
+          "path": "data\\processed_networks\\HuRI.parquet",
+          "size": 428882,
+          "mtime_ns": 1794310006058675900,
+          "sha256": "5f1e8b6af1b7016c1da34dc1ad99475dc19d25b5b9da7cd19d24a8593f810e2c"
+        },
+        "score_column": "author_score",
+        "invalid_score_policy": "retain base edges with null score; exclude from scored versions",
+        "input_rows": 171545,
+        "rows_without_two_uniprot_ids": 2789,
+        "source_self_loop_rows": 1626,
+        "rows_with_isoform_suffixes": 122590,
+        "rows_removed_by_isoform_policy": 0,
+        "self_loops_after_isoform_policy": 0,
+        "duplicate_rows": 115556,
+        "filtering_stages": [
+          {
+            "stage": "Source interaction rows",
+            "nodes": 8259,
+            "edges": 171545,
+            "nodes_removed": 0,
+            "edges_removed": 0
+          },
+          {
+            "stage": "Keep rows with two supplied UniProt IDs (no external lookup)",
+            "nodes": 8190,
+            "edges": 168756,
+            "nodes_removed": 69,
+            "edges_removed": 2789
+          },
+          {
+            "stage": "Remove source self-loops",
+            "nodes": 8164,
+            "edges": 167130,
+            "nodes_removed": 26,
+            "edges_removed": 1626
+          },
+          {
+            "stage": "Deduplicate before accession normalization",
+            "nodes": 8164,
+            "edges": 51575,
+            "nodes_removed": 0,
+            "edges_removed": 115555
+          },
+          {
+            "stage": "Apply isoform policy / merge identical accession labels",
+            "nodes": 8163,
+            "edges": 51575,
+            "nodes_removed": 1,
+            "edges_removed": 0
+          },
+          {
+            "stage": "Remove self-loops after normalization",
+            "nodes": 8163,
+            "edges": 51575,
+            "nodes_removed": 0,
+            "edges_removed": 0
+          },
+          {
+            "stage": "Deduplicate after accession normalization",
+            "nodes": 8163,
+            "edges": 51574,
+            "nodes_removed": 0,
+            "edges_removed": 1
+          }
+        ],
+        "edges": 51574,
+        "nodes": 8163
+      }
+    },
+    "parameters": {
+      "seed": 42,
+      "resolution": 1.0,
+      "clusters": 16,
+      "dimensions": 16,
+      "clique_k": 3,
+      "inflation": 2.0,
+      "membership_cutoff": 0.2,
+      "costly_node_limit": 5000,
+      "dense_node_limit": 3000,
+      "threads": 1
+    },
+    "environment": {
+      "python": "3.14.0 (main, Oct 10 2025, 12:47:49) [Clang 20.1.4 ]",
+      "platform": "linux",
+      "polars": "2.1.0",
+      "numpy": "1.26.4",
+      "scipy": "1.17.1",
+      "networkx": "3.7",
+      "typer": "0.28.0",
+      "rich": "15.0.0",
+      "igraph": "1.0.0",
+      "leidenalg": null,
+      "scikit-network": null,
+      "scikit-learn": null,
+      "cdlib": null,
+      "graspologic": null,
+      "karateclub": null,
+      "networkit": null,
+      "cugraph-cu12": null,
+      "cudf-cu12": null,
+      "infomap": null,
+      "markov-clustering": null,
+      "hdbscan": null
+    },
+    "code_sha256": "6802d5f16353d996160d025e56c1bc4e0026895e70cd3aaaeca36f112340f861",
+    "schema_version": 1,
+    "semantics": "undirected binary topology; scores not used as weights",
+    "key": "c8ea5e9e2a7a0dc7463919d7485f82063ea412bca0c9098afa935909f3ab5f78",
+    "path": "/home/davide/projects/interactome/data/processed_networks/HuRI.parquet",
+    "target": "/home/davide/projects/interactome/data/analysis_runs/clustering_raw/HuRI/igraph.walktrap/c8ea5e9e2a7a0dc7"
+  }
+}

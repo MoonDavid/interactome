@@ -1,0 +1,203 @@
+{
+  "method": "igraph.label_propagation",
+  "key": "458a33b8e9b4309e20978763772913a00834afe653c1e65c594ec0e96c29be05",
+  "status": "success",
+  "nodes": 14235,
+  "edges": 108649,
+  "communities": 18,
+  "covered_nodes": 14235,
+  "unassigned_nodes": 0,
+  "overlapping_nodes": 0,
+  "details": {},
+  "elapsed_seconds": 0.608,
+  "peak_rss_bytes": 309489664,
+  "job": {
+    "network": "TAGC_binary2025",
+    "method": "igraph.label_propagation",
+    "adapter": {
+      "id": "igraph.label_propagation",
+      "backend": "igraph",
+      "name": "label_propagation",
+      "family": "hard",
+      "costly": false,
+      "dense": false
+    },
+    "provenance": {
+      "input": {
+        "path": "/home/davide/projects/interactome/data/processed_networks/TAGC_binary2025.parquet",
+        "size": 313955,
+        "mtime_ns": 1794320412234408656,
+        "sha256": "30c3be2b328044e6743a50ca23fb8fb33886592aac447bb94b149db6c4171807"
+      },
+      "audit": {
+        "name": "TAGC_binary2025",
+        "created_at": "2026-11-10T09:57:08.096352+00:00",
+        "normalization_policy": "UniProt primary accessions; remove terminal numeric isoform suffix; one node per sorted UniProt label set (pipe-separated); merge identical label sets; deduplicate undirected source pairs before mapping; remove source loops before mapping and canonical loops after mapping; duplicate native score=max; BioPlex invalid scores=null with edges retained",
+        "mapping_sha256": "092061960e7ac2a22f788c681cb19fd92ff02dd9510e4d745c97b675f18d35cd",
+        "source": {
+          "path": "data\\raw_networks\\TAGC_binaryInteractome2025.csv",
+          "size": 1631019,
+          "mtime_ns": 1794296428244551100,
+          "sha256": "19c81cacbdc643e3f7703ad1d4fc502545c7762d9fd48665fc43f7343654476e"
+        },
+        "output": {
+          "path": "data\\processed_networks\\TAGC_binary2025.parquet",
+          "size": 313955,
+          "mtime_ns": 1794304628035049500,
+          "sha256": "30c3be2b328044e6743a50ca23fb8fb33886592aac447bb94b149db6c4171807"
+        },
+        "input_rows": 108730,
+        "expanded_mapped_rows": 108649,
+        "node_identity": "sorted UniProt label set; multiple labels remain one node",
+        "filtering_stages": [
+          {
+            "stage": "Source interaction rows",
+            "nodes": 14238,
+            "edges": 108730,
+            "nodes_removed": 0,
+            "edges_removed": 0
+          },
+          {
+            "stage": "Remove missing endpoint IDs",
+            "nodes": 14238,
+            "edges": 108730,
+            "nodes_removed": 0,
+            "edges_removed": 0
+          },
+          {
+            "stage": "Remove source self-loops",
+            "nodes": 14238,
+            "edges": 108730,
+            "nodes_removed": 0,
+            "edges_removed": 0
+          },
+          {
+            "stage": "Apply source isoform policy",
+            "nodes": 14238,
+            "edges": 108730,
+            "nodes_removed": 0,
+            "edges_removed": 0
+          },
+          {
+            "stage": "Deduplicate before UniProt mapping",
+            "nodes": 14238,
+            "edges": 108730,
+            "nodes_removed": 0,
+            "edges_removed": 0
+          },
+          {
+            "stage": "Remove edges with unmapped endpoints",
+            "nodes": 14235,
+            "edges": 108649,
+            "nodes_removed": 3,
+            "edges_removed": 81
+          },
+          {
+            "stage": "Relabel nodes / merge identical UniProt label sets",
+            "nodes": 14235,
+            "edges": 108649,
+            "nodes_removed": 0,
+            "edges_removed": 0
+          },
+          {
+            "stage": "Remove self-loops after mapping",
+            "nodes": 14235,
+            "edges": 108649,
+            "nodes_removed": 0,
+            "edges_removed": 0
+          },
+          {
+            "stage": "Deduplicate after UniProt mapping",
+            "nodes": 14235,
+            "edges": 108649,
+            "nodes_removed": 0,
+            "edges_removed": 0
+          },
+          {
+            "stage": "Apply native score validity policy",
+            "nodes": 14235,
+            "edges": 108649,
+            "nodes_removed": 0,
+            "edges_removed": 0
+          }
+        ],
+        "node_annotations": {
+          "path": "data\\processed_networks\\node_annotations\\TAGC_binary2025.parquet",
+          "size": 122678,
+          "mtime_ns": 1794304628095353500,
+          "sha256": "5d7ad45b926e063d978ed6036bb91bc2dac0b88cc7d3182e5196e81baab5399f"
+        },
+        "original_release_sources": [],
+        "original_release_stages_available": false,
+        "unmapped_ids": [
+          "O43930",
+          "Q3SXR2",
+          "Q5SWW7"
+        ],
+        "unmapped_edge_rows": 81,
+        "one_to_many_ids": {
+          "P01562": [
+            "A0A087WWS6",
+            "P0DY56"
+          ]
+        },
+        "one_to_many_id_count": 1,
+        "source_self_loop_rows": 0,
+        "self_loop_rows": 0,
+        "invalid_score_rows": 0,
+        "score_column": null,
+        "source_score_column": null,
+        "invalid_score_policy": null,
+        "edges": 108649,
+        "nodes": 14235
+      }
+    },
+    "parameters": {
+      "seed": 42,
+      "resolution": 1.0,
+      "clusters": 16,
+      "dimensions": 16,
+      "clique_k": 3,
+      "inflation": 2.0,
+      "membership_cutoff": 0.2,
+      "costly_node_limit": 100000,
+      "dense_node_limit": 100000,
+      "threads": 16
+    },
+    "environment": {
+      "python": "3.13.13 (main, Apr 14 2026, 14:28:56) [Clang 22.1.3 ]",
+      "platform": "linux",
+      "polars": "2.1.0",
+      "numpy": "1.26.4",
+      "scipy": "1.17.1",
+      "networkx": "3.7",
+      "typer": "0.28.0",
+      "rich": "15.0.0",
+      "igraph": "1.0.0",
+      "leidenalg": "0.12.0",
+      "scikit-network": "0.33.5",
+      "scikit-learn": "1.9.1",
+      "cdlib": "0.4.1",
+      "graspologic": "3.4.4",
+      "karateclub": null,
+      "networkit": "11.3",
+      "cugraph-cu12": null,
+      "cudf-cu12": null,
+      "infomap": "2.16.0",
+      "markov-clustering": "0.0.6.dev0",
+      "hdbscan": "0.8.44"
+    },
+    "code_sha256": "613ac65dc87eb166d20519aa513187969e444cef03fcce1954b8e54b4a8d830f",
+    "schema_version": 1,
+    "semantics": "undirected binary topology; scores not used as weights",
+    "key": "458a33b8e9b4309e20978763772913a00834afe653c1e65c594ec0e96c29be05",
+    "path": "/home/davide/projects/interactome/data/processed_networks/TAGC_binary2025.parquet",
+    "target": "/home/davide/projects/interactome/data/analysis_runs/clustering_raw/TAGC_binary2025/igraph.label_propagation/458a33b8e9b4309e",
+    "worker_python": "/home/davide/projects/interactome/.venv-clustering/bin/python"
+  },
+  "cpu_seconds": 0,
+  "peak_cpu_percent": null,
+  "peak_threads": 1,
+  "peak_gpu_sm_percent": null,
+  "peak_gpu_memory_mib": null
+}

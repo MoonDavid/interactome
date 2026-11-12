@@ -1,0 +1,314 @@
+╭───────────────────────── Interactome clustering lab ─────────────────────────╮
+│ 425 jobs | 5 networks | 85 methods                                           │
+│ Results: /home/davide/projects/interactome/data/analysis_runs/clustering_raw │
+│ Unweighted topology | missing backends and guarded jobs are reported         │
+│ explicitly                                                                   │
+╰──────────────────────────────────────────────────────────────────────────────╯
+SUCCESS HuRI / atlas.louvain
+SKIPPED HuRI / atlas.greedy_modularity
+Cost guard: 8,163 nodes exceeds 5,000
+SUCCESS HuRI / atlas.label_propagation
+SKIPPED HuRI / atlas.asyn_fluid
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / atlas.mcl
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / atlas.walktrap_markov
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / atlas.spectral
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / atlas.ravasz_tom
+Cost guard: 8,163 nodes exceeds 5,000
+SUCCESS HuRI / atlas.k_core_shells
+SKIPPED HuRI / atlas.ego_splitting
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / atlas.link_communities
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / atlas.k_clique_percolation
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / atlas.demon
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / atlas.mcode_complexes
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / atlas.bigclam_nmf
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / atlas.fuzzy_c_means
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / atlas.fuzzy_nmf
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / atlas.fuzzy_rwr_diffusion
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / atlas.fuzzy_neighborhood
+Cost guard: 8,163 nodes exceeds 5,000
+SUCCESS HuRI / networkx.louvain_communities
+SUCCESS HuRI / networkx.fast_label_propagation_communities
+SUCCESS HuRI / networkx.asyn_lpa_communities
+SUCCESS HuRI / networkx.label_propagation_communities
+SKIPPED HuRI / networkx.greedy_modularity_communities
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / networkx.girvan_newman
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / networkx.k_clique_communities
+Cost guard: 8,163 nodes exceeds 5,000
+SUCCESS HuRI / igraph.multilevel
+SUCCESS HuRI / igraph.leiden
+SUCCESS HuRI / igraph.infomap
+SUCCESS HuRI / igraph.label_propagation
+SKIPPED HuRI / igraph.fastgreedy
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / igraph.walktrap
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / igraph.leading_eigenvector
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / igraph.edge_betweenness
+Cost guard: 8,163 nodes exceeds 5,000
+UNAVAILABLE HuRI / leidenalg.RBConfigurationVertexPartition
+ModuleNotFoundError: No module named 'leidenalg'
+UNAVAILABLE HuRI / leidenalg.CPMVertexPartition
+ModuleNotFoundError: No module named 'leidenalg'
+UNAVAILABLE HuRI / leidenalg.ModularityVertexPartition
+ModuleNotFoundError: No module named 'leidenalg'
+UNAVAILABLE HuRI / sknetwork.Louvain
+ModuleNotFoundError: No module named 'sknetwork'
+UNAVAILABLE HuRI / sknetwork.Leiden
+ModuleNotFoundError: No module named 'sknetwork'
+UNAVAILABLE HuRI / sknetwork.PropagationClustering
+ModuleNotFoundError: No module named 'sknetwork'
+SKIPPED HuRI / sknetwork_hierarchy.Paris
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / sknetwork_hierarchy.LouvainHierarchy
+Cost guard: 8,163 nodes exceeds 5,000
+UNAVAILABLE HuRI / graspologic_partition.leiden
+ModuleNotFoundError: No module named 'graspologic'
+UNAVAILABLE HuRI / graspologic_partition.hierarchical_leiden
+ModuleNotFoundError: No module named 'graspologic'
+SKIPPED HuRI / graspologic_cluster.AutoGMMCluster
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / graspologic_cluster.KMeansCluster
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / sklearn.KMeans
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / sklearn.MiniBatchKMeans
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / sklearn.Birch
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / sklearn.DBSCAN
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / sklearn.OPTICS
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / sklearn.MeanShift
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / sklearn.AffinityPropagation
+Cost guard: 8,163 nodes exceeds 3,000
+SKIPPED HuRI / sklearn.AgglomerativeClustering
+Cost guard: 8,163 nodes exceeds 3,000
+SKIPPED HuRI / sklearn.SpectralClustering
+Cost guard: 8,163 nodes exceeds 5,000
+UNAVAILABLE HuRI / cdlib.louvain
+ModuleNotFoundError: No module named 'cdlib'
+UNAVAILABLE HuRI / cdlib.leiden
+ModuleNotFoundError: No module named 'cdlib'
+UNAVAILABLE HuRI / cdlib.infomap
+ModuleNotFoundError: No module named 'cdlib'
+UNAVAILABLE HuRI / cdlib.label_propagation
+ModuleNotFoundError: No module named 'cdlib'
+SKIPPED HuRI / cdlib.demon
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / cdlib.ego_networks
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / cdlib.slpa
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / cdlib.angel
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / cdlib.kclique
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / cdlib.walktrap
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / cdlib.surprise_communities
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / cdlib.significance_communities
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / karateclub.BigClam
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / karateclub.DANMF
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / karateclub.MNMF
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / karateclub.NNSED
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / karateclub.SymmNMF
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / karateclub.EgoNetSplitter
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / karateclub.EdMot
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / karateclub.SCD
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / karateclub.GEMSEC
+Cost guard: 8,163 nodes exceeds 5,000
+UNAVAILABLE HuRI / networkit.PLM
+ModuleNotFoundError: No module named 'networkit'
+UNAVAILABLE HuRI / networkit.PLP
+ModuleNotFoundError: No module named 'networkit'
+UNAVAILABLE HuRI / networkit.ParallelLeiden
+ModuleNotFoundError: No module named 'networkit'
+UNAVAILABLE HuRI / cugraph.louvain
+ModuleNotFoundError: No module named 'cudf'
+UNAVAILABLE HuRI / cugraph.leiden
+ModuleNotFoundError: No module named 'cudf'
+UNAVAILABLE HuRI / cugraph.ecg
+ModuleNotFoundError: No module named 'cudf'
+UNAVAILABLE HuRI / infomap.Infomap
+ModuleNotFoundError: No module named 'infomap'
+SKIPPED HuRI / markov_clustering.mcl
+Cost guard: 8,163 nodes exceeds 5,000
+SKIPPED HuRI / hdbscan.HDBSCAN
+Cost guard: 8,163 nodes exceeds 5,000
+SUCCESS BioPlex / atlas.louvain
+SKIPPED BioPlex / atlas.greedy_modularity
+Cost guard: 13,834 nodes exceeds 5,000
+SUCCESS BioPlex / atlas.label_propagation
+SKIPPED BioPlex / atlas.asyn_fluid
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / atlas.mcl
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / atlas.walktrap_markov
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / atlas.spectral
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / atlas.ravasz_tom
+Cost guard: 13,834 nodes exceeds 5,000
+SUCCESS BioPlex / atlas.k_core_shells
+SKIPPED BioPlex / atlas.ego_splitting
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / atlas.link_communities
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / atlas.k_clique_percolation
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / atlas.demon
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / atlas.mcode_complexes
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / atlas.bigclam_nmf
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / atlas.fuzzy_c_means
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / atlas.fuzzy_nmf
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / atlas.fuzzy_rwr_diffusion
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / atlas.fuzzy_neighborhood
+Cost guard: 13,834 nodes exceeds 5,000
+SUCCESS BioPlex / networkx.louvain_communities
+SUCCESS BioPlex / networkx.fast_label_propagation_communities
+SUCCESS BioPlex / networkx.asyn_lpa_communities
+SUCCESS BioPlex / networkx.label_propagation_communities
+SKIPPED BioPlex / networkx.greedy_modularity_communities
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / networkx.girvan_newman
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / networkx.k_clique_communities
+Cost guard: 13,834 nodes exceeds 5,000
+SUCCESS BioPlex / igraph.multilevel
+SUCCESS BioPlex / igraph.leiden
+SUCCESS BioPlex / igraph.infomap
+SUCCESS BioPlex / igraph.label_propagation
+SKIPPED BioPlex / igraph.fastgreedy
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / igraph.walktrap
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / igraph.leading_eigenvector
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / igraph.edge_betweenness
+Cost guard: 13,834 nodes exceeds 5,000
+UNAVAILABLE BioPlex / leidenalg.RBConfigurationVertexPartition
+ModuleNotFoundError: No module named 'leidenalg'
+UNAVAILABLE BioPlex / leidenalg.CPMVertexPartition
+ModuleNotFoundError: No module named 'leidenalg'
+UNAVAILABLE BioPlex / leidenalg.ModularityVertexPartition
+ModuleNotFoundError: No module named 'leidenalg'
+UNAVAILABLE BioPlex / sknetwork.Louvain
+ModuleNotFoundError: No module named 'sknetwork'
+UNAVAILABLE BioPlex / sknetwork.Leiden
+ModuleNotFoundError: No module named 'sknetwork'
+UNAVAILABLE BioPlex / sknetwork.PropagationClustering
+ModuleNotFoundError: No module named 'sknetwork'
+SKIPPED BioPlex / sknetwork_hierarchy.Paris
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / sknetwork_hierarchy.LouvainHierarchy
+Cost guard: 13,834 nodes exceeds 5,000
+UNAVAILABLE BioPlex / graspologic_partition.leiden
+ModuleNotFoundError: No module named 'graspologic'
+UNAVAILABLE BioPlex / graspologic_partition.hierarchical_leiden
+ModuleNotFoundError: No module named 'graspologic'
+SKIPPED BioPlex / graspologic_cluster.AutoGMMCluster
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / graspologic_cluster.KMeansCluster
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / sklearn.KMeans
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / sklearn.MiniBatchKMeans
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / sklearn.Birch
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / sklearn.DBSCAN
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / sklearn.OPTICS
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / sklearn.MeanShift
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / sklearn.AffinityPropagation
+Cost guard: 13,834 nodes exceeds 3,000
+SKIPPED BioPlex / sklearn.AgglomerativeClustering
+Cost guard: 13,834 nodes exceeds 3,000
+SKIPPED BioPlex / sklearn.SpectralClustering
+Cost guard: 13,834 nodes exceeds 5,000
+UNAVAILABLE BioPlex / cdlib.louvain
+ModuleNotFoundError: No module named 'cdlib'
+UNAVAILABLE BioPlex / cdlib.leiden
+ModuleNotFoundError: No module named 'cdlib'
+UNAVAILABLE BioPlex / cdlib.infomap
+ModuleNotFoundError: No module named 'cdlib'
+UNAVAILABLE BioPlex / cdlib.label_propagation
+ModuleNotFoundError: No module named 'cdlib'
+SKIPPED BioPlex / cdlib.demon
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / cdlib.ego_networks
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / cdlib.slpa
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / cdlib.angel
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / cdlib.kclique
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / cdlib.walktrap
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / cdlib.surprise_communities
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / cdlib.significance_communities
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / karateclub.BigClam
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / karateclub.DANMF
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / karateclub.MNMF
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / karateclub.NNSED
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / karateclub.SymmNMF
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / karateclub.EgoNetSplitter
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / karateclub.EdMot
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / karateclub.SCD
+Cost guard: 13,834 nodes exceeds 5,000
+SKIPPED BioPlex / karateclub.GEMSEC
+Cost guard: 13,834 nodes exceeds 5,000
+UNAVAILABLE BioPlex / networkit.PLM
+ModuleNotFoundError: No module named 'networkit'
+UNAVAILABLE BioPlex / networkit.PLP
+ModuleNotFoundError: No module named 'networkit'
+UNAVAILABLE BioPlex / networkit.ParallelLeiden
+ModuleNotFoundError: No module named 'networkit'
+UNAVAILABLE BioPlex / cugraph.louvain
+ModuleNotFoundError: No module named 'cudf'
