@@ -1,0 +1,33 @@
+{
+  "data": "/home/davide/projects/interactome/data",
+  "networks": [
+    "data/processed_networks/HuRI.parquet",
+    "data/processed_networks/BioPlex.parquet",
+    "data/processed_networks/TAGC_binary2025.parquet",
+    "data/processed_networks/versions/huMAP2_0.05.parquet",
+    "data/processed_networks/versions/huMAP2_0.95.parquet"
+  ],
+  "protein_set": "moondb_predicted",
+  "simulations": 1000,
+  "seed": 42,
+  "analyses": [
+    "shortest_path",
+    "cohesion"
+  ],
+  "uniform": false,
+  "reviewed_only": false,
+  "min_publications": 0,
+  "scope": "network",
+  "dry_run": false,
+  "verbose": true,
+  "no_progress": true,
+  "distance_definition": "Exact unweighted mean over finite unordered distinct within-set pairs; paths traverse the fixed full graph. Disconnected pairs excluded and reachable fractions reported.",
+  "null_model": "Independent equal-size sets sampled without replacement per trial from the comparison graph, including query proteins; floor(log2 degree) counts preserved unless --uniform.",
+  "test": "Shortest path: two-sided doubled smaller +1 empirical tail (unavailable if any trial has no reachable pairs). Cohesion: upper +1 empirical tail.",
+  "correction": "BH across all requested networks/metrics separately for shortest path and cohesion. Stars: q<0.05/0.01/0.001/0.0001; ns otherwise; n/a unavailable.",
+  "limitation": "Finite-pair means condition on reachability; compare reachable fractions or use --scope lcc. Topology does not establish moonlighting.",
+  "distance_cache": "/home/davide/projects/interactome/data/analysis_runs/shortest_path_distances/95f647ae4245a8045a023bd911a5440ee7036112e12e2364f101e04662d4b895",
+  "reachable_pair_fraction": 0.9742773355676582,
+  "network_path": "/home/davide/projects/interactome/data/processed_networks/HuRI.parquet",
+  "network_sha256": "5f1e8b6af1b7016c1da34dc1ad99475dc19d25b5b9da7cd19d24a8593f810e2c"
+}

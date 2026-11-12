@@ -12,6 +12,7 @@ Run from the repository root for all five default prepared interactomes::
         --protein-set moonlitdb --simulations 1000 \
         --analyses shortest_path cohesion --verbose
 
+Replace --protein-set moonlitdb with --protein-set each to run every source separately.
 Append --dry-run to validate inputs without computing or writing results.
 
 Only third-party dependencies: networkx, numpy, polars, rich. No application imports.
@@ -381,7 +382,8 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--data', type=Path, default=ROOT / 'data')
     parser.add_argument('--networks', nargs='+', type=Path, required=True, help='Canonical Parquet paths with a/b columns.')
-    parser.add_argument('--protein-set', choices=[*SOURCES, 'all'], default='moonlitdb')
+    parser.add_argument('--protein-set', choices=[*SOURCES, 'all', 'each'], default='moonlitdb',
+                        help='One source, all sources as a union, or each source separately.')
     parser.add_argument('--simulations', type=int, default=1000)
     parser.add_argument('--seed', type=int, default=42)
     parser.add_argument('--analyses', nargs='+', choices=['cohesion', 'shortest_path'], default=['shortest_path'])
@@ -393,6 +395,24 @@ def main(argv=None):
     parser.add_argument('-v', '--verbose', action='store_true', help='Log cache paths, checkpoints, throughput and ETA.')
     parser.add_argument('--no-progress', action='store_true', help='Disable animated progress; retain readable stage logs.')
     args = parser.parse_args(argv)
+    if args.protein_set == 'each':
+        # Keep each source's correction family independent across its networks.
+        for source in SOURCES:
+            source_args = argparse.Namespace(**vars(args))
+            source_args.protein_set = source
+            run_protein_set(source_args)
+        return 0
+    return run_protein_set(args)
+
+
+def run_protein_set(args):
+    """Run one source across requested networks using the shared distance caches.
+
+    Called once per source for --protein-set each. Source-specific settings enter
+    output signatures so results cannot overwrite those of another protein set.
+    BH correction is performed separately for each source and analysis family.
+    """
+    global REPORT
     REPORT = Reporter(args.verbose, args.no_progress)
     REPORT.console.print(Panel('Fixed-network Monte Carlo\nExact NetworkX distances • reusable disk cache', title='Interactome'))
     REPORT.log(f'Simulations: {args.simulations:,}; seed: {args.seed}; protein set: {args.protein_set}; scope: {args.scope}; degree matching: {not args.uniform}')
@@ -422,23 +442,26 @@ def main(argv=None):
         if args.dry_run:
             degree_matched_samples(graph, cohort, 1, args.seed, not args.uniform)
             continue
+        if len(cohort & set(graph)) < 2:
+            REPORT.log(f'Skipping {path.stem}/{args.protein_set}: fewer than two mapped set proteins.')
+            continue
         results, null, notes = run_analysis(graph, cohort, args.simulations, args.seed, not args.uniform,
                                             args.analyses, args.data / 'analysis_runs/shortest_path_distances')
         output.mkdir(parents=True, exist_ok=True)
         network_id = hashlib.sha256(str(path.resolve()).encode()).hexdigest()[:8]
-        prefix = output / f'monte_carlo_{path.stem}_{network_id}_{signature}'
+        prefix = output / f'monte_carlo_{args.protein_set}_{path.stem}_{network_id}_{signature}'
         REPORT.log(f"Saving null distributions: {Path(f'{prefix}.parquet')}")
         null.write_parquet(Path(f'{prefix}.parquet'))
         Path(f'{prefix}.json').write_text(json.dumps({**context, **notes, 'network_path': str(path.resolve()),
             'network_sha256': hashlib.file_digest(path.open('rb'), 'sha256').hexdigest()}, indent=2, default=str))
-        rows.extend(dict(network=path.stem, network_path=str(path.resolve()), **r) for r in results)
+        rows.extend(dict(protein_set=args.protein_set, network=path.stem, network_path=str(path.resolve()), **r) for r in results)
     if rows:
         # Correct once across all requested networks, not separately per network.
         for family in [('mean_shortest_path',), ('internal_edges', 'largest_component')]:
             subset = [r for r in rows if r['measure'] in family]
             for row, q in zip(subset, bh_adjust([r['p_value'] for r in subset])):
                 row.update(fdr_bh=q, significance=significance_label(q))
-        destination = output / f'monte_carlo_{signature}_summary.csv'
+        destination = output / f'monte_carlo_{args.protein_set}_{signature}_summary.csv'
         pl.DataFrame(rows).write_csv(destination)
         table = Table(title='Monte Carlo results')
         for column in ['Network', 'Measure', 'Observed', 'Null mean', 'Effect', 'q (BH)', 'Significance']:
@@ -453,7 +476,7 @@ def main(argv=None):
         REPORT.console.print(table)
         REPORT.log(f'Summary saved: {destination}')
     else:
-        REPORT.log('Dry run complete. Inputs validated; no simulations or cache writes.')
+        REPORT.log('Dry run complete.' if args.dry_run else 'No eligible network comparisons for this protein set.')
     return 0
 
 

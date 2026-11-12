@@ -62,3 +62,13 @@ def test_cli_verbose_saves_summary(tmp_path, capsys):
     assert 'Summary saved' in output
     summary = next((tmp_path / 'analysis_runs').glob('*summary.csv'))
     assert pl.read_csv(summary).height == 3
+
+
+def test_each_source_uses_independent_arguments(monkeypatch):
+    import pipelines.precompute_monte_carlo as pipeline
+
+    calls = []
+    monkeypatch.setattr(pipeline, 'run_protein_set', lambda args: calls.append(args))
+    assert pipeline.main(['--networks', 'tiny.parquet', '--protein-set', 'each']) == 0
+    assert [args.protein_set for args in calls] == pipeline.SOURCES
+    assert len({id(args) for args in calls}) == len(pipeline.SOURCES)
