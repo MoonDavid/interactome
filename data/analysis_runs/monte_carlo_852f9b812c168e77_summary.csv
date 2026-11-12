@@ -1,0 +1,16 @@
+network,network_path,measure,observed,null_mean,effect_observed_minus_null,p_value,query_nodes,valid_simulations,reachable_pair_fraction,fdr_bh,significance
+HuRI,/home/davide/projects/interactome/data/processed_networks/HuRI.parquet,mean_shortest_path,4.069644741470277,4.011076301759568,0.058568439710709796,0.2677322677322677,205,1000,0.9517455762792922,0.33466533466533466,ns
+HuRI,/home/davide/projects/interactome/data/processed_networks/HuRI.parquet,internal_edges,14.0,11.277,2.7230000000000008,0.24475524475524477,205,1000,0.9517455762792922,0.27195027195027194,ns
+HuRI,/home/davide/projects/interactome/data/processed_networks/HuRI.parquet,largest_component,5.0,4.056,0.944,0.2867132867132867,205,1000,0.9517455762792922,0.2867132867132867,ns
+BioPlex,/home/davide/projects/interactome/data/processed_networks/BioPlex.parquet,mean_shortest_path,3.72733496079875,3.669073709177152,0.058261251621597676,0.001998001998001998,394,1000,1.0,0.004995004995004995,**
+BioPlex,/home/davide/projects/interactome/data/processed_networks/BioPlex.parquet,internal_edges,250.0,137.439,112.561,0.000999000999000999,394,1000,1.0,0.001665001665001665,**
+BioPlex,/home/davide/projects/interactome/data/processed_networks/BioPlex.parquet,largest_component,83.0,56.17,26.83,0.15084915084915085,394,1000,1.0,0.18856143856143856,ns
+TAGC_binary2025,/home/davide/projects/interactome/data/processed_networks/TAGC_binary2025.parquet,mean_shortest_path,3.232501143716097,3.2896013572266,-0.057100213510503206,0.00999000999000999,431,1000,0.9907300491016026,0.016650016650016652,*
+TAGC_binary2025,/home/davide/projects/interactome/data/processed_networks/TAGC_binary2025.parquet,internal_edges,382.0,240.638,141.362,0.000999000999000999,431,1000,0.9907300491016026,0.001665001665001665,**
+TAGC_binary2025,/home/davide/projects/interactome/data/processed_networks/TAGC_binary2025.parquet,largest_component,225.0,164.065,60.935,0.000999000999000999,431,1000,0.9907300491016026,0.001665001665001665,**
+huMAP2_0.05,/home/davide/projects/interactome/data/processed_networks/versions/huMAP2_0.05.parquet,mean_shortest_path,5.310449692656098,5.809152954157227,-0.4987032615011291,0.001998001998001998,330,1000,0.8541033434650456,0.004995004995004995,**
+huMAP2_0.05,/home/davide/projects/interactome/data/processed_networks/versions/huMAP2_0.05.parquet,internal_edges,407.0,233.488,173.512,0.000999000999000999,330,1000,0.8541033434650456,0.001665001665001665,**
+huMAP2_0.05,/home/davide/projects/interactome/data/processed_networks/versions/huMAP2_0.05.parquet,largest_component,114.0,60.08,53.92,0.000999000999000999,330,1000,0.8541033434650456,0.001665001665001665,**
+huMAP2_0.95,/home/davide/projects/interactome/data/processed_networks/versions/huMAP2_0.95.parquet,mean_shortest_path,6.620261437908496,6.371392065008701,0.2488693728997955,0.6373626373626373,161,1000,0.2375776397515528,0.6373626373626373,ns
+huMAP2_0.95,/home/davide/projects/interactome/data/processed_networks/versions/huMAP2_0.95.parquet,internal_edges,217.0,132.086,84.91399999999999,0.000999000999000999,161,1000,0.2375776397515528,0.001665001665001665,**
+huMAP2_0.95,/home/davide/projects/interactome/data/processed_networks/versions/huMAP2_0.95.parquet,largest_component,21.0,17.608,3.3919999999999995,0.053946053946053944,161,1000,0.2375776397515528,0.07706579135150562,ns

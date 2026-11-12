@@ -20,6 +20,7 @@ dependencies = [
     "numpy>=1.26.0",
     "scipy>=1.11.0",
     "networkx>=3.2.0",
+    "rich>=13.7.0",
     "py4cytoscape>=1.13.0",
 ]
 

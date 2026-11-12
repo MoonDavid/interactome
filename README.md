@@ -264,3 +264,13 @@ Costly and dense methods default to 5,000 and 3,000 nodes, respectively; adjust
 `--costly-node-limit` or `--dense-node-limit` to attempt larger jobs. Each job has
 a 300-second default timeout, adjustable with `--timeout`. Seeds are recorded,
 although parallel backends can be nondeterministic. See `run --help` for options.
+
+### Standalone Monte Carlo precomputation
+
+Run `.venv/bin/python pipelines/precompute_monte_carlo.py --networks data/processed_networks/HuRI.parquet --protein-set moonlitdb --simulations 1000` (add `--dry-run` to validate inputs). The script is self-contained and imports no application modules. Pass multiple canonical Parquet paths after `--networks`; add `--analyses shortest_path cohesion` for both analyses.
+
+Random protein sets preserve the observed set size and full-network `floor(log2 degree)` bin counts. Sampling is without replacement within each trial from all network proteins, including observed members. Exact unweighted NetworkX BFS distances run through the fixed full interactome, including proteins outside the set. Each needed source row is computed once and persisted under `data/analysis_runs/shortest_path_distances/`; later trials and reruns reuse it. The first run may still require BFS from most proteins. Disk storage is approximately `2 × N²` bytes for networks below 65,535 proteins, with bounded per-row working memory. Run one cache writer at a time.
+
+The default mean excludes disconnected pairs and reports observed and simulated reachable-pair fractions. Use `--scope lcc` to restrict both observed and random protein sets to the largest connected component (degree bins then use that comparison graph). Shortest-path tests use twice the smaller +1-corrected empirical tail; cohesion uses an upper tail. BH correction spans all requested networks separately for shortest path and cohesion. Tests are unavailable if any trial lacks a finite pair mean. CSV summaries, null-distribution Parquet files and metadata are saved under `data/analysis_runs/`. These standalone outputs are not automatically loaded into the Streamlit analysis cache. The 500,000-edge guard applies.
+
+The precompute CLI uses Rich stage spinners and progress bars with elapsed time and ETA on terminals, then prints a results table. Add `-v` / `--verbose` for cache locations, checkpoint messages, throughput updates and error tracebacks. Use `--no-progress` for plain stage logs; redirected output automatically disables animations. Ctrl+C preserves completed distance checkpoints for the next run.
