@@ -1,0 +1,37 @@
+{
+  "method": "c.ocg",
+  "key": "baf37da45ad36e0100976436e74e9bf41899c47f703dcea2825118fe9b803824",
+  "status": "success",
+  "job": {
+    "network": "HuRI",
+    "method": "c.ocg",
+    "parameters": {
+      "init_class_sys": 3,
+      "max_class_card": 0,
+      "cent_class_sys": 1,
+      "min_class": 2
+    },
+    "provenance": {
+      "input": {
+        "path": "C:\\projects\\interactome\\data\\processed_networks\\HuRI.parquet",
+        "sha256": "5f1e8b6af1b7016c1da34dc1ad99475dc19d25b5b9da7cd19d24a8593f810e2c",
+        "size": 428882
+      },
+      "c_binary": {
+        "path": "C:\\projects\\interactome\\ocg\\bin\\ocg_fast.exe",
+        "sha256": "6c947a34d54d66b6b0bbeb79b4903aa7453c9617a5722a8bae6de8adf9f8e93b",
+        "size": 117648
+      }
+    }
+  },
+  "nodes": 8163,
+  "edges": 51574,
+  "communities": 524,
+  "covered_nodes": 8163,
+  "unassigned_nodes": 0,
+  "overlapping_nodes": 1885,
+  "elapsed_seconds": 8.171999999991385,
+  "execution": {
+    "requested_threads": 16
+  }
+}

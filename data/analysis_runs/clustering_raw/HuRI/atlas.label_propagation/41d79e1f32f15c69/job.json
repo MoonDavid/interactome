@@ -1,0 +1,21 @@
+{
+  "network": "HuRI",
+  "method": "atlas.label_propagation",
+  "parameters": {
+    "seed": 42,
+    "resolution": 1.0,
+    "n_clusters": 16
+  },
+  "provenance": {
+    "input": {
+      "path": "C:\\projects\\interactome\\data\\processed_networks\\HuRI.parquet",
+      "size": 428882,
+      "mtime_ns": 1794310006058675900,
+      "sha256": "5f1e8b6af1b7016c1da34dc1ad99475dc19d25b5b9da7cd19d24a8593f810e2c"
+    }
+  },
+  "code_sha256": "6263fe78589a97b56acce9647f4284d3ce44aa7c5ded81e3384acc23aa63bb5c",
+  "key": "41d79e1f32f15c69ce7fcd0c49d8c11bb43460d64bc1bccf8eebd65f83ed4da8",
+  "path": "C:\\projects\\interactome\\data\\processed_networks\\HuRI.parquet",
+  "target": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\HuRI\\atlas.label_propagation\\41d79e1f32f15c69"
+}

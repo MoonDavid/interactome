@@ -1,0 +1,3 @@
+protein_set,network,network_path,measure,observed,null_mean,effect_observed_minus_null,p_value,query_nodes,valid_simulations,reachable_pair_fraction,fdr_bh,significance
+curated,HuRI,C:\projects\interactome\data\processed_networks\HuRI.parquet,internal_edges,13.0,7.681,5.319,0.04595404595404595,137,1000,1.0,0.0656486370772085,ns
+curated,HuRI,C:\projects\interactome\data\processed_networks\HuRI.parquet,largest_component,3.0,3.774,-0.774,0.8521478521478522,137,1000,1.0,0.852147852147852,ns

@@ -1,0 +1,66 @@
+{
+  "protein_set": "MoonLitDB",
+  "selection": "BH q < 0.05 and fold enrichment > 1; BH across all clusters within each saved version",
+  "runs": [
+    {
+      "network": "BioPlex",
+      "method": "c.ocg",
+      "run": "bdc40c5d6b02d84b",
+      "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\BioPlex\\c.ocg\\bdc40c5d6b02d84b",
+      "tested_clusters": 407,
+      "significant_clusters": 5,
+      "status": "complete",
+      "annotation_bundle": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\BioPlex\\c.ocg\\bdc40c5d6b02d84b\\10717678458275c1"
+    },
+    {
+      "network": "HuRI",
+      "method": "c.ocg",
+      "run": "baf37da45ad36e01",
+      "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\HuRI\\c.ocg\\baf37da45ad36e01",
+      "tested_clusters": 524,
+      "significant_clusters": 1,
+      "status": "complete",
+      "annotation_bundle": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\HuRI\\c.ocg\\baf37da45ad36e01\\8b6e125a675f3339"
+    },
+    {
+      "network": "TAGC_binary2025",
+      "method": "c.ocg",
+      "run": "81c464cbc2a9d356",
+      "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\TAGC_binary2025\\c.ocg\\81c464cbc2a9d356",
+      "tested_clusters": 874,
+      "significant_clusters": 32,
+      "status": "complete",
+      "annotation_bundle": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\TAGC_binary2025\\c.ocg\\81c464cbc2a9d356\\de0332fd4a851b78"
+    },
+    {
+      "network": "huMAP2_0.05",
+      "method": "c.ocg",
+      "run": "072ec593edf82537",
+      "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\huMAP2_0.05\\c.ocg\\072ec593edf82537",
+      "tested_clusters": 2531,
+      "significant_clusters": 37,
+      "status": "complete",
+      "annotation_bundle": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\huMAP2_0.05\\c.ocg\\072ec593edf82537\\0441bd436f668f87"
+    },
+    {
+      "network": "huMAP2_0.95",
+      "method": "c.ocg",
+      "run": "a9964e54dea668eb",
+      "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\huMAP2_0.95\\c.ocg\\a9964e54dea668eb",
+      "tested_clusters": 1184,
+      "significant_clusters": 16,
+      "status": "complete",
+      "annotation_bundle": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\huMAP2_0.95\\c.ocg\\a9964e54dea668eb\\40d39f5bc6a0ca10"
+    },
+    {
+      "network": "huMAP3_0.95",
+      "method": "c.ocg",
+      "run": "4c19666c18b30375",
+      "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\huMAP3_0.95\\c.ocg\\4c19666c18b30375",
+      "tested_clusters": 749,
+      "significant_clusters": 21,
+      "status": "complete",
+      "annotation_bundle": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\huMAP3_0.95\\c.ocg\\4c19666c18b30375\\9701f63cfbcb3fa0"
+    }
+  ]
+}

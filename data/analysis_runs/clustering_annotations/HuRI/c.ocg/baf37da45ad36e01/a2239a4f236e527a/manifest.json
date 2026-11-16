@@ -1,0 +1,128 @@
+{
+  "schema_version": 5,
+  "created_utc": "2026-11-16T10:35:42.210256+00:00",
+  "uniprot_function_labels": {
+    "status": "not_requested"
+  },
+  "sources": {
+    "network": {
+      "path": "C:\\projects\\interactome\\data\\processed_networks\\HuRI.parquet",
+      "size": 428882,
+      "mtime_ns": 1794310006058675900,
+      "sha256": "5f1e8b6af1b7016c1da34dc1ad99475dc19d25b5b9da7cd19d24a8593f810e2c"
+    },
+    "memberships": {
+      "path": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\HuRI\\c.ocg\\baf37da45ad36e01\\memberships.parquet",
+      "size": 66659,
+      "mtime_ns": 1794581546151697900,
+      "sha256": "f12006a66fe3d0d55dde79f8f5196164f173b623dc4a336188181df7f3e663f4"
+    },
+    "network_audit": {
+      "path": "C:\\projects\\interactome\\data\\processed_networks\\HuRI.json",
+      "size": 2435,
+      "mtime_ns": 1794310006072190400,
+      "sha256": "4f91baf8173671790e7292168a1aae25a8c90892fa87d80c7beeb26bb3ef8c8a"
+    },
+    "clustering_result": {
+      "path": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\HuRI\\c.ocg\\baf37da45ad36e01\\result.json",
+      "size": 1028,
+      "mtime_ns": 1794581546157730000,
+      "sha256": "6e9d5fef915bf2a26dc1fc2fc3b3a69fefd1801a7475e10b046d82e06ed7cf56"
+    },
+    "go": {
+      "created_utc": "2026-11-10T12:19:28.737587+00:00",
+      "policy": "UniProtKB human primary taxon; exclude NOT; collapse numeric isoform suffix; GO ancestor propagation via is_a and part_of; evidence retained",
+      "sources": {
+        "gaf": {
+          "path": "C:\\projects\\interactome\\data\\GO\\HUMAN-uniprot.gaf.gz",
+          "size": 12109254,
+          "mtime_ns": 1794234165140993200
+        },
+        "obo": {
+          "path": "C:\\projects\\interactome\\data\\GO\\go-basic.obo",
+          "size": 32227785,
+          "mtime_ns": 1794234248139794700
+        }
+      },
+      "gaf_sha256": "a0afba19dfb1f8fa996bc1bdcd61fd0c9bd4cf0d2bf2509d09ac86993c0e70a2",
+      "obo_sha256": "b08d45b268b8c24ccb2513dbbbc7d4df9f6521c099b413f79eb31e06e0fa3bcc",
+      "gaf_headers": [
+        "!gaf-version: 2.2",
+        "!generated-by: UniProt",
+        "!date-generated: 2026-07-28 19:42",
+        "!go-version: http://purl.obolibrary.org/obo/go/releases/2026-07-26/extensions/go-plus.ofn"
+      ],
+      "ontology_headers": [
+        "format-version: 1.2",
+        "data-version: releases/2026-07-26"
+      ],
+      "audit": {
+        "source_rows": 910476,
+        "not_rows_excluded": 1497,
+        "nonhuman_or_nonuniprot_rows_excluded": 47765,
+        "unknown_or_obsolete_terms_excluded": 0
+      },
+      "direct_unique_evidence_rows": 437530,
+      "propagated_protein_term_rows": 1511426,
+      "proteins": 19775,
+      "terms": 20984
+    },
+    "reactome": {
+      "path": "C:\\projects\\interactome\\data\\reactome\\UniProt2Reactome.txt",
+      "size": 43219161,
+      "mtime_ns": 1794238025981646900,
+      "sha256": "e16cf600292fc592957daf696ab5ffd9373ed6b49582def5988ec5bedfcc48cf"
+    }
+  },
+  "parameters": {
+    "selected_communities": null,
+    "libraries": [
+      "GO_BP",
+      "GO_MF",
+      "GO_CC",
+      "Reactome"
+    ],
+    "min_background_hits": 5,
+    "min_label_hits": 2,
+    "max_qvalue": 0.05,
+    "ancestor_hit_jaccard_strictly_above": 0.7,
+    "test": "one-sided hypergeometric; one BH family across nonempty subsets and libraries",
+    "reactome_policy": "human R-HSA pathways in the supplied lowest-level mapping",
+    "majority_policy": "GO is_a/part_of propagation; minimum root distance; roots excluded; unique protein votes / all subset proteins; strict >50%; all terms with hits per depth; summary includes every term with >=2 hits at every depth and deepest majority; protein supports may overlap; descriptive, no statistical test"
+  },
+  "coverage": {
+    "background": 8163,
+    "assigned": 8163,
+    "unassigned": 0,
+    "libraries": {
+      "GO_BP": {
+        "annotated_background": 6888,
+        "annotated_assigned": 6888,
+        "eligible_terms": 5328
+      },
+      "GO_MF": {
+        "annotated_background": 7672,
+        "annotated_assigned": 7672,
+        "eligible_terms": 1225
+      },
+      "GO_CC": {
+        "annotated_background": 7390,
+        "annotated_assigned": 7390,
+        "eligible_terms": 906
+      },
+      "Reactome": {
+        "annotated_background": 4613,
+        "annotated_assigned": 4613,
+        "eligible_terms": 1124
+      }
+    }
+  },
+  "clusters": 524,
+  "tested_subsets": 1523,
+  "memberships_sha256": "ce81163d3712272d02b714174ee0fa73b2be3314ac27dd674e4dbf2755c1166b",
+  "tests": 13071909,
+  "zero_hit_tests_omitted_from_table": 12088431,
+  "cytoscape_comparison": {
+    "status": "not_requested"
+  }
+}

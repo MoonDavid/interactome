@@ -1,0 +1,22 @@
+{
+  "source_sha256": "8ecfd921a219c06d17bb6d2a9321d298e0e8325a85cab79eb7a823c780a91173",
+  "method": "ProNE",
+  "dimensions": 32,
+  "seed": 42,
+  "versions": {
+    "nodevectors": "0.1.23",
+    "csrgraph": "0.1.28",
+    "numpy": "1.26.4",
+    "scipy": "1.17.1",
+    "scikit-learn": "1.9.1",
+    "gensim": "4.4.0",
+    "numba": "0.68.1"
+  },
+  "code_sha256": "3e6f244b98a04ff983193c42e6f9d33b919d4ec7ffa5d07d2741b57eb9043f5a",
+  "topology": "undirected binary; no self loops; unique pairs",
+  "source": "C:\\projects\\interactome\\data\\processed_networks\\versions\\huMAP2_0.05.parquet",
+  "proteins": 8709,
+  "edges": 25713,
+  "warnings": [],
+  "reproducibility": "Seeded ProNE; GGVec uses internal stochastic Numba routines and may vary despite the recorded seed."
+}

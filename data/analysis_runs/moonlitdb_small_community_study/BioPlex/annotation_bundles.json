@@ -1,0 +1,165 @@
+[
+  {
+    "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\BioPlex\\karateclub.SCD\\cc112a2b6671632f",
+    "annotation_directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\BioPlex\\karateclub.SCD\\cc112a2b6671632f\\0921b1d327cad6d6",
+    "communities": [
+      "104"
+    ]
+  },
+  {
+    "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\BioPlex\\igraph.label_propagation\\f323cfbbfadae980",
+    "annotation_directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\BioPlex\\igraph.label_propagation\\f323cfbbfadae980\\eaff63f07079f46e",
+    "communities": [
+      "9"
+    ]
+  },
+  {
+    "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\BioPlex\\igraph.walktrap\\2fa90bc3acb20f40",
+    "annotation_directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\BioPlex\\igraph.walktrap\\2fa90bc3acb20f40\\0b2f701164b632d0",
+    "communities": [
+      "63"
+    ]
+  },
+  {
+    "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\BioPlex\\cdlib.significance_communities\\60bbaee869f2978a",
+    "annotation_directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\BioPlex\\cdlib.significance_communities\\60bbaee869f2978a\\2f959cd01069b7da",
+    "communities": [
+      "123",
+      "53"
+    ]
+  },
+  {
+    "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\BioPlex\\markov_clustering.mcl\\f49ab3725c81b3ea",
+    "annotation_directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\BioPlex\\markov_clustering.mcl\\f49ab3725c81b3ea\\6a8d04c59707ed9b",
+    "communities": [
+      "107",
+      "466"
+    ]
+  },
+  {
+    "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\BioPlex\\atlas.link_communities\\7d9e23f0abea1b87",
+    "annotation_directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\BioPlex\\atlas.link_communities\\7d9e23f0abea1b87\\231d05715a44a030",
+    "communities": [
+      "134"
+    ]
+  },
+  {
+    "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\BioPlex\\atlas.fuzzy_neighborhood\\ea9cfcd608b86cf7",
+    "annotation_directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\BioPlex\\atlas.fuzzy_neighborhood\\ea9cfcd608b86cf7\\379ab45378763a1a",
+    "communities": [
+      "17"
+    ]
+  },
+  {
+    "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\BioPlex\\cdlib.ego_networks\\1c1551d7ab20e0d6",
+    "annotation_directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\BioPlex\\cdlib.ego_networks\\1c1551d7ab20e0d6\\7533fb36caa80a95",
+    "communities": [
+      "5240",
+      "5241",
+      "6108",
+      "4771",
+      "5849",
+      "4153",
+      "1790",
+      "8250",
+      "8251",
+      "7756",
+      "150",
+      "1161",
+      "7279",
+      "458",
+      "923",
+      "8252",
+      "1057",
+      "4072",
+      "1167",
+      "6968",
+      "1035",
+      "672",
+      "626",
+      "67",
+      "2773",
+      "9160",
+      "2641"
+    ]
+  },
+  {
+    "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\BioPlex\\cdlib.surprise_communities\\93180054a7186d07",
+    "annotation_directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\BioPlex\\cdlib.surprise_communities\\93180054a7186d07\\71d88056ef932343",
+    "communities": [
+      "162",
+      "28"
+    ]
+  },
+  {
+    "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\BioPlex\\igraph.infomap\\1c8c7ff6f10e8522",
+    "annotation_directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\BioPlex\\igraph.infomap\\1c8c7ff6f10e8522\\98efc1bc6ae474c2",
+    "communities": [
+      "184"
+    ]
+  },
+  {
+    "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\BioPlex\\cdlib.slpa\\06f490222e6b0486",
+    "annotation_directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\BioPlex\\cdlib.slpa\\06f490222e6b0486\\b9d008ed181b9fe3",
+    "communities": [
+      "62",
+      "21"
+    ]
+  },
+  {
+    "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\BioPlex\\igraph.fastgreedy\\586f99f150a96476",
+    "annotation_directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\BioPlex\\igraph.fastgreedy\\586f99f150a96476\\b0d7753fb2eab76a",
+    "communities": [
+      "12"
+    ]
+  },
+  {
+    "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\BioPlex\\atlas.ego_splitting\\4d466d591bd601be",
+    "annotation_directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\BioPlex\\atlas.ego_splitting\\4d466d591bd601be\\2d6a3ee2d5fef8c3",
+    "communities": [
+      "32"
+    ]
+  },
+  {
+    "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\BioPlex\\karateclub.EdMot\\9b5bd25e35e8c4b6",
+    "annotation_directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\BioPlex\\karateclub.EdMot\\9b5bd25e35e8c4b6\\11b57d1325a9bba9",
+    "communities": [
+      "19"
+    ]
+  },
+  {
+    "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\BioPlex\\cugraph.ecg\\06d75ef3ac30f60c",
+    "annotation_directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\BioPlex\\cugraph.ecg\\06d75ef3ac30f60c\\33ffbf96241e88dd",
+    "communities": [
+      "36"
+    ]
+  },
+  {
+    "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\BioPlex\\atlas.k_core_shells\\adf17c73de6acb79",
+    "annotation_directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\BioPlex\\atlas.k_core_shells\\adf17c73de6acb79\\318ad915c6941b0c",
+    "communities": [
+      "30"
+    ]
+  },
+  {
+    "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\BioPlex\\cugraph.leiden\\956871c1953d512f",
+    "annotation_directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\BioPlex\\cugraph.leiden\\956871c1953d512f\\564a16c4ab79dd83",
+    "communities": [
+      "12"
+    ]
+  },
+  {
+    "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\BioPlex\\karateclub.GEMSEC\\aa1b0aeb1fe4f07d",
+    "annotation_directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\BioPlex\\karateclub.GEMSEC\\aa1b0aeb1fe4f07d\\349372872932f017",
+    "communities": [
+      "8"
+    ]
+  },
+  {
+    "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\BioPlex\\cugraph.louvain\\0ea776b23aa67557",
+    "annotation_directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\BioPlex\\cugraph.louvain\\0ea776b23aa67557\\543624abb4a6370a",
+    "communities": [
+      "15"
+    ]
+  }
+]

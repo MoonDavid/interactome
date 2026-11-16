@@ -1,0 +1,53 @@
+community,core_size,primary_status,primary_label,primary_term_id,primary_library,interface_size,interface_status,interface_label,interface_term_id,interface_library,full_size,full_context_status,full_context_label,full_context_term_id,full_context_library
+1035,0,empty_subset,,,,50,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC,50,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC
+1057,0,empty_subset,,,,50,labeled,INO80-type complex,GO:0097346,GO_CC,50,labeled,INO80-type complex,GO:0097346,GO_CC
+10884,0,empty_subset,,,,4,labeled,Gluconeogenesis,R-HSA-70263,Reactome,4,labeled,Gluconeogenesis,R-HSA-70263,Reactome
+1155,0,empty_subset,,,,48,labeled,HATs acetylate histones,R-HSA-3214847,Reactome,48,labeled,HATs acetylate histones,R-HSA-3214847,Reactome
+1161,0,empty_subset,,,,48,labeled,nucleosome,GO:0000786,GO_CC,48,labeled,nucleosome,GO:0000786,GO_CC
+1167,0,empty_subset,,,,48,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC,48,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC
+11834,0,empty_subset,,,,3,labeled,Gluconeogenesis,R-HSA-70263,Reactome,3,labeled,Gluconeogenesis,R-HSA-70263,Reactome
+1682,0,empty_subset,,,,40,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC,40,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC
+1721,0,empty_subset,,,,39,labeled,histone acetyltransferase complex,GO:0000123,GO_CC,39,labeled,histone acetyltransferase complex,GO:0000123,GO_CC
+1777,0,empty_subset,,,,39,labeled,HATs acetylate histones,R-HSA-3214847,Reactome,39,labeled,HATs acetylate histones,R-HSA-3214847,Reactome
+1790,0,empty_subset,,,,38,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC,38,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC
+1957,0,empty_subset,,,,37,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC,37,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC
+2117,0,empty_subset,,,,35,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC,35,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC
+2246,0,empty_subset,,,,34,labeled,nucleosome,GO:0000786,GO_CC,34,labeled,nucleosome,GO:0000786,GO_CC
+2384,0,empty_subset,,,,33,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC,33,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC
+2432,0,empty_subset,,,,32,labeled,Ino80 complex,GO:0031011,GO_CC,32,labeled,Ino80 complex,GO:0031011,GO_CC
+245,0,empty_subset,,,,102,labeled,Peptide chain elongation,R-HSA-156902,Reactome,102,labeled,Peptide chain elongation,R-HSA-156902,Reactome
+2511,0,empty_subset,,,,32,labeled,Ino80 complex,GO:0031011,GO_CC,32,labeled,Ino80 complex,GO:0031011,GO_CC
+2641,0,empty_subset,,,,31,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC,31,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC
+2773,0,empty_subset,,,,30,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC,30,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC
+3055,0,empty_subset,,,,28,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC,28,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC
+3194,0,empty_subset,,,,27,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC,27,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC
+3358,0,empty_subset,,,,26,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC,26,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC
+3549,0,empty_subset,,,,25,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC,25,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC
+3721,0,empty_subset,,,,24,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC,24,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC
+3877,0,empty_subset,,,,23,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC,23,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC
+4064,0,empty_subset,,,,22,labeled,translation initiation factor activity,GO:0003743,GO_MF,22,labeled,translation initiation factor activity,GO:0003743,GO_MF
+4072,0,empty_subset,,,,22,labeled,nucleosome,GO:0000786,GO_CC,22,labeled,nucleosome,GO:0000786,GO_CC
+4119,0,empty_subset,,,,22,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC,22,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC
+4153,0,empty_subset,,,,21,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC,21,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC
+4500,0,empty_subset,,,,20,labeled,Ino80 complex,GO:0031011,GO_CC,20,labeled,Ino80 complex,GO:0031011,GO_CC
+458,0,empty_subset,,,,77,labeled,nucleosome,GO:0000786,GO_CC,77,labeled,nucleosome,GO:0000786,GO_CC
+4771,0,empty_subset,,,,18,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC,18,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC
+4961,0,empty_subset,,,,18,labeled,Ino80 complex,GO:0031011,GO_CC,18,labeled,Ino80 complex,GO:0031011,GO_CC
+5195,0,empty_subset,,,,17,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC,17,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC
+5240,0,empty_subset,,,,16,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC,16,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC
+5241,0,empty_subset,,,,16,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC,16,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC
+5849,0,empty_subset,,,,14,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC,14,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC
+6108,0,empty_subset,,,,13,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC,13,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC
+6131,0,empty_subset,,,,13,labeled,NSL complex,GO:0044545,GO_CC,13,labeled,NSL complex,GO:0044545,GO_CC
+626,0,empty_subset,,,,65,labeled,nucleosome,GO:0000786,GO_CC,65,labeled,nucleosome,GO:0000786,GO_CC
+672,0,empty_subset,,,,63,labeled,INO80-type complex,GO:0097346,GO_CC,63,labeled,INO80-type complex,GO:0097346,GO_CC
+7279,0,empty_subset,,,,10,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC,10,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC
+7756,0,empty_subset,,,,9,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC,9,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC
+8250,0,empty_subset,,,,8,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC,8,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC
+8251,0,empty_subset,,,,8,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC,8,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC
+8252,0,empty_subset,,,,8,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC,8,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC
+8403,0,empty_subset,,,,8,labeled,elongator holoenzyme complex,GO:0033588,GO_CC,8,labeled,elongator holoenzyme complex,GO:0033588,GO_CC
+8674,0,empty_subset,,,,8,labeled,NSL complex,GO:0044545,GO_CC,8,labeled,NSL complex,GO:0044545,GO_CC
+923,0,empty_subset,,,,54,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC,54,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC
+9256,0,empty_subset,,,,7,labeled,elongator holoenzyme complex,GO:0033588,GO_CC,7,labeled,elongator holoenzyme complex,GO:0033588,GO_CC
+9281,0,empty_subset,,,,7,labeled,Ino80 complex,GO:0031011,GO_CC,7,labeled,Ino80 complex,GO:0031011,GO_CC

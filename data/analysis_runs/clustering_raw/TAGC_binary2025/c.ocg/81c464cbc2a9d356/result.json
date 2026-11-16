@@ -1,0 +1,37 @@
+{
+  "method": "c.ocg",
+  "key": "81c464cbc2a9d356c89ae501a3f24a310d2eb69b3ee3b92b0c19f9f88495149e",
+  "status": "success",
+  "job": {
+    "network": "TAGC_binary2025",
+    "method": "c.ocg",
+    "parameters": {
+      "init_class_sys": 3,
+      "max_class_card": 0,
+      "cent_class_sys": 1,
+      "min_class": 2
+    },
+    "provenance": {
+      "input": {
+        "path": "C:\\projects\\interactome\\data\\processed_networks\\TAGC_binary2025.parquet",
+        "sha256": "30c3be2b328044e6743a50ca23fb8fb33886592aac447bb94b149db6c4171807",
+        "size": 313955
+      },
+      "c_binary": {
+        "path": "C:\\projects\\interactome\\ocg\\bin\\ocg_fast.exe",
+        "sha256": "6c947a34d54d66b6b0bbeb79b4903aa7453c9617a5722a8bae6de8adf9f8e93b",
+        "size": 117648
+      }
+    }
+  },
+  "nodes": 14235,
+  "edges": 108649,
+  "communities": 874,
+  "covered_nodes": 14235,
+  "unassigned_nodes": 0,
+  "overlapping_nodes": 3510,
+  "elapsed_seconds": 27.703000000008615,
+  "execution": {
+    "requested_threads": 16
+  }
+}

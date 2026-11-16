@@ -1,0 +1,119 @@
+{
+  "name": "huMAP3_0.05",
+  "threshold": 0.05,
+  "comparison": ">=",
+  "network": "huMAP3",
+  "score_column": "probability",
+  "filtering_stages": [
+    {
+      "stage": "Source interaction rows",
+      "nodes": 17233,
+      "edges": 25992007,
+      "nodes_removed": 0,
+      "edges_removed": 0
+    },
+    {
+      "stage": "Remove missing endpoint IDs",
+      "nodes": 17233,
+      "edges": 25992007,
+      "nodes_removed": 0,
+      "edges_removed": 0
+    },
+    {
+      "stage": "Remove source self-loops",
+      "nodes": 17233,
+      "edges": 25982034,
+      "nodes_removed": 0,
+      "edges_removed": 9973
+    },
+    {
+      "stage": "Apply source isoform policy",
+      "nodes": 17233,
+      "edges": 25982034,
+      "nodes_removed": 0,
+      "edges_removed": 0
+    },
+    {
+      "stage": "Deduplicate before UniProt mapping",
+      "nodes": 17233,
+      "edges": 25982034,
+      "nodes_removed": 0,
+      "edges_removed": 0
+    },
+    {
+      "stage": "Remove edges with unmapped endpoints",
+      "nodes": 16697,
+      "edges": 25507564,
+      "nodes_removed": 536,
+      "edges_removed": 474470
+    },
+    {
+      "stage": "Relabel nodes / merge identical UniProt label sets",
+      "nodes": 16634,
+      "edges": 25507564,
+      "nodes_removed": 63,
+      "edges_removed": 0
+    },
+    {
+      "stage": "Remove self-loops after mapping",
+      "nodes": 16634,
+      "edges": 25507301,
+      "nodes_removed": 0,
+      "edges_removed": 263
+    },
+    {
+      "stage": "Deduplicate after UniProt mapping",
+      "nodes": 16634,
+      "edges": 25436441,
+      "nodes_removed": 0,
+      "edges_removed": 70860
+    },
+    {
+      "stage": "Apply native score validity policy",
+      "nodes": 16634,
+      "edges": 25436441,
+      "nodes_removed": 0,
+      "edges_removed": 0
+    },
+    {
+      "stage": "Keep edges with valid native scores for confidence filtering",
+      "edges": 25436441,
+      "nodes": 16634,
+      "nodes_removed": 0,
+      "edges_removed": 0
+    },
+    {
+      "stage": "Inclusive probability >= 0.05",
+      "nodes": 15506,
+      "edges": 3757080,
+      "nodes_removed": 1128,
+      "edges_removed": 21679361
+    }
+  ],
+  "node_identity": "sorted UniProt label set; multiple labels remain one node",
+  "node_annotations": {
+    "path": "data\\processed_networks\\node_annotations\\huMAP3.parquet",
+    "size": 151314,
+    "mtime_ns": 1794485805955476000,
+    "sha256": "a3148dda79556b5f87d1ee1068f7afdc5c47c4fcf30553de8defbfb15fe7c1b5"
+  },
+  "invalid_score_policy": "exclude non-finite, missing, and out-of-range native scores",
+  "parent_sha256": "56338d3e995e3b72ae2363b1f0ea4ad07ef97aa737eff171d591b0d759ea6f3d",
+  "isoform_policy": "collapse",
+  "source": {
+    "path": "data\\processed_networks\\huMAP3.parquet",
+    "size": 149949169,
+    "mtime_ns": 1794485804987435400,
+    "sha256": "56338d3e995e3b72ae2363b1f0ea4ad07ef97aa737eff171d591b0d759ea6f3d"
+  },
+  "normalization_policy": "UniProt primary accessions; remove terminal numeric isoform suffix; one node per sorted UniProt label set (pipe-separated); merge identical label sets; deduplicate undirected source pairs before mapping; remove source loops before mapping and canonical loops after mapping; duplicate native score=max; BioPlex invalid scores=null with edges retained",
+  "output": {
+    "path": "data\\processed_networks\\versions\\huMAP3_0.05.parquet",
+    "size": 23878000,
+    "mtime_ns": 1794485811235907200,
+    "sha256": "278aede75cbe5cee53ca722fd58ce5c6c883d562731ef938d7b6aeb885a46024"
+  },
+  "created_at": "2026-11-12T12:16:51.276599+00:00",
+  "edges": 3757080,
+  "nodes": 15506
+}

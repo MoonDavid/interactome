@@ -1,0 +1,5 @@
+.study-report .study-detail {border-top:1px solid var(--border); margin-top:24px; padding-top:20px;}
+.study-report select {font:inherit; color:var(--text); background:var(--background); border:1px solid var(--border); padding:7px 12px; border-radius:6px; margin-left:8px;}
+.study-report .study-members {overflow-wrap:anywhere;line-height:1.8;font-size:14px;}
+.study-report details {margin:16px 0;}
+.study-report summary {cursor:pointer;}

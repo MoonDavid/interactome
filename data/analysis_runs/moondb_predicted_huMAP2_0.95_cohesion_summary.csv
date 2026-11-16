@@ -1,0 +1,3 @@
+protein_set,network,network_path,measure,observed,null_mean,effect_observed_minus_null,p_value,query_nodes,valid_simulations,reachable_pair_fraction,fdr_bh,significance
+moondb_predicted,huMAP2_0.95,C:\projects\interactome\data\processed_networks\versions\huMAP2_0.95.parquet,internal_edges,8.0,3.006,4.994,0.017982017982017984,21,1000,1.0,0.019980019980019983,*
+moondb_predicted,huMAP2_0.95,C:\projects\interactome\data\processed_networks\versions\huMAP2_0.95.parquet,largest_component,4.0,2.61,1.3900000000000001,0.14885114885114886,21,1000,1.0,0.14885114885114886,ns

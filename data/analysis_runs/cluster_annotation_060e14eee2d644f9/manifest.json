@@ -1,0 +1,249 @@
+{
+  "schema_version": 5,
+  "created_utc": "2026-11-12T13:49:37.117803+00:00",
+  "uniprot_function_labels": {
+    "status": "complete",
+    "source": {
+      "path": "C:\\projects\\interactome\\data\\annotations\\uniprot_functions.tsv",
+      "size": 12656888,
+      "mtime_ns": 1794488715910466500,
+      "sha256": "70cb62ffe3388445866a7707867b4e9c831234aa63742e3febbd7f5444237494"
+    },
+    "annotated_background": 12894,
+    "population": 14235,
+    "policy": "FUNCTION comments only; evidence references removed; lowercase unigrams and bigrams; fixed stopwords; sublinear TF, smoothed protein-document IDF, L2 normalization, mean over all subset proteins; document_lift uses annotated subset vs annotated complement with 0.5/1 smoothing; >=2 supporting proteins; top 10 positive scores per method/subset; descriptive scores, no p-values or significance; phrases may be redundant"
+  },
+  "sources": {
+    "network": {
+      "name": "TAGC_binary2025",
+      "path": "C:\\projects\\interactome\\data\\processed_networks\\TAGC_binary2025.parquet",
+      "size": 313955,
+      "mtime_ns": 1794304628035049500,
+      "sha256": "30c3be2b328044e6743a50ca23fb8fb33886592aac447bb94b149db6c4171807",
+      "audit": {
+        "name": "TAGC_binary2025",
+        "created_at": "2026-11-10T09:57:08.096352+00:00",
+        "normalization_policy": "UniProt primary accessions; remove terminal numeric isoform suffix; one node per sorted UniProt label set (pipe-separated); merge identical label sets; deduplicate undirected source pairs before mapping; remove source loops before mapping and canonical loops after mapping; duplicate native score=max; BioPlex invalid scores=null with edges retained",
+        "mapping_sha256": "092061960e7ac2a22f788c681cb19fd92ff02dd9510e4d745c97b675f18d35cd",
+        "source": {
+          "path": "data\\raw_networks\\TAGC_binaryInteractome2025.csv",
+          "size": 1631019,
+          "mtime_ns": 1794296428244551100,
+          "sha256": "19c81cacbdc643e3f7703ad1d4fc502545c7762d9fd48665fc43f7343654476e"
+        },
+        "output": {
+          "path": "data\\processed_networks\\TAGC_binary2025.parquet",
+          "size": 313955,
+          "mtime_ns": 1794304628035049500,
+          "sha256": "30c3be2b328044e6743a50ca23fb8fb33886592aac447bb94b149db6c4171807"
+        },
+        "input_rows": 108730,
+        "expanded_mapped_rows": 108649,
+        "node_identity": "sorted UniProt label set; multiple labels remain one node",
+        "filtering_stages": [
+          {
+            "stage": "Source interaction rows",
+            "nodes": 14238,
+            "edges": 108730,
+            "nodes_removed": 0,
+            "edges_removed": 0
+          },
+          {
+            "stage": "Remove missing endpoint IDs",
+            "nodes": 14238,
+            "edges": 108730,
+            "nodes_removed": 0,
+            "edges_removed": 0
+          },
+          {
+            "stage": "Remove source self-loops",
+            "nodes": 14238,
+            "edges": 108730,
+            "nodes_removed": 0,
+            "edges_removed": 0
+          },
+          {
+            "stage": "Apply source isoform policy",
+            "nodes": 14238,
+            "edges": 108730,
+            "nodes_removed": 0,
+            "edges_removed": 0
+          },
+          {
+            "stage": "Deduplicate before UniProt mapping",
+            "nodes": 14238,
+            "edges": 108730,
+            "nodes_removed": 0,
+            "edges_removed": 0
+          },
+          {
+            "stage": "Remove edges with unmapped endpoints",
+            "nodes": 14235,
+            "edges": 108649,
+            "nodes_removed": 3,
+            "edges_removed": 81
+          },
+          {
+            "stage": "Relabel nodes / merge identical UniProt label sets",
+            "nodes": 14235,
+            "edges": 108649,
+            "nodes_removed": 0,
+            "edges_removed": 0
+          },
+          {
+            "stage": "Remove self-loops after mapping",
+            "nodes": 14235,
+            "edges": 108649,
+            "nodes_removed": 0,
+            "edges_removed": 0
+          },
+          {
+            "stage": "Deduplicate after UniProt mapping",
+            "nodes": 14235,
+            "edges": 108649,
+            "nodes_removed": 0,
+            "edges_removed": 0
+          },
+          {
+            "stage": "Apply native score validity policy",
+            "nodes": 14235,
+            "edges": 108649,
+            "nodes_removed": 0,
+            "edges_removed": 0
+          }
+        ],
+        "node_annotations": {
+          "path": "data\\processed_networks\\node_annotations\\TAGC_binary2025.parquet",
+          "size": 122678,
+          "mtime_ns": 1794304628095353500,
+          "sha256": "5d7ad45b926e063d978ed6036bb91bc2dac0b88cc7d3182e5196e81baab5399f"
+        },
+        "original_release_sources": [],
+        "original_release_stages_available": false,
+        "unmapped_ids": [
+          "O43930",
+          "Q3SXR2",
+          "Q5SWW7"
+        ],
+        "unmapped_edge_rows": 81,
+        "one_to_many_ids": {
+          "P01562": [
+            "A0A087WWS6",
+            "P0DY56"
+          ]
+        },
+        "one_to_many_id_count": 1,
+        "source_self_loop_rows": 0,
+        "self_loop_rows": 0,
+        "invalid_score_rows": 0,
+        "score_column": null,
+        "source_score_column": null,
+        "invalid_score_policy": null,
+        "edges": 108649,
+        "nodes": 14235
+      }
+    },
+    "clustering": {
+      "algorithm": "fuzzy_rwr_diffusion",
+      "resolution": 1.0,
+      "seed": 42
+    },
+    "go": {
+      "created_utc": "2026-11-12T13:49:32.353480+00:00",
+      "policy": "UniProtKB human primary taxon; exclude NOT; collapse numeric isoform suffix; GO ancestor propagation via is_a and part_of; evidence retained",
+      "sources": {
+        "gaf": {
+          "path": "C:\\projects\\interactome\\data\\GO\\HUMAN-uniprot.gaf.gz",
+          "size": 12109254,
+          "mtime_ns": 1794234165140993200
+        },
+        "obo": {
+          "path": "C:\\projects\\interactome\\data\\GO\\go-basic.obo",
+          "size": 32227785,
+          "mtime_ns": 1794234248139794700
+        }
+      },
+      "gaf_sha256": "a0afba19dfb1f8fa996bc1bdcd61fd0c9bd4cf0d2bf2509d09ac86993c0e70a2",
+      "obo_sha256": "b08d45b268b8c24ccb2513dbbbc7d4df9f6521c099b413f79eb31e06e0fa3bcc",
+      "gaf_headers": [
+        "!gaf-version: 2.2",
+        "!generated-by: UniProt",
+        "!date-generated: 2026-07-28 19:42",
+        "!go-version: http://purl.obolibrary.org/obo/go/releases/2026-07-26/extensions/go-plus.ofn"
+      ],
+      "ontology_headers": [
+        "format-version: 1.2",
+        "data-version: releases/2026-07-26"
+      ],
+      "audit": {
+        "source_rows": 910476,
+        "not_rows_excluded": 1497,
+        "nonhuman_or_nonuniprot_rows_excluded": 47765,
+        "unknown_or_obsolete_terms_excluded": 0
+      },
+      "direct_unique_evidence_rows": 437530,
+      "propagated_protein_term_rows": 1511426,
+      "proteins": 19775,
+      "terms": 20984
+    },
+    "reactome": {
+      "path": "C:\\projects\\interactome\\data\\reactome\\UniProt2Reactome.txt",
+      "size": 43219161,
+      "mtime_ns": 1794238025981646900,
+      "sha256": "e16cf600292fc592957daf696ab5ffd9373ed6b49582def5988ec5bedfcc48cf"
+    }
+  },
+  "parameters": {
+    "selected_communities": [
+      "1"
+    ],
+    "libraries": [
+      "GO_BP",
+      "GO_MF",
+      "GO_CC",
+      "Reactome"
+    ],
+    "min_background_hits": 5,
+    "min_label_hits": 2,
+    "max_qvalue": 0.05,
+    "ancestor_hit_jaccard_strictly_above": 0.7,
+    "test": "one-sided hypergeometric; one BH family across nonempty subsets and libraries",
+    "reactome_policy": "human R-HSA pathways in the supplied lowest-level mapping",
+    "majority_policy": "GO is_a/part_of propagation; minimum root distance; roots excluded; unique protein votes / all subset proteins; strict >50%; all terms with hits per depth; summary includes every term with >=2 hits at every depth and deepest majority; protein supports may overlap; descriptive, no statistical test"
+  },
+  "coverage": {
+    "background": 14235,
+    "assigned": 485,
+    "unassigned": 13750,
+    "libraries": {
+      "GO_BP": {
+        "annotated_background": 12927,
+        "annotated_assigned": 455,
+        "eligible_terms": 7535
+      },
+      "GO_MF": {
+        "annotated_background": 13929,
+        "annotated_assigned": 479,
+        "eligible_terms": 1871
+      },
+      "GO_CC": {
+        "annotated_background": 13706,
+        "annotated_assigned": 472,
+        "eligible_terms": 1210
+      },
+      "Reactome": {
+        "annotated_background": 8994,
+        "annotated_assigned": 352,
+        "eligible_terms": 1566
+      }
+    }
+  },
+  "clusters": 1,
+  "tested_subsets": 3,
+  "memberships_sha256": "4bbb1cd9175047f8f8b407176dedc1423eeb95964b84ad817e6d05c9bdae6eaf",
+  "tests": 36546,
+  "zero_hit_tests_omitted_from_table": 21221,
+  "cytoscape_comparison": {
+    "status": "not_requested"
+  }
+}

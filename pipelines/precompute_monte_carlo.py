@@ -321,6 +321,36 @@ def significance_label(q):
                  if q < threshold), 'ns')
 
 
+ANALYSIS_COLUMNS = {
+    'shortest_path': ['mean_shortest_path', 'reachable_pair_fraction'],
+    'cohesion': ['internal_edges', 'largest_component'],
+}
+
+
+def save_named_outputs(output, protein_set, network, null, metadata):
+    """Keep one clearly named null table and provenance file per analysis."""
+    output = Path(output)
+    output.mkdir(parents=True, exist_ok=True)
+    for analysis, columns in ANALYSIS_COLUMNS.items():
+        if not all(column in null.columns for column in columns):
+            continue
+        prefix = output / f'{protein_set}_{network}_{analysis}'
+        table = null.select('simulation', *columns)
+        table.write_parquet(f'{prefix}.parquet')
+        Path(f'{prefix}.json').write_text(json.dumps(
+            {**metadata, 'analysis': analysis, 'exported_columns': table.columns}, indent=2, default=str))
+
+
+def save_named_summaries(output, summary):
+    """Split already-corrected results without recalculating the BH families."""
+    for group in summary.partition_by(['protein_set', 'network'], maintain_order=True):
+        source, network = group['protein_set'][0], group['network'][0]
+        for analysis, columns in ANALYSIS_COLUMNS.items():
+            selected = group.filter(pl.col('measure').is_in(columns))
+            if selected.height:
+                selected.write_csv(Path(output) / f'{source}_{network}_{analysis}_summary.csv')
+
+
 def run_analysis(graph, query, runs, seed, matched, analyses, cache):
     """Evaluate one fixed graph against reproducible random protein sets.
 
@@ -390,7 +420,7 @@ def main(argv=None):
     parser.add_argument('--uniform', action='store_true')
     parser.add_argument('--reviewed-only', action='store_true')
     parser.add_argument('--min-publications', type=int, default=0)
-    parser.add_argument('--scope', choices=['network', 'lcc'], default='network')
+    parser.add_argument('--scope', choices=['network', 'lcc'], default='lcc')
     parser.add_argument('--dry-run', action='store_true')
     parser.add_argument('-v', '--verbose', action='store_true', help='Log cache paths, checkpoints, throughput and ETA.')
     parser.add_argument('--no-progress', action='store_true', help='Disable animated progress; retain readable stage logs.')
@@ -405,7 +435,7 @@ def main(argv=None):
     return run_protein_set(args)
 
 
-def run_protein_set(args):
+def run_protein_set(args, output_dir=None, cohort_override=None):
     """Run one source across requested networks using the shared distance caches.
 
     Called once per source for --protein-set each. Source-specific settings enter
@@ -419,14 +449,16 @@ def run_protein_set(args):
     if not 1 <= args.simulations <= 10000 or args.min_publications < 0:
         parser.error('Use 1–10,000 simulations and nonnegative minimum publications.')
     with REPORT.stage('Loading and mapping protein set'):
-        cohort = load_cohort(args.data, args.protein_set, args.reviewed_only, args.min_publications)
+        cohort = (set(cohort_override) if cohort_override is not None else
+                  load_cohort(args.data, args.protein_set, args.reviewed_only, args.min_publications))
     REPORT.log(f'Mapped protein set: {len(cohort):,} proteins')
-    context = {**vars(args), 'distance_definition': 'Exact unweighted mean over finite unordered distinct within-set pairs; paths traverse the fixed full graph. Disconnected pairs excluded and reachable fractions reported.',
+    context = {**vars(args), 'cohort_sha256': hashlib.sha256(json.dumps(sorted(cohort)).encode()).hexdigest(),
+               'distance_definition': 'Exact unweighted mean over finite unordered distinct within-set pairs; paths traverse the fixed full graph. Disconnected pairs excluded and reachable fractions reported.',
                'null_model': 'Independent equal-size sets sampled without replacement per trial from the comparison graph, including query proteins; floor(log2 degree) counts preserved unless --uniform.',
                'test': 'Shortest path: two-sided doubled smaller +1 empirical tail (unavailable if any trial has no reachable pairs). Cohesion: upper +1 empirical tail.',
                'correction': 'BH across all requested networks/metrics separately for shortest path and cohesion. Stars: q<0.05/0.01/0.001/0.0001; ns otherwise; n/a unavailable.',
                'limitation': 'Finite-pair means condition on reachability; compare reachable fractions or use --scope lcc. Topology does not establish moonlighting.'}
-    output = args.data / 'analysis_runs'
+    output = Path(output_dir) if output_dir is not None else args.data / 'analysis_runs'
     signature_context = {k: v for k, v in context.items() if k not in ('verbose', 'no_progress', 'dry_run')}
     signature = hashlib.sha256(json.dumps(signature_context, sort_keys=True, default=str).encode()).hexdigest()[:16]
     rows = []
@@ -448,12 +480,12 @@ def run_protein_set(args):
         results, null, notes = run_analysis(graph, cohort, args.simulations, args.seed, not args.uniform,
                                             args.analyses, args.data / 'analysis_runs/shortest_path_distances')
         output.mkdir(parents=True, exist_ok=True)
-        network_id = hashlib.sha256(str(path.resolve()).encode()).hexdigest()[:8]
-        prefix = output / f'monte_carlo_{args.protein_set}_{path.stem}_{network_id}_{signature}'
-        REPORT.log(f"Saving null distributions: {Path(f'{prefix}.parquet')}")
-        null.write_parquet(Path(f'{prefix}.parquet'))
-        Path(f'{prefix}.json').write_text(json.dumps({**context, **notes, 'network_path': str(path.resolve()),
-            'network_sha256': hashlib.file_digest(path.open('rb'), 'sha256').hexdigest()}, indent=2, default=str))
+        REPORT.log(f'Saving null distributions: {args.protein_set}_{path.stem}_<analysis>.parquet')
+        with path.open('rb') as source_file:
+            network_sha256 = hashlib.file_digest(source_file, 'sha256').hexdigest()
+        save_named_outputs(output, args.protein_set, path.stem, null,
+            {**context, **notes, 'run_signature': signature, 'network_path': str(path.resolve()),
+             'network_sha256': network_sha256})
         rows.extend(dict(protein_set=args.protein_set, network=path.stem, network_path=str(path.resolve()), **r) for r in results)
     if rows:
         # Correct once across all requested networks, not separately per network.
@@ -461,8 +493,7 @@ def run_protein_set(args):
             subset = [r for r in rows if r['measure'] in family]
             for row, q in zip(subset, bh_adjust([r['p_value'] for r in subset])):
                 row.update(fdr_bh=q, significance=significance_label(q))
-        destination = output / f'monte_carlo_{args.protein_set}_{signature}_summary.csv'
-        pl.DataFrame(rows).write_csv(destination)
+        save_named_summaries(output, pl.DataFrame(rows))
         table = Table(title='Monte Carlo results')
         for column in ['Network', 'Measure', 'Observed', 'Null mean', 'Effect', 'q (BH)', 'Significance']:
             table.add_column(column)
@@ -474,7 +505,7 @@ def run_protein_set(args):
                           formatted(row['null_mean']), formatted(row['effect_observed_minus_null']),
                           formatted(row['fdr_bh']), row['significance'])
         REPORT.console.print(table)
-        REPORT.log(f'Summary saved: {destination}')
+        REPORT.log(f'Summary saved: {output}/<protein_set>_<network>_<analysis>_summary.csv')
     else:
         REPORT.log('Dry run complete.' if args.dry_run else 'No eligible network comparisons for this protein set.')
     return 0

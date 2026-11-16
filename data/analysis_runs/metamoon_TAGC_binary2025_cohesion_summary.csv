@@ -1,0 +1,3 @@
+protein_set,network,network_path,measure,observed,null_mean,effect_observed_minus_null,p_value,query_nodes,valid_simulations,reachable_pair_fraction,fdr_bh,significance
+metamoon,TAGC_binary2025,C:\projects\interactome\data\processed_networks\TAGC_binary2025.parquet,internal_edges,19.0,3.321,15.679,0.000999000999000999,71,1000,1.0,0.001998001998001998,**
+metamoon,TAGC_binary2025,C:\projects\interactome\data\processed_networks\TAGC_binary2025.parquet,largest_component,7.0,2.813,4.186999999999999,0.011988011988011988,71,1000,1.0,0.017125731411445695,*

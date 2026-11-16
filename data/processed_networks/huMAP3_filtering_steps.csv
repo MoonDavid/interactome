@@ -1,0 +1,103 @@
+Isoform policy,Network,Step,Filtering step,Nodes,Edges / rows,Nodes removed / merged,Edges / rows removed
+collapse,huMAP3,1,Source interaction rows,17233,25992007,0,0
+collapse,huMAP3,2,Remove missing endpoint IDs,17233,25992007,0,0
+collapse,huMAP3,3,Remove source self-loops,17233,25982034,0,9973
+collapse,huMAP3,4,Apply source isoform policy,17233,25982034,0,0
+collapse,huMAP3,5,Deduplicate before UniProt mapping,17233,25982034,0,0
+collapse,huMAP3,6,Remove edges with unmapped endpoints,16697,25507564,536,474470
+collapse,huMAP3,7,Relabel nodes / merge identical UniProt label sets,16634,25507564,63,0
+collapse,huMAP3,8,Remove self-loops after mapping,16634,25507301,0,263
+collapse,huMAP3,9,Deduplicate after UniProt mapping,16634,25436441,0,70860
+collapse,huMAP3,10,Apply native score validity policy,16634,25436441,0,0
+collapse,huMAP3_0.05,1,Source interaction rows,17233,25992007,0,0
+collapse,huMAP3_0.05,2,Remove missing endpoint IDs,17233,25992007,0,0
+collapse,huMAP3_0.05,3,Remove source self-loops,17233,25982034,0,9973
+collapse,huMAP3_0.05,4,Apply source isoform policy,17233,25982034,0,0
+collapse,huMAP3_0.05,5,Deduplicate before UniProt mapping,17233,25982034,0,0
+collapse,huMAP3_0.05,6,Remove edges with unmapped endpoints,16697,25507564,536,474470
+collapse,huMAP3_0.05,7,Relabel nodes / merge identical UniProt label sets,16634,25507564,63,0
+collapse,huMAP3_0.05,8,Remove self-loops after mapping,16634,25507301,0,263
+collapse,huMAP3_0.05,9,Deduplicate after UniProt mapping,16634,25436441,0,70860
+collapse,huMAP3_0.05,10,Apply native score validity policy,16634,25436441,0,0
+collapse,huMAP3_0.05,11,Keep edges with valid native scores for confidence filtering,16634,25436441,0,0
+collapse,huMAP3_0.05,12,Inclusive probability >= 0.05,15506,3757080,1128,21679361
+collapse,huMAP3_0.95,1,Source interaction rows,17233,25992007,0,0
+collapse,huMAP3_0.95,2,Remove missing endpoint IDs,17233,25992007,0,0
+collapse,huMAP3_0.95,3,Remove source self-loops,17233,25982034,0,9973
+collapse,huMAP3_0.95,4,Apply source isoform policy,17233,25982034,0,0
+collapse,huMAP3_0.95,5,Deduplicate before UniProt mapping,17233,25982034,0,0
+collapse,huMAP3_0.95,6,Remove edges with unmapped endpoints,16697,25507564,536,474470
+collapse,huMAP3_0.95,7,Relabel nodes / merge identical UniProt label sets,16634,25507564,63,0
+collapse,huMAP3_0.95,8,Remove self-loops after mapping,16634,25507301,0,263
+collapse,huMAP3_0.95,9,Deduplicate after UniProt mapping,16634,25436441,0,70860
+collapse,huMAP3_0.95,10,Apply native score validity policy,16634,25436441,0,0
+collapse,huMAP3_0.95,11,Keep edges with valid native scores for confidence filtering,16634,25436441,0,0
+collapse,huMAP3_0.95,12,Inclusive probability >= 0.95,13028,98360,3606,25338081
+canonical_only,huMAP3,1,Source interaction rows,17233,25992007,0,0
+canonical_only,huMAP3,2,Remove missing endpoint IDs,17233,25992007,0,0
+canonical_only,huMAP3,3,Remove source self-loops,17233,25982034,0,9973
+canonical_only,huMAP3,4,Apply source isoform policy,17231,25974080,2,7954
+canonical_only,huMAP3,5,Deduplicate before UniProt mapping,17231,25974080,0,0
+canonical_only,huMAP3,6,Remove edges with unmapped endpoints,16696,25505071,535,469009
+canonical_only,huMAP3,7,Relabel nodes / merge identical UniProt label sets,16634,25505071,62,0
+canonical_only,huMAP3,8,Remove self-loops after mapping,16634,25504814,0,257
+canonical_only,huMAP3,9,Deduplicate after UniProt mapping,16634,25436440,0,68374
+canonical_only,huMAP3,10,Apply native score validity policy,16634,25436440,0,0
+canonical_only,huMAP3_0.05,1,Source interaction rows,17233,25992007,0,0
+canonical_only,huMAP3_0.05,2,Remove missing endpoint IDs,17233,25992007,0,0
+canonical_only,huMAP3_0.05,3,Remove source self-loops,17233,25982034,0,9973
+canonical_only,huMAP3_0.05,4,Apply source isoform policy,17231,25974080,2,7954
+canonical_only,huMAP3_0.05,5,Deduplicate before UniProt mapping,17231,25974080,0,0
+canonical_only,huMAP3_0.05,6,Remove edges with unmapped endpoints,16696,25505071,535,469009
+canonical_only,huMAP3_0.05,7,Relabel nodes / merge identical UniProt label sets,16634,25505071,62,0
+canonical_only,huMAP3_0.05,8,Remove self-loops after mapping,16634,25504814,0,257
+canonical_only,huMAP3_0.05,9,Deduplicate after UniProt mapping,16634,25436440,0,68374
+canonical_only,huMAP3_0.05,10,Apply native score validity policy,16634,25436440,0,0
+canonical_only,huMAP3_0.05,11,Keep edges with valid native scores for confidence filtering,16634,25436440,0,0
+canonical_only,huMAP3_0.05,12,Inclusive probability >= 0.05,15506,3757080,1128,21679360
+canonical_only,huMAP3_0.95,1,Source interaction rows,17233,25992007,0,0
+canonical_only,huMAP3_0.95,2,Remove missing endpoint IDs,17233,25992007,0,0
+canonical_only,huMAP3_0.95,3,Remove source self-loops,17233,25982034,0,9973
+canonical_only,huMAP3_0.95,4,Apply source isoform policy,17231,25974080,2,7954
+canonical_only,huMAP3_0.95,5,Deduplicate before UniProt mapping,17231,25974080,0,0
+canonical_only,huMAP3_0.95,6,Remove edges with unmapped endpoints,16696,25505071,535,469009
+canonical_only,huMAP3_0.95,7,Relabel nodes / merge identical UniProt label sets,16634,25505071,62,0
+canonical_only,huMAP3_0.95,8,Remove self-loops after mapping,16634,25504814,0,257
+canonical_only,huMAP3_0.95,9,Deduplicate after UniProt mapping,16634,25436440,0,68374
+canonical_only,huMAP3_0.95,10,Apply native score validity policy,16634,25436440,0,0
+canonical_only,huMAP3_0.95,11,Keep edges with valid native scores for confidence filtering,16634,25436440,0,0
+canonical_only,huMAP3_0.95,12,Inclusive probability >= 0.95,13028,98360,3606,25338080
+retain,huMAP3,1,Source interaction rows,17233,25992007,0,0
+retain,huMAP3,2,Remove missing endpoint IDs,17233,25992007,0,0
+retain,huMAP3,3,Remove source self-loops,17233,25982034,0,9973
+retain,huMAP3,4,Apply source isoform policy,17233,25982034,0,0
+retain,huMAP3,5,Deduplicate before UniProt mapping,17233,25982034,0,0
+retain,huMAP3,6,Remove edges with unmapped endpoints,16696,25505071,537,476963
+retain,huMAP3,7,Relabel nodes / merge identical UniProt label sets,16634,25505071,62,0
+retain,huMAP3,8,Remove self-loops after mapping,16634,25504814,0,257
+retain,huMAP3,9,Deduplicate after UniProt mapping,16634,25436440,0,68374
+retain,huMAP3,10,Apply native score validity policy,16634,25436440,0,0
+retain,huMAP3_0.05,1,Source interaction rows,17233,25992007,0,0
+retain,huMAP3_0.05,2,Remove missing endpoint IDs,17233,25992007,0,0
+retain,huMAP3_0.05,3,Remove source self-loops,17233,25982034,0,9973
+retain,huMAP3_0.05,4,Apply source isoform policy,17233,25982034,0,0
+retain,huMAP3_0.05,5,Deduplicate before UniProt mapping,17233,25982034,0,0
+retain,huMAP3_0.05,6,Remove edges with unmapped endpoints,16696,25505071,537,476963
+retain,huMAP3_0.05,7,Relabel nodes / merge identical UniProt label sets,16634,25505071,62,0
+retain,huMAP3_0.05,8,Remove self-loops after mapping,16634,25504814,0,257
+retain,huMAP3_0.05,9,Deduplicate after UniProt mapping,16634,25436440,0,68374
+retain,huMAP3_0.05,10,Apply native score validity policy,16634,25436440,0,0
+retain,huMAP3_0.05,11,Keep edges with valid native scores for confidence filtering,16634,25436440,0,0
+retain,huMAP3_0.05,12,Inclusive probability >= 0.05,15506,3757080,1128,21679360
+retain,huMAP3_0.95,1,Source interaction rows,17233,25992007,0,0
+retain,huMAP3_0.95,2,Remove missing endpoint IDs,17233,25992007,0,0
+retain,huMAP3_0.95,3,Remove source self-loops,17233,25982034,0,9973
+retain,huMAP3_0.95,4,Apply source isoform policy,17233,25982034,0,0
+retain,huMAP3_0.95,5,Deduplicate before UniProt mapping,17233,25982034,0,0
+retain,huMAP3_0.95,6,Remove edges with unmapped endpoints,16696,25505071,537,476963
+retain,huMAP3_0.95,7,Relabel nodes / merge identical UniProt label sets,16634,25505071,62,0
+retain,huMAP3_0.95,8,Remove self-loops after mapping,16634,25504814,0,257
+retain,huMAP3_0.95,9,Deduplicate after UniProt mapping,16634,25436440,0,68374
+retain,huMAP3_0.95,10,Apply native score validity policy,16634,25436440,0,0
+retain,huMAP3_0.95,11,Keep edges with valid native scores for confidence filtering,16634,25436440,0,0
+retain,huMAP3_0.95,12,Inclusive probability >= 0.95,13028,98360,3606,25338080

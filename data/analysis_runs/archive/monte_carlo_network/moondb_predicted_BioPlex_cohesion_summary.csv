@@ -1,0 +1,3 @@
+protein_set,network,network_path,measure,observed,null_mean,effect_observed_minus_null,p_value,query_nodes,valid_simulations,reachable_pair_fraction,fdr_bh,significance
+moondb_predicted,BioPlex,/home/davide/projects/interactome/data/processed_networks/BioPlex.parquet,internal_edges,111.0,54.043,56.957,0.000999000999000999,216,1000,1.0,0.001665001665001665,**
+moondb_predicted,BioPlex,/home/davide/projects/interactome/data/processed_networks/BioPlex.parquet,largest_component,47.0,16.978,30.022,0.001998001998001998,216,1000,1.0,0.0024975024975024975,**

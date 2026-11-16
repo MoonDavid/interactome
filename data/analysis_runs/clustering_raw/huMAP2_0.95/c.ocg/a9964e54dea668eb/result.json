@@ -1,0 +1,37 @@
+{
+  "method": "c.ocg",
+  "key": "a9964e54dea668eb8fd4496206f3a972b3289037f2b56b11969fbf68c83828b6",
+  "status": "success",
+  "job": {
+    "network": "huMAP2_0.95",
+    "method": "c.ocg",
+    "parameters": {
+      "init_class_sys": 3,
+      "max_class_card": 0,
+      "cent_class_sys": 1,
+      "min_class": 2
+    },
+    "provenance": {
+      "input": {
+        "path": "C:\\projects\\interactome\\data\\processed_networks\\versions\\huMAP2_0.95.parquet",
+        "sha256": "92ed9888c58f3b6ba480c9b0a3d746ed577559194cfc3283d0f22a98724629d9",
+        "size": 55422
+      },
+      "c_binary": {
+        "path": "C:\\projects\\interactome\\ocg\\bin\\ocg_fast.exe",
+        "sha256": "6c947a34d54d66b6b0bbeb79b4903aa7453c9617a5722a8bae6de8adf9f8e93b",
+        "size": 117648
+      }
+    }
+  },
+  "nodes": 3273,
+  "edges": 6619,
+  "communities": 1184,
+  "covered_nodes": 3273,
+  "unassigned_nodes": 0,
+  "overlapping_nodes": 633,
+  "elapsed_seconds": 0.5470000000059372,
+  "execution": {
+    "requested_threads": 16
+  }
+}

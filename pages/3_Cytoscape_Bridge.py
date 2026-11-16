@@ -213,7 +213,6 @@ with tab_sub:
     c1, c2, c3 = st.columns(3)
     mode_options = {
         'cohort_linkers': 'Protein Set + Top 1-Hop Linker Bridges',
-        'ego_bridge': 'Protein Ego-Network & Ego-Fragmentation Bridge',
         'top_bridges': 'Top Bridging-Centrality Hubs & Incident Bridges',
         'multiplex': 'Cross-Network Multiplex Comparison (A vs B)',
     }
@@ -227,16 +226,6 @@ with tab_sub:
 
     if sub_mode == 'cohort_linkers':
         max_linkers = c3.slider('Top 1-hop linker candidates to include', 0, 100, 25, 5, key='cy_max_linkers')
-    elif sub_mode == 'ego_bridge':
-        hop_radius = c3.radio('Ego-network radius (hops)', [1, 2], index=0, horizontal=True, key='cy_ego_radius')
-        default_seeds = [p for p in ['P04406', 'P06733', 'P60174', 'P00558'] if p in cohort_in_primary] or cohort_in_primary[:2]
-        seed_proteins = st.multiselect(
-            'Select moonlighting seed protein(s) to inspect local ego-bridging',
-            cohort_in_primary,
-            default=default_seeds[:2],
-            format_func=lambda p: f"{gene_map.get(p) or p} ({p})" if gene_map.get(p) else p,
-            key='cy_ego_seeds',
-        )
     elif sub_mode == 'top_bridges':
         include_bg = c3.checkbox('Include 1-hop non-moonlighting bridge partners', value=True, key='cy_top_bg')
     elif sub_mode == 'multiplex':
@@ -349,7 +338,7 @@ with tab_sub:
 
         st.markdown('#### Interactive Cytoscape.js Network & Bridge Viewer')
         vc1, vc2, vc3 = st.columns([2, 2, 2])
-        color_options = [c for c in ['node_role', 'ego_component', 'source_sets'] + [col for col in nodes_df.columns if 'cluster' in col.lower()] if c in nodes_df.columns]
+        color_options = [c for c in ['node_role', 'source_sets'] + [col for col in nodes_df.columns if 'cluster' in col.lower()] if c in nodes_df.columns]
         viewer_color = vc1.selectbox('Color nodes by', color_options, index=0, key='cyjs_color_by')
         viewer_layout = vc2.selectbox('Initial viewer layout', ['cose', 'concentric', 'circle', 'breadthfirst', 'grid'], index=0, key='cyjs_layout')
         only_bridges = vc3.checkbox('Dim non-bridge edges initially', value=False, key='cyjs_only_bridges')
@@ -454,7 +443,7 @@ with tab_cluster:
                 try:
                     ndf = fetch_cytoscape_table_polars(network=int(target_suid), table='node', base_url=base_url)
                     edf = fetch_cytoscape_table_polars(network=int(target_suid), table='edge', base_url=base_url)
-                    cluster_cols = [c for c in ndf.columns if 'cluster' in c.lower() or c in ('ego_component', 'community')]
+                    cluster_cols = [c for c in ndf.columns if 'cluster' in c.lower() or c in ('community',)]
                     if cluster_cols:
                         chosen_col = cluster_cols[0]
                         analysis = compute_cluster_enrichment_and_bridging(ndf, edf, chosen_col, cohort=cohort)
@@ -557,7 +546,7 @@ with tab_cluster:
     st.subheader('Multi-Paradigm Cached Clustering Suite (Classic + Overlapping + Fuzzy)')
     st.write(
         'Run and cache all 19 Classic/Hard (`louvain`, `greedy_modularity`, `label_propagation`, `asyn_fluid`, `mcl`, `walktrap_markov`, `spectral`, `ravasz_tom`, `k_core_shells`), '
-        'Overlapping (`ego_splitting`, `link_communities`, `k_clique_percolation`, `demon`, `mcode_complexes`, `bigclam_nmf`), '
+        'Overlapping (`link_communities`, `k_clique_percolation`, `mcode_complexes`, `bigclam_nmf`), '
         'and Fuzzy/Soft (`fuzzy_c_means`, `fuzzy_nmf`, `fuzzy_rwr_diffusion`, `fuzzy_neighborhood`) clustering algorithms on the extracted subnetwork or full interactome, '
         'and push their node columns (`community`, `communities_str`, `num_communities`, `is_overlapping`, `participation`, `fuzzy_entropy`, `top2_ratio`) directly to Cytoscape Desktop!'
     )

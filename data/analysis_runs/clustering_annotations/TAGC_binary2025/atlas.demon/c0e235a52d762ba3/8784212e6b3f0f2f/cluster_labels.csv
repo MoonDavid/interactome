@@ -1,0 +1,8 @@
+community,core_size,primary_status,primary_label,primary_term_id,primary_library,interface_size,interface_status,interface_label,interface_term_id,interface_library,full_size,full_context_status,full_context_label,full_context_term_id,full_context_library
+123,1,no_qualifying_term,,,,89,labeled,learning,GO:0007612,GO_BP,90,labeled,learning,GO:0007612,GO_BP
+129,4,labeled,Viral mRNA Translation,R-HSA-192823,Reactome,81,labeled,cytosolic small ribosomal subunit,GO:0022627,GO_CC,85,core_labeled,,,
+157,0,empty_subset,,,,53,labeled,SUMOylation of transcription factors,R-HSA-3232118,Reactome,53,labeled,SUMOylation of transcription factors,R-HSA-3232118,Reactome
+180,0,empty_subset,,,,36,labeled,AKT phosphorylates targets in the cytosol,R-HSA-198323,Reactome,36,labeled,AKT phosphorylates targets in the cytosol,R-HSA-198323,Reactome
+204,0,empty_subset,,,,27,labeled,cellular response to manganese ion,GO:0071287,GO_BP,27,labeled,cellular response to manganese ion,GO:0071287,GO_BP
+220,0,empty_subset,,,,23,labeled,inclusion body,GO:0016234,GO_CC,23,labeled,inclusion body,GO:0016234,GO_CC
+227,0,empty_subset,,,,22,labeled,PERK regulates gene expression,R-HSA-381042,Reactome,22,labeled,PERK regulates gene expression,R-HSA-381042,Reactome

@@ -1,0 +1,37 @@
+{
+  "method": "c.ocg",
+  "key": "bdc40c5d6b02d84b42b9d9db6a4d9f980df8dcaccd1c46e505e04c6dfc8f6d15",
+  "status": "success",
+  "job": {
+    "network": "BioPlex",
+    "method": "c.ocg",
+    "parameters": {
+      "init_class_sys": 3,
+      "max_class_card": 0,
+      "cent_class_sys": 1,
+      "min_class": 2
+    },
+    "provenance": {
+      "input": {
+        "path": "C:\\projects\\interactome\\data\\processed_networks\\BioPlex.parquet",
+        "sha256": "f003d0b74df34903dd020a6137e97c4f2e6440d72f7faa0742f18b2835c10ded",
+        "size": 1291027
+      },
+      "c_binary": {
+        "path": "C:\\projects\\interactome\\ocg\\bin\\ocg_fast.exe",
+        "sha256": "6c947a34d54d66b6b0bbeb79b4903aa7453c9617a5722a8bae6de8adf9f8e93b",
+        "size": 117648
+      }
+    }
+  },
+  "nodes": 13834,
+  "edges": 128104,
+  "communities": 407,
+  "covered_nodes": 13834,
+  "unassigned_nodes": 0,
+  "overlapping_nodes": 4896,
+  "elapsed_seconds": 17.985000000000582,
+  "execution": {
+    "requested_threads": 16
+  }
+}

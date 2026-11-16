@@ -1,0 +1,3 @@
+protein_set,network,network_path,measure,observed,null_mean,effect_observed_minus_null,p_value,query_nodes,valid_simulations,reachable_pair_fraction,fdr_bh,significance
+moonprot,HuRI,/home/davide/projects/interactome/data/processed_networks/HuRI.parquet,internal_edges,5.0,2.796,2.204,0.15484515484515485,67,1000,0.9407507914970602,0.1887001887001887,ns
+moonprot,HuRI,/home/davide/projects/interactome/data/processed_networks/HuRI.parquet,largest_component,3.0,2.568,0.43199999999999994,0.4305694305694306,67,1000,0.9407507914970602,0.43056943056943064,ns

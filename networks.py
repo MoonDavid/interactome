@@ -17,6 +17,8 @@ import re
 import tempfile
 import time
 
+import networkx as nx
+
 import numpy as np
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
@@ -40,15 +42,17 @@ POLICY = (
     'BioPlex invalid scores=null with edges retained'
 )
 TAGC_NAME = 'TAGC_binary2025'
+HUMAP_NAMES = ('huMAP2', 'huMAP3')
 FILES = {
     'HuRI': 'HuRI.psi',
     'BioPlex': 'BioPlex_HEK293T_merged_dedup.tsv',
     'huMAP2': 'humap2_ppis_ACC_20200821.pairsWprob.gz',
+    'huMAP3': 'humap3_all_ppis_202305.pairsWprob.gz',
     TAGC_NAME: 'TAGC_binaryInteractome2025.csv',
 }
 TAGC_COLUMNS = ['Interactor', 'InteractionB']
 NETWORK_MAPPING = 'network_uniprot_mapping.json'
-SCORE_COLUMNS = {'huMAP2': 'probability', 'BioPlex': 'pInt', 'HuRI': 'author_score'}
+SCORE_COLUMNS = {'huMAP2': 'probability', 'huMAP3': 'probability', 'BioPlex': 'pInt', 'HuRI': 'author_score'}
 HURI_PSI = FILES['HuRI']
 BIOPLEX_ORIGINAL = 'BioPlex HEK293T releases'
 ISOFORM_POLICIES = {
@@ -158,7 +162,7 @@ def normalize_identifier(identifier, *, retain_isoforms=False):
 
 
 def scan_humap_source(path: Path) -> pl.LazyFrame:
-    """The headerless huMAP2 source has two IDs and a native probability."""
+    """Headerless huMAP2/3 pair sources have two IDs and a native probability."""
     return pl.scan_csv(path, separator='\t', has_header=False, infer_schema=False,
                        new_columns=['a', 'b', 'probability'])
 
@@ -361,7 +365,7 @@ def scan_mapping_source(name: str, path: Path) -> pl.LazyFrame:
     """Read source identifiers at their original isoform resolution."""
     if name == 'HuRI':
         frame = scan_huri_interactors(path).with_columns(pl.col('a', 'b').str.extract(PSI_UNIPROT))
-    elif name == 'huMAP2':
+    elif name in HUMAP_NAMES:
         frame = scan_humap_source(path)
     else:
         columns = TAGC_COLUMNS if name == TAGC_NAME else ['Uniprot A', 'Uniprot B']
@@ -373,7 +377,7 @@ def scan_mapping_source(name: str, path: Path) -> pl.LazyFrame:
 
 def _isoform_mapping_pairs(name: str, path: Path, entries: dict, cutoff: float):
     source = scan_mapping_source(name, path)
-    if name == 'huMAP2':
+    if name in HUMAP_NAMES:
         source = source.with_columns(pl.col('probability').cast(pl.Float64, strict=False))
         source = source.filter(_valid_score('probability') & (pl.col('probability') >= cutoff))
     pairs = source.select(pl.col('a', 'b').str.strip_chars()).drop_nulls().filter(
@@ -415,7 +419,7 @@ def save_isoform_mapping_edges(name: str, source: Path, report: Path, cutoff: fl
     """Save the strict mapping edge list alongside its source and audit fingerprints."""
     audit = json.loads(report.read_text(encoding='utf-8'))
     _, mapped = _isoform_mapping_pairs(name, source, audit['entries'], cutoff)
-    suffix = f'_{cutoff:g}' if name == 'huMAP2' else ''
+    suffix = f'_{cutoff:g}' if name in HUMAP_NAMES else ''
     target = report.parent.parent / 'processed_networks' / 'isoform_edges' / f'{name}{suffix}.parquet'
     target.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.NamedTemporaryFile(dir=target.parent, suffix='.tmp', delete=False) as file:
@@ -428,7 +432,7 @@ def save_isoform_mapping_edges(name: str, source: Path, report: Path, cutoff: fl
     _write_json(target.with_suffix('.json'), {
         'network': name, 'source': _fingerprint(source), 'mapping_audit': _fingerprint(report),
         'uniprot_releases': audit['uniprot_releases'],
-        'minimum_probability': cutoff if name == 'huMAP2' else None,
+        'minimum_probability': cutoff if name in HUMAP_NAMES else None,
         'policy': 'Keep all documented targets as one node label set. Merge identical sets. Exclude unmapped endpoints and parent-only fallbacks.',
         'output': _fingerprint(target),
     })
@@ -821,7 +825,7 @@ def build_canonical_networks(mapping: dict[str, list[str]], root: Path = Path('d
         if names is not None and name not in names:
             continue
         source = network_source_path(root, name)
-        if name == TAGC_NAME and not source.is_file() and names is None:
+        if name in (TAGC_NAME, 'huMAP3') and not source.is_file() and names is None:
             continue
         if name == 'HuRI':
             outputs[name] = prepare_huri_psi(root)
@@ -889,7 +893,7 @@ def build_canonical_networks(mapping: dict[str, list[str]], root: Path = Path('d
         frame = _deduplicate_pairs(frame, score)
         _filter_stage(stages, 'Deduplicate after UniProt mapping', frame)
         if score and score in frame.columns:
-            if name == 'huMAP2':
+            if name in HUMAP_NAMES:
                 frame = frame.filter(_valid_score(score))
         _filter_stage(stages, 'Apply native score validity policy', frame)
         if not _matches_fingerprint(source, source_info):
@@ -923,10 +927,15 @@ def build_canonical_networks(mapping: dict[str, list[str]], root: Path = Path('d
             'self_loop_rows': loops, 'invalid_score_rows': invalid_scores,
             'score_column': score if score in frame.columns else None,
             'source_score_column': source_score_column if name == 'BioPlex' else score,
-            'invalid_score_policy': 'retain base edges with null score; exclude from scored versions' if name == 'BioPlex' else 'exclude invalid scored rows' if name == 'huMAP2' else None,
+            'invalid_score_policy': 'retain base edges with null score; exclude from scored versions' if name == 'BioPlex' else 'exclude invalid scored rows' if name in HUMAP_NAMES else None,
             'edges': frame.height,
             'nodes': pl.concat([frame['a'], frame['b'].rename('a')]).n_unique(),
         }
+        if name == 'huMAP3':
+            audit.update(
+                source_scope='All scored huMAP3 candidate protein pairs',
+                source_url='https://humap3.proteincomplexes.org/static/downloads/humap3/' + FILES[name],
+            )
         if isoforms != 'collapse':
             audit.update(
                 normalization_policy=(
@@ -1054,7 +1063,7 @@ def prepare_isoform_views(root: Path, policy: str) -> list[str]:
             build_canonical_networks(mapping, root, names=(name,), isoforms=policy,
                                      mapping_audit=report_fingerprint, expected_source=source['source'])
         if name in SCORE_COLUMNS and score_column(name) in pl.read_parquet_schema(path):
-            default_cutoffs = {0.05, 0.95} if name == 'huMAP2' else set()
+            default_cutoffs = {0.05, 0.95} if name in HUMAP_NAMES else set()
             cutoffs = default_cutoffs | _saved_cutoffs(root / 'processed_networks', name) | _saved_cutoffs(directory, name)
             parent_sha = json.loads(path.with_suffix('.json').read_text())['output']['sha256']
             for value in sorted(cutoffs):
@@ -1078,7 +1087,7 @@ def _saved_cutoffs(directory: Path, name: str) -> set[float]:
 
 def rebuild_mapped_networks(mapping: dict[str, list[str]], root: Path = Path('data')) -> dict[str, Path]:
     """Refresh the mapped graphs and regenerate their previously saved cutoffs."""
-    names = tuple(name for name in ('BioPlex', 'huMAP2', TAGC_NAME)
+    names = tuple(name for name in ('BioPlex', *HUMAP_NAMES, TAGC_NAME)
                   if network_source_path(root, name).is_file())
     cutoffs = {name: _saved_cutoffs(root / 'processed_networks', name) for name in names if name in SCORE_COLUMNS}
     outputs = build_canonical_networks(mapping, root, names=names)
@@ -1094,7 +1103,7 @@ def rebuild_networks_from_saved_mapping(root: Path = Path('data')) -> dict[str, 
     root = Path(root)
     report = root / 'mappings' / NETWORK_MAPPING
     audit = json.loads(report.read_text(encoding='utf-8'))
-    for name in ('BioPlex', 'huMAP2', TAGC_NAME):
+    for name in ('BioPlex', *HUMAP_NAMES, TAGC_NAME):
         source = network_source_path(root, name)
         if not source.is_file():
             continue
@@ -1182,7 +1191,7 @@ def _version_path(directory: Path, name: str, threshold: float) -> Path:
 def _version_matches(path: Path, name: str, fingerprint: str, isoforms: str) -> bool:
     try:
         meta = json.loads(path.with_suffix('.json').read_text())
-        column = meta.get('score_column', 'probability' if name == 'huMAP2' else None)
+        column = meta.get('score_column', 'probability' if name in HUMAP_NAMES else None)
         return (meta['parent_sha256'] == fingerprint and column == score_column(name)
                 and meta.get('isoform_policy', 'collapse') == isoforms and path.is_file()
                 and (isoforms == 'collapse' or _matches_fingerprint(path, meta['output'])))
@@ -1520,7 +1529,7 @@ def plot_threshold_retention(name: str = 'huMAP2', root: Path = Path('data')):
     total = rows[0]['edges']
     fig, ax = plt.subplots(figsize=(10, 6.5), layout='constrained')
     ax.plot([r['threshold'] for r in rows], [r['edges'] for r in rows], color='#555555', marker='.', linewidth=1.8)
-    if name == 'huMAP2':
+    if name in HUMAP_NAMES:
         for threshold, color, xpos, ypos in [(0.05, '#0072B2', .22, .80), (.95, '#B35C00', .57, .42)]:
             row = next(r for r in rows if r['threshold'] == threshold)
             edges = int(row['edges'])
@@ -1533,7 +1542,7 @@ def plot_threshold_retention(name: str = 'huMAP2', root: Path = Path('data')):
                         arrowprops=dict(arrowstyle='->', color=color))
     ax.set(yscale='log', xlim=(-.02, 1.02), xlabel='Minimum interaction confidence score (retain score ≥ cutoff)',
            ylabel='Unique canonical edges retained (log scale)', title=f'{name}: edges retained by confidence score')
-    xticks = [0, .05, .2, .4, .6, .8, .95, 1] if name == 'huMAP2' else [0, .2, .4, .6, .8, 1]
+    xticks = [0, .05, .2, .4, .6, .8, .95, 1] if name in HUMAP_NAMES else [0, .2, .4, .6, .8, 1]
     ax.set_xticks(xticks, [f'{x:g}' for x in xticks])
     ax.grid(axis='y', alpha=.2)
     for extension in ('png', 'svg', 'pdf'):
@@ -1543,7 +1552,7 @@ def plot_threshold_retention(name: str = 'huMAP2', root: Path = Path('data')):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Prepare canonical UniProt networks or render threshold plots.')
     action = parser.add_mutually_exclusive_group()
-    action.add_argument('--plot-threshold', choices=['huMAP2', 'BioPlex', 'HuRI'], help='Render static threshold retention plots instead of running UniProt mapping.')
+    action.add_argument('--plot-threshold', choices=[*HUMAP_NAMES, 'BioPlex', 'HuRI'], help='Render static threshold retention plots instead of running UniProt mapping.')
     action.add_argument('--huri-only', action='store_true', help='Prepare the HuRI PSI views offline.')
     args = parser.parse_args()
     if args.plot_threshold:

@@ -1,0 +1,33 @@
+community,core_size,primary_status,primary_label,primary_term_id,primary_library,interface_size,interface_status,interface_label,interface_term_id,interface_library,full_size,full_context_status,full_context_label,full_context_term_id,full_context_library
+1,28,labeled,interleukin-23-mediated signaling pathway,GO:0038155,GO_BP,46,labeled,insulin receptor binding,GO:0005158,GO_MF,74,core_labeled,,,
+10,61,no_qualifying_term,,,,87,labeled,positive regulation of isotype switching to IgA isotypes,GO:0048298,GO_BP,148,labeled,mismatch repair complex,GO:0032300,GO_CC
+12,25,no_qualifying_term,,,,29,labeled,microglia differentiation,GO:0014004,GO_BP,54,labeled,response to lead ion,GO:0010288,GO_BP
+150,6,no_qualifying_term,,,,11,labeled,shelterin complex,GO:0070187,GO_CC,17,labeled,shelterin complex,GO:0070187,GO_CC
+155,17,labeled,xenobiotic metabolic process,GO:0006805,GO_BP,23,labeled,shelterin complex,GO:0070187,GO_CC,40,core_labeled,,,
+158,36,labeled,Smc5-Smc6 complex,GO:0030915,GO_CC,56,labeled,Telomere C-strand synthesis initiation,R-HSA-174430,Reactome,92,core_labeled,,,
+238,12,labeled,neurotrophin binding,GO:0043121,GO_MF,32,labeled,Downstream signal transduction,R-HSA-186763,Reactome,44,core_labeled,,,
+254,7,labeled,Processing of Capped Intron-Containing Pre-mRNA,R-HSA-72203,Reactome,21,labeled,mRNA Splicing - Major Pathway,R-HSA-72163,Reactome,28,core_labeled,,,
+259,16,no_qualifying_term,,,,45,labeled,Lsm1-7-Pat1 complex,GO:1990726,GO_CC,61,labeled,p53 binding,GO:0002039,GO_MF
+261,19,labeled,"oxidoreductase activity, acting on single donors with incorporation of molecular oxygen, incorporation of two atoms of oxygen",GO:0016702,GO_MF,37,labeled,ubiquitin conjugating enzyme activity,GO:0061631,GO_MF,56,core_labeled,,,
+263,18,labeled,multicellular organismal-level iron ion homeostasis,GO:0060586,GO_BP,34,labeled,canonical glycolysis,GO:0061621,GO_BP,52,core_labeled,,,
+276,7,no_qualifying_term,,,,11,labeled,response to iron ion,GO:0010039,GO_BP,18,labeled,response to mitochondrial depolarisation,GO:0098780,GO_BP
+290,16,labeled,positive regulation of triglyceride biosynthetic process,GO:0010867,GO_BP,25,labeled,Constitutive Signaling by AKT1 E17K in Cancer,R-HSA-5674400,Reactome,41,core_labeled,,,
+348,15,no_qualifying_term,,,,19,labeled,telomerase holoenzyme complex assembly,GO:1905323,GO_BP,34,labeled,interleukin-15-mediated signaling pathway,GO:0035723,GO_BP
+355,4,no_qualifying_term,,,,14,labeled,GRB7 events in ERBB2 signaling,R-HSA-1306955,Reactome,18,labeled,GRB7 events in ERBB2 signaling,R-HSA-1306955,Reactome
+362,17,no_qualifying_term,,,,38,labeled,BBSome,GO:0034464,GO_CC,55,labeled,BBSome,GO:0034464,GO_CC
+379,10,no_qualifying_term,,,,27,labeled,Ragulator complex,GO:0071986,GO_CC,37,labeled,Ragulator complex,GO:0071986,GO_CC
+410,6,no_qualifying_term,,,,16,labeled,Constitutive Signaling by AKT1 E17K in Cancer,R-HSA-5674400,Reactome,22,labeled,Constitutive Signaling by AKT1 E17K in Cancer,R-HSA-5674400,Reactome
+415,6,labeled,protein serine kinase activity,GO:0106310,GO_MF,16,labeled,MHC class II protein complex binding,GO:0023026,GO_MF,22,core_labeled,,,
+450,11,no_qualifying_term,,,,23,labeled,Transcriptional regulation by RUNX2,R-HSA-8878166,Reactome,34,labeled,Transcriptional regulation by RUNX2,R-HSA-8878166,Reactome
+458,30,labeled,"Defective binding of RB1 mutants to E2F1,(E2F2, E2F3)",R-HSA-9661069,Reactome,59,labeled,SHC1 events in ERBB2 signaling,R-HSA-1250196,Reactome,89,core_labeled,,,
+500,32,labeled,intracellular mRNA localization,GO:0008298,GO_BP,51,labeled,Regulation of endogenous retroelements by KRAB-ZFP proteins,R-HSA-9843940,Reactome,83,core_labeled,,,
+567,9,no_qualifying_term,,,,26,labeled,Activation of BAD and translocation to mitochondria ,R-HSA-111447,Reactome,35,labeled,Activation of BAD and translocation to mitochondria ,R-HSA-111447,Reactome
+586,7,no_qualifying_term,,,,14,labeled,Downregulation of ERBB2:ERBB3 signaling,R-HSA-1358803,Reactome,21,labeled,transport along microtubule,GO:0010970,GO_BP
+589,21,labeled,peptidyl-threonine dephosphorylation,GO:0035970,GO_BP,41,labeled,stress-activated MAPK cascade,GO:0051403,GO_BP,62,core_labeled,,,
+614,11,labeled,positive regulation of glucose metabolic process,GO:0010907,GO_BP,29,labeled,circadian regulation of gene expression,GO:0032922,GO_BP,40,core_labeled,,,
+630,11,labeled,structural constituent of nuclear pore,GO:0017056,GO_MF,24,labeled,RNA polymerase II core promoter sequence-specific DNA binding,GO:0000979,GO_MF,35,core_labeled,,,
+69,23,labeled,type III interferon-mediated signaling pathway,GO:0038196,GO_BP,46,labeled,Activation of the AP-1 family of transcription factors,R-HSA-450341,Reactome,69,core_labeled,,,
+700,6,no_qualifying_term,,,,14,labeled,Bcl-2 family protein complex,GO:0097136,GO_CC,20,labeled,Bcl-2 family protein complex,GO:0097136,GO_CC
+780,4,labeled,RISC complex assembly,GO:0070922,GO_BP,10,labeled,adiponectin-activated signaling pathway,GO:0033211,GO_BP,14,core_labeled,,,
+89,5,no_qualifying_term,,,,12,labeled,Signaling by ERBB2 ECD mutants,R-HSA-9665348,Reactome,17,labeled,Signaling by ERBB2 ECD mutants,R-HSA-9665348,Reactome
+91,28,labeled,regulation of monoatomic ion transport,GO:0043269,GO_BP,50,labeled,aryl hydrocarbon receptor complex,GO:0034751,GO_CC,78,core_labeled,,,

@@ -1,0 +1,194 @@
+{
+  "network": "TAGC_binary2025",
+  "method": "native.oslom",
+  "adapter": {
+    "id": "native.oslom",
+    "backend": "native",
+    "name": "oslom",
+    "family": "overlapping",
+    "costly": true,
+    "dense": false
+  },
+  "provenance": {
+    "input": {
+      "path": "/mnt/c/projects/interactome/data/processed_networks/TAGC_binary2025.parquet",
+      "size": 313955,
+      "mtime_ns": 1794304628035049500,
+      "sha256": "30c3be2b328044e6743a50ca23fb8fb33886592aac447bb94b149db6c4171807"
+    },
+    "audit": {
+      "name": "TAGC_binary2025",
+      "created_at": "2026-11-10T09:57:08.096352+00:00",
+      "normalization_policy": "UniProt primary accessions; remove terminal numeric isoform suffix; one node per sorted UniProt label set (pipe-separated); merge identical label sets; deduplicate undirected source pairs before mapping; remove source loops before mapping and canonical loops after mapping; duplicate native score=max; BioPlex invalid scores=null with edges retained",
+      "mapping_sha256": "092061960e7ac2a22f788c681cb19fd92ff02dd9510e4d745c97b675f18d35cd",
+      "source": {
+        "path": "data\\raw_networks\\TAGC_binaryInteractome2025.csv",
+        "size": 1631019,
+        "mtime_ns": 1794296428244551100,
+        "sha256": "19c81cacbdc643e3f7703ad1d4fc502545c7762d9fd48665fc43f7343654476e"
+      },
+      "output": {
+        "path": "data\\processed_networks\\TAGC_binary2025.parquet",
+        "size": 313955,
+        "mtime_ns": 1794304628035049500,
+        "sha256": "30c3be2b328044e6743a50ca23fb8fb33886592aac447bb94b149db6c4171807"
+      },
+      "input_rows": 108730,
+      "expanded_mapped_rows": 108649,
+      "node_identity": "sorted UniProt label set; multiple labels remain one node",
+      "filtering_stages": [
+        {
+          "stage": "Source interaction rows",
+          "nodes": 14238,
+          "edges": 108730,
+          "nodes_removed": 0,
+          "edges_removed": 0
+        },
+        {
+          "stage": "Remove missing endpoint IDs",
+          "nodes": 14238,
+          "edges": 108730,
+          "nodes_removed": 0,
+          "edges_removed": 0
+        },
+        {
+          "stage": "Remove source self-loops",
+          "nodes": 14238,
+          "edges": 108730,
+          "nodes_removed": 0,
+          "edges_removed": 0
+        },
+        {
+          "stage": "Apply source isoform policy",
+          "nodes": 14238,
+          "edges": 108730,
+          "nodes_removed": 0,
+          "edges_removed": 0
+        },
+        {
+          "stage": "Deduplicate before UniProt mapping",
+          "nodes": 14238,
+          "edges": 108730,
+          "nodes_removed": 0,
+          "edges_removed": 0
+        },
+        {
+          "stage": "Remove edges with unmapped endpoints",
+          "nodes": 14235,
+          "edges": 108649,
+          "nodes_removed": 3,
+          "edges_removed": 81
+        },
+        {
+          "stage": "Relabel nodes / merge identical UniProt label sets",
+          "nodes": 14235,
+          "edges": 108649,
+          "nodes_removed": 0,
+          "edges_removed": 0
+        },
+        {
+          "stage": "Remove self-loops after mapping",
+          "nodes": 14235,
+          "edges": 108649,
+          "nodes_removed": 0,
+          "edges_removed": 0
+        },
+        {
+          "stage": "Deduplicate after UniProt mapping",
+          "nodes": 14235,
+          "edges": 108649,
+          "nodes_removed": 0,
+          "edges_removed": 0
+        },
+        {
+          "stage": "Apply native score validity policy",
+          "nodes": 14235,
+          "edges": 108649,
+          "nodes_removed": 0,
+          "edges_removed": 0
+        }
+      ],
+      "node_annotations": {
+        "path": "data\\processed_networks\\node_annotations\\TAGC_binary2025.parquet",
+        "size": 122678,
+        "mtime_ns": 1794304628095353500,
+        "sha256": "5d7ad45b926e063d978ed6036bb91bc2dac0b88cc7d3182e5196e81baab5399f"
+      },
+      "original_release_sources": [],
+      "original_release_stages_available": false,
+      "unmapped_ids": [
+        "O43930",
+        "Q3SXR2",
+        "Q5SWW7"
+      ],
+      "unmapped_edge_rows": 81,
+      "one_to_many_ids": {
+        "P01562": [
+          "A0A087WWS6",
+          "P0DY56"
+        ]
+      },
+      "one_to_many_id_count": 1,
+      "source_self_loop_rows": 0,
+      "self_loop_rows": 0,
+      "invalid_score_rows": 0,
+      "score_column": null,
+      "source_score_column": null,
+      "invalid_score_policy": null,
+      "edges": 108649,
+      "nodes": 14235
+    }
+  },
+  "parameters": {
+    "seed": 42,
+    "resolution": 1.0,
+    "clusters": 16,
+    "dimensions": 16,
+    "clique_k": 3,
+    "inflation": 2.0,
+    "membership_cutoff": 0.2,
+    "costly_node_limit": 100000,
+    "dense_node_limit": 100000,
+    "threads": 4
+  },
+  "environment": {
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+    "platform": "linux",
+    "native_tools": {
+      "clusterone": {
+        "path": "/mnt/c/Users/david/PycharmProjects/scrapepapers/springer_pdfs/cluster_one-1.0.jar",
+        "sha256": "3344c954df388f5cfe9795e0db375ae7189334a1eacb5bd3121507b33765a16b"
+      },
+      "oslom": {
+        "path": "/mnt/c/projects/interactome/.tools/OSLOM2/oslom_undir",
+        "sha256": "01c146f00762ff24af3c4c4d828531f389759de87a200ccc2712148b1f45436a"
+      }
+    },
+    "polars": "2.1.0",
+    "numpy": "2.5.5",
+    "scipy": "1.18.1",
+    "networkx": "3.7",
+    "typer": "0.29.1",
+    "rich": "15.0.0",
+    "igraph": null,
+    "leidenalg": null,
+    "scikit-network": null,
+    "scikit-learn": null,
+    "cdlib": null,
+    "graspologic": null,
+    "karateclub": null,
+    "networkit": null,
+    "cugraph-cu12": null,
+    "cudf-cu12": null,
+    "infomap": null,
+    "markov-clustering": null,
+    "hdbscan": null
+  },
+  "code_sha256": "7ccd9e56aa6fcb36bdc9815eab160f59128ef0c12b56d8fbf586aeb7cdd540cf",
+  "schema_version": 1,
+  "semantics": "undirected binary topology; scores not used as weights",
+  "key": "307d543ab35712d5a0144977fd6f8346381d27056bfe01c4cfa0f9c64e8f8efc",
+  "path": "/mnt/c/projects/interactome/data/processed_networks/TAGC_binary2025.parquet",
+  "target": "/mnt/c/projects/interactome/data/analysis_runs/clustering_native/TAGC_binary2025/native.oslom/307d543ab35712d5",
+  "worker_python": "/tmp/interactome-native-20261116/bin/python"
+}

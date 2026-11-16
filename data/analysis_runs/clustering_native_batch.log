@@ -1,0 +1,7 @@
+╭───────────────────────── Interactome clustering lab ─────────────────────────╮
+│ 12 jobs | 6 networks | 2 methods                                             │
+│ Results: /mnt/c/projects/interactome/data/analysis_runs/clustering_native    │
+│ Unweighted topology | missing backends and guarded jobs are reported         │
+│ explicitly                                                                   │
+╰──────────────────────────────────────────────────────────────────────────────╯
+SUCCESS HuRI / native.clusterone | 4.5s | peak RAM 295.8 MiB

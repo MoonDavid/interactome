@@ -1,0 +1,1185 @@
+community,core_size,primary_status,primary_label,primary_term_id,primary_library,interface_size,interface_status,interface_label,interface_term_id,interface_library,full_size,full_context_status,full_context_label,full_context_term_id,full_context_library
+0,3,labeled,peptidyl-prolyl cis-trans isomerase activity,GO:0003755,GO_MF,0,empty_subset,,,,3,core_labeled,,,
+1,2,labeled,RHOA GTPase cycle,R-HSA-8980692,Reactome,0,empty_subset,,,,2,core_labeled,,,
+10,3,labeled,sodium ion transmembrane transporter activity,GO:0015081,GO_MF,0,empty_subset,,,,3,core_labeled,,,
+100,4,labeled,protein phosphatase 4 complex,GO:0030289,GO_CC,0,empty_subset,,,,4,core_labeled,,,
+1000,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+1001,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,RPAP3/R2TP/prefoldin-like complex,GO:1990062,GO_CC
+1002,2,labeled,aortic valve morphogenesis,GO:0003180,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+1003,2,labeled,plasma membrane organization,GO:0007009,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+1004,3,no_qualifying_term,,,,0,empty_subset,,,,3,no_qualifying_term,,,
+1005,1,no_qualifying_term,,,,2,labeled,blastocyst development,GO:0001824,GO_BP,3,labeled,CCR4-NOT core complex,GO:0030015,GO_CC
+1006,1,no_qualifying_term,,,,2,labeled,gamma-tubulin ring complex,GO:0000931,GO_CC,3,labeled,gamma-tubulin ring complex,GO:0000931,GO_CC
+1007,0,empty_subset,,,,4,labeled,septin ring,GO:0005940,GO_CC,4,labeled,septin ring,GO:0005940,GO_CC
+1008,4,labeled,"signal recognition particle, endoplasmic reticulum targeting",GO:0005786,GO_CC,0,empty_subset,,,,4,core_labeled,,,
+1009,2,labeled,actin crosslink formation,GO:0051764,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+101,3,no_qualifying_term,,,,0,empty_subset,,,,3,no_qualifying_term,,,
+1010,0,empty_subset,,,,12,labeled,mediator complex,GO:0016592,GO_CC,12,labeled,mediator complex,GO:0016592,GO_CC
+1011,2,labeled,G protein-coupled receptor activity,GO:0004930,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+1012,1,no_qualifying_term,,,,33,labeled,Viral mRNA Translation,R-HSA-192823,Reactome,34,labeled,Viral mRNA Translation,R-HSA-192823,Reactome
+1013,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,no_qualifying_term,,,
+1014,1,no_qualifying_term,,,,5,labeled,anaphase-promoting complex,GO:0005680,GO_CC,6,labeled,anaphase-promoting complex,GO:0005680,GO_CC
+1015,2,labeled,axis specification,GO:0009798,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+1016,2,labeled,protein kinase A regulatory subunit binding,GO:0034237,GO_MF,1,no_qualifying_term,,,,3,core_labeled,,,
+1017,3,labeled,SCF-dependent proteasomal ubiquitin-dependent protein catabolic process,GO:0031146,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+1018,1,no_qualifying_term,,,,3,labeled,mRNA cleavage and polyadenylation specificity factor complex,GO:0005847,GO_CC,4,labeled,mRNA cleavage and polyadenylation specificity factor complex,GO:0005847,GO_CC
+1019,2,labeled,Immunoregulatory interactions between a Lymphoid and a non-Lymphoid cell,R-HSA-198933,Reactome,0,empty_subset,,,,2,core_labeled,,,
+102,4,labeled,Kinesins,R-HSA-983189,Reactome,0,empty_subset,,,,4,core_labeled,,,
+1020,1,no_qualifying_term,,,,3,labeled,GID complex,GO:0034657,GO_CC,4,labeled,GID complex,GO:0034657,GO_CC
+1021,3,labeled,ubiquitin protein ligase activity,GO:0061630,GO_MF,0,empty_subset,,,,3,core_labeled,,,
+1022,1,no_qualifying_term,,,,3,labeled,nuclear-transcribed mRNA poly(A) tail shortening,GO:0000289,GO_BP,4,labeled,nuclear-transcribed mRNA poly(A) tail shortening,GO:0000289,GO_BP
+1023,0,empty_subset,,,,2,labeled,myeloid leukocyte migration,GO:0097529,GO_BP,2,labeled,myeloid leukocyte migration,GO:0097529,GO_BP
+1024,2,labeled,"hydrolase activity, acting on carbon-nitrogen (but not peptide) bonds",GO:0016810,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+1025,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,no_qualifying_term,,,
+1026,0,empty_subset,,,,6,labeled,Conversion from APC/C:Cdc20 to APC/C:Cdh1 in late anaphase,R-HSA-176407,Reactome,6,labeled,Conversion from APC/C:Cdc20 to APC/C:Cdh1 in late anaphase,R-HSA-176407,Reactome
+1027,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,polyamine biosynthetic process,GO:0006596,GO_BP
+1028,2,labeled,homophilic cell-cell adhesion,GO:0007156,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+1029,2,labeled,homophilic cell-cell adhesion,GO:0007156,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+103,0,empty_subset,,,,2,no_qualifying_term,,,,2,no_qualifying_term,,,
+1030,2,labeled,homophilic cell-cell adhesion,GO:0007156,GO_BP,1,no_qualifying_term,,,,3,core_labeled,,,
+1031,1,no_qualifying_term,,,,2,labeled,homophilic cell-cell adhesion,GO:0007156,GO_BP,3,labeled,homophilic cell-cell adhesion,GO:0007156,GO_BP
+1032,3,labeled,regulation of chondrocyte differentiation,GO:0032330,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+1033,2,labeled,N-terminal protein amino acid modification,GO:0031365,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+1034,3,labeled,female pregnancy,GO:0007565,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+1035,1,no_qualifying_term,,,,26,labeled,Viral mRNA Translation,R-HSA-192823,Reactome,27,labeled,Viral mRNA Translation,R-HSA-192823,Reactome
+1036,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,no_qualifying_term,,,
+1037,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,SCAR complex,GO:0031209,GO_CC
+1038,1,no_qualifying_term,,,,3,no_qualifying_term,,,,4,labeled,"preribosome, large subunit precursor",GO:0030687,GO_CC
+1039,2,labeled,positive regulation of actin filament depolymerization,GO:0030836,GO_BP,1,no_qualifying_term,,,,3,core_labeled,,,
+104,3,no_qualifying_term,,,,8,labeled,Lsm2-8 complex,GO:0120115,GO_CC,11,labeled,Lsm2-8 complex,GO:0120115,GO_CC
+1040,2,labeled,mitochondrial small ribosomal subunit,GO:0005763,GO_CC,14,labeled,mitochondrial small ribosomal subunit,GO:0005763,GO_CC,16,core_labeled,,,
+1041,0,empty_subset,,,,2,labeled,DNA replication-dependent chromatin assembly,GO:0006335,GO_BP,2,labeled,DNA replication-dependent chromatin assembly,GO:0006335,GO_BP
+1042,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,TRAPPIII protein complex,GO:1990072,GO_CC
+1043,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,intraciliary transport involved in cilium assembly,GO:0035735,GO_BP
+1044,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,Cajal body,GO:0015030,GO_CC
+1045,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,TRAPPIII protein complex,GO:1990072,GO_CC
+1046,1,no_qualifying_term,,,,6,labeled,mitochondrial small ribosomal subunit,GO:0005763,GO_CC,7,labeled,mitochondrial small ribosomal subunit,GO:0005763,GO_CC
+1047,1,no_qualifying_term,,,,3,labeled,mitochondrial small ribosomal subunit,GO:0005763,GO_CC,4,labeled,mitochondrial small ribosomal subunit,GO:0005763,GO_CC
+1048,1,no_qualifying_term,,,,3,no_qualifying_term,,,,4,labeled,nucleolus,GO:0005730,GO_CC
+1049,1,no_qualifying_term,,,,2,labeled,mitochondrial small ribosomal subunit,GO:0005763,GO_CC,3,labeled,mitochondrial small ribosomal subunit,GO:0005763,GO_CC
+105,0,empty_subset,,,,2,no_qualifying_term,,,,2,no_qualifying_term,,,
+1050,2,labeled,vitamin K metabolic process,GO:0042373,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+1051,1,no_qualifying_term,,,,3,no_qualifying_term,,,,4,no_qualifying_term,,,
+1052,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,Golgi cisterna membrane,GO:0032580,GO_CC
+1053,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+1054,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,exon-exon junction complex,GO:0035145,GO_CC
+1055,1,no_qualifying_term,,,,2,labeled,rixosome complex,GO:0120330,GO_CC,3,labeled,rixosome complex,GO:0120330,GO_CC
+1056,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,no_qualifying_term,,,
+1057,3,labeled,homophilic cell-cell adhesion,GO:0007156,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+1058,2,labeled,homophilic cell-cell adhesion,GO:0007156,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+1059,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,dicarboxylic acid metabolic process,GO:0043648,GO_BP
+106,2,labeled,5-phosphoribose 1-diphosphate biosynthetic process,GO:0006015,GO_BP,1,no_qualifying_term,,,,3,core_labeled,,,
+1060,3,labeled,homophilic cell-cell adhesion,GO:0007156,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+1061,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,homophilic cell-cell adhesion,GO:0007156,GO_BP
+1062,2,labeled,inner mitochondrial membrane organization,GO:0007007,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+1063,2,labeled,rough endoplasmic reticulum membrane,GO:0030867,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+1064,3,labeled,"DNA-binding transcription activator activity, RNA polymerase II-specific",GO:0001228,GO_MF,0,empty_subset,,,,3,core_labeled,,,
+1065,1,no_qualifying_term,,,,4,labeled,mitochondrial large ribosomal subunit,GO:0005762,GO_CC,5,labeled,mitochondrial large ribosomal subunit,GO:0005762,GO_CC
+1066,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+1067,1,no_qualifying_term,,,,3,labeled,proton-transporting ATP synthase complex,GO:0045259,GO_CC,4,labeled,proton-transporting ATP synthase complex,GO:0045259,GO_CC
+1068,1,no_qualifying_term,,,,4,labeled,proton-transporting ATP synthase complex,GO:0045259,GO_CC,5,labeled,proton-transporting ATP synthase complex,GO:0045259,GO_CC
+1069,3,labeled,PKA activation,R-HSA-163615,Reactome,1,no_qualifying_term,,,,4,core_labeled,,,
+107,4,labeled,Proteasome assembly,R-HSA-9907900,Reactome,13,labeled,proteasome core complex,GO:0005839,GO_CC,17,core_labeled,,,
+1070,2,labeled,apoptotic nuclear changes,GO:0030262,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+1071,2,labeled,positive regulation of nitric oxide biosynthetic process,GO:0045429,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+1072,2,no_qualifying_term,,,,8,labeled,eukaryotic translation elongation factor 1 complex,GO:0005853,GO_CC,10,labeled,eukaryotic translation elongation factor 1 complex,GO:0005853,GO_CC
+1073,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,RNA polymerase II promoter clearance,GO:0001111,GO_BP
+1074,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+1075,2,labeled,"Activation of NIMA Kinases NEK9, NEK6, NEK7",R-HSA-2980767,Reactome,2,labeled,histone kinase activity,GO:0035173,GO_MF,4,core_labeled,,,
+1076,0,empty_subset,,,,2,labeled,BLOC-1 complex,GO:0031083,GO_CC,2,labeled,BLOC-1 complex,GO:0031083,GO_CC
+1077,0,empty_subset,,,,3,labeled,Downregulation of TGF-beta receptor signaling,R-HSA-2173788,Reactome,3,labeled,Downregulation of TGF-beta receptor signaling,R-HSA-2173788,Reactome
+1078,0,empty_subset,,,,2,labeled,barbed-end actin filament capping,GO:0051016,GO_BP,2,labeled,barbed-end actin filament capping,GO:0051016,GO_BP
+1079,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+108,2,labeled,regulation of protein processing,GO:0070613,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+1080,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+1081,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,PRC1 complex,GO:0035102,GO_CC
+1082,2,no_qualifying_term,,,,3,labeled,positive regulation of DNA replication,GO:0045740,GO_BP,5,labeled,p53-Dependent G1 DNA Damage Response,R-HSA-69563,Reactome
+1083,2,labeled,endopeptidase inhibitor activity,GO:0004866,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+1084,2,labeled,cysteine-type endopeptidase inhibitor activity,GO:0004869,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+1085,2,labeled,growth hormone receptor signaling pathway,GO:0060396,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+1086,3,labeled,type I interferon receptor binding,GO:0005132,GO_MF,1,no_qualifying_term,,,,4,core_labeled,,,
+1087,2,labeled,type I interferon receptor binding,GO:0005132,GO_MF,1,no_qualifying_term,,,,3,core_labeled,,,
+1088,0,empty_subset,,,,2,labeled,type I interferon receptor binding,GO:0005132,GO_MF,2,labeled,type I interferon receptor binding,GO:0005132,GO_MF
+1089,4,labeled,antigen processing and presentation of endogenous peptide antigen,GO:0002483,GO_BP,0,empty_subset,,,,4,core_labeled,,,
+109,3,labeled,"Synthesis, secretion, and inactivation of Glucose-dependent Insulinotropic Polypeptide (GIP)",R-HSA-400511,Reactome,0,empty_subset,,,,3,core_labeled,,,
+1090,2,labeled,protein refolding,GO:0042026,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+1091,2,no_qualifying_term,,,,3,no_qualifying_term,,,,5,labeled,NADP+ metabolic process,GO:0006739,GO_BP
+1092,2,labeled,hormone activity,GO:0005179,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+1093,2,no_qualifying_term,,,,1,no_qualifying_term,,,,3,no_qualifying_term,,,
+1094,2,labeled,protein N-linked glycosylation,GO:0006487,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+1095,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,heterotrimeric G-protein complex,GO:0005834,GO_CC
+1096,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+1097,3,labeled,Recycling of eIF2:GDP,R-HSA-72731,Reactome,0,empty_subset,,,,3,core_labeled,,,
+1098,1,no_qualifying_term,,,,16,labeled,Viral mRNA Translation,R-HSA-192823,Reactome,17,labeled,Viral mRNA Translation,R-HSA-192823,Reactome
+1099,1,no_qualifying_term,,,,33,labeled,Viral mRNA Translation,R-HSA-192823,Reactome,34,labeled,Viral mRNA Translation,R-HSA-192823,Reactome
+11,2,labeled,regulation of long-term neuronal synaptic plasticity,GO:0048169,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+110,2,labeled,"signal recognition particle, endoplasmic reticulum targeting",GO:0005786,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+1100,1,no_qualifying_term,,,,9,labeled,formation of cytoplasmic translation initiation complex,GO:0001732,GO_BP,10,labeled,formation of cytoplasmic translation initiation complex,GO:0001732,GO_BP
+1101,2,labeled,growth factor activity,GO:0008083,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+1102,0,empty_subset,,,,5,labeled,proton-transporting ATP synthase complex,GO:0045259,GO_CC,5,labeled,proton-transporting ATP synthase complex,GO:0045259,GO_CC
+1103,3,labeled,base-excision repair,GO:0006284,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+1104,2,labeled,lens development in camera-type eye,GO:0002088,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+1105,2,labeled,immunoglobulin complex,GO:0019814,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+1106,0,empty_subset,,,,2,labeled,Degradation of the extracellular matrix,R-HSA-1474228,Reactome,2,labeled,Degradation of the extracellular matrix,R-HSA-1474228,Reactome
+1107,0,empty_subset,,,,3,labeled,Striated Muscle Contraction,R-HSA-390522,Reactome,3,labeled,Striated Muscle Contraction,R-HSA-390522,Reactome
+1108,4,labeled,Signaling by PDGF,R-HSA-186797,Reactome,0,empty_subset,,,,4,core_labeled,,,
+1109,2,labeled,phosphofructokinase activity,GO:0008443,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+111,5,labeled,RAB geranylgeranylation,R-HSA-8873719,Reactome,0,empty_subset,,,,5,core_labeled,,,
+1110,2,labeled,extracellular matrix disassembly,GO:0022617,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+1111,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+1112,2,labeled,intermediate filament cytoskeleton organization,GO:0045104,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+1113,0,empty_subset,,,,16,labeled,Viral mRNA Translation,R-HSA-192823,Reactome,16,labeled,Viral mRNA Translation,R-HSA-192823,Reactome
+1114,2,labeled,anterior/posterior pattern specification,GO:0009952,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+1115,0,empty_subset,,,,4,labeled,small molecule catabolic process,GO:0044282,GO_BP,4,labeled,small molecule catabolic process,GO:0044282,GO_BP
+1116,3,labeled,Glutathione conjugation,R-HSA-156590,Reactome,1,no_qualifying_term,,,,4,core_labeled,,,
+1117,2,labeled,sugar-phosphatase activity,GO:0050308,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+1118,2,labeled,presynaptic endocytic zone membrane,GO:0098835,GO_CC,3,labeled,regulation of cytoskeleton organization,GO:0051493,GO_BP,5,core_labeled,,,
+1119,2,labeled,Processive synthesis on the lagging strand,R-HSA-69183,Reactome,0,empty_subset,,,,2,core_labeled,,,
+112,7,labeled,RNA polymerase III complex,GO:0005666,GO_CC,1,no_qualifying_term,,,,8,core_labeled,,,
+1120,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+1121,3,labeled,"transferase activity, transferring sulphur-containing groups",GO:0016782,GO_MF,0,empty_subset,,,,3,core_labeled,,,
+1122,3,labeled,retinoic acid receptor signaling pathway,GO:0048384,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+1123,2,labeled,G protein-coupled receptor internalization,GO:0002031,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+1124,0,empty_subset,,,,3,labeled,PKA activation,R-HSA-163615,Reactome,3,labeled,PKA activation,R-HSA-163615,Reactome
+1125,2,labeled,skeletal muscle contraction,GO:0003009,GO_BP,1,no_qualifying_term,,,,3,core_labeled,,,
+1126,0,empty_subset,,,,2,labeled,pyruvate decarboxylation to acetyl-CoA,GO:0006086,GO_BP,2,labeled,pyruvate decarboxylation to acetyl-CoA,GO:0006086,GO_BP
+1127,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,acyl-CoA metabolic process,GO:0006637,GO_BP
+1128,3,labeled,Xenobiotics,R-HSA-211981,Reactome,0,empty_subset,,,,3,core_labeled,,,
+1129,2,labeled,GMP biosynthetic process,GO:0006177,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+113,2,labeled,SCF ubiquitin ligase complex,GO:0019005,GO_CC,3,labeled,G2/M transition of mitotic cell cycle,GO:0000086,GO_BP,5,core_labeled,,,
+1130,2,labeled,myeloid leukocyte mediated immunity,GO:0002444,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+1131,0,empty_subset,,,,2,labeled,telomeric repeat DNA binding,GO:0042162,GO_MF,2,labeled,telomeric repeat DNA binding,GO:0042162,GO_MF
+1132,1,no_qualifying_term,,,,2,labeled,cellular response to glucagon stimulus,GO:0071377,GO_BP,3,labeled,cellular response to glucagon stimulus,GO:0071377,GO_BP
+1133,1,no_qualifying_term,,,,2,labeled,Abortive elongation of HIV-1 transcript in the absence of Tat,R-HSA-167242,Reactome,3,labeled,Abortive elongation of HIV-1 transcript in the absence of Tat,R-HSA-167242,Reactome
+1134,2,labeled,steroid biosynthetic process,GO:0006694,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+1135,0,empty_subset,,,,3,labeled,monocarboxylic acid catabolic process,GO:0072329,GO_BP,3,labeled,monocarboxylic acid catabolic process,GO:0072329,GO_BP
+1136,0,empty_subset,,,,2,labeled,extrinsic component of synaptic vesicle membrane,GO:0098850,GO_CC,2,labeled,extrinsic component of synaptic vesicle membrane,GO:0098850,GO_CC
+1137,2,no_qualifying_term,,,,1,no_qualifying_term,,,,3,labeled,RNA polymerase II transcription regulator complex,GO:0090575,GO_CC
+1138,2,labeled,DNA replication factor A complex,GO:0005662,GO_CC,1,no_qualifying_term,,,,3,core_labeled,,,
+1139,0,empty_subset,,,,3,labeled,PKA activation,R-HSA-163615,Reactome,3,labeled,PKA activation,R-HSA-163615,Reactome
+114,5,labeled,nucleoside phosphate biosynthetic process,GO:1901293,GO_BP,0,empty_subset,,,,5,core_labeled,,,
+1140,1,no_qualifying_term,,,,35,labeled,Viral mRNA Translation,R-HSA-192823,Reactome,36,labeled,Viral mRNA Translation,R-HSA-192823,Reactome
+1141,1,no_qualifying_term,,,,21,labeled,Viral mRNA Translation,R-HSA-192823,Reactome,22,labeled,Viral mRNA Translation,R-HSA-192823,Reactome
+1142,2,labeled,"mitochondrial electron transport, NADH to ubiquinone",GO:0006120,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+1143,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,no_qualifying_term,,,
+1144,2,labeled,myosin V binding,GO:0031489,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+1145,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+1146,2,labeled,endochondral bone growth,GO:0003416,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+1147,1,no_qualifying_term,,,,2,labeled,MLL4 and MLL3 complexes regulate expression of PPARG target genes in adipogenesis and hepatic steatosis,R-HSA-9841922,Reactome,3,labeled,CKM complex,GO:1990508,GO_CC
+1148,3,labeled,"Defective binding of RB1 mutants to E2F1,(E2F2, E2F3)",R-HSA-9661069,Reactome,1,no_qualifying_term,,,,4,core_labeled,,,
+1149,1,no_qualifying_term,,,,2,labeled,G2 Phase,R-HSA-68911,Reactome,3,labeled,G0 and Early G1,R-HSA-1538133,Reactome
+115,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+1150,2,labeled,desensitization of G protein-coupled receptor signaling pathway,GO:0002029,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+1151,1,no_qualifying_term,,,,24,labeled,Viral mRNA Translation,R-HSA-192823,Reactome,25,labeled,Viral mRNA Translation,R-HSA-192823,Reactome
+1152,0,empty_subset,,,,2,no_qualifying_term,,,,2,no_qualifying_term,,,
+1153,2,labeled,ERBB2 signaling pathway,GO:0038128,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+1154,3,labeled,GPVI-mediated activation cascade,R-HSA-114604,Reactome,0,empty_subset,,,,3,core_labeled,,,
+1155,2,labeled,RUNX3 regulates YAP1-mediated transcription,R-HSA-8951671,Reactome,1,no_qualifying_term,,,,3,core_labeled,,,
+1156,2,labeled,transcription factor TFIID complex,GO:0005669,GO_CC,1,no_qualifying_term,,,,3,core_labeled,,,
+1157,2,labeled,serine-type endopeptidase inhibitor activity,GO:0004867,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+1158,0,empty_subset,,,,5,labeled,proton-transporting ATP synthase complex,GO:0045259,GO_CC,5,labeled,proton-transporting ATP synthase complex,GO:0045259,GO_CC
+1159,0,empty_subset,,,,2,labeled,dicarboxylic acid metabolic process,GO:0043648,GO_BP,2,labeled,dicarboxylic acid metabolic process,GO:0043648,GO_BP
+116,2,labeled,regulation of protein K63-linked ubiquitination,GO:1900044,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+1160,2,labeled,gamma-aminobutyric acid signaling pathway,GO:0007214,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+1161,2,labeled,negative regulation of organic acid transport,GO:0032891,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+1162,2,labeled,G protein-coupled receptor internalization,GO:0002031,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+1163,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,cyclin-dependent protein kinase holoenzyme complex,GO:0000307,GO_CC
+1164,2,labeled,G alpha (s) signalling events,R-HSA-418555,Reactome,0,empty_subset,,,,2,core_labeled,,,
+1165,3,labeled,DNA replication factor C complex,GO:0005663,GO_CC,1,no_qualifying_term,,,,4,core_labeled,,,
+1166,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,DNA replication factor C complex,GO:0005663,GO_CC
+1167,2,labeled,exocytic process,GO:0140029,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+1168,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,no_qualifying_term,,,
+1169,2,labeled,non-membrane spanning protein tyrosine kinase activity,GO:0004715,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+117,0,empty_subset,,,,9,labeled,dynactin complex,GO:0005869,GO_CC,9,labeled,dynactin complex,GO:0005869,GO_CC
+1170,2,labeled,ionotropic glutamate receptor signaling pathway,GO:0035235,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+1171,1,no_qualifying_term,,,,29,labeled,Viral mRNA Translation,R-HSA-192823,Reactome,30,labeled,Viral mRNA Translation,R-HSA-192823,Reactome
+1172,0,empty_subset,,,,2,no_qualifying_term,,,,2,no_qualifying_term,,,
+1173,0,empty_subset,,,,2,labeled,phosphorylase kinase complex,GO:0005964,GO_CC,2,labeled,phosphorylase kinase complex,GO:0005964,GO_CC
+1174,1,no_qualifying_term,,,,19,labeled,Viral mRNA Translation,R-HSA-192823,Reactome,20,labeled,Viral mRNA Translation,R-HSA-192823,Reactome
+1175,0,empty_subset,,,,35,labeled,Viral mRNA Translation,R-HSA-192823,Reactome,35,labeled,Viral mRNA Translation,R-HSA-192823,Reactome
+1176,0,empty_subset,,,,4,labeled,Processing of antigen in germinal center B cells,R-HSA-9979719,Reactome,4,labeled,Processing of antigen in germinal center B cells,R-HSA-9979719,Reactome
+1177,2,labeled,cardiac muscle cell action potential involved in contraction,GO:0086002,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+1178,2,labeled,positive regulation of non-canonical Wnt signaling pathway,GO:2000052,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+1179,0,empty_subset,,,,40,labeled,Viral mRNA Translation,R-HSA-192823,Reactome,40,labeled,Viral mRNA Translation,R-HSA-192823,Reactome
+118,4,labeled,protein deneddylation,GO:0000338,GO_BP,4,labeled,protein deneddylation,GO:0000338,GO_BP,8,core_labeled,,,
+1180,2,labeled,acetyltransferase activator activity,GO:0010698,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+1181,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,no_qualifying_term,,,
+1182,1,no_qualifying_term,,,,2,labeled,COPI vesicle coat,GO:0030126,GO_CC,3,labeled,COPI vesicle coat,GO:0030126,GO_CC
+1183,2,labeled,somite development,GO:0061053,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+119,0,empty_subset,,,,14,labeled,proteasome core complex,GO:0005839,GO_CC,14,labeled,proteasome core complex,GO:0005839,GO_CC
+12,3,labeled,RNA polymerase II CTD heptapeptide repeat phosphatase activity,GO:0008420,GO_MF,0,empty_subset,,,,3,core_labeled,,,
+120,1,no_qualifying_term,,,,33,labeled,Viral mRNA Translation,R-HSA-192823,Reactome,34,labeled,Viral mRNA Translation,R-HSA-192823,Reactome
+121,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+122,3,labeled,exon-exon junction complex,GO:0035145,GO_CC,0,empty_subset,,,,3,core_labeled,,,
+123,3,labeled,cell fate specification,GO:0001708,GO_BP,1,no_qualifying_term,,,,4,core_labeled,,,
+124,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,synaptic vesicle lumen acidification,GO:0097401,GO_BP
+125,5,labeled,prefoldin complex,GO:0016272,GO_CC,1,no_qualifying_term,,,,6,core_labeled,,,
+126,0,empty_subset,,,,2,no_qualifying_term,,,,2,no_qualifying_term,,,
+127,1,no_qualifying_term,,,,7,labeled,rRNA processing,GO:0006364,GO_BP,8,labeled,rRNA processing,GO:0006364,GO_BP
+128,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+129,2,labeled,regulation of tubulin deacetylation,GO:0090043,GO_BP,4,labeled,regulation of tubulin deacetylation,GO:0090043,GO_BP,6,core_labeled,,,
+13,2,labeled,positive regulation of regulated secretory pathway,GO:1903307,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+130,1,no_qualifying_term,,,,3,labeled,Nef mediated downregulation of MHC class I complex cell surface expression,R-HSA-164940,Reactome,4,labeled,Nef mediated downregulation of MHC class I complex cell surface expression,R-HSA-164940,Reactome
+131,4,labeled,U6 snRNP,GO:0005688,GO_CC,10,labeled,SARS-CoV-2 targets host intracellular signalling and regulatory pathways,R-HSA-9755779,Reactome,14,core_labeled,,,
+132,3,labeled,SHOC2 M1731 mutant abolishes MRAS complex function,R-HSA-9726840,Reactome,2,labeled,PTW/PP1 phosphatase complex,GO:0072357,GO_CC,5,core_labeled,,,
+133,3,labeled,transferrin receptor binding,GO:1990459,GO_MF,0,empty_subset,,,,3,core_labeled,,,
+134,5,labeled,RNA modification,GO:0009451,GO_BP,16,labeled,SARS-CoV-2 targets host intracellular signalling and regulatory pathways,R-HSA-9755779,Reactome,21,core_labeled,,,
+135,2,no_qualifying_term,,,,2,labeled,heterotrimeric G-protein complex,GO:0005834,GO_CC,4,labeled,heterotrimeric G-protein complex,GO:0005834,GO_CC
+136,3,no_qualifying_term,,,,28,labeled,spliceosomal tri-snRNP complex assembly,GO:0000244,GO_BP,31,labeled,spliceosomal tri-snRNP complex assembly,GO:0000244,GO_BP
+137,6,labeled,mRNA Splicing - Minor Pathway,R-HSA-72165,Reactome,11,labeled,U2-type prespliceosome assembly,GO:1903241,GO_BP,17,core_labeled,,,
+138,1,no_qualifying_term,,,,9,labeled,post-mRNA release spliceosomal complex,GO:0071014,GO_CC,10,labeled,post-mRNA release spliceosomal complex,GO:0071014,GO_CC
+139,7,labeled,tight junction assembly,GO:0120192,GO_BP,1,no_qualifying_term,,,,8,core_labeled,,,
+14,0,empty_subset,,,,13,labeled,mitochondrial small ribosomal subunit,GO:0005763,GO_CC,13,labeled,mitochondrial small ribosomal subunit,GO:0005763,GO_CC
+140,1,no_qualifying_term,,,,9,labeled,"RNA polymerase II, core complex",GO:0005665,GO_CC,10,labeled,"RNA polymerase II, core complex",GO:0005665,GO_CC
+141,3,labeled,insulin secretion involved in cellular response to glucose stimulus,GO:0035773,GO_BP,1,no_qualifying_term,,,,4,core_labeled,,,
+142,0,empty_subset,,,,5,labeled,GID complex,GO:0034657,GO_CC,5,labeled,GID complex,GO:0034657,GO_CC
+143,0,empty_subset,,,,4,labeled,FAR/SIP/STRIPAK complex,GO:0090443,GO_CC,4,labeled,FAR/SIP/STRIPAK complex,GO:0090443,GO_CC
+144,2,labeled,Golgi Cisternae Pericentriolar Stack Reorganization,R-HSA-162658,Reactome,0,empty_subset,,,,2,core_labeled,,,
+145,4,labeled,Transcriptional and post-translational regulation of MITF-M expression and activity,R-HSA-9856649,Reactome,0,empty_subset,,,,4,core_labeled,,,
+146,1,no_qualifying_term,,,,12,labeled,negative regulation of myoblast fusion,GO:1901740,GO_BP,13,labeled,Viral mRNA Translation,R-HSA-192823,Reactome
+147,3,labeled,protein tag activity,GO:0031386,GO_MF,20,labeled,Viral mRNA Translation,R-HSA-192823,Reactome,23,core_labeled,,,
+148,2,no_qualifying_term,,,,34,labeled,Viral mRNA Translation,R-HSA-192823,Reactome,36,labeled,Viral mRNA Translation,R-HSA-192823,Reactome
+149,3,labeled,InlB-mediated entry of Listeria monocytogenes into host cell,R-HSA-8875360,Reactome,0,empty_subset,,,,3,core_labeled,,,
+15,2,labeled,sequence-specific mRNA binding,GO:1990825,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+150,0,empty_subset,,,,34,labeled,Viral mRNA Translation,R-HSA-192823,Reactome,34,labeled,Viral mRNA Translation,R-HSA-192823,Reactome
+151,5,labeled,Interleukin-15 signaling,R-HSA-8983432,Reactome,0,empty_subset,,,,5,core_labeled,,,
+152,8,labeled,snRNA binding,GO:0017069,GO_MF,20,labeled,spliceosomal tri-snRNP complex assembly,GO:0000244,GO_BP,28,core_labeled,,,
+153,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,Nef Mediated CD4 Down-regulation,R-HSA-167590,Reactome
+154,2,no_qualifying_term,,,,3,labeled,endocytic recycling,GO:0032456,GO_BP,5,labeled,endocytic recycling,GO:0032456,GO_BP
+155,4,labeled,calcium-mediated signaling,GO:0019722,GO_BP,0,empty_subset,,,,4,core_labeled,,,
+156,1,no_qualifying_term,,,,2,labeled,MASTL Facilitates Mitotic Progression,R-HSA-2465910,Reactome,3,labeled,protein phosphatase type 2A complex,GO:0000159,GO_CC
+157,4,labeled,U2 snRNP,GO:0005686,GO_CC,14,labeled,U2-type catalytic step 1 spliceosome,GO:0071006,GO_CC,18,core_labeled,,,
+158,1,no_qualifying_term,,,,2,labeled,dynein heavy chain binding,GO:0045504,GO_MF,3,labeled,male germ cell nucleus,GO:0001673,GO_CC
+159,1,no_qualifying_term,,,,4,labeled,RPAP3/R2TP/prefoldin-like complex,GO:1990062,GO_CC,5,labeled,RPAP3/R2TP/prefoldin-like complex,GO:1990062,GO_CC
+16,0,empty_subset,,,,19,labeled,Regulation of endogenous retroelements by Piwi-interacting RNAs (piRNAs),R-HSA-9845323,Reactome,19,labeled,Regulation of endogenous retroelements by Piwi-interacting RNAs (piRNAs),R-HSA-9845323,Reactome
+160,2,labeled,actin filament,GO:0005884,GO_CC,1,no_qualifying_term,,,,3,core_labeled,,,
+161,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,transcription pausing by RNA polymerase II,GO:0160239,GO_BP
+162,3,no_qualifying_term,,,,0,empty_subset,,,,3,no_qualifying_term,,,
+163,1,no_qualifying_term,,,,3,labeled,MASTL Facilitates Mitotic Progression,R-HSA-2465910,Reactome,4,labeled,MASTL Facilitates Mitotic Progression,R-HSA-2465910,Reactome
+164,6,labeled,nuclear lamina,GO:0005652,GO_CC,8,labeled,regulatory RNA binding,GO:0061980,GO_MF,14,core_labeled,,,
+165,2,labeled,Synthesis of PC,R-HSA-1483191,Reactome,1,no_qualifying_term,,,,3,core_labeled,,,
+166,3,labeled,striated muscle thin filament,GO:0005865,GO_CC,1,no_qualifying_term,,,,4,core_labeled,,,
+167,15,no_qualifying_term,,,,17,labeled,"mRNA splicing, via spliceosome",GO:0000398,GO_BP,32,labeled,eukaryotic translation elongation factor 1 complex,GO:0005853,GO_CC
+168,4,no_qualifying_term,,,,0,empty_subset,,,,4,no_qualifying_term,,,
+169,2,no_qualifying_term,,,,8,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC,10,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC
+17,4,no_qualifying_term,,,,23,labeled,nucleosomal DNA binding,GO:0031492,GO_MF,27,labeled,Regulation of endogenous retroelements by Piwi-interacting RNAs (piRNAs),R-HSA-9845323,Reactome
+170,2,labeled,glycerophospholipid catabolic process,GO:0046475,GO_BP,1,no_qualifying_term,,,,3,core_labeled,,,
+171,2,labeled,Cell surface interactions at the vascular wall,R-HSA-202733,Reactome,0,empty_subset,,,,2,core_labeled,,,
+172,3,labeled,vitamin metabolic process,GO:0006766,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+173,3,labeled,PI5P Regulates TP53 Acetylation,R-HSA-6811555,Reactome,0,empty_subset,,,,3,core_labeled,,,
+174,0,empty_subset,,,,2,labeled,SUMOylation of DNA methylation proteins,R-HSA-4655427,Reactome,2,labeled,SUMOylation of DNA methylation proteins,R-HSA-4655427,Reactome
+175,3,labeled,G2/M DNA replication checkpoint,R-HSA-69478,Reactome,1,no_qualifying_term,,,,4,core_labeled,,,
+176,3,labeled,Butyrophilin (BTN) family interactions,R-HSA-8851680,Reactome,0,empty_subset,,,,3,core_labeled,,,
+177,3,labeled,CHD1 and CHD2 subfamily,R-HSA-9943411,Reactome,0,empty_subset,,,,3,core_labeled,,,
+178,2,labeled,monosaccharide metabolic process,GO:0005996,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+179,3,labeled,DNA-dependent protein kinase-DNA ligase 4 complex,GO:0005958,GO_CC,1,no_qualifying_term,,,,4,core_labeled,,,
+18,3,labeled,isocitrate dehydrogenase [NAD(P)+] activity,GO:0004448,GO_MF,0,empty_subset,,,,3,core_labeled,,,
+180,2,labeled,macrophage activation,GO:0042116,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+181,2,labeled,transaminase activity,GO:0008483,GO_MF,2,no_qualifying_term,,,,4,core_labeled,,,
+182,5,no_qualifying_term,,,,1,no_qualifying_term,,,,6,labeled,transcription coactivator activity,GO:0003713,GO_MF
+183,0,empty_subset,,,,13,labeled,mitochondrial small ribosomal subunit,GO:0005763,GO_CC,13,labeled,mitochondrial small ribosomal subunit,GO:0005763,GO_CC
+184,1,no_qualifying_term,,,,9,labeled,mitochondrial small ribosomal subunit,GO:0005763,GO_CC,10,labeled,mitochondrial small ribosomal subunit,GO:0005763,GO_CC
+185,1,no_qualifying_term,,,,8,labeled,mitochondrial small ribosomal subunit,GO:0005763,GO_CC,9,labeled,mitochondrial small ribosomal subunit,GO:0005763,GO_CC
+186,2,labeled,Set1C/COMPASS complex,GO:0048188,GO_CC,1,no_qualifying_term,,,,3,core_labeled,,,
+187,3,labeled,alpha-ketoacid dehydrogenase complex,GO:0045240,GO_CC,2,labeled,pyruvate decarboxylation to acetyl-CoA,GO:0006086,GO_BP,5,core_labeled,,,
+188,2,labeled,mitochondrial small ribosomal subunit,GO:0005763,GO_CC,14,labeled,mitochondrial small ribosomal subunit,GO:0005763,GO_CC,16,core_labeled,,,
+189,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+19,2,labeled,proteasome assembly,GO:0043248,GO_BP,19,labeled,proteasome regulatory particle,GO:0005838,GO_CC,21,core_labeled,,,
+190,2,labeled,"retrograde transport, vesicle recycling within Golgi",GO:0000301,GO_BP,3,labeled,"retrograde transport, vesicle recycling within Golgi",GO:0000301,GO_BP,5,core_labeled,,,
+191,0,empty_subset,,,,2,labeled,TGF-beta receptor signaling activates SMADs,R-HSA-2173789,Reactome,2,labeled,TGF-beta receptor signaling activates SMADs,R-HSA-2173789,Reactome
+192,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+193,2,labeled,receptor tyrosine kinase binding,GO:0030971,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+194,7,labeled,secondary active transmembrane transporter activity,GO:0015291,GO_MF,0,empty_subset,,,,7,core_labeled,,,
+195,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+196,2,labeled,cyclin-dependent protein serine/threonine kinase activity,GO:0004693,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+197,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+198,3,labeled,cyclin-dependent protein serine/threonine kinase activity,GO:0004693,GO_MF,0,empty_subset,,,,3,core_labeled,,,
+199,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+2,3,labeled,regulation of MHC class II biosynthetic process,GO:0045346,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+20,2,labeled,growth hormone receptor signaling pathway,GO:0060396,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+200,0,empty_subset,,,,2,labeled,SUMOylation of immune response proteins,R-HSA-4755510,Reactome,2,labeled,SUMOylation of immune response proteins,R-HSA-4755510,Reactome
+201,2,labeled,endoplasmic reticulum organization,GO:0007029,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+202,4,labeled,spindle midzone assembly,GO:0051255,GO_BP,0,empty_subset,,,,4,core_labeled,,,
+203,4,labeled,Cell surface interactions at the vascular wall,R-HSA-202733,Reactome,0,empty_subset,,,,4,core_labeled,,,
+204,2,labeled,protein localization to ciliary transition zone,GO:1904491,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+205,4,labeled,Cyclin D associated events in G1,R-HSA-69231,Reactome,0,empty_subset,,,,4,core_labeled,,,
+206,2,labeled,base-excision repair,GO:0006284,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+207,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,NF-kappaB complex,GO:0071159,GO_CC
+208,1,no_qualifying_term,,,,5,labeled,peptidyl-prolyl cis-trans isomerase activity,GO:0003755,GO_MF,6,no_qualifying_term,,,
+209,1,no_qualifying_term,,,,8,labeled,nucleolar exosome (RNase complex),GO:0101019,GO_CC,9,labeled,nucleolar exosome (RNase complex),GO:0101019,GO_CC
+21,4,labeled,heparin binding,GO:0008201,GO_MF,0,empty_subset,,,,4,core_labeled,,,
+210,2,labeled,cytoplasmic microtubule,GO:0005881,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+211,2,labeled,muscle myosin complex,GO:0005859,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+212,3,labeled,cGMP metabolic process,GO:0046068,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+213,1,no_qualifying_term,,,,3,labeled,acyl-CoA biosynthetic process,GO:0071616,GO_BP,4,labeled,acyl-CoA biosynthetic process,GO:0071616,GO_BP
+214,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+215,0,empty_subset,,,,5,labeled,"oxidoreductase activity, acting on the aldehyde or oxo group of donors, NAD or NADP as acceptor",GO:0016620,GO_MF,5,labeled,"oxidoreductase activity, acting on the aldehyde or oxo group of donors, NAD or NADP as acceptor",GO:0016620,GO_MF
+216,0,empty_subset,,,,2,labeled,Dopamine Neurotransmitter Release Cycle,R-HSA-212676,Reactome,2,labeled,Dopamine Neurotransmitter Release Cycle,R-HSA-212676,Reactome
+217,3,labeled,positive regulation of neuron differentiation,GO:0045666,GO_BP,1,no_qualifying_term,,,,4,core_labeled,,,
+218,3,labeled,Telomere Extension By Telomerase,R-HSA-171319,Reactome,1,no_qualifying_term,,,,4,core_labeled,,,
+219,2,labeled,Frs2-mediated activation,R-HSA-170968,Reactome,0,empty_subset,,,,2,core_labeled,,,
+22,3,no_qualifying_term,,,,0,empty_subset,,,,3,no_qualifying_term,,,
+220,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,collagen fibril organization,GO:0030199,GO_BP
+221,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+222,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,no_qualifying_term,,,
+223,2,labeled,alkane 1-monooxygenase activity,GO:0018685,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+224,5,labeled,transcription factor AP-1 complex,GO:0035976,GO_CC,1,no_qualifying_term,,,,6,core_labeled,,,
+225,2,labeled,complement component C3b binding,GO:0001851,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+226,3,labeled,microtubule plus-end binding,GO:0051010,GO_MF,1,no_qualifying_term,,,,4,core_labeled,,,
+227,4,labeled,glutathione transferase activity,GO:0004364,GO_MF,0,empty_subset,,,,4,core_labeled,,,
+228,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,transcription elongation factor complex,GO:0008023,GO_CC
+229,2,labeled,complement component C3b binding,GO:0001851,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+23,3,labeled,"clathrin-coated vesicle cargo loading, AP-3-mediated",GO:0035654,GO_BP,1,no_qualifying_term,,,,4,core_labeled,,,
+230,3,labeled,Voltage gated Potassium channels,R-HSA-1296072,Reactome,0,empty_subset,,,,3,core_labeled,,,
+231,5,labeled,NF-kappaB complex,GO:0071159,GO_CC,1,no_qualifying_term,,,,6,core_labeled,,,
+232,1,no_qualifying_term,,,,4,labeled,Dengue Virus Genome Translation and Replication,R-HSA-9918487,Reactome,5,labeled,Dengue Virus Genome Translation and Replication,R-HSA-9918487,Reactome
+233,4,labeled,Repression of WNT target genes,R-HSA-4641265,Reactome,0,empty_subset,,,,4,core_labeled,,,
+234,3,labeled,muscle myosin complex,GO:0005859,GO_CC,1,no_qualifying_term,,,,4,core_labeled,,,
+235,3,labeled,molecular sensor activity,GO:0140299,GO_MF,0,empty_subset,,,,3,core_labeled,,,
+236,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+237,3,no_qualifying_term,,,,1,no_qualifying_term,,,,4,labeled,establishment or maintenance of cell polarity,GO:0007163,GO_BP
+238,1,no_qualifying_term,,,,3,labeled,eukaryotic translation elongation factor 1 complex,GO:0005853,GO_CC,4,labeled,eukaryotic translation elongation factor 1 complex,GO:0005853,GO_CC
+239,5,labeled,nucleosome,GO:0000786,GO_CC,1,no_qualifying_term,,,,6,core_labeled,,,
+24,4,labeled,protein kinase A binding,GO:0051018,GO_MF,1,no_qualifying_term,,,,5,core_labeled,,,
+240,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+241,5,labeled,FHF complex,GO:0070695,GO_CC,0,empty_subset,,,,5,core_labeled,,,
+242,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+243,4,labeled,endopeptidase regulator activity,GO:0061135,GO_MF,17,labeled,Somitogenesis,R-HSA-9824272,Reactome,21,core_labeled,,,
+244,2,labeled,Regulation of gene expression in late stage (branching morphogenesis) pancreatic bud precursor cells,R-HSA-210744,Reactome,0,empty_subset,,,,2,core_labeled,,,
+245,3,labeled,PRC1 complex,GO:0035102,GO_CC,1,no_qualifying_term,,,,4,core_labeled,,,
+246,4,labeled,hydrogen peroxide metabolic process,GO:0042743,GO_BP,0,empty_subset,,,,4,core_labeled,,,
+247,2,labeled,maintenance of blood-brain barrier,GO:0035633,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+248,2,labeled,cyclic nucleotide catabolic process,GO:0009214,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+249,2,labeled,Bcl-2 family protein complex,GO:0097136,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+25,2,labeled,transcription factor TFIIH core complex,GO:0000439,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+250,2,labeled,Bcl-2 family protein complex,GO:0097136,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+251,6,labeled,RHO GTPases activate KTN1,R-HSA-5625970,Reactome,0,empty_subset,,,,6,core_labeled,,,
+252,0,empty_subset,,,,16,labeled,U12-type spliceosomal complex,GO:0005689,GO_CC,16,labeled,U12-type spliceosomal complex,GO:0005689,GO_CC
+253,2,labeled,Z disc,GO:0030018,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+254,2,labeled,Golgi ribbon formation,GO:0090161,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+255,5,no_qualifying_term,,,,0,empty_subset,,,,5,no_qualifying_term,,,
+256,2,labeled,nucleosome disassembly,GO:0006337,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+257,0,empty_subset,,,,3,labeled,gamma-tubulin complex,GO:0000930,GO_CC,3,labeled,gamma-tubulin complex,GO:0000930,GO_CC
+258,3,labeled,tRNA wobble uridine modification,GO:0002098,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+259,2,labeled,'de novo' protein folding,GO:0006458,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+26,12,labeled,mRNA 3'-UTR binding,GO:0003730,GO_MF,19,labeled,catalytic step 2 spliceosome,GO:0071013,GO_CC,31,core_labeled,,,
+260,0,empty_subset,,,,4,labeled,Nef mediated downregulation of MHC class I complex cell surface expression,R-HSA-164940,Reactome,4,labeled,Nef mediated downregulation of MHC class I complex cell surface expression,R-HSA-164940,Reactome
+261,2,labeled,Processing of SMDT1,R-HSA-8949664,Reactome,0,empty_subset,,,,2,core_labeled,,,
+262,5,labeled,WASH complex,GO:0071203,GO_CC,1,no_qualifying_term,,,,6,core_labeled,,,
+263,3,labeled,I-SMAD binding,GO:0070411,GO_MF,1,no_qualifying_term,,,,4,core_labeled,,,
+264,2,labeled,G alpha (12/13) signalling events,R-HSA-416482,Reactome,0,empty_subset,,,,2,core_labeled,,,
+265,4,labeled,90S preribosome,GO:0030686,GO_CC,0,empty_subset,,,,4,core_labeled,,,
+266,4,labeled,RNA polymerase III general transcription initiation factor activity,GO:0000995,GO_MF,0,empty_subset,,,,4,core_labeled,,,
+267,5,labeled,centriole replication,GO:0007099,GO_BP,0,empty_subset,,,,5,core_labeled,,,
+268,3,labeled,"DNA-binding transcription activator activity, RNA polymerase II-specific",GO:0001228,GO_MF,0,empty_subset,,,,3,core_labeled,,,
+269,2,labeled,RAB geranylgeranylation,R-HSA-8873719,Reactome,0,empty_subset,,,,2,core_labeled,,,
+27,2,labeled,nuclear import signal receptor activity,GO:0061608,GO_MF,2,no_qualifying_term,,,,4,core_labeled,,,
+270,5,labeled,ESC/E(Z) complex,GO:0035098,GO_CC,3,labeled,ESC/E(Z) complex,GO:0035098,GO_CC,8,core_labeled,,,
+271,2,labeled,cartilage development,GO:0051216,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+272,2,labeled,mRNA 3'-UTR AU-rich region binding,GO:0035925,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+273,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+274,1,no_qualifying_term,,,,3,labeled,transcription factor TFTC complex,GO:0033276,GO_CC,4,labeled,transcription factor TFTC complex,GO:0033276,GO_CC
+275,2,no_qualifying_term,,,,2,labeled,PTW/PP1 phosphatase complex,GO:0072357,GO_CC,4,labeled,PTW/PP1 phosphatase complex,GO:0072357,GO_CC
+276,2,labeled,chloride transport,GO:0006821,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+277,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,SNAP receptor activity,GO:0005484,GO_MF
+278,2,labeled,fatty acid beta-oxidation,GO:0006635,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+279,1,no_qualifying_term,,,,2,labeled,FAR/SIP/STRIPAK complex,GO:0090443,GO_CC,3,labeled,FAR/SIP/STRIPAK complex,GO:0090443,GO_CC
+28,2,labeled,primary miRNA processing,GO:0031053,GO_BP,1,no_qualifying_term,,,,3,core_labeled,,,
+280,0,empty_subset,,,,7,labeled,anaphase-promoting complex,GO:0005680,GO_CC,7,labeled,anaphase-promoting complex,GO:0005680,GO_CC
+281,5,labeled,myofibril assembly,GO:0030239,GO_BP,1,no_qualifying_term,,,,6,core_labeled,,,
+282,5,labeled,mitochondrial large ribosomal subunit,GO:0005762,GO_CC,13,labeled,mitochondrial large ribosomal subunit,GO:0005762,GO_CC,18,core_labeled,,,
+283,3,labeled,intraciliary transport particle B,GO:0030992,GO_CC,1,no_qualifying_term,,,,4,core_labeled,,,
+284,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+285,5,labeled,eukaryotic translation initiation factor 2B complex,GO:0005851,GO_CC,0,empty_subset,,,,5,core_labeled,,,
+286,5,labeled,CDC42 GTPase cycle,R-HSA-9013148,Reactome,1,no_qualifying_term,,,,6,core_labeled,,,
+287,3,labeled,negative regulation of muscle cell apoptotic process,GO:0010656,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+288,2,labeled,COPII-mediated vesicle transport,R-HSA-204005,Reactome,0,empty_subset,,,,2,core_labeled,,,
+289,2,labeled,intramolecular phosphotransferase activity,GO:0016868,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+29,7,labeled,RNA polymerase I complex,GO:0005736,GO_CC,9,labeled,RPAP3/R2TP/prefoldin-like complex,GO:1990062,GO_CC,16,core_labeled,,,
+290,2,labeled,NR1H3 & NR1H2 regulate gene expression linked to cholesterol transport and efflux,R-HSA-9029569,Reactome,0,empty_subset,,,,2,core_labeled,,,
+291,8,labeled,MCM complex,GO:0042555,GO_CC,20,labeled,catalytic step 2 spliceosome,GO:0071013,GO_CC,28,core_labeled,,,
+292,2,labeled,Generic Transcription Pathway,R-HSA-212436,Reactome,0,empty_subset,,,,2,core_labeled,,,
+293,2,labeled,regulation of cytoplasmic stress granule assembly,GO:0062028,GO_BP,2,no_qualifying_term,,,,4,core_labeled,,,
+294,2,labeled,Voltage gated Potassium channels,R-HSA-1296072,Reactome,0,empty_subset,,,,2,core_labeled,,,
+295,2,no_qualifying_term,,,,2,labeled,mCRD-mediated mRNA stability complex,GO:0106002,GO_CC,4,labeled,translation activator activity,GO:0008494,GO_MF
+296,16,labeled,SWI/SNF superfamily-type complex,GO:0070603,GO_CC,24,labeled,Regulation of endogenous retroelements by Piwi-interacting RNAs (piRNAs),R-HSA-9845323,Reactome,40,core_labeled,,,
+297,5,labeled,inner kinetochore,GO:0000939,GO_CC,0,empty_subset,,,,5,core_labeled,,,
+298,2,no_qualifying_term,,,,2,no_qualifying_term,,,,4,labeled,microtubule anchoring,GO:0034453,GO_BP
+299,5,no_qualifying_term,,,,11,labeled,npBAF complex,GO:0071564,GO_CC,16,labeled,ATP-dependent chromatin remodeler activity,GO:0140658,GO_MF
+3,3,labeled,synaptic vesicle budding from presynaptic endocytic zone membrane,GO:0016185,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+30,1,no_qualifying_term,,,,3,labeled,"RNA polymerase II, core complex",GO:0005665,GO_CC,4,labeled,"RNA polymerase II, core complex",GO:0005665,GO_CC
+300,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,"clathrin-coated vesicle cargo loading, AP-3-mediated",GO:0035654,GO_BP
+301,8,labeled,mitochondrial large ribosomal subunit,GO:0005762,GO_CC,13,labeled,mitochondrial large ribosomal subunit,GO:0005762,GO_CC,21,core_labeled,,,
+302,1,no_qualifying_term,,,,3,labeled,male germ cell nucleus,GO:0001673,GO_CC,4,labeled,male germ cell nucleus,GO:0001673,GO_CC
+303,2,labeled,DNA replication initiation,GO:0006270,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+304,4,labeled,Regulation of cytoskeletal remodeling and cell spreading by IPP complex components,R-HSA-446388,Reactome,1,no_qualifying_term,,,,5,core_labeled,,,
+305,3,labeled,DNA-dependent protein kinase-DNA ligase 4 complex,GO:0005958,GO_CC,0,empty_subset,,,,3,core_labeled,,,
+306,6,labeled,cyclic nucleotide catabolic process,GO:0009214,GO_BP,0,empty_subset,,,,6,core_labeled,,,
+307,3,labeled,cytoplasmic ubiquitin ligase complex,GO:0000153,GO_CC,0,empty_subset,,,,3,core_labeled,,,
+308,2,labeled,endoplasmic reticulum-Golgi intermediate compartment membrane,GO:0033116,GO_CC,2,labeled,Golgi vesicle budding,GO:0048194,GO_BP,4,core_labeled,,,
+309,3,labeled,Resolution of D-loop Structures through Synthesis-Dependent Strand Annealing (SDSA),R-HSA-5693554,Reactome,0,empty_subset,,,,3,core_labeled,,,
+31,2,labeled,p38MAPK cascade,GO:0038066,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+310,4,labeled,snRNA transcription by RNA polymerase III,GO:0042796,GO_BP,0,empty_subset,,,,4,core_labeled,,,
+311,3,labeled,core mediator complex,GO:0070847,GO_CC,12,labeled,mediator complex,GO:0016592,GO_CC,15,core_labeled,,,
+312,1,no_qualifying_term,,,,4,labeled,Dengue Virus Genome Translation and Replication,R-HSA-9918487,Reactome,5,labeled,Dengue Virus Genome Translation and Replication,R-HSA-9918487,Reactome
+313,4,labeled,CaMK IV-mediated phosphorylation of CREB,R-HSA-111932,Reactome,0,empty_subset,,,,4,core_labeled,,,
+314,2,labeled,"ligase activity, forming carbon-sulfur bonds",GO:0016877,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+315,2,labeled,spindle midzone assembly,GO:0051255,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+316,1,no_qualifying_term,,,,3,labeled,"mRNA splicing, via spliceosome",GO:0000398,GO_BP,4,labeled,"mRNA splicing, via spliceosome",GO:0000398,GO_BP
+317,9,labeled,retromer complex,GO:0030904,GO_CC,0,empty_subset,,,,9,core_labeled,,,
+318,7,labeled,"preribosome, large subunit precursor",GO:0030687,GO_CC,6,labeled,maturation of LSU-rRNA,GO:0000470,GO_BP,13,core_labeled,,,
+319,2,no_qualifying_term,,,,1,no_qualifying_term,,,,3,labeled,rRNA processing,GO:0006364,GO_BP
+32,5,no_qualifying_term,,,,13,labeled,single-stranded RNA binding,GO:0003727,GO_MF,18,labeled,aldose reductase (NADPH) activity,GO:0004032,GO_MF
+320,2,labeled,Cul3-RING ubiquitin ligase complex,GO:0031463,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+321,6,labeled,Cul4A-RING E3 ubiquitin ligase complex,GO:0031464,GO_CC,5,labeled,COP9 signalosome,GO:0008180,GO_CC,11,core_labeled,,,
+322,0,empty_subset,,,,2,no_qualifying_term,,,,2,no_qualifying_term,,,
+323,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+324,2,labeled,GDP binding,GO:0019003,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+325,2,labeled,SNAP receptor activity,GO:0005484,GO_MF,2,labeled,SNAP receptor activity,GO:0005484,GO_MF,4,core_labeled,,,
+326,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+327,6,labeled,THO complex part of transcription export complex,GO:0000445,GO_CC,0,empty_subset,,,,6,core_labeled,,,
+328,2,labeled,stress fiber assembly,GO:0043149,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+329,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+33,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+330,3,labeled,transcription factor TFIIH core complex,GO:0000439,GO_CC,3,labeled,transcription factor TFIIH core complex,GO:0000439,GO_CC,6,core_labeled,,,
+331,2,labeled,cyclic-nucleotide phosphodiesterase activity,GO:0004112,GO_MF,1,no_qualifying_term,,,,3,core_labeled,,,
+332,3,no_qualifying_term,,,,0,empty_subset,,,,3,no_qualifying_term,,,
+333,1,no_qualifying_term,,,,2,labeled,poly(A)-dependent snoRNA 3'-end processing,GO:0071051,GO_BP,3,labeled,nuclear exosome (RNase complex),GO:0000176,GO_CC
+334,2,labeled,ATF6 (ATF6-alpha) activates chaperone genes,R-HSA-381183,Reactome,0,empty_subset,,,,2,core_labeled,,,
+335,2,labeled,cyclin/CDK positive transcription elongation factor complex,GO:0008024,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+336,2,labeled,microtubule plus-end,GO:0035371,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+337,2,labeled,calcium/calmodulin-dependent protein kinase activity,GO:0004683,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+338,2,labeled,Collagen biosynthesis and modifying enzymes,R-HSA-1650814,Reactome,1,no_qualifying_term,,,,3,core_labeled,,,
+339,2,no_qualifying_term,,,,2,labeled,negative regulation of Wnt signaling pathway,GO:0030178,GO_BP,4,labeled,RUNX3 regulates YAP1-mediated transcription,R-HSA-8951671,Reactome
+34,2,labeled,RNA polymerase II core promoter sequence-specific DNA binding,GO:0000979,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+340,4,no_qualifying_term,,,,0,empty_subset,,,,4,no_qualifying_term,,,
+341,0,empty_subset,,,,6,labeled,septin ring,GO:0005940,GO_CC,6,labeled,septin ring,GO:0005940,GO_CC
+342,4,labeled,RHOU GTPase cycle,R-HSA-9013420,Reactome,1,no_qualifying_term,,,,5,core_labeled,,,
+343,6,labeled,protein phosphatase regulator activity,GO:0019888,GO_MF,1,no_qualifying_term,,,,7,core_labeled,,,
+344,2,no_qualifying_term,,,,1,no_qualifying_term,,,,3,labeled,Dopamine Neurotransmitter Release Cycle,R-HSA-212676,Reactome
+345,2,labeled,positive regulation of calcium ion-dependent exocytosis,GO:0045956,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+346,5,no_qualifying_term,,,,0,empty_subset,,,,5,no_qualifying_term,,,
+347,4,labeled,RHOG GTPase cycle,R-HSA-9013408,Reactome,1,no_qualifying_term,,,,5,core_labeled,,,
+348,2,labeled,"hydrolase activity, acting on carbon-nitrogen (but not peptide) bonds",GO:0016810,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+349,3,no_qualifying_term,,,,0,empty_subset,,,,3,no_qualifying_term,,,
+35,2,labeled,oxidized purine DNA binding,GO:0032357,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+350,3,labeled,Synaptic adhesion-like molecules,R-HSA-8849932,Reactome,0,empty_subset,,,,3,core_labeled,,,
+351,2,labeled,polyol metabolic process,GO:0019751,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+352,3,labeled,cytoplasmic stress granule,GO:0010494,GO_CC,1,no_qualifying_term,,,,4,core_labeled,,,
+353,5,labeled,"phosphatidylinositol 3-kinase complex, class III",GO:0035032,GO_CC,0,empty_subset,,,,5,core_labeled,,,
+354,2,no_qualifying_term,,,,1,no_qualifying_term,,,,3,labeled,regulation of epithelial cell differentiation,GO:0030856,GO_BP
+355,3,labeled,U2-type prespliceosome,GO:0071004,GO_CC,0,empty_subset,,,,3,core_labeled,,,
+356,2,labeled,5-phosphoribose 1-diphosphate biosynthetic process,GO:0006015,GO_BP,1,no_qualifying_term,,,,3,core_labeled,,,
+357,5,labeled,"inositol 1,4,5 trisphosphate binding",GO:0070679,GO_MF,0,empty_subset,,,,5,core_labeled,,,
+358,3,no_qualifying_term,,,,0,empty_subset,,,,3,no_qualifying_term,,,
+359,5,labeled,EKC/KEOPS complex,GO:0000408,GO_CC,0,empty_subset,,,,5,core_labeled,,,
+36,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+360,2,labeled,maintenance of mitotic sister chromatid cohesion,GO:0034088,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+361,3,labeled,cullin family protein binding,GO:0097602,GO_MF,0,empty_subset,,,,3,core_labeled,,,
+362,7,labeled,Establishment of Sister Chromatid Cohesion,R-HSA-2468052,Reactome,1,no_qualifying_term,,,,8,core_labeled,,,
+363,3,no_qualifying_term,,,,1,no_qualifying_term,,,,4,no_qualifying_term,,,
+364,4,labeled,CMG complex,GO:0071162,GO_CC,0,empty_subset,,,,4,core_labeled,,,
+365,3,no_qualifying_term,,,,1,no_qualifying_term,,,,4,no_qualifying_term,,,
+366,6,labeled,protein phosphatase regulator activity,GO:0019888,GO_MF,1,no_qualifying_term,,,,7,core_labeled,,,
+367,4,labeled,immune response-inhibiting cell surface receptor signaling pathway,GO:0002767,GO_BP,0,empty_subset,,,,4,core_labeled,,,
+368,2,labeled,neuron recognition,GO:0008038,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+369,2,labeled,nuclear receptor activity,GO:0004879,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+37,2,labeled,Ephrin signaling,R-HSA-3928664,Reactome,0,empty_subset,,,,2,core_labeled,,,
+370,0,empty_subset,,,,4,labeled,FAR/SIP/STRIPAK complex,GO:0090443,GO_CC,4,labeled,FAR/SIP/STRIPAK complex,GO:0090443,GO_CC
+371,0,empty_subset,,,,6,labeled,"RNA polymerase II, core complex",GO:0005665,GO_CC,6,labeled,"RNA polymerase II, core complex",GO:0005665,GO_CC
+372,3,no_qualifying_term,,,,0,empty_subset,,,,3,no_qualifying_term,,,
+373,5,no_qualifying_term,,,,0,empty_subset,,,,5,no_qualifying_term,,,
+374,4,no_qualifying_term,,,,0,empty_subset,,,,4,no_qualifying_term,,,
+375,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+376,2,labeled,positive regulation of chromosome condensation,GO:1905821,GO_BP,2,labeled,positive regulation of chromosome condensation,GO:1905821,GO_BP,4,core_labeled,,,
+377,2,no_qualifying_term,,,,2,labeled,regeneration,GO:0031099,GO_BP,4,labeled,translesion synthesis,GO:0019985,GO_BP
+378,2,labeled,membrane insertase activity,GO:0032977,GO_MF,2,labeled,membrane insertase activity,GO:0032977,GO_MF,4,core_labeled,,,
+379,5,labeled,methyltransferase complex,GO:0034708,GO_CC,0,empty_subset,,,,5,core_labeled,,,
+38,4,labeled,estradiol 17-beta-dehydrogenase [NAD(P)+] activity,GO:0004303,GO_MF,0,empty_subset,,,,4,core_labeled,,,
+380,2,labeled,RNA helicase activity,GO:0003724,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+381,2,no_qualifying_term,,,,1,no_qualifying_term,,,,3,no_qualifying_term,,,
+382,6,labeled,Metalloprotease DUBs,R-HSA-5689901,Reactome,0,empty_subset,,,,6,core_labeled,,,
+383,0,empty_subset,,,,9,labeled,nucleolar exosome (RNase complex),GO:0101019,GO_CC,9,labeled,nucleolar exosome (RNase complex),GO:0101019,GO_CC
+384,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+385,3,no_qualifying_term,,,,0,empty_subset,,,,3,no_qualifying_term,,,
+386,4,no_qualifying_term,,,,1,no_qualifying_term,,,,5,labeled,NFE2L2 regulating anti-oxidant/detoxification enzymes,R-HSA-9818027,Reactome
+387,2,labeled,Regulation of endogenous retroelements by the Human Silencing Hub (HUSH) complex,R-HSA-9843970,Reactome,0,empty_subset,,,,2,core_labeled,,,
+388,1,no_qualifying_term,,,,10,labeled,rRNA processing,GO:0006364,GO_BP,11,labeled,ribosomal large subunit biogenesis,GO:0042273,GO_BP
+389,6,labeled,regulation of T-helper 17 cell differentiation,GO:2000319,GO_BP,0,empty_subset,,,,6,core_labeled,,,
+39,1,no_qualifying_term,,,,3,labeled,COPI-independent Golgi-to-ER retrograde traffic,R-HSA-6811436,Reactome,4,labeled,COPI-independent Golgi-to-ER retrograde traffic,R-HSA-6811436,Reactome
+390,4,labeled,Regulation of pyruvate dehydrogenase (PDH) complex,R-HSA-204174,Reactome,0,empty_subset,,,,4,core_labeled,,,
+391,3,labeled,The CRY:PER:kinase complex represses transactivation by the BMAL:CLOCK (ARNTL:CLOCK) complex,R-HSA-9931521,Reactome,0,empty_subset,,,,3,core_labeled,,,
+392,2,labeled,heterophilic cell-cell adhesion,GO:0007157,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+393,3,labeled,growth factor activity,GO:0008083,GO_MF,0,empty_subset,,,,3,core_labeled,,,
+394,3,labeled,exon-exon junction complex,GO:0035145,GO_CC,3,labeled,regulation of mRNA processing,GO:0050684,GO_BP,6,core_labeled,,,
+395,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,no_qualifying_term,,,
+396,3,labeled,viral genome replication,GO:0019079,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+397,2,labeled,Cul5-RING ubiquitin ligase complex,GO:0031466,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+398,2,labeled,EPHA-mediated growth cone collapse,R-HSA-3928663,Reactome,0,empty_subset,,,,2,core_labeled,,,
+399,4,no_qualifying_term,,,,5,labeled,pseudouridine synthesis,GO:0001522,GO_BP,9,labeled,ribosome biogenesis,GO:0042254,GO_BP
+4,2,no_qualifying_term,,,,1,no_qualifying_term,,,,3,labeled,"positive regulation of nuclear-transcribed mRNA catabolic process, deadenylation-dependent decay",GO:1900153,GO_BP
+40,2,labeled,transcription-dependent tethering of RNA polymerase II gene DNA at nuclear periphery,GO:0000972,GO_BP,2,no_qualifying_term,,,,4,core_labeled,,,
+400,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+401,2,labeled,detection of bacterium,GO:0016045,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+402,3,labeled,regulation of ARF protein signal transduction,GO:0032012,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+403,3,labeled,Formation of WDR5-containing histone-modifying complexes,R-HSA-9772755,Reactome,1,no_qualifying_term,,,,4,core_labeled,,,
+404,3,labeled,inner ear development,GO:0048839,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+405,2,labeled,mRNA decay by 3' to 5' exoribonuclease,R-HSA-429958,Reactome,0,empty_subset,,,,2,core_labeled,,,
+406,2,labeled,apoptotic cell clearance,GO:0043277,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+407,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,no_qualifying_term,,,
+408,6,labeled,RSV-host interactions,R-HSA-9833110,Reactome,14,labeled,mediator complex,GO:0016592,GO_CC,20,core_labeled,,,
+409,0,empty_subset,,,,4,labeled,transcription factor TFTC complex,GO:0033276,GO_CC,4,labeled,transcription factor TFTC complex,GO:0033276,GO_CC
+41,2,labeled,succinyl-CoA metabolic process,GO:0006104,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+410,1,no_qualifying_term,,,,2,no_qualifying_term,,,,3,labeled,transcription factor TFTC complex,GO:0033276,GO_CC
+411,2,labeled,protection from non-homologous end joining at telomere,GO:0031848,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+412,1,no_qualifying_term,,,,2,labeled,RUNX3 regulates YAP1-mediated transcription,R-HSA-8951671,Reactome,3,labeled,RUNX3 regulates YAP1-mediated transcription,R-HSA-8951671,Reactome
+413,2,labeled,regulation of glucose metabolic process,GO:0010906,GO_BP,3,labeled,regulation of tubulin deacetylation,GO:0090043,GO_BP,5,core_labeled,,,
+414,3,labeled,cerebral cortex development,GO:0021987,GO_BP,1,no_qualifying_term,,,,4,core_labeled,,,
+415,4,labeled,RISC complex assembly,GO:0070922,GO_BP,0,empty_subset,,,,4,core_labeled,,,
+416,2,labeled,siRNA binding,GO:0035197,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+417,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,no_qualifying_term,,,
+418,1,no_qualifying_term,,,,15,labeled,mediator complex,GO:0016592,GO_CC,16,labeled,mediator complex,GO:0016592,GO_CC
+419,2,labeled,box C/D snoRNP assembly,GO:0000492,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+42,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+420,4,labeled,ribosome-associated ubiquitin-dependent protein catabolic process,GO:1990116,GO_BP,0,empty_subset,,,,4,core_labeled,,,
+421,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+422,2,labeled,protein localization to microtubule,GO:0035372,GO_BP,1,no_qualifying_term,,,,3,core_labeled,,,
+423,3,labeled,U11/U12 snRNP,GO:0034693,GO_CC,0,empty_subset,,,,3,core_labeled,,,
+424,6,no_qualifying_term,,,,0,empty_subset,,,,6,no_qualifying_term,,,
+425,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,p38MAPK events,R-HSA-171007,Reactome
+426,8,labeled,Cargo recognition for clathrin-mediated endocytosis,R-HSA-8856825,Reactome,1,no_qualifying_term,,,,9,core_labeled,,,
+427,2,labeled,"retrograde vesicle-mediated transport, Golgi to endoplasmic reticulum",GO:0006890,GO_BP,2,labeled,"retrograde vesicle-mediated transport, Golgi to endoplasmic reticulum",GO:0006890,GO_BP,4,core_labeled,,,
+428,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,septin ring,GO:0005940,GO_CC
+429,2,labeled,activation of protein kinase activity,GO:0032147,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+43,4,labeled,protein geranylgeranyltransferase activity,GO:0004661,GO_MF,0,empty_subset,,,,4,core_labeled,,,
+430,2,labeled,bHLH transcription factor binding,GO:0043425,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+431,3,labeled,lysosomal lumen acidification,GO:0007042,GO_BP,1,no_qualifying_term,,,,4,core_labeled,,,
+432,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+433,3,no_qualifying_term,,,,0,empty_subset,,,,3,no_qualifying_term,,,
+434,1,no_qualifying_term,,,,2,labeled,PP2A-mediated dephosphorylation of key metabolic factors,R-HSA-163767,Reactome,3,labeled,Co-stimulation by CD28,R-HSA-389356,Reactome
+435,3,labeled,ERK1 and ERK2 cascade,GO:0070371,GO_BP,1,no_qualifying_term,,,,4,core_labeled,,,
+436,2,no_qualifying_term,,,,3,labeled,mitochondrial large ribosomal subunit,GO:0005762,GO_CC,5,labeled,mitochondrial large ribosomal subunit,GO:0005762,GO_CC
+437,2,no_qualifying_term,,,,5,labeled,RHOBTB2 GTPase cycle,R-HSA-9013418,Reactome,7,labeled,RHOBTB2 GTPase cycle,R-HSA-9013418,Reactome
+438,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+439,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,protein heterotetramerization,GO:0051290,GO_BP
+44,3,labeled,Formation of WDR5-containing histone-modifying complexes,R-HSA-9772755,Reactome,1,no_qualifying_term,,,,4,core_labeled,,,
+440,0,empty_subset,,,,2,labeled,vascular endothelial growth factor receptor signaling pathway,GO:0048010,GO_BP,2,labeled,vascular endothelial growth factor receptor signaling pathway,GO:0048010,GO_BP
+441,2,labeled,septin cytoskeleton,GO:0032156,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+442,0,empty_subset,,,,2,no_qualifying_term,,,,2,no_qualifying_term,,,
+443,3,labeled,CYP2E1 reactions,R-HSA-211999,Reactome,0,empty_subset,,,,3,core_labeled,,,
+444,4,labeled,glutathione transferase activity,GO:0004364,GO_MF,0,empty_subset,,,,4,core_labeled,,,
+445,1,no_qualifying_term,,,,2,no_qualifying_term,,,,3,no_qualifying_term,,,
+446,3,labeled,phosphorylase kinase complex,GO:0005964,GO_CC,1,no_qualifying_term,,,,4,core_labeled,,,
+447,2,labeled,insulin secretion involved in cellular response to glucose stimulus,GO:0035773,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+448,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+449,2,labeled,purine nucleotide salvage,GO:0032261,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+45,3,labeled,COPI vesicle coat,GO:0030126,GO_CC,2,labeled,COPI vesicle coat,GO:0030126,GO_CC,5,core_labeled,,,
+450,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,"vacuolar proton-transporting V-type ATPase, V1 domain",GO:0000221,GO_CC
+451,3,labeled,phosphofructokinase activity,GO:0008443,GO_MF,0,empty_subset,,,,3,core_labeled,,,
+452,2,labeled,3'-phosphoadenosine 5'-phosphosulfate metabolic process,GO:0050427,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+453,7,labeled,SAM complex,GO:0001401,GO_CC,0,empty_subset,,,,7,core_labeled,,,
+454,4,no_qualifying_term,,,,0,empty_subset,,,,4,no_qualifying_term,,,
+455,2,labeled,translation repressor activity,GO:0030371,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+456,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+457,3,no_qualifying_term,,,,2,labeled,centriolar satellite,GO:0034451,GO_CC,5,labeled,centriolar satellite,GO:0034451,GO_CC
+458,0,empty_subset,,,,2,labeled,centriolar satellite,GO:0034451,GO_CC,2,labeled,centriolar satellite,GO:0034451,GO_CC
+459,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+46,0,empty_subset,,,,3,labeled,Nef Mediated CD4 Down-regulation,R-HSA-167590,Reactome,3,labeled,Nef Mediated CD4 Down-regulation,R-HSA-167590,Reactome
+460,2,labeled,ubiquitin-like protein conjugating enzyme binding,GO:0044390,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+461,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+462,6,labeled,activation of GTPase activity,GO:0090630,GO_BP,0,empty_subset,,,,6,core_labeled,,,
+463,2,labeled,glucose 6-phosphate metabolic process,GO:0051156,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+464,2,labeled,antigen processing and presentation of peptide antigen via MHC class II,GO:0002495,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+465,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+466,2,labeled,collagen binding,GO:0005518,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+467,3,labeled,negative regulation of type II interferon production,GO:0032689,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+468,4,no_qualifying_term,,,,1,no_qualifying_term,,,,5,no_qualifying_term,,,
+469,3,no_qualifying_term,,,,0,empty_subset,,,,3,no_qualifying_term,,,
+47,2,labeled,p38MAPK events,R-HSA-171007,Reactome,0,empty_subset,,,,2,core_labeled,,,
+470,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+471,2,no_qualifying_term,,,,2,labeled,NatA complex,GO:0031415,GO_CC,4,labeled,NatA complex,GO:0031415,GO_CC
+472,5,labeled,BBSome,GO:0034464,GO_CC,0,empty_subset,,,,5,core_labeled,,,
+473,2,labeled,spectrin binding,GO:0030507,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+474,2,labeled,snRNA processing,GO:0016180,GO_BP,3,labeled,pseudouridine synthesis,GO:0001522,GO_BP,5,core_labeled,,,
+475,1,no_qualifying_term,,,,3,labeled,negative regulation of stem cell population maintenance,GO:1902455,GO_BP,4,labeled,negative regulation of stem cell population maintenance,GO:1902455,GO_BP
+476,1,no_qualifying_term,,,,8,labeled,mitochondrial large ribosomal subunit,GO:0005762,GO_CC,9,labeled,mitochondrial large ribosomal subunit,GO:0005762,GO_CC
+477,3,labeled,molecular carrier activity,GO:0140104,GO_MF,0,empty_subset,,,,3,core_labeled,,,
+478,3,labeled,Sin3-type complex,GO:0070822,GO_CC,20,labeled,Regulation of endogenous retroelements by Piwi-interacting RNAs (piRNAs),R-HSA-9845323,Reactome,23,core_labeled,,,
+479,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,no_qualifying_term,,,
+48,4,labeled,COPII vesicle coat,GO:0030127,GO_CC,0,empty_subset,,,,4,core_labeled,,,
+480,5,labeled,Polo-like kinase mediated events,R-HSA-156711,Reactome,0,empty_subset,,,,5,core_labeled,,,
+481,7,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC,11,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC,18,core_labeled,,,
+482,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+483,3,no_qualifying_term,,,,0,empty_subset,,,,3,no_qualifying_term,,,
+484,2,labeled,Generic Transcription Pathway,R-HSA-212436,Reactome,0,empty_subset,,,,2,core_labeled,,,
+485,6,labeled,regulation of barbed-end actin filament capping,GO:2000812,GO_BP,1,no_qualifying_term,,,,7,core_labeled,,,
+486,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+487,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,no_qualifying_term,,,
+488,3,labeled,EARP complex,GO:1990745,GO_CC,1,no_qualifying_term,,,,4,core_labeled,,,
+489,5,labeled,GPI anchor biosynthetic process,GO:0006506,GO_BP,0,empty_subset,,,,5,core_labeled,,,
+49,2,labeled,mitochondrial DNA metabolic process,GO:0032042,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+490,4,labeled,plasma membrane tubulation,GO:0097320,GO_BP,0,empty_subset,,,,4,core_labeled,,,
+491,0,empty_subset,,,,4,labeled,endocytic recycling,GO:0032456,GO_BP,4,labeled,endocytic recycling,GO:0032456,GO_BP
+492,4,labeled,U5 snRNP,GO:0005682,GO_CC,0,empty_subset,,,,4,core_labeled,,,
+493,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+494,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+495,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+496,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+497,2,labeled,transcription factor TFIID complex,GO:0005669,GO_CC,2,labeled,transcription factor TFIID complex,GO:0005669,GO_CC,4,core_labeled,,,
+498,5,labeled,poly(A)+ mRNA export from nucleus,GO:0016973,GO_BP,0,empty_subset,,,,5,core_labeled,,,
+499,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+5,2,no_qualifying_term,,,,1,no_qualifying_term,,,,3,labeled,regulation of exit from mitosis,GO:0007096,GO_BP
+50,11,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC,0,empty_subset,,,,11,core_labeled,,,
+500,3,labeled,protein transmembrane import into intracellular organelle,GO:0044743,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+501,3,labeled,membrane insertase activity,GO:0032977,GO_MF,2,labeled,membrane insertase activity,GO:0032977,GO_MF,5,core_labeled,,,
+502,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,integrator complex,GO:0032039,GO_CC
+503,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,no_qualifying_term,,,
+504,2,labeled,Sin3-type complex,GO:0070822,GO_CC,2,labeled,Sin3-type complex,GO:0070822,GO_CC,4,core_labeled,,,
+505,2,no_qualifying_term,,,,2,no_qualifying_term,,,,4,labeled,laminin binding,GO:0043236,GO_MF
+506,2,labeled,Nuclear RNA decay,R-HSA-9930044,Reactome,4,labeled,Nuclear RNA decay,R-HSA-9930044,Reactome,6,core_labeled,,,
+507,2,labeled,U12-type catalytic step 2 spliceosome,GO:0071018,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+508,3,labeled,structural constituent of nuclear pore,GO:0017056,GO_MF,0,empty_subset,,,,3,core_labeled,,,
+509,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+51,5,labeled,regulation of chromatin organization,GO:1902275,GO_BP,1,no_qualifying_term,,,,6,core_labeled,,,
+510,3,no_qualifying_term,,,,1,no_qualifying_term,,,,4,no_qualifying_term,,,
+511,0,empty_subset,,,,4,labeled,rixosome complex,GO:0120330,GO_CC,4,labeled,rixosome complex,GO:0120330,GO_CC
+512,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+513,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+514,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+515,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+516,3,labeled,integrated stress response signaling,GO:0140467,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+517,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+518,1,no_qualifying_term,,,,9,labeled,mitochondrial large ribosomal subunit,GO:0005762,GO_CC,10,labeled,mitochondrial large ribosomal subunit,GO:0005762,GO_CC
+519,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+52,4,labeled,shelterin complex,GO:0070187,GO_CC,0,empty_subset,,,,4,core_labeled,,,
+520,3,labeled,Fc receptor signaling pathway,GO:0038093,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+521,3,labeled,calcium ion sensor activity,GO:0061891,GO_MF,0,empty_subset,,,,3,core_labeled,,,
+522,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+523,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,no_qualifying_term,,,
+524,4,labeled,INTAC complex,GO:0160232,GO_CC,6,labeled,INTAC complex,GO:0160232,GO_CC,10,core_labeled,,,
+525,2,labeled,Cul4-RING E3 ubiquitin ligase complex,GO:0080008,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+526,3,labeled,mismatch repair,GO:0006298,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+527,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+528,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+529,3,labeled,Cul2-RING ubiquitin ligase complex,GO:0031462,GO_CC,0,empty_subset,,,,3,core_labeled,,,
+53,3,labeled,voltage-gated calcium channel complex,GO:0005891,GO_CC,0,empty_subset,,,,3,core_labeled,,,
+530,2,labeled,membrane insertase activity,GO:0032977,GO_MF,1,no_qualifying_term,,,,3,core_labeled,,,
+531,1,no_qualifying_term,,,,2,labeled,FAR/SIP/STRIPAK complex,GO:0090443,GO_CC,3,labeled,FAR/SIP/STRIPAK complex,GO:0090443,GO_CC
+532,3,labeled,RHOQ GTPase cycle,R-HSA-9013406,Reactome,0,empty_subset,,,,3,core_labeled,,,
+533,2,labeled,RNA polymerase II C-terminal domain binding,GO:0099122,GO_MF,1,no_qualifying_term,,,,3,core_labeled,,,
+534,2,labeled,Cul2-RING ubiquitin ligase complex,GO:0031462,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+535,2,labeled,E3 ubiquitin ligases ubiquitinate target proteins,R-HSA-8866654,Reactome,0,empty_subset,,,,2,core_labeled,,,
+536,2,labeled,Cul4-RING E3 ubiquitin ligase complex,GO:0080008,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+537,2,labeled,maintenance of protein location in nucleus,GO:0051457,GO_BP,4,labeled,transcription factor TFIID complex,GO:0005669,GO_CC,6,core_labeled,,,
+538,3,labeled,positive regulation of autophagosome assembly,GO:2000786,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+539,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,no_qualifying_term,,,
+54,4,labeled,NLS-bearing protein import into nucleus,GO:0006607,GO_BP,1,no_qualifying_term,,,,5,core_labeled,,,
+540,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+541,3,labeled,regulation of RNA splicing,GO:0043484,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+542,3,no_qualifying_term,,,,0,empty_subset,,,,3,no_qualifying_term,,,
+543,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+544,5,labeled,positive regulation of early endosome to late endosome transport,GO:2000643,GO_BP,0,empty_subset,,,,5,core_labeled,,,
+545,5,labeled,AP-1 adaptor complex,GO:0030121,GO_CC,1,no_qualifying_term,,,,6,core_labeled,,,
+546,3,labeled,trans-Golgi network,GO:0005802,GO_CC,0,empty_subset,,,,3,core_labeled,,,
+547,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,no_qualifying_term,,,
+548,0,empty_subset,,,,4,labeled,MASTL Facilitates Mitotic Progression,R-HSA-2465910,Reactome,4,labeled,MASTL Facilitates Mitotic Progression,R-HSA-2465910,Reactome
+549,2,labeled,microautophagy,GO:0016237,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+55,2,labeled,glycerophospholipase activity,GO:0004620,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+550,2,no_qualifying_term,,,,15,labeled,RSC-type complex,GO:0016586,GO_CC,17,labeled,RSC-type complex,GO:0016586,GO_CC
+551,3,labeled,photoreceptor connecting cilium,GO:0032391,GO_CC,0,empty_subset,,,,3,core_labeled,,,
+552,2,labeled,HAUS complex,GO:0070652,GO_CC,2,labeled,HAUS complex,GO:0070652,GO_CC,4,core_labeled,,,
+553,3,labeled,H4 histone acetyltransferase complex,GO:1902562,GO_CC,0,empty_subset,,,,3,core_labeled,,,
+554,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+555,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+556,2,labeled,cytosolic [4Fe-4S] assembly targeting complex,GO:0097361,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+557,3,no_qualifying_term,,,,0,empty_subset,,,,3,no_qualifying_term,,,
+558,3,labeled,tRNA wobble uridine modification,GO:0002098,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+559,4,labeled,condensin complex,GO:0000796,GO_CC,2,labeled,positive regulation of chromosome condensation,GO:1905821,GO_BP,6,core_labeled,,,
+56,3,labeled,polyamine biosynthetic process,GO:0006596,GO_BP,1,no_qualifying_term,,,,4,core_labeled,,,
+560,5,labeled,histone H3K14 acetyltransferase activity,GO:0036408,GO_MF,0,empty_subset,,,,5,core_labeled,,,
+561,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+562,2,labeled,pore complex,GO:0046930,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+563,2,labeled,maintenance of mitotic sister chromatid cohesion,GO:0034088,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+564,0,empty_subset,,,,4,labeled,NatA complex,GO:0031415,GO_CC,4,labeled,NatA complex,GO:0031415,GO_CC
+565,2,labeled,hormone activity,GO:0005179,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+566,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+567,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+568,4,no_qualifying_term,,,,1,no_qualifying_term,,,,5,no_qualifying_term,,,
+569,0,empty_subset,,,,4,labeled,microtubule nucleation,GO:0007020,GO_BP,4,labeled,microtubule nucleation,GO:0007020,GO_BP
+57,2,labeled,AMP-activated protein kinase activity,GO:0004679,GO_MF,1,no_qualifying_term,,,,3,core_labeled,,,
+570,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+571,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+572,5,labeled,Cdc73/Paf1 complex,GO:0016593,GO_CC,0,empty_subset,,,,5,core_labeled,,,
+573,2,labeled,outer kinetochore,GO:0000940,GO_CC,4,labeled,outer kinetochore,GO:0000940,GO_CC,6,core_labeled,,,
+574,1,no_qualifying_term,,,,2,no_qualifying_term,,,,3,labeled,mitochondrial large ribosomal subunit,GO:0005762,GO_CC
+575,2,labeled,establishment or maintenance of epithelial cell apical/basal polarity,GO:0045197,GO_BP,1,no_qualifying_term,,,,3,core_labeled,,,
+576,4,labeled,mRNA decay by 5' to 3' exoribonuclease,R-HSA-430039,Reactome,3,labeled,RNA decapping complex,GO:0098745,GO_CC,7,core_labeled,,,
+577,2,labeled,intramolecular oxidoreductase activity,GO:0016860,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+578,2,labeled,CENP-A containing chromatin assembly,GO:0034080,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+579,0,empty_subset,,,,4,labeled,Ino80 complex,GO:0031011,GO_CC,4,labeled,Ino80 complex,GO:0031011,GO_CC
+58,3,labeled,Lipophagy,R-HSA-9613354,Reactome,1,no_qualifying_term,,,,4,core_labeled,,,
+580,1,no_qualifying_term,,,,2,labeled,gamma-tubulin ring complex,GO:0000931,GO_CC,3,labeled,gamma-tubulin ring complex,GO:0000931,GO_CC
+581,1,no_qualifying_term,,,,5,labeled,INTAC complex,GO:0160232,GO_CC,6,labeled,INTAC complex,GO:0160232,GO_CC
+582,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+583,3,labeled,regulation of potassium ion transmembrane transport,GO:1901379,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+584,3,labeled,Aflatoxin activation and detoxification,R-HSA-5423646,Reactome,0,empty_subset,,,,3,core_labeled,,,
+585,2,no_qualifying_term,,,,2,labeled,PTW/PP1 phosphatase complex,GO:0072357,GO_CC,4,labeled,protein phosphatase 1 binding,GO:0008157,GO_MF
+586,2,labeled,actin filament,GO:0005884,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+587,3,labeled,endosome to melanosome transport,GO:0035646,GO_BP,1,no_qualifying_term,,,,4,core_labeled,,,
+588,3,labeled,BLOC-1 complex,GO:0031083,GO_CC,1,no_qualifying_term,,,,4,core_labeled,,,
+589,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+59,3,labeled,"3',5'-cyclic-AMP phosphodiesterase activity",GO:0004115,GO_MF,0,empty_subset,,,,3,core_labeled,,,
+590,1,no_qualifying_term,,,,2,labeled,dicarboxylic acid metabolic process,GO:0043648,GO_BP,3,labeled,dicarboxylic acid metabolic process,GO:0043648,GO_BP
+591,1,no_qualifying_term,,,,4,labeled,mRNA cleavage and polyadenylation specificity factor complex,GO:0005847,GO_CC,5,labeled,mRNA cleavage and polyadenylation specificity factor complex,GO:0005847,GO_CC
+592,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+593,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,no_qualifying_term,,,
+594,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,phagocytic vesicle membrane,GO:0030670,GO_CC
+595,3,labeled,negative regulation of translational initiation,GO:0045947,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+596,2,labeled,Generic Transcription Pathway,R-HSA-212436,Reactome,0,empty_subset,,,,2,core_labeled,,,
+597,2,labeled,septin ring,GO:0005940,GO_CC,6,labeled,septin ring,GO:0005940,GO_CC,8,core_labeled,,,
+598,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,G alpha (i) signalling events,R-HSA-418594,Reactome
+599,5,no_qualifying_term,,,,0,empty_subset,,,,5,no_qualifying_term,,,
+6,3,labeled,regulation of peptidyl-serine phosphorylation,GO:0033135,GO_BP,1,no_qualifying_term,,,,4,core_labeled,,,
+60,3,labeled,carboxylic acid catabolic process,GO:0046395,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+600,1,no_qualifying_term,,,,3,labeled,transcription factor TFIIH core complex,GO:0000439,GO_CC,4,labeled,transcription factor TFIIH core complex,GO:0000439,GO_CC
+601,6,labeled,PTK6 Regulates RTKs and Their Effectors AKT1 and DOK1,R-HSA-8849469,Reactome,1,no_qualifying_term,,,,7,core_labeled,,,
+602,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,INTAC complex,GO:0160232,GO_CC
+603,3,labeled,ribosomal small subunit binding,GO:0043024,GO_MF,0,empty_subset,,,,3,core_labeled,,,
+604,3,labeled,UCH proteinases,R-HSA-5689603,Reactome,0,empty_subset,,,,3,core_labeled,,,
+605,2,labeled,Butyrophilin (BTN) family interactions,R-HSA-8851680,Reactome,0,empty_subset,,,,2,core_labeled,,,
+606,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+607,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+608,3,labeled,MTOR signalling,R-HSA-165159,Reactome,0,empty_subset,,,,3,core_labeled,,,
+609,4,labeled,post-translational protein targeting to endoplasmic reticulum membrane,GO:0006620,GO_BP,0,empty_subset,,,,4,core_labeled,,,
+61,3,labeled,retinoic acid receptor signaling pathway,GO:0048384,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+610,1,no_qualifying_term,,,,3,labeled,GID complex,GO:0034657,GO_CC,4,labeled,GID complex,GO:0034657,GO_CC
+611,4,labeled,hippo signaling,GO:0035329,GO_BP,0,empty_subset,,,,4,core_labeled,,,
+612,2,labeled,DNA synthesis involved in DNA repair,GO:0000731,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+613,3,no_qualifying_term,,,,1,no_qualifying_term,,,,4,labeled,protein dimerization activity,GO:0046983,GO_MF
+614,3,labeled,U2-type catalytic step 1 spliceosome,GO:0071006,GO_CC,15,labeled,U2-type catalytic step 1 spliceosome,GO:0071006,GO_CC,18,core_labeled,,,
+615,3,labeled,TRAPPIII protein complex,GO:1990072,GO_CC,2,labeled,TRAPPIII protein complex,GO:1990072,GO_CC,5,core_labeled,,,
+616,2,labeled,structural constituent of nuclear pore,GO:0017056,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+617,2,no_qualifying_term,,,,2,no_qualifying_term,,,,4,labeled,endocytic recycling,GO:0032456,GO_BP
+618,5,no_qualifying_term,,,,0,empty_subset,,,,5,no_qualifying_term,,,
+619,4,labeled,RNA stem-loop binding,GO:0035613,GO_MF,1,no_qualifying_term,,,,5,core_labeled,,,
+62,3,labeled,positive regulation of non-canonical NF-kappaB signal transduction,GO:1901224,GO_BP,4,labeled,vesicle uncoating,GO:0072319,GO_BP,7,core_labeled,,,
+620,1,no_qualifying_term,,,,2,labeled,Golgi to plasma membrane transport,GO:0006893,GO_BP,3,labeled,endocytic recycling,GO:0032456,GO_BP
+621,2,labeled,HAUS complex,GO:0070652,GO_CC,1,no_qualifying_term,,,,3,core_labeled,,,
+622,5,labeled,protein localization to non-motile cilium,GO:0097499,GO_BP,1,no_qualifying_term,,,,6,core_labeled,,,
+623,4,labeled,Maturation of spike protein,R-HSA-9694548,Reactome,0,empty_subset,,,,4,core_labeled,,,
+624,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+625,2,no_qualifying_term,,,,1,no_qualifying_term,,,,3,no_qualifying_term,,,
+626,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+627,2,labeled,glial cell migration,GO:0008347,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+628,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,ESCRT I complex,GO:0000813,GO_CC
+629,4,labeled,mitotic spindle assembly checkpoint signaling,GO:0007094,GO_BP,0,empty_subset,,,,4,core_labeled,,,
+63,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+630,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+631,2,labeled,COPII-coated ER to Golgi transport vesicle,GO:0030134,GO_CC,2,labeled,Golgi vesicle budding,GO:0048194,GO_BP,4,core_labeled,,,
+632,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+633,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+634,2,labeled,mRNA decay by 5' to 3' exoribonuclease,R-HSA-430039,Reactome,0,empty_subset,,,,2,core_labeled,,,
+635,0,empty_subset,,,,3,labeled,SAGA complex,GO:0000124,GO_CC,3,labeled,SAGA complex,GO:0000124,GO_CC
+636,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,"mitochondrial electron transport, NADH to ubiquinone",GO:0006120,GO_BP
+637,2,labeled,RNA helicase activity,GO:0003724,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+638,2,labeled,fatty acyl-CoA hydrolase activity,GO:0047617,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+639,2,labeled,regulation of chromatin organization,GO:1902275,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+64,2,labeled,methyl-CpG binding,GO:0008327,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+640,0,empty_subset,,,,2,labeled,cAMP-dependent protein kinase complex,GO:0005952,GO_CC,2,labeled,cAMP-dependent protein kinase complex,GO:0005952,GO_CC
+641,2,labeled,U4atac/U6atac x U5 tri-snRNP complex,GO:0071009,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+642,3,labeled,regulation of Rac protein signal transduction,GO:0035020,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+643,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+644,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,ciliary tip,GO:0097542,GO_CC
+645,3,labeled,protein transport to vacuole involved in ubiquitin-dependent protein catabolic process via the multivesicular body sorting pathway,GO:0043328,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+646,1,no_qualifying_term,,,,2,no_qualifying_term,,,,3,labeled,endocytic recycling,GO:0032456,GO_BP
+647,2,labeled,intraciliary transport involved in cilium assembly,GO:0035735,GO_BP,1,no_qualifying_term,,,,3,core_labeled,,,
+648,0,empty_subset,,,,4,labeled,endocytic recycling,GO:0032456,GO_BP,4,labeled,endocytic recycling,GO:0032456,GO_BP
+649,3,labeled,retinoic acid metabolic process,GO:0042573,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+65,2,labeled,fatty acid beta-oxidation,GO:0006635,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+650,3,labeled,glutamate receptor binding,GO:0035254,GO_MF,0,empty_subset,,,,3,core_labeled,,,
+651,4,no_qualifying_term,,,,0,empty_subset,,,,4,no_qualifying_term,,,
+652,2,labeled,cleavage furrow,GO:0032154,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+653,2,labeled,mediator complex,GO:0016592,GO_CC,1,no_qualifying_term,,,,3,core_labeled,,,
+654,2,labeled,serine-type endopeptidase activity,GO:0004252,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+655,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+656,3,no_qualifying_term,,,,3,no_qualifying_term,,,,6,labeled,modified amino acid metabolic process,GO:0006575,GO_BP
+657,1,no_qualifying_term,,,,2,labeled,GID complex,GO:0034657,GO_CC,3,labeled,GID complex,GO:0034657,GO_CC
+658,2,labeled,centriolar satellite,GO:0034451,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+659,2,no_qualifying_term,,,,1,no_qualifying_term,,,,3,labeled,Degradation of the extracellular matrix,R-HSA-1474228,Reactome
+66,9,labeled,SCAR complex,GO:0031209,GO_CC,2,labeled,regulation of actin filament polymerization,GO:0030833,GO_BP,11,core_labeled,,,
+660,2,no_qualifying_term,,,,1,no_qualifying_term,,,,3,labeled,GID complex,GO:0034657,GO_CC
+661,3,labeled,lipid transfer activity,GO:0120013,GO_MF,0,empty_subset,,,,3,core_labeled,,,
+662,4,labeled,PRC1 complex,GO:0035102,GO_CC,0,empty_subset,,,,4,core_labeled,,,
+663,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+664,2,labeled,BBSome,GO:0034464,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+665,2,labeled,spindle assembly involved in female meiosis,GO:0007056,GO_BP,1,no_qualifying_term,,,,3,core_labeled,,,
+666,3,labeled,endoplasmic reticulum exit site,GO:0070971,GO_CC,0,empty_subset,,,,3,core_labeled,,,
+667,4,labeled,transcription pausing by RNA polymerase II,GO:0160239,GO_BP,0,empty_subset,,,,4,core_labeled,,,
+668,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+669,2,no_qualifying_term,,,,4,labeled,mitochondrial large ribosomal subunit,GO:0005762,GO_CC,6,labeled,mitochondrial large ribosomal subunit,GO:0005762,GO_CC
+67,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+670,2,labeled,positive regulation of defense response to virus by host,GO:0002230,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+671,4,labeled,RNA polymerase core enzyme binding,GO:0043175,GO_MF,1,no_qualifying_term,,,,5,core_labeled,,,
+672,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+673,0,empty_subset,,,,4,labeled,Smc5-Smc6 complex,GO:0030915,GO_CC,4,labeled,Smc5-Smc6 complex,GO:0030915,GO_CC
+674,6,labeled,intraciliary transport particle B,GO:0030992,GO_CC,0,empty_subset,,,,6,core_labeled,,,
+675,3,labeled,nucleotide-excision repair complex,GO:0000109,GO_CC,0,empty_subset,,,,3,core_labeled,,,
+676,1,no_qualifying_term,,,,2,labeled,regulation of tubulin deacetylation,GO:0090043,GO_BP,3,labeled,regulation of tubulin deacetylation,GO:0090043,GO_BP
+677,4,labeled,exocyst,GO:0000145,GO_CC,3,labeled,exocyst,GO:0000145,GO_CC,7,core_labeled,,,
+678,5,labeled,neurexin family protein binding,GO:0042043,GO_MF,0,empty_subset,,,,5,core_labeled,,,
+679,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+68,4,labeled,positive regulation of snRNA transcription by RNA polymerase II,GO:1905382,GO_BP,2,labeled,transcription elongation factor complex,GO:0008023,GO_CC,6,core_labeled,,,
+680,2,labeled,calcium import into the mitochondrion,GO:0036444,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+681,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+682,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+683,1,no_qualifying_term,,,,2,labeled,RNA decapping complex,GO:0098745,GO_CC,3,labeled,RNA decapping complex,GO:0098745,GO_CC
+684,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+685,3,labeled,"asymmetric, glutamatergic, excitatory synapse",GO:0098985,GO_CC,0,empty_subset,,,,3,core_labeled,,,
+686,2,labeled,intramolecular phosphotransferase activity,GO:0016868,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+687,1,no_qualifying_term,,,,5,labeled,nuclear-transcribed mRNA poly(A) tail shortening,GO:0000289,GO_BP,6,labeled,nuclear-transcribed mRNA poly(A) tail shortening,GO:0000289,GO_BP
+688,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,EARP complex,GO:1990745,GO_CC
+689,2,labeled,gamma-aminobutyric acid signaling pathway,GO:0007214,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+69,2,labeled,nucleosome assembly,GO:0006334,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+690,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+691,2,labeled,Protein hydroxylation,R-HSA-9629569,Reactome,0,empty_subset,,,,2,core_labeled,,,
+692,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+693,3,labeled,histone methyltransferase binding,GO:1990226,GO_MF,1,no_qualifying_term,,,,4,core_labeled,,,
+694,4,labeled,inhibitory MHC class I receptor activity,GO:0032396,GO_MF,0,empty_subset,,,,4,core_labeled,,,
+695,0,empty_subset,,,,2,labeled,PRC1 complex,GO:0035102,GO_CC,2,labeled,PRC1 complex,GO:0035102,GO_CC
+696,4,labeled,glucose homeostasis,GO:0042593,GO_BP,0,empty_subset,,,,4,core_labeled,,,
+697,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+698,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+699,2,labeled,protein monoubiquitination,GO:0006513,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+7,3,labeled,cyclin/CDK positive transcription elongation factor complex,GO:0008024,GO_CC,0,empty_subset,,,,3,core_labeled,,,
+70,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+700,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+701,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,no_qualifying_term,,,
+702,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+703,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+704,3,no_qualifying_term,,,,0,empty_subset,,,,3,no_qualifying_term,,,
+705,2,labeled,centriolar satellite,GO:0034451,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+706,3,labeled,Oncogene Induced Senescence,R-HSA-2559585,Reactome,0,empty_subset,,,,3,core_labeled,,,
+707,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+708,2,labeled,Generation of second messenger molecules,R-HSA-202433,Reactome,0,empty_subset,,,,2,core_labeled,,,
+709,1,no_qualifying_term,,,,6,labeled,mitochondrial large ribosomal subunit,GO:0005762,GO_CC,7,labeled,mitochondrial large ribosomal subunit,GO:0005762,GO_CC
+71,2,no_qualifying_term,,,,5,no_qualifying_term,,,,7,no_qualifying_term,,,
+710,2,labeled,phospholipid catabolic process,GO:0009395,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+711,3,labeled,calcium-dependent activation of synaptic vesicle fusion,GO:0099502,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+712,3,no_qualifying_term,,,,0,empty_subset,,,,3,no_qualifying_term,,,
+713,0,empty_subset,,,,7,labeled,Ino80 complex,GO:0031011,GO_CC,7,labeled,Ino80 complex,GO:0031011,GO_CC
+714,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,clathrin vesicle coat,GO:0030125,GO_CC
+715,2,labeled,male germ cell nucleus,GO:0001673,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+716,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+717,2,labeled,L-methionine metabolic process,GO:0006555,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+718,0,empty_subset,,,,3,labeled,"vacuolar proton-transporting V-type ATPase, V1 domain",GO:0000221,GO_CC,3,labeled,"vacuolar proton-transporting V-type ATPase, V1 domain",GO:0000221,GO_CC
+719,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,ESCRT I complex,GO:0000813,GO_CC
+72,2,labeled,beta-catenin binding,GO:0008013,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+720,2,no_qualifying_term,,,,1,no_qualifying_term,,,,3,labeled,cellular response to chemokine,GO:1990869,GO_BP
+721,2,labeled,plus-end-directed microtubule motor activity,GO:0008574,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+722,1,no_qualifying_term,,,,2,labeled,nuclear pore outer ring,GO:0031080,GO_CC,3,labeled,nuclear pore outer ring,GO:0031080,GO_CC
+723,2,no_qualifying_term,,,,2,no_qualifying_term,,,,4,no_qualifying_term,,,
+724,2,labeled,regulation of inclusion body assembly,GO:0090083,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+725,3,labeled,dorsal/ventral pattern formation,GO:0009953,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+726,2,labeled,Conversion from APC/C:Cdc20 to APC/C:Cdh1 in late anaphase,R-HSA-176407,Reactome,5,labeled,anaphase-promoting complex,GO:0005680,GO_CC,7,core_labeled,,,
+727,3,labeled,plus-end-directed microtubule motor activity,GO:0008574,GO_MF,2,labeled,PTW/PP1 phosphatase complex,GO:0072357,GO_CC,5,core_labeled,,,
+728,0,empty_subset,,,,28,labeled,Somitogenesis,R-HSA-9824272,Reactome,28,labeled,Somitogenesis,R-HSA-9824272,Reactome
+729,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+73,2,labeled,cell-cell adhesion mediated by cadherin,GO:0044331,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+730,2,labeled,exocyst,GO:0000145,GO_CC,2,labeled,exocyst,GO:0000145,GO_CC,4,core_labeled,,,
+731,2,labeled,"retrograde protein transport, ER to cytosol",GO:0030970,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+732,1,no_qualifying_term,,,,2,no_qualifying_term,,,,3,labeled,endocytic recycling,GO:0032456,GO_BP
+733,2,labeled,cytosolic small ribosomal subunit,GO:0022627,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+734,2,labeled,import across plasma membrane,GO:0098739,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+735,4,labeled,vacuolar acidification,GO:0007035,GO_BP,0,empty_subset,,,,4,core_labeled,,,
+736,0,empty_subset,,,,8,labeled,negative regulation of myoblast fusion,GO:1901740,GO_BP,8,labeled,negative regulation of myoblast fusion,GO:1901740,GO_BP
+737,3,labeled,nucleotide-sugar biosynthetic process,GO:0009226,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+738,2,labeled,"Activation of NIMA Kinases NEK9, NEK6, NEK7",R-HSA-2980767,Reactome,0,empty_subset,,,,2,core_labeled,,,
+739,1,no_qualifying_term,,,,3,labeled,SMN complex,GO:0032797,GO_CC,4,labeled,SMN complex,GO:0032797,GO_CC
+74,2,no_qualifying_term,,,,3,labeled,embryonic pattern specification,GO:0009880,GO_BP,5,labeled,eye development,GO:0001654,GO_BP
+740,2,labeled,U12-type catalytic step 2 spliceosome,GO:0071018,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+741,1,no_qualifying_term,,,,6,labeled,Nuclear RNA decay,R-HSA-9930044,Reactome,7,labeled,Nuclear RNA decay,R-HSA-9930044,Reactome
+742,2,labeled,"retrograde transport, vesicle recycling within Golgi",GO:0000301,GO_BP,2,labeled,"retrograde transport, vesicle recycling within Golgi",GO:0000301,GO_BP,4,core_labeled,,,
+743,2,labeled,Seh1-associated complex,GO:0035859,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+744,2,labeled,Protein hydroxylation,R-HSA-9629569,Reactome,0,empty_subset,,,,2,core_labeled,,,
+745,2,no_qualifying_term,,,,1,no_qualifying_term,,,,3,no_qualifying_term,,,
+746,2,labeled,CORVET complex,GO:0033263,GO_CC,2,labeled,regulation of SNARE complex assembly,GO:0035542,GO_BP,4,core_labeled,,,
+747,0,empty_subset,,,,4,labeled,nuclear pore outer ring,GO:0031080,GO_CC,4,labeled,nuclear pore outer ring,GO:0031080,GO_CC
+748,2,no_qualifying_term,,,,2,no_qualifying_term,,,,4,no_qualifying_term,,,
+749,3,no_qualifying_term,,,,0,empty_subset,,,,3,no_qualifying_term,,,
+75,4,labeled,eye development,GO:0001654,GO_BP,2,no_qualifying_term,,,,6,core_labeled,,,
+750,1,no_qualifying_term,,,,3,labeled,Smc5-Smc6 complex,GO:0030915,GO_CC,4,labeled,Smc5-Smc6 complex,GO:0030915,GO_CC
+751,3,labeled,Ctf18 RFC-like complex,GO:0031390,GO_CC,0,empty_subset,,,,3,core_labeled,,,
+752,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+753,2,labeled,male germ cell nucleus,GO:0001673,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+754,2,labeled,oligosaccharide binding,GO:0070492,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+755,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,no_qualifying_term,,,
+756,4,no_qualifying_term,,,,0,empty_subset,,,,4,no_qualifying_term,,,
+757,2,labeled,G protein activity,GO:0003925,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+758,0,empty_subset,,,,2,labeled,septin ring,GO:0005940,GO_CC,2,labeled,septin ring,GO:0005940,GO_CC
+759,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,nuclear pore outer ring,GO:0031080,GO_CC
+76,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,nuclear pore outer ring,GO:0031080,GO_CC
+760,2,labeled,primary miRNA binding,GO:0070878,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+761,2,labeled,axonal growth cone,GO:0044295,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+762,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,no_qualifying_term,,,
+763,2,labeled,Synthesis of PC,R-HSA-1483191,Reactome,0,empty_subset,,,,2,core_labeled,,,
+764,0,empty_subset,,,,2,labeled,Rac protein signal transduction,GO:0016601,GO_BP,2,labeled,Rac protein signal transduction,GO:0016601,GO_BP
+765,2,labeled,post-mRNA release spliceosomal complex,GO:0071014,GO_CC,7,labeled,post-mRNA release spliceosomal complex,GO:0071014,GO_CC,9,core_labeled,,,
+766,2,labeled,Synthesis of PIPs at the early endosome membrane,R-HSA-1660516,Reactome,0,empty_subset,,,,2,core_labeled,,,
+767,3,labeled,TBC/RABGAPs,R-HSA-8854214,Reactome,0,empty_subset,,,,3,core_labeled,,,
+768,4,labeled,response to unfolded protein,GO:0006986,GO_BP,1,no_qualifying_term,,,,5,core_labeled,,,
+769,0,empty_subset,,,,6,labeled,CCR4-NOT core complex,GO:0030015,GO_CC,6,labeled,CCR4-NOT core complex,GO:0030015,GO_CC
+77,2,labeled,"transferase activity, transferring sulphur-containing groups",GO:0016782,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+770,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,myosin II complex,GO:0016460,GO_CC
+771,2,labeled,phosphatidylinositol biosynthetic process,GO:0006661,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+772,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,no_qualifying_term,,,
+773,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+774,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+775,2,labeled,ATAC complex,GO:0140672,GO_CC,3,labeled,regulation of tubulin deacetylation,GO:0090043,GO_BP,5,core_labeled,,,
+776,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+777,3,labeled,R-loop processing,GO:0062176,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+778,1,no_qualifying_term,,,,15,labeled,Viral mRNA Translation,R-HSA-192823,Reactome,16,labeled,Viral mRNA Translation,R-HSA-192823,Reactome
+779,1,no_qualifying_term,,,,3,no_qualifying_term,,,,4,no_qualifying_term,,,
+78,14,no_qualifying_term,,,,6,labeled,NADPH regeneration,GO:0006740,GO_BP,20,labeled,peptidyl-prolyl cis-trans isomerase activity,GO:0003755,GO_MF
+780,2,labeled,regulation of mRNA 3'-end processing,GO:0031440,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+781,2,labeled,regulation of actin polymerization or depolymerization,GO:0008064,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+782,4,labeled,Cul5-RING ubiquitin ligase complex,GO:0031466,GO_CC,0,empty_subset,,,,4,core_labeled,,,
+783,0,empty_subset,,,,2,labeled,endosomal lumen acidification,GO:0048388,GO_BP,2,labeled,endosomal lumen acidification,GO:0048388,GO_BP
+784,2,labeled,aspartate family amino acid biosynthetic process,GO:0009067,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+785,3,labeled,regulation of endosome size,GO:0051036,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+786,2,labeled,transmembrane protein transporter activity,GO:0008320,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+787,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,no_qualifying_term,,,
+788,2,labeled,cellular response to amino acid starvation,GO:0034198,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+789,2,labeled,chaperone-mediated protein complex assembly,GO:0051131,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+79,3,labeled,formation of cytoplasmic translation initiation complex,GO:0001732,GO_BP,9,labeled,formation of cytoplasmic translation initiation complex,GO:0001732,GO_BP,12,core_labeled,,,
+790,2,labeled,"vacuolar proton-transporting V-type ATPase, V1 domain",GO:0000221,GO_CC,3,labeled,"vacuolar proton-transporting V-type ATPase, V1 domain",GO:0000221,GO_CC,5,core_labeled,,,
+791,2,labeled,calcium-dependent phospholipid binding,GO:0005544,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+792,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,no_qualifying_term,,,
+793,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+794,2,labeled,CORVET complex,GO:0033263,GO_CC,1,no_qualifying_term,,,,3,core_labeled,,,
+795,1,no_qualifying_term,,,,2,no_qualifying_term,,,,3,labeled,regulation of actin filament depolymerization,GO:0030834,GO_BP
+796,0,empty_subset,,,,2,no_qualifying_term,,,,2,no_qualifying_term,,,
+797,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+798,0,empty_subset,,,,2,labeled,SAGA complex,GO:0000124,GO_CC,2,labeled,SAGA complex,GO:0000124,GO_CC
+799,3,labeled,cilium assembly,GO:0060271,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+8,2,no_qualifying_term,,,,52,labeled,Viral mRNA Translation,R-HSA-192823,Reactome,54,labeled,Viral mRNA Translation,R-HSA-192823,Reactome
+80,9,labeled,NADH dehydrogenase (ubiquinone) activity,GO:0008137,GO_MF,1,no_qualifying_term,,,,10,core_labeled,,,
+800,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+801,2,labeled,UMP biosynthetic process,GO:0006222,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+802,2,labeled,regulation of Rho protein signal transduction,GO:0035023,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+803,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+804,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+805,3,labeled,L-proline metabolic process,GO:0006560,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+806,1,no_qualifying_term,,,,2,labeled,microtubule minus-end binding,GO:0051011,GO_MF,3,labeled,HAUS complex,GO:0070652,GO_CC
+807,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,recycling endosome membrane,GO:0055038,GO_CC
+808,0,empty_subset,,,,3,labeled,Nef Mediated CD4 Down-regulation,R-HSA-167590,Reactome,3,labeled,Nef Mediated CD4 Down-regulation,R-HSA-167590,Reactome
+809,0,empty_subset,,,,4,labeled,gamma-tubulin complex,GO:0000930,GO_CC,4,labeled,gamma-tubulin complex,GO:0000930,GO_CC
+81,1,no_qualifying_term,,,,3,labeled,Nef mediated downregulation of MHC class I complex cell surface expression,R-HSA-164940,Reactome,4,labeled,Nef mediated downregulation of MHC class I complex cell surface expression,R-HSA-164940,Reactome
+810,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+811,0,empty_subset,,,,2,labeled,clathrin-coated pit,GO:0005905,GO_CC,2,labeled,clathrin-coated pit,GO:0005905,GO_CC
+812,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+813,0,empty_subset,,,,7,labeled,anaphase-promoting complex,GO:0005680,GO_CC,7,labeled,anaphase-promoting complex,GO:0005680,GO_CC
+814,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+815,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,nuclear pore outer ring,GO:0031080,GO_CC
+816,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,no_qualifying_term,,,
+817,1,no_qualifying_term,,,,8,labeled,mitochondrial small ribosomal subunit,GO:0005763,GO_CC,9,labeled,mitochondrial small ribosomal subunit,GO:0005763,GO_CC
+818,3,labeled,pigment metabolic process,GO:0042440,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+819,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,no_qualifying_term,,,
+82,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,proton-transporting ATP synthase complex,GO:0045259,GO_CC
+820,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,no_qualifying_term,,,
+821,3,labeled,ESCRT I complex,GO:0000813,GO_CC,2,labeled,ESCRT I complex,GO:0000813,GO_CC,5,core_labeled,,,
+822,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,Establishment of Sister Chromatid Cohesion,R-HSA-2468052,Reactome
+823,0,empty_subset,,,,2,labeled,intraciliary retrograde transport,GO:0035721,GO_BP,2,labeled,intraciliary retrograde transport,GO:0035721,GO_BP
+824,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+825,2,labeled,tRNA modification in the nucleus and cytosol,R-HSA-6782315,Reactome,0,empty_subset,,,,2,core_labeled,,,
+826,1,no_qualifying_term,,,,5,labeled,mitochondrial large ribosomal subunit,GO:0005762,GO_CC,6,labeled,mitochondrial large ribosomal subunit,GO:0005762,GO_CC
+827,2,labeled,SUMOylation of DNA methylation proteins,R-HSA-4655427,Reactome,2,labeled,SUMOylation of DNA methylation proteins,R-HSA-4655427,Reactome,4,core_labeled,,,
+828,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+829,3,labeled,regulation of Rho protein signal transduction,GO:0035023,GO_BP,1,no_qualifying_term,,,,4,core_labeled,,,
+83,2,labeled,RNA polymerase binding,GO:0070063,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+830,1,no_qualifying_term,,,,2,labeled,MLL4 and MLL3 complexes regulate expression of PPARG target genes in adipogenesis and hepatic steatosis,R-HSA-9841922,Reactome,3,labeled,MLL4 and MLL3 complexes regulate expression of PPARG target genes in adipogenesis and hepatic steatosis,R-HSA-9841922,Reactome
+831,0,empty_subset,,,,3,labeled,INTAC complex,GO:0160232,GO_CC,3,labeled,INTAC complex,GO:0160232,GO_CC
+832,3,labeled,rescue of stalled cytosolic ribosome,GO:0072344,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+833,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+834,0,empty_subset,,,,2,no_qualifying_term,,,,2,no_qualifying_term,,,
+835,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+836,3,labeled,"mRNA splicing, via spliceosome",GO:0000398,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+837,0,empty_subset,,,,3,labeled,"retrograde transport, vesicle recycling within Golgi",GO:0000301,GO_BP,3,labeled,"retrograde transport, vesicle recycling within Golgi",GO:0000301,GO_BP
+838,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,regulation of SNARE complex assembly,GO:0035542,GO_BP
+839,3,no_qualifying_term,,,,0,empty_subset,,,,3,no_qualifying_term,,,
+84,2,labeled,proton-transporting ATP synthase complex,GO:0045259,GO_CC,1,no_qualifying_term,,,,3,core_labeled,,,
+840,3,labeled,midbody abscission,GO:0061952,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+841,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+842,1,no_qualifying_term,,,,8,labeled,mitochondrial small ribosomal subunit,GO:0005763,GO_CC,9,labeled,mitochondrial small ribosomal subunit,GO:0005763,GO_CC
+843,0,empty_subset,,,,2,no_qualifying_term,,,,2,no_qualifying_term,,,
+844,2,labeled,cyclin-dependent protein serine/threonine kinase inhibitor activity,GO:0004861,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+845,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,Transcription-Coupled Nucleotide Excision Repair (TC-NER),R-HSA-6781827,Reactome
+846,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+847,2,labeled,chloride channel activity,GO:0005254,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+848,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+849,0,empty_subset,,,,3,labeled,PTW/PP1 phosphatase complex,GO:0072357,GO_CC,3,labeled,PTW/PP1 phosphatase complex,GO:0072357,GO_CC
+85,3,no_qualifying_term,,,,4,labeled,negative regulation of stem cell population maintenance,GO:1902455,GO_BP,7,labeled,negative regulation of stem cell population maintenance,GO:1902455,GO_BP
+850,2,labeled,endoplasmic reticulum-Golgi intermediate compartment membrane,GO:0033116,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+851,2,labeled,branched-chain amino acid catabolic process,GO:0009083,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+852,2,no_qualifying_term,,,,10,labeled,Viral mRNA Translation,R-HSA-192823,Reactome,12,labeled,Viral mRNA Translation,R-HSA-192823,Reactome
+853,0,empty_subset,,,,2,no_qualifying_term,,,,2,no_qualifying_term,,,
+854,1,no_qualifying_term,,,,3,labeled,gamma-tubulin ring complex,GO:0000931,GO_CC,4,labeled,gamma-tubulin ring complex,GO:0000931,GO_CC
+855,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+856,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+857,0,empty_subset,,,,4,labeled,negative regulation of stem cell population maintenance,GO:1902455,GO_BP,4,labeled,negative regulation of stem cell population maintenance,GO:1902455,GO_BP
+858,3,labeled,cytosolic [4Fe-4S] assembly targeting complex,GO:0097361,GO_CC,0,empty_subset,,,,3,core_labeled,,,
+859,1,no_qualifying_term,,,,8,labeled,Viral mRNA Translation,R-HSA-192823,Reactome,9,labeled,ribosome biogenesis,GO:0042254,GO_BP
+86,2,labeled,frizzled binding,GO:0005109,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+860,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+861,3,labeled,structural constituent of nuclear pore,GO:0017056,GO_MF,0,empty_subset,,,,3,core_labeled,,,
+862,2,labeled,Protein methylation,R-HSA-8876725,Reactome,0,empty_subset,,,,2,core_labeled,,,
+863,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,no_qualifying_term,,,
+864,2,labeled,BRCA1-C complex,GO:0070533,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+865,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,cellular response to amino acid stimulus,GO:0071230,GO_BP
+866,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,Neurexins and neuroligins,R-HSA-6794361,Reactome
+867,0,empty_subset,,,,14,labeled,cytosolic large ribosomal subunit,GO:0022625,GO_CC,14,labeled,cytosolic large ribosomal subunit,GO:0022625,GO_CC
+868,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+869,0,empty_subset,,,,3,labeled,HAUS complex,GO:0070652,GO_CC,3,labeled,HAUS complex,GO:0070652,GO_CC
+87,2,labeled,metanephros development,GO:0001656,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+870,3,labeled,InlB-mediated entry of Listeria monocytogenes into host cell,R-HSA-8875360,Reactome,0,empty_subset,,,,3,core_labeled,,,
+871,1,no_qualifying_term,,,,2,labeled,PKA activation,R-HSA-163615,Reactome,3,labeled,PKA activation,R-HSA-163615,Reactome
+872,1,no_qualifying_term,,,,3,labeled,alcohol dehydrogenase [NAD(P)+] activity,GO:0018455,GO_MF,4,labeled,"oxidoreductase activity, acting on the CH-OH group of donors, NAD or NADP as acceptor",GO:0016616,GO_MF
+873,4,labeled,histone H3K4me3 reader activity,GO:0140002,GO_MF,0,empty_subset,,,,4,core_labeled,,,
+874,2,labeled,entrainment of circadian clock by photoperiod,GO:0043153,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+875,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,mitotic G2/M transition checkpoint,GO:0044818,GO_BP
+876,1,no_qualifying_term,,,,5,labeled,mitochondrial large ribosomal subunit,GO:0005762,GO_CC,6,labeled,mitochondrial large ribosomal subunit,GO:0005762,GO_CC
+877,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+878,3,labeled,mitochondrial respiratory chain complex I assembly,GO:0032981,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+879,1,no_qualifying_term,,,,7,labeled,Major pathway of rRNA processing in the nucleolus and cytosol,R-HSA-6791226,Reactome,8,labeled,Major pathway of rRNA processing in the nucleolus and cytosol,R-HSA-6791226,Reactome
+88,2,labeled,epidermal growth factor receptor signaling pathway,GO:0007173,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+880,1,no_qualifying_term,,,,3,labeled,proteasome regulatory particle,GO:0005838,GO_CC,4,labeled,Proteasome assembly,R-HSA-9907900,Reactome
+881,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+882,4,labeled,catalytic step 2 spliceosome,GO:0071013,GO_CC,0,empty_subset,,,,4,core_labeled,,,
+883,1,no_qualifying_term,,,,5,labeled,ribosomal large subunit biogenesis,GO:0042273,GO_BP,6,labeled,ribosomal large subunit biogenesis,GO:0042273,GO_BP
+884,5,no_qualifying_term,,,,0,empty_subset,,,,5,no_qualifying_term,,,
+885,3,labeled,phagophore assembly site,GO:0000407,GO_CC,0,empty_subset,,,,3,core_labeled,,,
+886,1,no_qualifying_term,,,,3,labeled,MCM complex,GO:0042555,GO_CC,4,labeled,MCM complex,GO:0042555,GO_CC
+887,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+888,2,labeled,ciliary transition zone,GO:0035869,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+889,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+89,2,labeled,sodium ion transmembrane transporter activity,GO:0015081,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+890,3,labeled,calcium-dependent protein serine/threonine kinase activity,GO:0009931,GO_MF,1,no_qualifying_term,,,,4,core_labeled,,,
+891,4,labeled,FAR/SIP/STRIPAK complex,GO:0090443,GO_CC,0,empty_subset,,,,4,core_labeled,,,
+892,3,labeled,"RNA endonuclease activity producing 5'-phosphomonoesters, hydrolytic mechanism",GO:0016891,GO_MF,0,empty_subset,,,,3,core_labeled,,,
+893,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+894,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,clathrin-coated pit,GO:0005905,GO_CC
+895,1,no_qualifying_term,,,,3,labeled,rixosome complex,GO:0120330,GO_CC,4,labeled,rixosome complex,GO:0120330,GO_CC
+896,3,labeled,cytoplasmic microtubule organization,GO:0031122,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+897,2,labeled,TOR signaling,GO:0031929,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+898,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,no_qualifying_term,,,
+899,3,no_qualifying_term,,,,0,empty_subset,,,,3,no_qualifying_term,,,
+9,5,labeled,chaperonin-containing T-complex,GO:0005832,GO_CC,4,labeled,chaperonin-containing T-complex,GO:0005832,GO_CC,9,core_labeled,,,
+90,2,labeled,Gemini of Cajal bodies,GO:0097504,GO_CC,2,labeled,Gemini of Cajal bodies,GO:0097504,GO_CC,4,core_labeled,,,
+900,2,labeled,negative regulation of DNA-templated DNA replication,GO:2000104,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+901,2,labeled,Cul4B-RING E3 ubiquitin ligase complex,GO:0031465,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+902,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+903,0,empty_subset,,,,2,no_qualifying_term,,,,2,no_qualifying_term,,,
+904,1,no_qualifying_term,,,,2,labeled,NatA complex,GO:0031415,GO_CC,3,labeled,NatA complex,GO:0031415,GO_CC
+905,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+906,2,labeled,multivesicular body membrane,GO:0032585,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+907,1,no_qualifying_term,,,,6,labeled,mitochondrial large ribosomal subunit,GO:0005762,GO_CC,7,labeled,mitochondrial large ribosomal subunit,GO:0005762,GO_CC
+908,1,no_qualifying_term,,,,7,labeled,mitochondrial large ribosomal subunit,GO:0005762,GO_CC,8,labeled,mitochondrial large ribosomal subunit,GO:0005762,GO_CC
+909,1,no_qualifying_term,,,,8,labeled,mitochondrial small ribosomal subunit,GO:0005763,GO_CC,9,labeled,mitochondrial small ribosomal subunit,GO:0005763,GO_CC
+91,4,labeled,outer kinetochore,GO:0000940,GO_CC,4,labeled,outer kinetochore,GO:0000940,GO_CC,8,core_labeled,,,
+910,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+911,2,labeled,"regulation of nuclear-transcribed mRNA catabolic process, nonsense-mediated decay",GO:2000622,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+912,2,labeled,UMP biosynthetic process,GO:0006222,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+913,2,labeled,cell maturation,GO:0048469,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+914,2,labeled,Interferon gamma signaling,R-HSA-877300,Reactome,0,empty_subset,,,,2,core_labeled,,,
+915,1,no_qualifying_term,,,,3,labeled,CCR4-NOT core complex,GO:0030015,GO_CC,4,labeled,nuclear-transcribed mRNA poly(A) tail shortening,GO:0000289,GO_BP
+916,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,ESC/E(Z) complex,GO:0035098,GO_CC
+917,0,empty_subset,,,,2,labeled,cerebral cortex radially oriented cell migration,GO:0021799,GO_BP,2,labeled,cerebral cortex radially oriented cell migration,GO:0021799,GO_BP
+918,2,no_qualifying_term,,,,2,labeled,PTW/PP1 phosphatase complex,GO:0072357,GO_CC,4,labeled,protein phosphatase 1 binding,GO:0008157,GO_MF
+919,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,NatA complex,GO:0031415,GO_CC
+92,2,labeled,mitochondria-associated endoplasmic reticulum membrane contact site,GO:0044233,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+920,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,mRNA cleavage and polyadenylation specificity factor complex,GO:0005847,GO_CC
+921,2,labeled,regulation of actin filament polymerization,GO:0030833,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+922,2,labeled,Enterobacterial factors antagonize host defense ,R-HSA-9956593,Reactome,0,empty_subset,,,,2,core_labeled,,,
+923,3,labeled,glycogen metabolic process,GO:0005977,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+924,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,nBAF complex,GO:0071565,GO_CC
+925,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+926,8,labeled,homophilic cell-cell adhesion,GO:0007156,GO_BP,1,no_qualifying_term,,,,9,core_labeled,,,
+927,2,labeled,positive regulation of non-canonical Wnt signaling pathway,GO:2000052,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+928,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+929,2,labeled,malate-aspartate shuttle,GO:0043490,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+93,1,no_qualifying_term,,,,3,labeled,nuclear pore outer ring,GO:0031080,GO_CC,4,labeled,nuclear pore outer ring,GO:0031080,GO_CC
+930,3,labeled,clathrin binding,GO:0030276,GO_MF,0,empty_subset,,,,3,core_labeled,,,
+931,2,labeled,negative regulation of DNA-templated DNA replication,GO:2000104,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+932,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+933,1,no_qualifying_term,,,,4,labeled,chaperonin-containing T-complex,GO:0005832,GO_CC,5,labeled,chaperonin-containing T-complex,GO:0005832,GO_CC
+934,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+935,3,labeled,virion binding,GO:0046790,GO_MF,0,empty_subset,,,,3,core_labeled,,,
+936,5,labeled,Signaling by SCF-KIT,R-HSA-1433557,Reactome,0,empty_subset,,,,5,core_labeled,,,
+937,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,SCF-dependent proteasomal ubiquitin-dependent protein catabolic process,GO:0031146,GO_BP
+938,2,labeled,RHOA GTPase cycle,R-HSA-8980692,Reactome,0,empty_subset,,,,2,core_labeled,,,
+939,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+94,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+940,2,labeled,90S preribosome,GO:0030686,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+941,2,labeled,autophagosome membrane,GO:0000421,GO_CC,0,empty_subset,,,,2,core_labeled,,,
+942,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+943,2,labeled,intermediate filament-based process,GO:0045103,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+944,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,no_qualifying_term,,,
+945,1,no_qualifying_term,,,,2,labeled,GID complex,GO:0034657,GO_CC,3,labeled,GID complex,GO:0034657,GO_CC
+946,2,labeled,extrinsic component of synaptic vesicle membrane,GO:0098850,GO_CC,2,labeled,"vacuolar proton-transporting V-type ATPase, V1 domain",GO:0000221,GO_CC,4,core_labeled,,,
+947,5,labeled,FCGR activation,R-HSA-2029481,Reactome,0,empty_subset,,,,5,core_labeled,,,
+948,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,positive regulation of telomere maintenance in response to DNA damage,GO:1904507,GO_BP
+949,1,no_qualifying_term,,,,4,labeled,nuclear-transcribed mRNA poly(A) tail shortening,GO:0000289,GO_BP,5,labeled,nuclear-transcribed mRNA poly(A) tail shortening,GO:0000289,GO_BP
+95,3,labeled,Chromatin modifications during the maternal to zygotic transition (MZT),R-HSA-9821002,Reactome,0,empty_subset,,,,3,core_labeled,,,
+950,2,labeled,transcription corepressor binding,GO:0001222,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+951,0,empty_subset,,,,3,labeled,"retrograde transport, vesicle recycling within Golgi",GO:0000301,GO_BP,3,labeled,"retrograde transport, vesicle recycling within Golgi",GO:0000301,GO_BP
+952,1,no_qualifying_term,,,,6,labeled,mitochondrial large ribosomal subunit,GO:0005762,GO_CC,7,labeled,mitochondrial large ribosomal subunit,GO:0005762,GO_CC
+953,3,labeled,Energy dependent regulation of mTOR by LKB1-AMPK,R-HSA-380972,Reactome,1,no_qualifying_term,,,,4,core_labeled,,,
+954,2,labeled,negative regulation of toll-like receptor signaling pathway,GO:0034122,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+955,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,protein import into mitochondrial matrix,GO:0030150,GO_BP
+956,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+957,2,labeled,Xenobiotics,R-HSA-211981,Reactome,0,empty_subset,,,,2,core_labeled,,,
+958,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,substrate adhesion-dependent cell spreading,GO:0034446,GO_BP
+959,1,no_qualifying_term,,,,3,labeled,transcription factor TFTC complex,GO:0033276,GO_CC,4,labeled,transcription factor TFTC complex,GO:0033276,GO_CC
+96,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+960,3,labeled,laminin binding,GO:0043236,GO_MF,0,empty_subset,,,,3,core_labeled,,,
+961,2,labeled,misfolded protein binding,GO:0051787,GO_MF,0,empty_subset,,,,2,core_labeled,,,
+962,3,labeled,Processive synthesis on the lagging strand,R-HSA-69183,Reactome,0,empty_subset,,,,3,core_labeled,,,
+963,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,negative regulation of stem cell population maintenance,GO:1902455,GO_BP
+964,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+965,2,labeled,RNA methylation,GO:0001510,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+966,2,labeled,astral microtubule organization,GO:0030953,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+967,2,labeled,sensory perception of chemical stimulus,GO:0007606,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+968,0,empty_subset,,,,6,labeled,"RNA polymerase II, core complex",GO:0005665,GO_CC,6,labeled,"RNA polymerase II, core complex",GO:0005665,GO_CC
+969,3,labeled,Activation of RAC1,R-HSA-428540,Reactome,0,empty_subset,,,,3,core_labeled,,,
+97,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+970,3,labeled,DNA-directed DNA polymerase activity,GO:0003887,GO_MF,0,empty_subset,,,,3,core_labeled,,,
+971,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,P-body,GO:0000932,GO_CC
+972,3,labeled,calcium-dependent cell-cell adhesion,GO:0016339,GO_BP,0,empty_subset,,,,3,core_labeled,,,
+973,1,no_qualifying_term,,,,9,labeled,mitochondrial large ribosomal subunit,GO:0005762,GO_CC,10,labeled,mitochondrial large ribosomal subunit,GO:0005762,GO_CC
+974,2,labeled,protein heterotetramerization,GO:0051290,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+975,1,no_qualifying_term,,,,2,labeled,negative regulation of stem cell population maintenance,GO:1902455,GO_BP,3,labeled,negative regulation of stem cell population maintenance,GO:1902455,GO_BP
+976,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+977,1,no_qualifying_term,,,,5,labeled,septin ring,GO:0005940,GO_CC,6,labeled,septin ring,GO:0005940,GO_CC
+978,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,ribosomal large subunit biogenesis,GO:0042273,GO_BP
+979,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,RNA polymerase III complex,GO:0005666,GO_CC
+98,9,labeled,Arp2/3 protein complex,GO:0005885,GO_CC,0,empty_subset,,,,9,core_labeled,,,
+980,0,empty_subset,,,,3,labeled,clathrin vesicle coat,GO:0030125,GO_CC,3,labeled,clathrin vesicle coat,GO:0030125,GO_CC
+981,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,mediator complex,GO:0016592,GO_CC
+982,2,labeled,DNA repair-dependent chromatin remodeling,GO:0140861,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+983,3,labeled,Maturation of TCA enzymes and regulation of TCA cycle,R-HSA-9854311,Reactome,0,empty_subset,,,,3,core_labeled,,,
+984,1,no_qualifying_term,,,,3,labeled,mitochondrial large ribosomal subunit,GO:0005762,GO_CC,4,labeled,mitochondrial large ribosomal subunit,GO:0005762,GO_CC
+985,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,Smc5-Smc6 complex,GO:0030915,GO_CC
+986,2,no_qualifying_term,,,,0,empty_subset,,,,2,no_qualifying_term,,,
+987,2,labeled,mRNA stabilization,GO:0048255,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+988,3,no_qualifying_term,,,,0,empty_subset,,,,3,no_qualifying_term,,,
+989,0,empty_subset,,,,2,labeled,mitochondrial respiratory chain complex I assembly,GO:0032981,GO_BP,2,labeled,mitochondrial respiratory chain complex I assembly,GO:0032981,GO_BP
+99,3,labeled,carbon-oxygen lyase activity,GO:0016835,GO_MF,1,no_qualifying_term,,,,4,core_labeled,,,
+990,1,no_qualifying_term,,,,8,labeled,dynactin complex,GO:0005869,GO_CC,9,labeled,dynactin complex,GO:0005869,GO_CC
+991,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,no_qualifying_term,,,
+992,2,labeled,host-mediated suppression of viral genome replication,GO:0044828,GO_BP,0,empty_subset,,,,2,core_labeled,,,
+993,1,no_qualifying_term,,,,2,labeled,Set1C/COMPASS complex,GO:0048188,GO_CC,3,labeled,Set1C/COMPASS complex,GO:0048188,GO_CC
+994,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,centriole replication,GO:0007099,GO_BP
+995,1,no_qualifying_term,,,,2,labeled,FAR/SIP/STRIPAK complex,GO:0090443,GO_CC,3,labeled,FAR/SIP/STRIPAK complex,GO:0090443,GO_CC
+996,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,no_qualifying_term,,,
+997,1,no_qualifying_term,,,,1,no_qualifying_term,,,,2,labeled,SAGA complex,GO:0000124,GO_CC
+998,2,labeled,Purine salvage,R-HSA-74217,Reactome,0,empty_subset,,,,2,core_labeled,,,
+999,2,labeled,positive regulation of protein sumoylation,GO:0033235,GO_BP,0,empty_subset,,,,2,core_labeled,,,

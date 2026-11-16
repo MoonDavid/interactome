@@ -1,0 +1,2 @@
+protein_set,network,network_path,measure,observed,null_mean,effect_observed_minus_null,p_value,query_nodes,valid_simulations,reachable_pair_fraction,fdr_bh,significance
+moondb_predicted,huMAP2_0.95,C:\projects\interactome\data\processed_networks\versions\huMAP2_0.95.parquet,mean_shortest_path,5.052380952380952,7.405561904761905,-2.353180952380953,0.001998001998001998,21,1000,1.0,0.004995004995004995,**

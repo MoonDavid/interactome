@@ -1,0 +1,521 @@
+{
+  "schema_version": 1,
+  "session_id": "s_5d29dba00b198657fe3ef6767ab5684d",
+  "status": "ready",
+  "observed_at": "2026-11-12T15:27:53Z",
+  "page": {
+    "url_path": "Topological_analysis",
+    "title": "Topological analysis"
+  },
+  "pages": [
+    {
+      "url_path": "",
+      "title": "app"
+    },
+    {
+      "url_path": "Interactomes_overview",
+      "title": "Interactomes overview"
+    },
+    {
+      "url_path": "Topological_analysis",
+      "title": "Topological analysis"
+    },
+    {
+      "url_path": "Cytoscape_Bridge",
+      "title": "Cytoscape Bridge"
+    },
+    {
+      "url_path": "Network_Visualization",
+      "title": "Network Visualization"
+    },
+    {
+      "url_path": "Precomputed_clusters",
+      "title": "Precomputed clusters"
+    },
+    {
+      "url_path": "Network_embeddings",
+      "title": "Network embeddings"
+    }
+  ],
+  "query_params": {},
+  "tree": {
+    "type": "root",
+    "children": [
+      {
+        "type": "main",
+        "children": [
+          {
+            "type": "markdown",
+            "props": {
+              "body": "<style>.block-container{padding-top:2.2rem}.stTabs [data-baseweb=\"tab\"] p{font-size:1.02rem;font-weight:600}</style>",
+              "unsafe_allow_html": true
+            }
+          },
+          {
+            "type": "caption",
+            "props": {
+              "body": "HUMAN INTERACTOME ATLAS"
+            }
+          },
+          {
+            "type": "title",
+            "props": {
+              "body": "Topology of moonlighting proteins across interactomes"
+            }
+          },
+          {
+            "type": "caption",
+            "props": {
+              "body": "Moonlighting protein set: **MoonLitDB**."
+            }
+          },
+          {
+            "type": "caption",
+            "props": {
+              "body": "Each analysis defines its comparison background or random-set null model in its explanation. Unlabelled network proteins are not validated non-moonlighting controls. Results are cached in `data/cache/` and `data/analysis_runs/`."
+            }
+          },
+          {
+            "type": "expander",
+            "props": {
+              "label": "How to read effects, significance and missing results",
+              "expanded": false,
+              "type": "default"
+            },
+            "children": [
+              {
+                "type": "info",
+                "props": {
+                  "body": "Read effect direction and magnitude together with sample size and adjusted significance. Topology describes network associations; it does not validate moonlighting."
+                }
+              },
+              {
+                "type": "markdown",
+                "props": {
+                  "body": "Stars use BH-adjusted q-values: `*` q < 0.05; `**` q < 0.01; `***` q < 0.001; `****` q < 0.0001. `ns` means a valid test did not pass q < 0.05; `n/a` or an empty cell means the test or value is unavailable. Neither establishes equality. Captions and test tables identify comparisons and correction families. Descriptive curves, PCA coordinates and confidence scores receive no invented significance stars."
+                }
+              },
+              {
+                "type": "markdown",
+                "props": {
+                  "body": "Background proteins are unlabelled, not validated negatives. Source comparisons exclude the union from their shared background; hub tests use the full finite-valued network. Differences between interactomes can reflect assay design, coverage and filtering. Check finite sample counts and full test tables when values are sparse or unavailable."
+                }
+              }
+            ]
+          },
+          {
+            "type": "tabs",
+            "key": "topo_tab",
+            "props": {
+              "tabs": [
+                "Interactome stats and MoonLitDB coverage",
+                "Topology metrics enriched",
+                "Monte Carlo & connectivity",
+                "Source sets",
+                "Advanced centralities",
+                "Local wiring",
+                "Cohesion & resilience",
+                "Function",
+                "Layers & scores"
+              ],
+              "on_change": "rerun"
+            },
+            "value_schema": {
+              "type": "string"
+            },
+            "value": "Monte Carlo & connectivity",
+            "children": [
+              {
+                "type": "tab",
+                "props": {
+                  "label": "Interactome stats and MoonLitDB coverage"
+                },
+                "children": []
+              },
+              {
+                "type": "tab",
+                "props": {
+                  "label": "Topology metrics enriched"
+                },
+                "children": []
+              },
+              {
+                "type": "tab",
+                "props": {
+                  "label": "Monte Carlo & connectivity"
+                },
+                "children": [
+                  {
+                    "type": "info",
+                    "props": {
+                      "body": "Comparison population: largest connected component. Shortest paths may pass through any protein in this population. Proteins outside it are excluded from both observed and random sets; degrees and matching bins use this population."
+                    }
+                  },
+                  {
+                    "type": "container",
+                    "fragment": "04f1cf8f477e1ce37295cef126474471",
+                    "children": [
+                      {
+                        "type": "caption",
+                        "props": {
+                          "body": "Over the 500,000-edge limit: huMAP3_0.05. Select a threshold version."
+                        },
+                        "fragment": "04f1cf8f477e1ce37295cef126474471"
+                      },
+                      {
+                        "type": "info",
+                        "props": {
+                          "body": "Precomputing shortest path and cohesion. Results refresh automatically."
+                        },
+                        "fragment": "04f1cf8f477e1ce37295cef126474471"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "expander",
+                    "key": "mc_details",
+                    "props": {
+                      "label": "Connectivity and mediation details",
+                      "type": "default",
+                      "on_change": "rerun"
+                    },
+                    "value_schema": {
+                      "type": "boolean"
+                    },
+                    "value": false,
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "type": "tab",
+                "props": {
+                  "label": "Source sets"
+                },
+                "children": []
+              },
+              {
+                "type": "tab",
+                "props": {
+                  "label": "Advanced centralities"
+                },
+                "children": []
+              },
+              {
+                "type": "tab",
+                "props": {
+                  "label": "Local wiring"
+                },
+                "children": []
+              },
+              {
+                "type": "tab",
+                "props": {
+                  "label": "Cohesion & resilience"
+                },
+                "children": []
+              },
+              {
+                "type": "tab",
+                "props": {
+                  "label": "Function"
+                },
+                "children": []
+              },
+              {
+                "type": "tab",
+                "props": {
+                  "label": "Layers & scores"
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "type": "expander",
+            "props": {
+              "label": "Analysis scope and reproducibility",
+              "expanded": false,
+              "type": "default"
+            },
+            "children": [
+              {
+                "type": "markdown",
+                "props": {
+                  "body": "Every analysis runs separately on each selected network, with that network’s proteins as population. Where several networks are shown together, Benjamini–Hochberg is recomputed across all networks in the view (GO enrichment keeps one family per network because each network is its own universe). Each run saves CSV tables, parameters, network fingerprints, protein set accessions and the random seed in `data/analysis_runs/`. Advanced analyses are limited to networks with at most 500,000 edges. Degree bins are a practical adjustment, not exact degree matching."
+                }
+              },
+              {
+                "type": "download_button",
+                "key": "$$ID-25891a90fb2eb9e5f13381068c754abd-None",
+                "props": {
+                  "label": "Download analysis catalogue",
+                  "type": "secondary",
+                  "disabled": false,
+                  "url": "../../media/47f3c9595d8dc31b6ebf952f8285c254",
+                  "file_name": "MOONLIGHTING_TOPOLOGICAL_ANALYSES.md",
+                  "mime": "text/markdown",
+                  "on_click": "rerun"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "sidebar",
+        "children": [
+          {
+            "type": "title",
+            "props": {
+              "body": "Topological analysis"
+            }
+          },
+          {
+            "type": "multiselect",
+            "key": "topo_networks",
+            "props": {
+              "label": "Interactomes to compare",
+              "options": [
+                "HuRI",
+                "BioPlex",
+                "huMAP2",
+                "huMAP3",
+                "TAGC_binary2025",
+                "huMAP2_0.05",
+                "huMAP2_0.95",
+                "huMAP3_0.05",
+                "huMAP3_0.95"
+              ],
+              "help": "Every analysis runs on all of these networks and shows them side by side.",
+              "accept_new_options": false,
+              "filter_mode": "fuzzy",
+              "disabled": false,
+              "label_visibility": "visible",
+              "on_change": "rerun"
+            },
+            "value_schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "value": [
+              "HuRI",
+              "BioPlex",
+              "TAGC_binary2025",
+              "huMAP2_0.05",
+              "huMAP2_0.95",
+              "huMAP3_0.05",
+              "huMAP3_0.95"
+            ]
+          },
+          {
+            "type": "subheader",
+            "props": {
+              "body": "Moonlighting protein set"
+            }
+          },
+          {
+            "type": "selectbox",
+            "key": "moon_protein_set",
+            "props": {
+              "label": "Protein set",
+              "options": [
+                "MoonLitDB",
+                "Curated",
+                "MoonProt",
+                "MetaMoon",
+                "Multitask",
+                "MoonDB curated",
+                "MoonDB predicted",
+                "All sources (Union)",
+                "Custom combination…"
+              ],
+              "disabled": false,
+              "required": false,
+              "label_visibility": "visible",
+              "accept_new_options": false,
+              "filter_mode": "fuzzy",
+              "on_change": "rerun"
+            },
+            "value_schema": {
+              "type": "string"
+            },
+            "value": "MoonLitDB"
+          },
+          {
+            "type": "checkbox",
+            "key": "moon_reviewed",
+            "props": {
+              "label": "Reviewed source entries only",
+              "disabled": false,
+              "label_visibility": "visible",
+              "on_change": "rerun"
+            },
+            "value_schema": {
+              "type": "boolean"
+            },
+            "value": false
+          },
+          {
+            "type": "number_input",
+            "key": "moon_min_pubs",
+            "props": {
+              "label": "Minimum MoonLitDB publications",
+              "min_value": 0,
+              "max_value": 10000,
+              "step": 1,
+              "format": "%d",
+              "disabled": false,
+              "required": false,
+              "label_visibility": "visible",
+              "on_change": "rerun"
+            },
+            "value_schema": {
+              "type": "integer"
+            },
+            "value": 0
+          },
+          {
+            "type": "subheader",
+            "props": {
+              "body": "Computation"
+            }
+          },
+          {
+            "type": "selectbox",
+            "key": "topo_comparison_scope",
+            "props": {
+              "label": "Shortest path and cohesion population",
+              "options": [
+                "Largest connected component",
+                "Entire network"
+              ],
+              "help": "Applies to shortest paths, connectivity and cohesion. Both the protein set and random comparison sets use this population. Other analyses retain their own populations.",
+              "disabled": false,
+              "required": false,
+              "label_visibility": "visible",
+              "accept_new_options": false,
+              "filter_mode": "fuzzy",
+              "on_change": "rerun"
+            },
+            "value_schema": {
+              "type": "string"
+            },
+            "value": "Largest connected component"
+          },
+          {
+            "type": "number_input",
+            "key": "moon_seed",
+            "props": {
+              "label": "Random seed",
+              "min_value": 0,
+              "max_value": 2147483647,
+              "step": 1,
+              "format": "%d",
+              "disabled": false,
+              "required": false,
+              "label_visibility": "visible",
+              "on_change": "rerun"
+            },
+            "value_schema": {
+              "type": "integer"
+            },
+            "value": 42
+          },
+          {
+            "type": "toggle",
+            "key": "moon_auto_run",
+            "props": {
+              "label": "Compute automatically",
+              "help": "Loads cached results or computes them when you open an analysis. Turn off to compute only with the Recalculate button.",
+              "disabled": false,
+              "label_visibility": "visible",
+              "on_change": "rerun"
+            },
+            "value_schema": {
+              "type": "boolean"
+            },
+            "value": true
+          },
+          {
+            "type": "caption",
+            "props": {
+              "body": "Selected: MoonLitDB · 458 source accessions · 458 resolved UniProt IDs · 0 unmapped. Source flags may overlap."
+            }
+          }
+        ]
+      },
+      {
+        "type": "event",
+        "children": []
+      },
+      {
+        "type": "bottom",
+        "children": []
+      }
+    ]
+  },
+  "actions": [
+    {
+      "key": "topo_tab",
+      "kind": "value",
+      "type": "tabs"
+    },
+    {
+      "key": "mc_details",
+      "kind": "value",
+      "type": "expander",
+      "label": "Connectivity and mediation details"
+    },
+    {
+      "key": "$$ID-25891a90fb2eb9e5f13381068c754abd-None",
+      "kind": "trigger",
+      "type": "download_button",
+      "label": "Download analysis catalogue"
+    },
+    {
+      "key": "topo_networks",
+      "kind": "value",
+      "type": "multiselect",
+      "label": "Interactomes to compare"
+    },
+    {
+      "key": "moon_protein_set",
+      "kind": "value",
+      "type": "selectbox",
+      "label": "Protein set"
+    },
+    {
+      "key": "moon_reviewed",
+      "kind": "value",
+      "type": "checkbox",
+      "label": "Reviewed source entries only"
+    },
+    {
+      "key": "moon_min_pubs",
+      "kind": "value",
+      "type": "number_input",
+      "label": "Minimum MoonLitDB publications"
+    },
+    {
+      "key": "topo_comparison_scope",
+      "kind": "value",
+      "type": "selectbox",
+      "label": "Shortest path and cohesion population"
+    },
+    {
+      "key": "moon_seed",
+      "kind": "value",
+      "type": "number_input",
+      "label": "Random seed"
+    },
+    {
+      "key": "moon_auto_run",
+      "kind": "value",
+      "type": "toggle",
+      "label": "Compute automatically"
+    }
+  ]
+}

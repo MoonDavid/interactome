@@ -1,0 +1,2 @@
+protein_set,network,network_path,measure,observed,null_mean,effect_observed_minus_null,p_value,query_nodes,valid_simulations,reachable_pair_fraction,fdr_bh,significance
+multitask,huMAP2_0.95,C:\projects\interactome\data\processed_networks\versions\huMAP2_0.95.parquet,mean_shortest_path,5.9,6.967834146341463,-1.067834146341463,0.025974025974025976,41,1000,1.0,0.03246753246753247,*

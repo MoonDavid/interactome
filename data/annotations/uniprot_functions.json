@@ -1,0 +1,13 @@
+{
+  "query": "organism_id:9606 AND reviewed:true",
+  "endpoint": "https://rest.uniprot.org/uniprotkb/search",
+  "release": "2026_04",
+  "entries": 20429,
+  "retrieved_utc": "2026-11-12T13:05:15.912631+00:00",
+  "snapshot": {
+    "path": "C:\\projects\\interactome\\data\\annotations\\uniprot_functions.tsv",
+    "size": 12656888,
+    "mtime_ns": 1794488715910466500,
+    "sha256": "70cb62ffe3388445866a7707867b4e9c831234aa63742e3febbd7f5444237494"
+  }
+}

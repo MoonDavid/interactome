@@ -21,13 +21,289 @@ from moonlighting import (
     cross_network_analysis, go_enrichment, graph_from_path,
     hub_enrichment_heatmap, load_moon_data, mapping_coverage, metric_figure,
     prepare_go_annotations, random_walk_analysis, result_archive,
-    robustness_analysis, significance_label, wiring_analysis,
+    robustness_analysis, significance_label,
 )
 
 
 # ---------------------------------------------------------------------------
 # Cohort Data, Graph Context & Reproducible Exports
 # ---------------------------------------------------------------------------
+
+
+@pytest.mark.parametrize('network', [nx.star_graph(4), nx.complete_graph(4), nx.path_graph(5)])
+def test_additional_local_metrics_against_graph_definitions(network, tmp_path):
+    network.add_node(len(network))  # Exercise undefined effective size for an isolate.
+    adjacency = sparse.csr_matrix(nx.to_scipy_sparse_array(network, format='csr', dtype=float))
+    graph = {'nodes': [str(i) for i in network], 'adj': adjacency, 'weights': adjacency,
+             'degree': np.asarray(adjacency.sum(axis=1)).ravel(), 'edge_count': network.number_of_edges()}
+    frame, _ = moonlighting.cached_network_centralities(graph, extra=True, use_cache=False, cache_dir=tmp_path)
+    expected_size = nx.effective_size(network)
+    def energy(net):
+        return sum(d * d + d for _, d in net.degree())
+    full_energy = energy(network)
+    for i, row in enumerate(frame.iter_rows(named=True)):
+        removed = network.copy()
+        removed.remove_node(i)
+        assert row['laplacian_centrality'] == pytest.approx((full_energy - energy(removed)) / full_energy)
+        assert row['triangles'] == nx.triangles(network, i)
+        if network.degree(i):
+            assert row['effective_size'] == pytest.approx(expected_size[i])
+            assert row['neighborhood_efficiency'] == pytest.approx(expected_size[i] / network.degree(i))
+        else:
+            assert np.isnan(row['effective_size'])
+            assert np.isnan(row['neighborhood_efficiency'])
+    result = moonlighting.multi_network_centrality_comparison(
+        {'fixture': graph}, {'0', '1'}, extra=True, use_cache=False, correction_scope='within_network')
+    assert result['profiles'].height == 14
+    assert np.allclose(result['profiles']['fdr_bh'], bh_adjust(result['profiles']['p_value']))
+    assert result['hub_enrichment'].height == 14
+
+
+def test_small_network_cache_persists_refresh_and_reloads(tmp_path, monkeypatch):
+    network = nx.path_graph(4)
+    adjacency = sparse.csr_matrix(nx.to_scipy_sparse_array(network, format='csr', dtype=float))
+    graph = {'nodes': list('ABCD'), 'adj': adjacency, 'weights': adjacency,
+             'degree': np.asarray(adjacency.sum(axis=1)).ravel(), 'edge_count': 3}
+    frame, notes = moonlighting.cached_network_centralities(
+        graph, extra=True, use_cache=False, cache_dir=tmp_path)
+    assert Path(notes['cache_path']).is_file()
+    moonlighting._CENTRALITY_MEM_CACHE.clear()
+    def unexpected_compute(*args, **kwargs):
+        raise AssertionError('Saved results should be reused')
+    monkeypatch.setattr(moonlighting, '_pagerank', unexpected_compute)
+    reloaded, notes = moonlighting.cached_network_centralities(graph, extra=True, cache_dir=tmp_path)
+    assert notes['cache_hit']
+    assert_frame_equal(frame, reloaded)
+
+
+def test_legacy_centrality_cache_adds_only_missing_metrics(tmp_path, monkeypatch):
+    network = nx.path_graph(5)
+    adjacency = sparse.csr_matrix(nx.to_scipy_sparse_array(network, format='csr', dtype=float))
+    graph = {'nodes': list('ABCDE'), 'adj': adjacency, 'weights': adjacency,
+             'degree': np.asarray(adjacency.sum(axis=1)).ravel(), 'edge_count': 4}
+    frame, notes = moonlighting.cached_network_centralities(
+        graph, extra=True, use_cache=False, cache_dir=tmp_path)
+    current = Path(notes['cache_path'])
+    legacy_path = current.with_name(current.name.replace('_localmetrics_v3', ''))
+    added = ['laplacian_centrality', 'triangles', 'effective_size', 'neighborhood_efficiency']
+    legacy = frame.drop(added).rename({'betweenness': 'betweenness_approx'})
+    legacy.write_parquet(legacy_path)
+    legacy_path.with_suffix('.json').write_text(json.dumps(notes))
+    current.unlink()
+    current.with_suffix('.json').unlink()
+    moonlighting._CENTRALITY_MEM_CACHE.clear()
+    def unexpected_compute(*args, **kwargs):
+        raise AssertionError('Already-cached metrics must not be recomputed')
+    for name in ('_pagerank', '_exact_betweenness_csr', 'eigsh'):
+        monkeypatch.setattr(moonlighting, name, unexpected_compute)
+    monkeypatch.setattr(nx, 'core_number', unexpected_compute)
+    monkeypatch.setattr(nx, 'clustering', unexpected_compute)
+    preview, _ = moonlighting.cached_network_centralities(graph, extra=True, cache_dir=tmp_path, cached_only=True)
+    assert 'betweenness' in preview.columns
+    assert 'effective_size' not in preview.columns
+    upgraded, _ = moonlighting.cached_network_centralities(graph, extra=True, cache_dir=tmp_path)
+    for column in frame.columns:
+        np.testing.assert_allclose(upgraded[column], frame[column]) if column != 'protein' else None
+    assert current.exists()
+
+
+def test_windows_worker_import_does_not_execute_streamlit_ui(monkeypatch):
+    import runpy
+    import streamlit as st
+    def unexpected_ui(*args, **kwargs):
+        raise AssertionError('Spawned workers must not execute Streamlit UI')
+    monkeypatch.setattr(st, 'set_page_config', unexpected_ui)
+    for name in ('app.py', 'pages/2_Topological_analysis.py'):
+        runpy.run_path(str(Path(__file__).resolve().parents[1] / name), run_name='__mp_main__')
+
+
+def test_background_jobs_reuse_inflight_work():
+    from threading import Event
+    from topology_jobs import submit_once
+    import uuid
+    started, release = Event(), Event()
+    def compute():
+        started.set()
+        release.wait(5)
+        return 42
+    signature = uuid.uuid4().hex
+    job = submit_once(signature, compute)
+    try:
+        assert started.wait(2)
+        assert not job.done()
+        assert submit_once(signature, compute) is job
+    finally:
+        release.set()
+    assert job.result(timeout=5) == 42
+
+
+def test_protein_set_connectivity_one_hop_components_and_absence(tmp_path):
+    path = tmp_path / 'connectivity.parquet'
+    pl.DataFrame({'a': ['A', 'B', 'B', 'A', 'D', 'X'],
+                  'b': ['B', 'A', 'C', 'A', 'X', 'Y']}).write_parquet(path)
+    result = moonlighting.protein_set_connectivity(path, {'A', 'B', 'C', 'D', 'ABSENT'})
+    s = result['summary']
+    assert s['Set proteins present (nodes)'] == 4
+    assert s['Mapped accessions absent'] == 1
+    assert s['Full-network components containing set'] == 2
+    assert s['Proteins without a 1-hop set partner'] == 1
+    assert s['Largest set group in a full-network component'] == 3
+    assert s['Proteins with a 1-hop set partner'] == 3
+    assert s['Proteins with a 1-hop set partner (%)'] == 75
+    assert s['1-hop set pairs (edges)'] == 2
+    assert s['1-hop set pairs (%)'] == pytest.approx(100 / 3)
+    assert s['Reachable set pairs (any hops)'] == 3
+    assert s['Reachable set pairs (%)'] == 50
+    assert s['Unreachable set pairs'] == 3
+    assert result['proteins'].filter(pl.col('protein') == 'D')['1_hop_set_partners'].item() == 0
+    empty = moonlighting.protein_set_connectivity(path, {'ABSENT'})
+    assert empty['summary']['Full-network components containing set'] == 0
+    assert empty['summary']['1-hop set pairs (%)'] is None
+    assert empty['proteins'].is_empty()
+
+
+def test_protein_set_connectivity_merged_node_counted_once(tmp_path):
+    path = tmp_path / 'merged.parquet'
+    pl.DataFrame({'a': ['A|B'], 'b': ['C']}).write_parquet(path)
+    summary = moonlighting.protein_set_connectivity(path, {'A', 'B', 'C'})['summary']
+    assert summary['Mapped accessions present'] == 3
+    assert summary['Set proteins present (nodes)'] == 2
+    assert summary['1-hop set pairs (edges)'] == 1
+    assert summary['All set proteins mutually reachable']
+
+
+def test_scoped_graph_preserves_lcc_and_reindexes(tmp_path):
+    path = tmp_path / 'scope.parquet'
+    pl.DataFrame({'a': ['A', 'B', 'D'], 'b': ['B', 'C', 'E']}).write_parquet(path)
+    graph = graph_from_path(path)
+    largest = moonlighting.scoped_graph(graph)
+    assert largest['nodes'].tolist() == ['A', 'B', 'C']
+    assert largest['index'] == {'A': 0, 'B': 1, 'C': 2}
+    assert largest['degree'].tolist() == [1, 2, 1]
+    assert largest['edge_count'] == 2
+    assert largest['weights'].shape == (3, 3)
+    assert moonlighting.scoped_graph(graph, 'network') is graph
+    assert len(graph['nodes']) == 5
+
+
+def test_set_shortest_paths_traverse_non_set_intermediates(tmp_path):
+    path = tmp_path / 'outside_intermediates.parquet'
+    pl.DataFrame({'a': ['A', 'X', 'B'], 'b': ['X', 'B', 'Y']}).write_parquet(path)
+    result = moonlighting.protein_set_connectivity(path, {'A', 'B'})
+    summary = result['summary']
+    assert summary['1-hop set pairs (edges)'] == 0
+    assert summary['Reachable set pairs (any hops)'] == 1
+    assert summary['Average shortest path (full interactome)'] == 2
+    assert summary['All set proteins mutually reachable']
+    assert result['hops']['hops'].to_list() == [2]
+    assert result['proteins']['full_network_component_size'].to_list() == [4, 4]
+    simulation = moonlighting.shortest_path_monte_carlo(graph_from_path(path), {'A', 'B'}, 10, 7, False)
+    assert simulation['summary']['observed'] == 2
+    assert simulation['summary']['path_scope'] == 'network'
+
+
+def test_subset_betweenness_full_network_ties_and_empirical_test(tmp_path):
+    path = tmp_path / 'subset_betweenness.parquet'
+    pl.DataFrame({'a': ['A', 'B', 'A', 'X', 'X', 'Y'],
+                  'b': ['B', 'C', 'X', 'C', 'Y', 'Z']}).write_parquet(path)
+    graph = graph_from_path(path)
+    result = moonlighting.subset_betweenness_analysis(graph, {'A', 'B', 'C'}, 20, 7, False)
+    scores = dict(result['scores'].select('protein', 'subset_betweenness').iter_rows())
+    assert scores['B'] == pytest.approx(.5)
+    assert scores['X'] == pytest.approx(.5)
+    assert scores['A'] == 0
+    assert scores['C'] == 0
+    assert result['summary']['mean_internal_set_intermediaries'] == pytest.approx(1 / 6)
+    assert result['summary']['internal_fraction_of_intermediary_dependencies'] == pytest.approx(.5)
+    values = result['null']['mean_internal_set_intermediaries'].to_numpy()
+    observed = result['summary']['mean_internal_set_intermediaries']
+    expected = min(1., 2 * min((1 + (values <= observed).sum()) / 21,
+                              (1 + (values >= observed).sum()) / 21))
+    assert result['summary']['p_value'] == expected
+    repeated = moonlighting.subset_betweenness_analysis(graph, {'A', 'B', 'C'}, 20, 7, False)
+    assert_frame_equal(result['null'], repeated['null'])
+    descriptive = moonlighting.subset_betweenness_analysis(graph, {'A', 'B', 'C'})
+    assert descriptive['null'].is_empty()
+    assert math.isnan(descriptive['summary']['p_value'])
+
+
+def test_subset_betweenness_disconnected_is_unavailable(tmp_path):
+    path = tmp_path / 'subset_disconnected.parquet'
+    pl.DataFrame({'a': ['A', 'B', 'C'], 'b': ['X', 'Y', 'Z']}).write_parquet(path)
+    graph = graph_from_path(path)
+    result = moonlighting.subset_betweenness_analysis(graph, {'A', 'B', 'C'}, 10)
+    assert result['summary']['reachable_set_pairs'] == 0
+    assert math.isnan(result['summary']['mean_internal_set_intermediaries'])
+    assert math.isnan(result['summary']['p_value'])
+    with pytest.raises(ValueError, match='three'):
+        moonlighting.subset_betweenness_analysis(graph, {'A', 'B'})
+
+
+def test_shortest_path_monte_carlo_exact_paths_and_empirical_test(tmp_path):
+    path = tmp_path / 'paths.parquet'
+    pl.DataFrame({'a': ['A', 'B', 'C', 'D', 'E'], 'b': ['B', 'C', 'D', 'E', 'F']}).write_parquet(path)
+    graph = graph_from_path(path)
+    result = moonlighting.shortest_path_monte_carlo(graph, {'A', 'C'}, 20, 7, False)
+    assert result['summary']['observed'] == 2
+    assert result['summary']['reachable_pair_fraction'] == 1
+    values = result['null']['mean_shortest_path'].to_numpy()
+    expected = min(1., 2 * min((1 + (values <= 2).sum()) / 21, (1 + (values >= 2).sum()) / 21))
+    assert result['summary']['p_value'] == expected
+    repeated = moonlighting.shortest_path_monte_carlo(graph, {'A', 'C'}, 20, 7, False)
+    assert_frame_equal(result['null'], repeated['null'])
+    disconnected_path = tmp_path / 'disconnected.parquet'
+    pl.DataFrame({'a': ['A', 'C'], 'b': ['B', 'D']}).write_parquet(disconnected_path)
+    disconnected = moonlighting.shortest_path_monte_carlo(graph_from_path(disconnected_path), {'A', 'C'}, 20, 7, False)
+    assert math.isnan(disconnected['summary']['observed'])
+    assert math.isnan(disconnected['summary']['p_value'])
+    # Reachability is defined even though every observed/null pair is disconnected.
+    assert disconnected['summary']['reachable_pairs'] == 0
+    assert disconnected['summary']['unreachable_pairs'] == 1
+    assert disconnected['summary']['reachability_p_value'] == 1
+    assert disconnected['summary']['reachability_null_mean'] == 0
+
+
+def test_shortest_path_reachability_against_connected_complement(tmp_path):
+    path = tmp_path / 'reachability.parquet'
+    pl.DataFrame({'a': ['A', 'B', 'D', 'E'], 'b': ['D', 'E', 'E', 'F']}).write_parquet(path)
+    graph = graph_from_path(path)
+    # C is not needed: A and B are connected through non-set nodes D and E.
+    result = moonlighting.shortest_path_monte_carlo(graph, {'A', 'B'}, 20, 7, False)
+    summary = result['summary']
+    assert summary['possible_pairs'] == summary['reachable_pairs'] == 1
+    assert summary['unreachable_pairs'] == 0
+    assert summary['reachability_p_value'] == 1
+    assert summary['reachability_effect_observed_minus_null'] == 0
+    disconnected = tmp_path / 'reachability_disconnected.parquet'
+    pl.DataFrame({'a': ['A', 'D', 'D'], 'b': ['B', 'E', 'F']}).write_parquet(disconnected)
+    result = moonlighting.shortest_path_monte_carlo(graph_from_path(disconnected), {'A', 'D'}, 20, 7, False)
+    summary = result['summary']
+    fractions = result['null']['reachable_pair_fraction'].to_numpy()
+    expected = min(1., 2 * min((1 + (fractions <= 0).sum()) / 21,
+                              (1 + (fractions >= 0).sum()) / 21))
+    assert summary['reachability_p_value'] == expected
+    assert summary['reachability_effect_observed_minus_null'] == -float(fractions.mean())
+    assert summary['unreachable_pair_fraction'] == 1
+
+
+def test_shortest_path_complement_matching_and_guard(tmp_path):
+    path = tmp_path / 'cliques.parquet'
+    pl.DataFrame({'a': ['A', 'A', 'B', 'D', 'D', 'E'],
+                  'b': ['B', 'C', 'C', 'E', 'F', 'F']}).write_parquet(path)
+    graph = graph_from_path(path)
+    result = moonlighting.shortest_path_monte_carlo(graph, {'A', 'B', 'C'}, 10)
+    # The only possible complement set is the other triangle.
+    assert result['null']['mean_shortest_path'].to_list() == [1.] * 10
+    assert result['summary']['p_value'] == 1
+    assert result['summary']['effect_observed_minus_null'] == 0
+    with pytest.raises(ValueError, match='At least two'):
+        moonlighting.shortest_path_monte_carlo(graph, {'A'}, 10)
+    with pytest.raises(ValueError, match='background is smaller'):
+        moonlighting.shortest_path_monte_carlo(graph, {'A', 'B', 'C', 'D'}, 10)
+    graph['adj'] = sparse.csr_matrix((np.ones(1000002), (np.zeros(1000002, dtype=int), np.arange(1000002))),
+                                     shape=(1000002, 1000002))
+    with pytest.raises(ValueError, match='500,000'):
+        moonlighting.shortest_path_monte_carlo(graph, {'A', 'B'}, 10)
 
 @pytest.mark.parametrize('cached_aliases', [False, True])
 def test_cached_overview_coverage_uses_selected_set_columns(cached_aliases):
@@ -180,12 +456,8 @@ def test_degree_bin_null_and_reproducibility():
     assert result['null'].equals(cohesion_analysis(graph, {'P0', 'P1', 'P2'}, 9, 3)['null'])
 
 
-def test_ego_fragmentation_cycle_and_community_accounting():
+def test_community_accounting():
     graph = graph_context(nx.cycle_graph(6))
-    result = wiring_analysis(graph, {'P0', 'P2'}, max_nodes=2)
-    assert result['metrics']['ego_components'].to_list() == [2] * 4
-    assert result['metrics']['open_wedges'].to_list() == [1] * 4
-    assert result['metrics']['effective_size'].to_list() == [2.] * 4
     communities = community_analysis(graph, {'P0', 'P2'})
     assert communities['enrichment']['network_proteins'].sum() == 6
     assert communities['enrichment']['moonlighting_proteins'].sum() == 2
@@ -200,8 +472,8 @@ def test_extra_centralities_return_polars_and_match_networkx():
     assert isinstance(result['tests'], pl.DataFrame)
     assert metrics['core_number'].to_list() == [2] * 6
     assert np.allclose(metrics['clustering'], list(nx.clustering(network).values()))
-    assert np.allclose(metrics['betweenness_approx'], list(nx.betweenness_centrality(network).values()))
-    assert np.allclose(metrics['bridging_centrality'], metrics['betweenness_approx'] * metrics['bridging_coefficient'])
+    assert np.allclose(metrics['betweenness'], list(nx.betweenness_centrality(network).values()))
+    assert np.allclose(metrics['bridging_centrality'], metrics['betweenness'] * metrics['bridging_coefficient'])
 
 
 # ---------------------------------------------------------------------------
@@ -433,7 +705,7 @@ def test_advanced_source_comparison_mixed_clustering_values():
     assert np.allclose(metrics['clustering'], list(nx.clustering(network).values()))
     assert metrics['clustering'].min() == 0
     assert metrics['clustering'].max() == 1
-    assert result['tests'].height == 20
+    assert result['tests'].height == 28
     assert result['tests']['fdr_bh'].is_finite().all()
 
 
@@ -650,7 +922,7 @@ def test_empty_and_nonfinite_heatmaps(function, column):
 
 
 def test_many_metric_labels_and_missing_q_are_readable():
-    metrics = ['degree', 'strength', 'pagerank', 'mean_neighbor_degree', 'core_number', 'clustering', 'betweenness_approx', 'eigenvector', 'bridging_centrality']
+    metrics = ['degree', 'strength', 'pagerank', 'mean_neighbor_degree', 'core_number', 'clustering', 'betweenness', 'eigenvector', 'bridging_centrality']
     frame = pl.DataFrame({'group': ['moonprot'] * len(metrics), 'metric': metrics, 'rank_biserial': [0.] * len(metrics)})
     fig = centrality_heatmap(frame)
     assert len(fig.data[0].x) == len(metrics)

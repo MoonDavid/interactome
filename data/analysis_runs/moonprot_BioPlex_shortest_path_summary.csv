@@ -1,0 +1,2 @@
+protein_set,network,network_path,measure,observed,null_mean,effect_observed_minus_null,p_value,query_nodes,valid_simulations,reachable_pair_fraction,fdr_bh,significance
+moonprot,BioPlex,C:\projects\interactome\data\processed_networks\BioPlex.parquet,mean_shortest_path,3.6702222222222223,3.586200253968254,0.08402196825396846,0.00999000999000999,126,1000,1.0,0.023310023310023312,*

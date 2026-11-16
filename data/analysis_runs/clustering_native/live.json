@@ -1,0 +1,6 @@
+{
+  "status": "complete",
+  "completed_jobs": 12,
+  "total_jobs": 12,
+  "scheduler": "parallel native workers"
+}

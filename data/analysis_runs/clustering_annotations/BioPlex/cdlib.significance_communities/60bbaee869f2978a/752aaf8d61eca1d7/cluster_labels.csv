@@ -1,0 +1,2 @@
+community,core_size,primary_status,primary_label,primary_term_id,primary_library,interface_size,interface_status,interface_label,interface_term_id,interface_library,full_size,full_context_status,full_context_label,full_context_term_id,full_context_library
+1,440,labeled,ribosomal subunit,GO:0044391,GO_CC,0,empty_subset,,,,440,core_labeled,,,

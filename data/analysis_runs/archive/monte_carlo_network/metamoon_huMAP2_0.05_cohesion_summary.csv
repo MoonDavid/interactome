@@ -1,0 +1,3 @@
+protein_set,network,network_path,measure,observed,null_mean,effect_observed_minus_null,p_value,query_nodes,valid_simulations,reachable_pair_fraction,fdr_bh,significance
+metamoon,huMAP2_0.05,/home/davide/projects/interactome/data/processed_networks/versions/huMAP2_0.05.parquet,internal_edges,51.0,6.578,44.422,0.000999000999000999,70,1000,0.7846790890269151,0.0012487512487512488,**
+metamoon,huMAP2_0.05,/home/davide/projects/interactome/data/processed_networks/versions/huMAP2_0.05.parquet,largest_component,24.0,3.396,20.604,0.000999000999000999,70,1000,0.7846790890269151,0.0012487512487512488,**

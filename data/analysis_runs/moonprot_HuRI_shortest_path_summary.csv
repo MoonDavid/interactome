@@ -1,0 +1,2 @@
+protein_set,network,network_path,measure,observed,null_mean,effect_observed_minus_null,p_value,query_nodes,valid_simulations,reachable_pair_fraction,fdr_bh,significance
+moonprot,HuRI,C:\projects\interactome\data\processed_networks\HuRI.parquet,mean_shortest_path,3.7826923076923076,3.8347774038461537,-0.052085096153846155,0.5374625374625375,65,1000,1.0,0.5374625374625375,ns

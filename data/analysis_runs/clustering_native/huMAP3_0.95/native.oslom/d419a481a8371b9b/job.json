@@ -1,0 +1,191 @@
+{
+  "network": "huMAP3_0.95",
+  "method": "native.oslom",
+  "adapter": {
+    "id": "native.oslom",
+    "backend": "native",
+    "name": "oslom",
+    "family": "overlapping",
+    "costly": true,
+    "dense": false
+  },
+  "provenance": {
+    "input": {
+      "path": "/mnt/c/projects/interactome/data/processed_networks/versions/huMAP3_0.95.parquet",
+      "size": 654652,
+      "mtime_ns": 1794485813490310900,
+      "sha256": "57aa95a66e292643e938c8a70718e7984eff64435f59310251e44d57ad6b0ad8"
+    },
+    "audit": {
+      "name": "huMAP3_0.95",
+      "threshold": 0.95,
+      "comparison": ">=",
+      "network": "huMAP3",
+      "score_column": "probability",
+      "filtering_stages": [
+        {
+          "stage": "Source interaction rows",
+          "nodes": 17233,
+          "edges": 25992007,
+          "nodes_removed": 0,
+          "edges_removed": 0
+        },
+        {
+          "stage": "Remove missing endpoint IDs",
+          "nodes": 17233,
+          "edges": 25992007,
+          "nodes_removed": 0,
+          "edges_removed": 0
+        },
+        {
+          "stage": "Remove source self-loops",
+          "nodes": 17233,
+          "edges": 25982034,
+          "nodes_removed": 0,
+          "edges_removed": 9973
+        },
+        {
+          "stage": "Apply source isoform policy",
+          "nodes": 17233,
+          "edges": 25982034,
+          "nodes_removed": 0,
+          "edges_removed": 0
+        },
+        {
+          "stage": "Deduplicate before UniProt mapping",
+          "nodes": 17233,
+          "edges": 25982034,
+          "nodes_removed": 0,
+          "edges_removed": 0
+        },
+        {
+          "stage": "Remove edges with unmapped endpoints",
+          "nodes": 16697,
+          "edges": 25507564,
+          "nodes_removed": 536,
+          "edges_removed": 474470
+        },
+        {
+          "stage": "Relabel nodes / merge identical UniProt label sets",
+          "nodes": 16634,
+          "edges": 25507564,
+          "nodes_removed": 63,
+          "edges_removed": 0
+        },
+        {
+          "stage": "Remove self-loops after mapping",
+          "nodes": 16634,
+          "edges": 25507301,
+          "nodes_removed": 0,
+          "edges_removed": 263
+        },
+        {
+          "stage": "Deduplicate after UniProt mapping",
+          "nodes": 16634,
+          "edges": 25436441,
+          "nodes_removed": 0,
+          "edges_removed": 70860
+        },
+        {
+          "stage": "Apply native score validity policy",
+          "nodes": 16634,
+          "edges": 25436441,
+          "nodes_removed": 0,
+          "edges_removed": 0
+        },
+        {
+          "stage": "Keep edges with valid native scores for confidence filtering",
+          "edges": 25436441,
+          "nodes": 16634,
+          "nodes_removed": 0,
+          "edges_removed": 0
+        },
+        {
+          "stage": "Inclusive probability >= 0.95",
+          "nodes": 13028,
+          "edges": 98360,
+          "nodes_removed": 3606,
+          "edges_removed": 25338081
+        }
+      ],
+      "node_identity": "sorted UniProt label set; multiple labels remain one node",
+      "node_annotations": {
+        "path": "data\\processed_networks\\node_annotations\\huMAP3.parquet",
+        "size": 151314,
+        "mtime_ns": 1794485805955476000,
+        "sha256": "a3148dda79556b5f87d1ee1068f7afdc5c47c4fcf30553de8defbfb15fe7c1b5"
+      },
+      "invalid_score_policy": "exclude non-finite, missing, and out-of-range native scores",
+      "parent_sha256": "56338d3e995e3b72ae2363b1f0ea4ad07ef97aa737eff171d591b0d759ea6f3d",
+      "isoform_policy": "collapse",
+      "source": {
+        "path": "data\\processed_networks\\huMAP3.parquet",
+        "size": 149949169,
+        "mtime_ns": 1794485804987435400,
+        "sha256": "56338d3e995e3b72ae2363b1f0ea4ad07ef97aa737eff171d591b0d759ea6f3d"
+      },
+      "normalization_policy": "UniProt primary accessions; remove terminal numeric isoform suffix; one node per sorted UniProt label set (pipe-separated); merge identical label sets; deduplicate undirected source pairs before mapping; remove source loops before mapping and canonical loops after mapping; duplicate native score=max; BioPlex invalid scores=null with edges retained",
+      "output": {
+        "path": "data\\processed_networks\\versions\\huMAP3_0.95.parquet",
+        "size": 654652,
+        "mtime_ns": 1794485813490310900,
+        "sha256": "57aa95a66e292643e938c8a70718e7984eff64435f59310251e44d57ad6b0ad8"
+      },
+      "created_at": "2026-11-12T12:16:53.502345+00:00",
+      "edges": 98360,
+      "nodes": 13028
+    }
+  },
+  "parameters": {
+    "seed": 42,
+    "resolution": 1.0,
+    "clusters": 16,
+    "dimensions": 16,
+    "clique_k": 3,
+    "inflation": 2.0,
+    "membership_cutoff": 0.2,
+    "costly_node_limit": 100000,
+    "dense_node_limit": 100000,
+    "threads": 4
+  },
+  "environment": {
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+    "platform": "linux",
+    "native_tools": {
+      "clusterone": {
+        "path": "/mnt/c/Users/david/PycharmProjects/scrapepapers/springer_pdfs/cluster_one-1.0.jar",
+        "sha256": "3344c954df388f5cfe9795e0db375ae7189334a1eacb5bd3121507b33765a16b"
+      },
+      "oslom": {
+        "path": "/mnt/c/projects/interactome/.tools/OSLOM2/oslom_undir",
+        "sha256": "01c146f00762ff24af3c4c4d828531f389759de87a200ccc2712148b1f45436a"
+      }
+    },
+    "polars": "2.1.0",
+    "numpy": "2.5.5",
+    "scipy": "1.18.1",
+    "networkx": "3.7",
+    "typer": "0.29.1",
+    "rich": "15.0.0",
+    "igraph": null,
+    "leidenalg": null,
+    "scikit-network": null,
+    "scikit-learn": null,
+    "cdlib": null,
+    "graspologic": null,
+    "karateclub": null,
+    "networkit": null,
+    "cugraph-cu12": null,
+    "cudf-cu12": null,
+    "infomap": null,
+    "markov-clustering": null,
+    "hdbscan": null
+  },
+  "code_sha256": "7ccd9e56aa6fcb36bdc9815eab160f59128ef0c12b56d8fbf586aeb7cdd540cf",
+  "schema_version": 1,
+  "semantics": "undirected binary topology; scores not used as weights",
+  "key": "d419a481a8371b9b581c6852e7d5c35e66782815d80d0c30fbe87d9dafc266d3",
+  "path": "/mnt/c/projects/interactome/data/processed_networks/versions/huMAP3_0.95.parquet",
+  "target": "/mnt/c/projects/interactome/data/analysis_runs/clustering_native/huMAP3_0.95/native.oslom/d419a481a8371b9b",
+  "worker_python": "/tmp/interactome-native-20261116/bin/python"
+}

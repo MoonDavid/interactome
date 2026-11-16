@@ -1,0 +1,2322 @@
++-------------------------------- Interactome --------------------------------+
+| Fixed-network Monte Carlo                                                   |
+| Exact NetworkX distances � reusable disk cache                              |
++-----------------------------------------------------------------------------+
+[16:13:46] Simulations: 1,000; seed: 42; protein set: curated; scope: lcc;     
+           degree matching: True                                               
+           Loading and mapping protein set                                     
+           Loading and mapping protein set: done in 0.0s                       
+           Mapped protein set: 313 proteins                                    
+------------------------------ Network 1/5: HuRI ------------------------------
+           Loading data\processed_networks\HuRI.parquet                        
+           Loading data\processed_networks\HuRI.parquet: done in 0.1s          
+           HuRI: 8,070 proteins; 51,524 edges; 137 set proteins                
+           Drawing random protein sets: 1,000 items                            
+           Drawing random protein sets: done in 0.1s                           
+           Distance cache: 3,648 rows reused; 4,358 BFS rows remaining; matrix 
+           0.12 GiB                                                            
+           Cache directory:                                                    
+           C:\projects\interactome\data\analysis_runs\shortest_path_distances\e
+           4209b5cbf8f716266d1781e7de16fe9c26436212e5df8e56a5218d7e1c800b7     
+           Exact NetworkX BFS: 4,358 items                                     
+[16:13:47] Checkpoint saved: 32/4,358 BFS rows                                 
+[16:13:48] Checkpoint saved: 64/4,358 BFS rows                                 
+           Checkpoint saved: 96/4,358 BFS rows                                 
+[16:13:49] Checkpoint saved: 128/4,358 BFS rows                                
+[16:13:50] Checkpoint saved: 160/4,358 BFS rows                                
+[16:13:51] Checkpoint saved: 192/4,358 BFS rows                                
+[16:13:52] Checkpoint saved: 224/4,358 BFS rows                                
+           Checkpoint saved: 256/4,358 BFS rows                                
+[16:13:53] Checkpoint saved: 288/4,358 BFS rows                                
+[16:13:54] Checkpoint saved: 320/4,358 BFS rows                                
+           Checkpoint saved: 352/4,358 BFS rows                                
+[16:13:55] Checkpoint saved: 384/4,358 BFS rows                                
+[16:13:56] Checkpoint saved: 416/4,358 BFS rows                                
+           Checkpoint saved: 448/4,358 BFS rows                                
+           Exact NetworkX BFS: 458/4,358; 45.8/s; ETA 85s                      
+[16:13:57] Checkpoint saved: 480/4,358 BFS rows                                
+           Checkpoint saved: 512/4,358 BFS rows                                
+[16:13:58] Checkpoint saved: 544/4,358 BFS rows                                
+[16:13:59] Checkpoint saved: 576/4,358 BFS rows                                
+           Checkpoint saved: 608/4,358 BFS rows                                
+[16:14:00] Checkpoint saved: 640/4,358 BFS rows                                
+[16:14:01] Checkpoint saved: 672/4,358 BFS rows                                
+           Checkpoint saved: 704/4,358 BFS rows                                
+[16:14:02] Checkpoint saved: 736/4,358 BFS rows                                
+[16:14:03] Checkpoint saved: 768/4,358 BFS rows                                
+           Checkpoint saved: 800/4,358 BFS rows                                
+[16:14:04] Checkpoint saved: 832/4,358 BFS rows                                
+[16:14:05] Checkpoint saved: 864/4,358 BFS rows                                
+           Checkpoint saved: 896/4,358 BFS rows                                
+[16:14:06] Checkpoint saved: 928/4,358 BFS rows                                
+           Exact NetworkX BFS: 958/4,358; 47.9/s; ETA 71s                      
+           Checkpoint saved: 960/4,358 BFS rows                                
+[16:14:07] Checkpoint saved: 992/4,358 BFS rows                                
+[16:14:08] Checkpoint saved: 1,024/4,358 BFS rows                              
+           Checkpoint saved: 1,056/4,358 BFS rows                              
+[16:14:09] Checkpoint saved: 1,088/4,358 BFS rows                              
+[16:14:10] Checkpoint saved: 1,120/4,358 BFS rows                              
+           Checkpoint saved: 1,152/4,358 BFS rows                              
+[16:14:11] Checkpoint saved: 1,184/4,358 BFS rows                              
+[16:14:12] Checkpoint saved: 1,216/4,358 BFS rows                              
+           Checkpoint saved: 1,248/4,358 BFS rows                              
+[16:14:13] Checkpoint saved: 1,280/4,358 BFS rows                              
+           Checkpoint saved: 1,312/4,358 BFS rows                              
+[16:14:14] Checkpoint saved: 1,344/4,358 BFS rows                              
+[16:14:15] Checkpoint saved: 1,376/4,358 BFS rows                              
+[16:14:16] Checkpoint saved: 1,408/4,358 BFS rows                              
+           Checkpoint saved: 1,440/4,358 BFS rows                              
+           Exact NetworkX BFS: 1,442/4,358; 48.1/s; ETA 61s                    
+[16:14:17] Checkpoint saved: 1,472/4,358 BFS rows                              
+[16:14:18] Checkpoint saved: 1,504/4,358 BFS rows                              
+[16:14:19] Checkpoint saved: 1,536/4,358 BFS rows                              
+           Checkpoint saved: 1,568/4,358 BFS rows                              
+[16:14:20] Checkpoint saved: 1,600/4,358 BFS rows                              
+[16:14:21] Checkpoint saved: 1,632/4,358 BFS rows                              
+[16:14:22] Checkpoint saved: 1,664/4,358 BFS rows                              
+[16:14:23] Checkpoint saved: 1,696/4,358 BFS rows                              
+           Checkpoint saved: 1,728/4,358 BFS rows                              
+[16:14:24] Checkpoint saved: 1,760/4,358 BFS rows                              
+[16:14:25] Checkpoint saved: 1,792/4,358 BFS rows                              
+           Checkpoint saved: 1,824/4,358 BFS rows                              
+[16:14:26] Checkpoint saved: 1,856/4,358 BFS rows                              
+           Exact NetworkX BFS: 1,873/4,358; 46.8/s; ETA 53s                    
+[16:14:27] Checkpoint saved: 1,888/4,358 BFS rows                              
+           Checkpoint saved: 1,920/4,358 BFS rows                              
+[16:14:28] Checkpoint saved: 1,952/4,358 BFS rows                              
+[16:14:29] Checkpoint saved: 1,984/4,358 BFS rows                              
+[16:14:30] Checkpoint saved: 2,016/4,358 BFS rows                              
+           Checkpoint saved: 2,048/4,358 BFS rows                              
+[16:14:31] Checkpoint saved: 2,080/4,358 BFS rows                              
+[16:14:32] Checkpoint saved: 2,112/4,358 BFS rows                              
+           Checkpoint saved: 2,144/4,358 BFS rows                              
+[16:14:33] Checkpoint saved: 2,176/4,358 BFS rows                              
+           Checkpoint saved: 2,208/4,358 BFS rows                              
+[16:14:34] Checkpoint saved: 2,240/4,358 BFS rows                              
+[16:14:35] Checkpoint saved: 2,272/4,358 BFS rows                              
+[16:14:36] Checkpoint saved: 2,304/4,358 BFS rows                              
+           Checkpoint saved: 2,336/4,358 BFS rows                              
+           Exact NetworkX BFS: 2,338/4,358; 46.7/s; ETA 43s                    
+[16:14:37] Checkpoint saved: 2,368/4,358 BFS rows                              
+[16:14:38] Checkpoint saved: 2,400/4,358 BFS rows                              
+[16:14:39] Checkpoint saved: 2,432/4,358 BFS rows                              
+           Checkpoint saved: 2,464/4,358 BFS rows                              
+[16:14:40] Checkpoint saved: 2,496/4,358 BFS rows                              
+[16:14:41] Checkpoint saved: 2,528/4,358 BFS rows                              
+           Checkpoint saved: 2,560/4,358 BFS rows                              
+[16:14:42] Checkpoint saved: 2,592/4,358 BFS rows                              
+[16:14:43] Checkpoint saved: 2,624/4,358 BFS rows                              
+           Checkpoint saved: 2,656/4,358 BFS rows                              
+[16:14:44] Checkpoint saved: 2,688/4,358 BFS rows                              
+[16:14:45] Checkpoint saved: 2,720/4,358 BFS rows                              
+[16:14:46] Checkpoint saved: 2,752/4,358 BFS rows                              
+           Exact NetworkX BFS: 2,780/4,358; 46.3/s; ETA 34s                    
+[16:14:47] Checkpoint saved: 2,784/4,358 BFS rows                              
+           Checkpoint saved: 2,816/4,358 BFS rows                              
+[16:14:48] Checkpoint saved: 2,848/4,358 BFS rows                              
+           Checkpoint saved: 2,880/4,358 BFS rows                              
+[16:14:49] Checkpoint saved: 2,912/4,358 BFS rows                              
+[16:14:50] Checkpoint saved: 2,944/4,358 BFS rows                              
+           Checkpoint saved: 2,976/4,358 BFS rows                              
+[16:14:51] Checkpoint saved: 3,008/4,358 BFS rows                              
+[16:14:52] Checkpoint saved: 3,040/4,358 BFS rows                              
+           Checkpoint saved: 3,072/4,358 BFS rows                              
+[16:14:53] Checkpoint saved: 3,104/4,358 BFS rows                              
+[16:14:54] Checkpoint saved: 3,136/4,358 BFS rows                              
+           Checkpoint saved: 3,168/4,358 BFS rows                              
+[16:14:55] Checkpoint saved: 3,200/4,358 BFS rows                              
+[16:14:56] Checkpoint saved: 3,232/4,358 BFS rows                              
+           Exact NetworkX BFS: 3,262/4,358; 46.6/s; ETA 24s                    
+[16:14:57] Checkpoint saved: 3,264/4,358 BFS rows                              
+           Checkpoint saved: 3,296/4,358 BFS rows                              
+[16:14:58] Checkpoint saved: 3,328/4,358 BFS rows                              
+           Checkpoint saved: 3,360/4,358 BFS rows                              
+[16:14:59] Checkpoint saved: 3,392/4,358 BFS rows                              
+[16:15:00] Checkpoint saved: 3,424/4,358 BFS rows                              
+           Checkpoint saved: 3,456/4,358 BFS rows                              
+[16:15:01] Checkpoint saved: 3,488/4,358 BFS rows                              
+[16:15:02] Checkpoint saved: 3,520/4,358 BFS rows                              
+           Checkpoint saved: 3,552/4,358 BFS rows                              
+[16:15:03] Checkpoint saved: 3,584/4,358 BFS rows                              
+[16:15:04] Checkpoint saved: 3,616/4,358 BFS rows                              
+[16:15:05] Checkpoint saved: 3,648/4,358 BFS rows                              
+           Checkpoint saved: 3,680/4,358 BFS rows                              
+[16:15:06] Checkpoint saved: 3,712/4,358 BFS rows                              
+           Exact NetworkX BFS: 3,721/4,358; 46.5/s; ETA 14s                    
+[16:15:07] Checkpoint saved: 3,744/4,358 BFS rows                              
+[16:15:08] Checkpoint saved: 3,776/4,358 BFS rows                              
+[16:15:09] Checkpoint saved: 3,808/4,358 BFS rows                              
+[16:15:10] Checkpoint saved: 3,840/4,358 BFS rows                              
+[16:15:11] Checkpoint saved: 3,872/4,358 BFS rows                              
+[16:15:12] Checkpoint saved: 3,904/4,358 BFS rows                              
+[16:15:13] Checkpoint saved: 3,936/4,358 BFS rows                              
+           Checkpoint saved: 3,968/4,358 BFS rows                              
+[16:15:14] Checkpoint saved: 4,000/4,358 BFS rows                              
+[16:15:15] Checkpoint saved: 4,032/4,358 BFS rows                              
+[16:15:16] Checkpoint saved: 4,064/4,358 BFS rows                              
+           Checkpoint saved: 4,096/4,358 BFS rows                              
+           Exact NetworkX BFS: 4,102/4,358; 45.6/s; ETA 6s                     
+[16:15:17] Checkpoint saved: 4,128/4,358 BFS rows                              
+[16:15:18] Checkpoint saved: 4,160/4,358 BFS rows                              
+           Checkpoint saved: 4,192/4,358 BFS rows                              
+[16:15:19] Checkpoint saved: 4,224/4,358 BFS rows                              
+[16:15:20] Checkpoint saved: 4,256/4,358 BFS rows                              
+[16:15:21] Checkpoint saved: 4,288/4,358 BFS rows                              
+           Checkpoint saved: 4,320/4,358 BFS rows                              
+[16:15:22] Checkpoint saved: 4,352/4,358 BFS rows                              
+           Checkpoint saved: 4,358/4,358 BFS rows                              
+           Exact NetworkX BFS: done in 95.6s                                   
+           Shortest-path observed + null means: 1,001 items                    
+[16:15:24] Shortest-path observed + null means: done in 1.8s                   
+           Cohesion observed + null statistics: 1,001 items                    
+[16:15:26] Cohesion observed + null statistics: done in 2.0s                   
+           Saving null distributions: curated_HuRI_<analysis>.parquet          
+---------------------------- Network 2/5: BioPlex -----------------------------
+           Loading data\processed_networks\BioPlex.parquet                     
+           Loading data\processed_networks\BioPlex.parquet: done in 0.3s       
+[16:15:27] BioPlex: 13,806 proteins; 128,090 edges; 283 set proteins           
+           Drawing random protein sets: 1,000 items                            
+           Drawing random protein sets: done in 0.1s                           
+[16:15:28] Distance cache: 0 rows reused; 13,798 BFS rows remaining; matrix    
+           0.36 GiB                                                            
+           Cache directory:                                                    
+           C:\projects\interactome\data\analysis_runs\shortest_path_distances\0
+           944edfb5835c76ac31db793dfb5215dd4177199b5f50ff3cc2dd66b0e119e6f     
+           Exact NetworkX BFS: 13,798 items                                    
+[16:15:29] Checkpoint saved: 32/13,798 BFS rows                                
+[16:15:31] Checkpoint saved: 64/13,798 BFS rows                                
+[16:15:33] Checkpoint saved: 96/13,798 BFS rows                                
+[16:15:34] Checkpoint saved: 128/13,798 BFS rows                               
+[16:15:36] Checkpoint saved: 160/13,798 BFS rows                               
+[16:15:37] Checkpoint saved: 192/13,798 BFS rows                               
+[16:15:38] Exact NetworkX BFS: 199/13,798; 19.9/s; ETA 684s                    
+[16:15:39] Checkpoint saved: 224/13,798 BFS rows                               
+[16:15:40] Checkpoint saved: 256/13,798 BFS rows                               
+[16:15:42] Checkpoint saved: 288/13,798 BFS rows                               
+[16:15:44] Checkpoint saved: 320/13,798 BFS rows                               
+[16:15:46] Checkpoint saved: 352/13,798 BFS rows                               
+[16:15:47] Checkpoint saved: 384/13,798 BFS rows                               
+[16:15:48] Exact NetworkX BFS: 396/13,798; 19.8/s; ETA 678s                    
+[16:15:49] Checkpoint saved: 416/13,798 BFS rows                               
+[16:15:50] Checkpoint saved: 448/13,798 BFS rows                               
+[16:15:52] Checkpoint saved: 480/13,798 BFS rows                               
+[16:15:54] Checkpoint saved: 512/13,798 BFS rows                               
+[16:15:56] Checkpoint saved: 544/13,798 BFS rows                               
+[16:15:58] Exact NetworkX BFS: 575/13,798; 19.1/s; ETA 691s                    
+           Checkpoint saved: 576/13,798 BFS rows                               
+[16:15:59] Checkpoint saved: 608/13,798 BFS rows                               
+[16:16:01] Checkpoint saved: 640/13,798 BFS rows                               
+[16:16:03] Checkpoint saved: 672/13,798 BFS rows                               
+[16:16:04] Checkpoint saved: 704/13,798 BFS rows                               
+[16:16:06] Checkpoint saved: 736/13,798 BFS rows                               
+[16:16:08] Checkpoint saved: 768/13,798 BFS rows                               
+           Exact NetworkX BFS: 770/13,798; 19.2/s; ETA 678s                    
+[16:16:09] Checkpoint saved: 800/13,798 BFS rows                               
+[16:16:11] Checkpoint saved: 832/13,798 BFS rows                               
+[16:16:12] Checkpoint saved: 864/13,798 BFS rows                               
+[16:16:14] Checkpoint saved: 896/13,798 BFS rows                               
+[16:16:15] Checkpoint saved: 928/13,798 BFS rows                               
+[16:16:17] Checkpoint saved: 960/13,798 BFS rows                               
+[16:16:18] Exact NetworkX BFS: 973/13,798; 19.4/s; ETA 660s                    
+[16:16:19] Checkpoint saved: 992/13,798 BFS rows                               
+[16:16:20] Checkpoint saved: 1,024/13,798 BFS rows                             
+[16:16:22] Checkpoint saved: 1,056/13,798 BFS rows                             
+[16:16:24] Checkpoint saved: 1,088/13,798 BFS rows                             
+[16:16:25] Checkpoint saved: 1,120/13,798 BFS rows                             
+[16:16:27] Checkpoint saved: 1,152/13,798 BFS rows                             
+[16:16:28] Exact NetworkX BFS: 1,164/13,798; 19.4/s; ETA 652s                  
+[16:16:29] Checkpoint saved: 1,184/13,798 BFS rows                             
+[16:16:31] Checkpoint saved: 1,216/13,798 BFS rows                             
+[16:16:33] Checkpoint saved: 1,248/13,798 BFS rows                             
+[16:16:35] Checkpoint saved: 1,280/13,798 BFS rows                             
+[16:16:36] Checkpoint saved: 1,312/13,798 BFS rows                             
+[16:16:38] Exact NetworkX BFS: 1,335/13,798; 19.1/s; ETA 654s                  
+           Checkpoint saved: 1,344/13,798 BFS rows                             
+[16:16:40] Checkpoint saved: 1,376/13,798 BFS rows                             
+[16:16:41] Checkpoint saved: 1,408/13,798 BFS rows                             
+[16:16:42] Checkpoint saved: 1,440/13,798 BFS rows                             
+[16:16:44] Checkpoint saved: 1,472/13,798 BFS rows                             
+[16:16:45] Checkpoint saved: 1,504/13,798 BFS rows                             
+[16:16:47] Checkpoint saved: 1,536/13,798 BFS rows                             
+[16:16:48] Exact NetworkX BFS: 1,548/13,798; 19.3/s; ETA 634s                  
+[16:16:49] Checkpoint saved: 1,568/13,798 BFS rows                             
+[16:16:50] Checkpoint saved: 1,600/13,798 BFS rows                             
+[16:16:52] Checkpoint saved: 1,632/13,798 BFS rows                             
+[16:16:53] Checkpoint saved: 1,664/13,798 BFS rows                             
+[16:16:55] Checkpoint saved: 1,696/13,798 BFS rows                             
+[16:16:57] Checkpoint saved: 1,728/13,798 BFS rows                             
+[16:16:58] Exact NetworkX BFS: 1,753/13,798; 19.4/s; ETA 619s                  
+           Checkpoint saved: 1,760/13,798 BFS rows                             
+[16:17:00] Checkpoint saved: 1,792/13,798 BFS rows                             
+[16:17:01] Checkpoint saved: 1,824/13,798 BFS rows                             
+[16:17:03] Checkpoint saved: 1,856/13,798 BFS rows                             
+[16:17:04] Checkpoint saved: 1,888/13,798 BFS rows                             
+[16:17:06] Checkpoint saved: 1,920/13,798 BFS rows                             
+[16:17:07] Checkpoint saved: 1,952/13,798 BFS rows                             
+[16:17:08] Exact NetworkX BFS: 1,963/13,798; 19.6/s; ETA 604s                  
+[16:17:09] Checkpoint saved: 1,984/13,798 BFS rows                             
+[16:17:10] Checkpoint saved: 2,016/13,798 BFS rows                             
+[16:17:12] Checkpoint saved: 2,048/13,798 BFS rows                             
+[16:17:13] Checkpoint saved: 2,080/13,798 BFS rows                             
+[16:17:14] Checkpoint saved: 2,112/13,798 BFS rows                             
+[16:17:16] Checkpoint saved: 2,144/13,798 BFS rows                             
+[16:17:17] Checkpoint saved: 2,176/13,798 BFS rows                             
+[16:17:18] Exact NetworkX BFS: 2,182/13,798; 19.8/s; ETA 587s                  
+[16:17:19] Checkpoint saved: 2,208/13,798 BFS rows                             
+[16:17:21] Checkpoint saved: 2,240/13,798 BFS rows                             
+[16:17:23] Checkpoint saved: 2,272/13,798 BFS rows                             
+[16:17:24] Checkpoint saved: 2,304/13,798 BFS rows                             
+[16:17:26] Checkpoint saved: 2,336/13,798 BFS rows                             
+[16:17:28] Exact NetworkX BFS: 2,356/13,798; 19.6/s; ETA 584s                  
+           Checkpoint saved: 2,368/13,798 BFS rows                             
+[16:17:30] Checkpoint saved: 2,400/13,798 BFS rows                             
+[16:17:32] Checkpoint saved: 2,432/13,798 BFS rows                             
+[16:17:33] Checkpoint saved: 2,464/13,798 BFS rows                             
+[16:17:35] Checkpoint saved: 2,496/13,798 BFS rows                             
+[16:17:36] Checkpoint saved: 2,528/13,798 BFS rows                             
+[16:17:38] Checkpoint saved: 2,560/13,798 BFS rows                             
+           Exact NetworkX BFS: 2,561/13,798; 19.7/s; ETA 572s                  
+[16:17:39] Checkpoint saved: 2,592/13,798 BFS rows                             
+[16:17:41] Checkpoint saved: 2,624/13,798 BFS rows                             
+[16:17:42] Checkpoint saved: 2,656/13,798 BFS rows                             
+[16:17:44] Checkpoint saved: 2,688/13,798 BFS rows                             
+[16:17:45] Checkpoint saved: 2,720/13,798 BFS rows                             
+[16:17:46] Checkpoint saved: 2,752/13,798 BFS rows                             
+[16:17:48] Exact NetworkX BFS: 2,781/13,798; 19.8/s; ETA 556s                  
+           Checkpoint saved: 2,784/13,798 BFS rows                             
+[16:17:49] Checkpoint saved: 2,816/13,798 BFS rows                             
+[16:17:51] Checkpoint saved: 2,848/13,798 BFS rows                             
+[16:17:52] Checkpoint saved: 2,880/13,798 BFS rows                             
+[16:17:54] Checkpoint saved: 2,912/13,798 BFS rows                             
+[16:17:55] Checkpoint saved: 2,944/13,798 BFS rows                             
+[16:17:57] Checkpoint saved: 2,976/13,798 BFS rows                             
+[16:17:58] Exact NetworkX BFS: 3,005/13,798; 20.0/s; ETA 540s                  
+           Checkpoint saved: 3,008/13,798 BFS rows                             
+[16:18:00] Checkpoint saved: 3,040/13,798 BFS rows                             
+[16:18:01] Checkpoint saved: 3,072/13,798 BFS rows                             
+[16:18:03] Checkpoint saved: 3,104/13,798 BFS rows                             
+[16:18:04] Checkpoint saved: 3,136/13,798 BFS rows                             
+[16:18:06] Checkpoint saved: 3,168/13,798 BFS rows                             
+[16:18:07] Checkpoint saved: 3,200/13,798 BFS rows                             
+[16:18:08] Exact NetworkX BFS: 3,210/13,798; 20.0/s; ETA 529s                  
+[16:18:09] Checkpoint saved: 3,232/13,798 BFS rows                             
+[16:18:10] Checkpoint saved: 3,264/13,798 BFS rows                             
+[16:18:12] Checkpoint saved: 3,296/13,798 BFS rows                             
+[16:18:13] Checkpoint saved: 3,328/13,798 BFS rows                             
+[16:18:15] Checkpoint saved: 3,360/13,798 BFS rows                             
+[16:18:16] Checkpoint saved: 3,392/13,798 BFS rows                             
+[16:18:18] Checkpoint saved: 3,424/13,798 BFS rows                             
+           Exact NetworkX BFS: 3,431/13,798; 20.1/s; ETA 515s                  
+[16:18:19] Checkpoint saved: 3,456/13,798 BFS rows                             
+[16:18:20] Checkpoint saved: 3,488/13,798 BFS rows                             
+[16:18:22] Checkpoint saved: 3,520/13,798 BFS rows                             
+[16:18:23] Checkpoint saved: 3,552/13,798 BFS rows                             
+[16:18:25] Checkpoint saved: 3,584/13,798 BFS rows                             
+[16:18:26] Checkpoint saved: 3,616/13,798 BFS rows                             
+[16:18:28] Checkpoint saved: 3,648/13,798 BFS rows                             
+           Exact NetworkX BFS: 3,652/13,798; 20.2/s; ETA 501s                  
+[16:18:29] Checkpoint saved: 3,680/13,798 BFS rows                             
+[16:18:31] Checkpoint saved: 3,712/13,798 BFS rows                             
+[16:18:32] Checkpoint saved: 3,744/13,798 BFS rows                             
+[16:18:33] Checkpoint saved: 3,776/13,798 BFS rows                             
+[16:18:35] Checkpoint saved: 3,808/13,798 BFS rows                             
+[16:18:36] Checkpoint saved: 3,840/13,798 BFS rows                             
+[16:18:38] Checkpoint saved: 3,872/13,798 BFS rows                             
+           Exact NetworkX BFS: 3,877/13,798; 20.4/s; ETA 487s                  
+[16:18:39] Checkpoint saved: 3,904/13,798 BFS rows                             
+[16:18:41] Checkpoint saved: 3,936/13,798 BFS rows                             
+[16:18:42] Checkpoint saved: 3,968/13,798 BFS rows                             
+[16:18:43] Checkpoint saved: 4,000/13,798 BFS rows                             
+[16:18:45] Checkpoint saved: 4,032/13,798 BFS rows                             
+[16:18:46] Checkpoint saved: 4,064/13,798 BFS rows                             
+[16:18:48] Checkpoint saved: 4,096/13,798 BFS rows                             
+           Exact NetworkX BFS: 4,099/13,798; 20.5/s; ETA 474s                  
+[16:18:49] Checkpoint saved: 4,128/13,798 BFS rows                             
+[16:18:51] Checkpoint saved: 4,160/13,798 BFS rows                             
+[16:18:53] Checkpoint saved: 4,192/13,798 BFS rows                             
+[16:18:54] Checkpoint saved: 4,224/13,798 BFS rows                             
+[16:18:56] Checkpoint saved: 4,256/13,798 BFS rows                             
+[16:18:57] Checkpoint saved: 4,288/13,798 BFS rows                             
+[16:18:58] Exact NetworkX BFS: 4,303/13,798; 20.4/s; ETA 464s                  
+[16:18:59] Checkpoint saved: 4,320/13,798 BFS rows                             
+[16:19:00] Checkpoint saved: 4,352/13,798 BFS rows                             
+[16:19:02] Checkpoint saved: 4,384/13,798 BFS rows                             
+[16:19:04] Checkpoint saved: 4,416/13,798 BFS rows                             
+[16:19:06] Checkpoint saved: 4,448/13,798 BFS rows                             
+[16:19:07] Checkpoint saved: 4,480/13,798 BFS rows                             
+[16:19:08] Exact NetworkX BFS: 4,488/13,798; 20.4/s; ETA 457s                  
+[16:19:09] Checkpoint saved: 4,512/13,798 BFS rows                             
+[16:19:12] Checkpoint saved: 4,544/13,798 BFS rows                             
+[16:19:14] Checkpoint saved: 4,576/13,798 BFS rows                             
+[16:19:17] Checkpoint saved: 4,608/13,798 BFS rows                             
+[16:19:18] Exact NetworkX BFS: 4,625/13,798; 20.1/s; ETA 457s                  
+[16:19:19] Checkpoint saved: 4,640/13,798 BFS rows                             
+[16:19:21] Checkpoint saved: 4,672/13,798 BFS rows                             
+[16:19:23] Checkpoint saved: 4,704/13,798 BFS rows                             
+[16:19:25] Checkpoint saved: 4,736/13,798 BFS rows                             
+[16:19:27] Checkpoint saved: 4,768/13,798 BFS rows                             
+[16:19:28] Exact NetworkX BFS: 4,778/13,798; 19.9/s; ETA 454s                  
+[16:19:29] Checkpoint saved: 4,800/13,798 BFS rows                             
+[16:19:31] Checkpoint saved: 4,832/13,798 BFS rows                             
+[16:19:33] Checkpoint saved: 4,864/13,798 BFS rows                             
+[16:19:34] Checkpoint saved: 4,896/13,798 BFS rows                             
+[16:19:35] Checkpoint saved: 4,928/13,798 BFS rows                             
+[16:19:37] Checkpoint saved: 4,960/13,798 BFS rows                             
+[16:19:38] Exact NetworkX BFS: 4,980/13,798; 19.9/s; ETA 444s                  
+[16:19:39] Checkpoint saved: 4,992/13,798 BFS rows                             
+[16:19:41] Checkpoint saved: 5,024/13,798 BFS rows                             
+[16:19:44] Checkpoint saved: 5,056/13,798 BFS rows                             
+[16:19:46] Checkpoint saved: 5,088/13,798 BFS rows                             
+[16:19:48] Exact NetworkX BFS: 5,110/13,798; 19.6/s; ETA 443s                  
+[16:19:49] Checkpoint saved: 5,120/13,798 BFS rows                             
+[16:19:52] Checkpoint saved: 5,152/13,798 BFS rows                             
+[16:19:55] Checkpoint saved: 5,184/13,798 BFS rows                             
+[16:19:57] Checkpoint saved: 5,216/13,798 BFS rows                             
+[16:19:58] Exact NetworkX BFS: 5,223/13,798; 19.3/s; ETA 444s                  
+[16:20:00] Checkpoint saved: 5,248/13,798 BFS rows                             
+[16:20:03] Checkpoint saved: 5,280/13,798 BFS rows                             
+[16:20:06] Checkpoint saved: 5,312/13,798 BFS rows                             
+[16:20:08] Exact NetworkX BFS: 5,334/13,798; 19.0/s; ETA 445s                  
+[16:20:09] Checkpoint saved: 5,344/13,798 BFS rows                             
+[16:20:12] Checkpoint saved: 5,376/13,798 BFS rows                             
+[16:20:14] Checkpoint saved: 5,408/13,798 BFS rows                             
+[16:20:17] Checkpoint saved: 5,440/13,798 BFS rows                             
+[16:20:18] Exact NetworkX BFS: 5,451/13,798; 18.8/s; ETA 445s                  
+[16:20:20] Checkpoint saved: 5,472/13,798 BFS rows                             
+[16:20:23] Checkpoint saved: 5,504/13,798 BFS rows                             
+[16:20:26] Checkpoint saved: 5,536/13,798 BFS rows                             
+[16:20:28] Exact NetworkX BFS: 5,560/13,798; 18.5/s; ETA 445s                  
+[16:20:29] Checkpoint saved: 5,568/13,798 BFS rows                             
+[16:20:32] Checkpoint saved: 5,600/13,798 BFS rows                             
+[16:20:35] Checkpoint saved: 5,632/13,798 BFS rows                             
+[16:20:38] Checkpoint saved: 5,664/13,798 BFS rows                             
+           Exact NetworkX BFS: 5,665/13,798; 18.2/s; ETA 446s                  
+[16:20:41] Checkpoint saved: 5,696/13,798 BFS rows                             
+[16:20:44] Checkpoint saved: 5,728/13,798 BFS rows                             
+[16:20:47] Checkpoint saved: 5,760/13,798 BFS rows                             
+[16:20:48] Exact NetworkX BFS: 5,775/13,798; 18.0/s; ETA 446s                  
+[16:20:50] Checkpoint saved: 5,792/13,798 BFS rows                             
+[16:20:53] Checkpoint saved: 5,824/13,798 BFS rows                             
+[16:20:56] Checkpoint saved: 5,856/13,798 BFS rows                             
+[16:20:58] Exact NetworkX BFS: 5,876/13,798; 17.8/s; ETA 446s                  
+[16:20:59] Checkpoint saved: 5,888/13,798 BFS rows                             
+[16:21:02] Checkpoint saved: 5,920/13,798 BFS rows                             
+[16:21:05] Checkpoint saved: 5,952/13,798 BFS rows                             
+[16:21:08] Checkpoint saved: 5,984/13,798 BFS rows                             
+           Exact NetworkX BFS: 5,989/13,798; 17.6/s; ETA 444s                  
+[16:21:11] Checkpoint saved: 6,016/13,798 BFS rows                             
+[16:21:14] Checkpoint saved: 6,048/13,798 BFS rows                             
+[16:21:16] Checkpoint saved: 6,080/13,798 BFS rows                             
+[16:21:18] Exact NetworkX BFS: 6,103/13,798; 17.4/s; ETA 442s                  
+[16:21:19] Checkpoint saved: 6,112/13,798 BFS rows                             
+[16:21:22] Checkpoint saved: 6,144/13,798 BFS rows                             
+[16:21:24] Checkpoint saved: 6,176/13,798 BFS rows                             
+[16:21:27] Checkpoint saved: 6,208/13,798 BFS rows                             
+[16:21:28] Exact NetworkX BFS: 6,237/13,798; 17.3/s; ETA 437s                  
+[16:21:29] Checkpoint saved: 6,240/13,798 BFS rows                             
+[16:21:31] Checkpoint saved: 6,272/13,798 BFS rows                             
+[16:21:33] Checkpoint saved: 6,304/13,798 BFS rows                             
+[16:21:36] Checkpoint saved: 6,336/13,798 BFS rows                             
+[16:21:38] Checkpoint saved: 6,368/13,798 BFS rows                             
+           Exact NetworkX BFS: 6,382/13,798; 17.2/s; ETA 431s                  
+[16:21:39] Checkpoint saved: 6,400/13,798 BFS rows                             
+[16:21:41] Checkpoint saved: 6,432/13,798 BFS rows                             
+[16:21:43] Checkpoint saved: 6,464/13,798 BFS rows                             
+[16:21:44] Checkpoint saved: 6,496/13,798 BFS rows                             
+[16:21:46] Checkpoint saved: 6,528/13,798 BFS rows                             
+[16:21:47] Checkpoint saved: 6,560/13,798 BFS rows                             
+[16:21:48] Exact NetworkX BFS: 6,588/13,798; 17.3/s; ETA 417s                  
+[16:21:49] Checkpoint saved: 6,592/13,798 BFS rows                             
+[16:21:50] Checkpoint saved: 6,624/13,798 BFS rows                             
+[16:21:52] Checkpoint saved: 6,656/13,798 BFS rows                             
+[16:21:53] Checkpoint saved: 6,688/13,798 BFS rows                             
+[16:21:54] Checkpoint saved: 6,720/13,798 BFS rows                             
+[16:21:56] Checkpoint saved: 6,752/13,798 BFS rows                             
+[16:21:57] Checkpoint saved: 6,784/13,798 BFS rows                             
+[16:21:58] Exact NetworkX BFS: 6,806/13,798; 17.4/s; ETA 402s                  
+[16:21:59] Checkpoint saved: 6,816/13,798 BFS rows                             
+[16:22:00] Checkpoint saved: 6,848/13,798 BFS rows                             
+[16:22:02] Checkpoint saved: 6,880/13,798 BFS rows                             
+[16:22:04] Checkpoint saved: 6,912/13,798 BFS rows                             
+[16:22:05] Checkpoint saved: 6,944/13,798 BFS rows                             
+[16:22:06] Checkpoint saved: 6,976/13,798 BFS rows                             
+[16:22:08] Checkpoint saved: 7,008/13,798 BFS rows                             
+           Exact NetworkX BFS: 7,020/13,798; 17.5/s; ETA 387s                  
+[16:22:09] Checkpoint saved: 7,040/13,798 BFS rows                             
+[16:22:11] Checkpoint saved: 7,072/13,798 BFS rows                             
+[16:22:13] Checkpoint saved: 7,104/13,798 BFS rows                             
+[16:22:14] Checkpoint saved: 7,136/13,798 BFS rows                             
+[16:22:16] Checkpoint saved: 7,168/13,798 BFS rows                             
+[16:22:17] Checkpoint saved: 7,200/13,798 BFS rows                             
+[16:22:18] Exact NetworkX BFS: 7,228/13,798; 17.6/s; ETA 374s                  
+[16:22:19] Checkpoint saved: 7,232/13,798 BFS rows                             
+[16:22:20] Checkpoint saved: 7,264/13,798 BFS rows                             
+[16:22:22] Checkpoint saved: 7,296/13,798 BFS rows                             
+[16:22:23] Checkpoint saved: 7,328/13,798 BFS rows                             
+[16:22:25] Checkpoint saved: 7,360/13,798 BFS rows                             
+[16:22:26] Checkpoint saved: 7,392/13,798 BFS rows                             
+[16:22:28] Checkpoint saved: 7,424/13,798 BFS rows                             
+           Exact NetworkX BFS: 7,433/13,798; 17.7/s; ETA 360s                  
+[16:22:30] Checkpoint saved: 7,456/13,798 BFS rows                             
+[16:22:31] Checkpoint saved: 7,488/13,798 BFS rows                             
+[16:22:33] Checkpoint saved: 7,520/13,798 BFS rows                             
+[16:22:34] Checkpoint saved: 7,552/13,798 BFS rows                             
+[16:22:36] Checkpoint saved: 7,584/13,798 BFS rows                             
+[16:22:37] Checkpoint saved: 7,616/13,798 BFS rows                             
+[16:22:39] Exact NetworkX BFS: 7,639/13,798; 17.7/s; ETA 347s                  
+           Checkpoint saved: 7,648/13,798 BFS rows                             
+[16:22:41] Checkpoint saved: 7,680/13,798 BFS rows                             
+[16:22:42] Checkpoint saved: 7,712/13,798 BFS rows                             
+[16:22:44] Checkpoint saved: 7,744/13,798 BFS rows                             
+[16:22:45] Checkpoint saved: 7,776/13,798 BFS rows                             
+[16:22:47] Checkpoint saved: 7,808/13,798 BFS rows                             
+[16:22:48] Checkpoint saved: 7,840/13,798 BFS rows                             
+[16:22:49] Exact NetworkX BFS: 7,849/13,798; 17.8/s; ETA 334s                  
+[16:22:50] Checkpoint saved: 7,872/13,798 BFS rows                             
+[16:22:51] Checkpoint saved: 7,904/13,798 BFS rows                             
+[16:22:53] Checkpoint saved: 7,936/13,798 BFS rows                             
+[16:22:54] Checkpoint saved: 7,968/13,798 BFS rows                             
+[16:22:56] Checkpoint saved: 8,000/13,798 BFS rows                             
+[16:22:57] Checkpoint saved: 8,032/13,798 BFS rows                             
+[16:22:59] Exact NetworkX BFS: 8,061/13,798; 17.9/s; ETA 321s                  
+           Checkpoint saved: 8,064/13,798 BFS rows                             
+[16:23:00] Checkpoint saved: 8,096/13,798 BFS rows                             
+[16:23:02] Checkpoint saved: 8,128/13,798 BFS rows                             
+[16:23:04] Checkpoint saved: 8,160/13,798 BFS rows                             
+[16:23:06] Checkpoint saved: 8,192/13,798 BFS rows                             
+[16:23:08] Checkpoint saved: 8,224/13,798 BFS rows                             
+[16:23:09] Exact NetworkX BFS: 8,242/13,798; 17.9/s; ETA 311s                  
+           Checkpoint saved: 8,256/13,798 BFS rows                             
+[16:23:11] Checkpoint saved: 8,288/13,798 BFS rows                             
+[16:23:13] Checkpoint saved: 8,320/13,798 BFS rows                             
+[16:23:14] Checkpoint saved: 8,352/13,798 BFS rows                             
+[16:23:16] Checkpoint saved: 8,384/13,798 BFS rows                             
+[16:23:17] Checkpoint saved: 8,416/13,798 BFS rows                             
+[16:23:19] Exact NetworkX BFS: 8,441/13,798; 17.9/s; ETA 299s                  
+           Checkpoint saved: 8,448/13,798 BFS rows                             
+[16:23:20] Checkpoint saved: 8,480/13,798 BFS rows                             
+[16:23:22] Checkpoint saved: 8,512/13,798 BFS rows                             
+[16:23:24] Checkpoint saved: 8,544/13,798 BFS rows                             
+[16:23:25] Checkpoint saved: 8,576/13,798 BFS rows                             
+[16:23:27] Checkpoint saved: 8,608/13,798 BFS rows                             
+[16:23:28] Checkpoint saved: 8,640/13,798 BFS rows                             
+[16:23:29] Exact NetworkX BFS: 8,648/13,798; 18.0/s; ETA 286s                  
+[16:23:30] Checkpoint saved: 8,672/13,798 BFS rows                             
+[16:23:31] Checkpoint saved: 8,704/13,798 BFS rows                             
+[16:23:33] Checkpoint saved: 8,736/13,798 BFS rows                             
+[16:23:35] Checkpoint saved: 8,768/13,798 BFS rows                             
+[16:23:37] Checkpoint saved: 8,800/13,798 BFS rows                             
+[16:23:39] Exact NetworkX BFS: 8,831/13,798; 18.0/s; ETA 276s                  
+           Checkpoint saved: 8,832/13,798 BFS rows                             
+[16:23:41] Checkpoint saved: 8,864/13,798 BFS rows                             
+[16:23:43] Checkpoint saved: 8,896/13,798 BFS rows                             
+[16:23:45] Checkpoint saved: 8,928/13,798 BFS rows                             
+[16:23:47] Checkpoint saved: 8,960/13,798 BFS rows                             
+[16:23:49] Checkpoint saved: 8,992/13,798 BFS rows                             
+           Exact NetworkX BFS: 8,995/13,798; 18.0/s; ETA 268s                  
+[16:23:50] Checkpoint saved: 9,024/13,798 BFS rows                             
+[16:23:52] Checkpoint saved: 9,056/13,798 BFS rows                             
+[16:23:53] Checkpoint saved: 9,088/13,798 BFS rows                             
+[16:23:55] Checkpoint saved: 9,120/13,798 BFS rows                             
+[16:23:56] Checkpoint saved: 9,152/13,798 BFS rows                             
+[16:23:58] Checkpoint saved: 9,184/13,798 BFS rows                             
+[16:23:59] Exact NetworkX BFS: 9,204/13,798; 18.0/s; ETA 255s                  
+           Checkpoint saved: 9,216/13,798 BFS rows                             
+[16:24:01] Checkpoint saved: 9,248/13,798 BFS rows                             
+[16:24:03] Checkpoint saved: 9,280/13,798 BFS rows                             
+[16:24:05] Checkpoint saved: 9,312/13,798 BFS rows                             
+[16:24:07] Checkpoint saved: 9,344/13,798 BFS rows                             
+[16:24:09] Exact NetworkX BFS: 9,366/13,798; 18.0/s; ETA 247s                  
+           Checkpoint saved: 9,376/13,798 BFS rows                             
+[16:24:11] Checkpoint saved: 9,408/13,798 BFS rows                             
+[16:24:13] Checkpoint saved: 9,440/13,798 BFS rows                             
+[16:24:15] Checkpoint saved: 9,472/13,798 BFS rows                             
+[16:24:17] Checkpoint saved: 9,504/13,798 BFS rows                             
+[16:24:19] Exact NetworkX BFS: 9,530/13,798; 17.9/s; ETA 238s                  
+           Checkpoint saved: 9,536/13,798 BFS rows                             
+[16:24:21] Checkpoint saved: 9,568/13,798 BFS rows                             
+[16:24:22] Checkpoint saved: 9,600/13,798 BFS rows                             
+[16:24:24] Checkpoint saved: 9,632/13,798 BFS rows                             
+[16:24:25] Checkpoint saved: 9,664/13,798 BFS rows                             
+[16:24:27] Checkpoint saved: 9,696/13,798 BFS rows                             
+[16:24:28] Checkpoint saved: 9,728/13,798 BFS rows                             
+[16:24:29] Exact NetworkX BFS: 9,744/13,798; 18.0/s; ETA 225s                  
+           Checkpoint saved: 9,760/13,798 BFS rows                             
+[16:24:31] Checkpoint saved: 9,792/13,798 BFS rows                             
+[16:24:32] Checkpoint saved: 9,824/13,798 BFS rows                             
+[16:24:34] Checkpoint saved: 9,856/13,798 BFS rows                             
+[16:24:35] Checkpoint saved: 9,888/13,798 BFS rows                             
+[16:24:37] Checkpoint saved: 9,920/13,798 BFS rows                             
+[16:24:38] Checkpoint saved: 9,952/13,798 BFS rows                             
+[16:24:39] Exact NetworkX BFS: 9,961/13,798; 18.1/s; ETA 212s                  
+[16:24:40] Checkpoint saved: 9,984/13,798 BFS rows                             
+[16:24:41] Checkpoint saved: 10,016/13,798 BFS rows                            
+[16:24:43] Checkpoint saved: 10,048/13,798 BFS rows                            
+[16:24:44] Checkpoint saved: 10,080/13,798 BFS rows                            
+[16:24:46] Checkpoint saved: 10,112/13,798 BFS rows                            
+[16:24:47] Checkpoint saved: 10,144/13,798 BFS rows                            
+[16:24:49] Checkpoint saved: 10,176/13,798 BFS rows                            
+           Exact NetworkX BFS: 10,176/13,798; 18.1/s; ETA 200s                 
+[16:24:50] Checkpoint saved: 10,208/13,798 BFS rows                            
+[16:24:53] Checkpoint saved: 10,240/13,798 BFS rows                            
+[16:24:55] Checkpoint saved: 10,272/13,798 BFS rows                            
+[16:24:56] Checkpoint saved: 10,304/13,798 BFS rows                            
+[16:24:58] Checkpoint saved: 10,336/13,798 BFS rows                            
+[16:24:59] Exact NetworkX BFS: 10,341/13,798; 18.1/s; ETA 191s                 
+[16:25:00] Checkpoint saved: 10,368/13,798 BFS rows                            
+[16:25:02] Checkpoint saved: 10,400/13,798 BFS rows                            
+[16:25:04] Checkpoint saved: 10,432/13,798 BFS rows                            
+[16:25:05] Checkpoint saved: 10,464/13,798 BFS rows                            
+[16:25:07] Checkpoint saved: 10,496/13,798 BFS rows                            
+[16:25:08] Checkpoint saved: 10,528/13,798 BFS rows                            
+[16:25:09] Exact NetworkX BFS: 10,544/13,798; 18.1/s; ETA 179s                 
+[16:25:10] Checkpoint saved: 10,560/13,798 BFS rows                            
+[16:25:11] Checkpoint saved: 10,592/13,798 BFS rows                            
+[16:25:12] Checkpoint saved: 10,624/13,798 BFS rows                            
+[16:25:14] Checkpoint saved: 10,656/13,798 BFS rows                            
+[16:25:15] Checkpoint saved: 10,688/13,798 BFS rows                            
+[16:25:17] Checkpoint saved: 10,720/13,798 BFS rows                            
+[16:25:18] Checkpoint saved: 10,752/13,798 BFS rows                            
+[16:25:19] Exact NetworkX BFS: 10,767/13,798; 18.2/s; ETA 166s                 
+[16:25:20] Checkpoint saved: 10,784/13,798 BFS rows                            
+[16:25:21] Checkpoint saved: 10,816/13,798 BFS rows                            
+[16:25:23] Checkpoint saved: 10,848/13,798 BFS rows                            
+[16:25:26] Checkpoint saved: 10,880/13,798 BFS rows                            
+[16:25:28] Checkpoint saved: 10,912/13,798 BFS rows                            
+[16:25:29] Exact NetworkX BFS: 10,930/13,798; 18.2/s; ETA 158s                 
+[16:25:30] Checkpoint saved: 10,944/13,798 BFS rows                            
+[16:25:32] Checkpoint saved: 10,976/13,798 BFS rows                            
+[16:25:34] Checkpoint saved: 11,008/13,798 BFS rows                            
+[16:25:36] Checkpoint saved: 11,040/13,798 BFS rows                            
+[16:25:38] Checkpoint saved: 11,072/13,798 BFS rows                            
+[16:25:39] Exact NetworkX BFS: 11,084/13,798; 18.1/s; ETA 150s                 
+[16:25:40] Checkpoint saved: 11,104/13,798 BFS rows                            
+[16:25:42] Checkpoint saved: 11,136/13,798 BFS rows                            
+[16:25:44] Checkpoint saved: 11,168/13,798 BFS rows                            
+[16:25:45] Checkpoint saved: 11,200/13,798 BFS rows                            
+[16:25:47] Checkpoint saved: 11,232/13,798 BFS rows                            
+[16:25:49] Checkpoint saved: 11,264/13,798 BFS rows                            
+           Exact NetworkX BFS: 11,266/13,798; 18.1/s; ETA 140s                 
+[16:25:50] Checkpoint saved: 11,296/13,798 BFS rows                            
+[16:25:52] Checkpoint saved: 11,328/13,798 BFS rows                            
+[16:25:54] Checkpoint saved: 11,360/13,798 BFS rows                            
+[16:25:56] Checkpoint saved: 11,392/13,798 BFS rows                            
+[16:25:57] Checkpoint saved: 11,424/13,798 BFS rows                            
+[16:25:59] Exact NetworkX BFS: 11,452/13,798; 18.1/s; ETA 129s                 
+           Checkpoint saved: 11,456/13,798 BFS rows                            
+[16:26:01] Checkpoint saved: 11,488/13,798 BFS rows                            
+[16:26:03] Checkpoint saved: 11,520/13,798 BFS rows                            
+[16:26:04] Checkpoint saved: 11,552/13,798 BFS rows                            
+[16:26:06] Checkpoint saved: 11,584/13,798 BFS rows                            
+[16:26:08] Checkpoint saved: 11,616/13,798 BFS rows                            
+[16:26:09] Exact NetworkX BFS: 11,644/13,798; 18.2/s; ETA 119s                 
+           Checkpoint saved: 11,648/13,798 BFS rows                            
+[16:26:11] Checkpoint saved: 11,680/13,798 BFS rows                            
+[16:26:12] Checkpoint saved: 11,712/13,798 BFS rows                            
+[16:26:14] Checkpoint saved: 11,744/13,798 BFS rows                            
+[16:26:15] Checkpoint saved: 11,776/13,798 BFS rows                            
+[16:26:17] Checkpoint saved: 11,808/13,798 BFS rows                            
+[16:26:19] Exact NetworkX BFS: 11,836/13,798; 18.2/s; ETA 108s                 
+           Checkpoint saved: 11,840/13,798 BFS rows                            
+[16:26:21] Checkpoint saved: 11,872/13,798 BFS rows                            
+[16:26:23] Checkpoint saved: 11,904/13,798 BFS rows                            
+[16:26:25] Checkpoint saved: 11,936/13,798 BFS rows                            
+[16:26:27] Checkpoint saved: 11,968/13,798 BFS rows                            
+[16:26:28] Checkpoint saved: 12,000/13,798 BFS rows                            
+[16:26:29] Exact NetworkX BFS: 12,013/13,798; 18.2/s; ETA 98s                  
+[16:26:30] Checkpoint saved: 12,032/13,798 BFS rows                            
+[16:26:32] Checkpoint saved: 12,064/13,798 BFS rows                            
+[16:26:33] Checkpoint saved: 12,096/13,798 BFS rows                            
+[16:26:35] Checkpoint saved: 12,128/13,798 BFS rows                            
+[16:26:36] Checkpoint saved: 12,160/13,798 BFS rows                            
+[16:26:38] Checkpoint saved: 12,192/13,798 BFS rows                            
+[16:26:39] Exact NetworkX BFS: 12,211/13,798; 18.2/s; ETA 87s                  
+[16:26:40] Checkpoint saved: 12,224/13,798 BFS rows                            
+[16:26:41] Checkpoint saved: 12,256/13,798 BFS rows                            
+[16:26:43] Checkpoint saved: 12,288/13,798 BFS rows                            
+[16:26:45] Checkpoint saved: 12,320/13,798 BFS rows                            
+[16:26:46] Checkpoint saved: 12,352/13,798 BFS rows                            
+[16:26:48] Checkpoint saved: 12,384/13,798 BFS rows                            
+[16:26:49] Exact NetworkX BFS: 12,401/13,798; 18.2/s; ETA 77s                  
+[16:26:50] Checkpoint saved: 12,416/13,798 BFS rows                            
+[16:26:51] Checkpoint saved: 12,448/13,798 BFS rows                            
+[16:26:53] Checkpoint saved: 12,480/13,798 BFS rows                            
+[16:26:54] Checkpoint saved: 12,512/13,798 BFS rows                            
+[16:26:56] Checkpoint saved: 12,544/13,798 BFS rows                            
+[16:26:58] Checkpoint saved: 12,576/13,798 BFS rows                            
+[16:26:59] Exact NetworkX BFS: 12,604/13,798; 18.2/s; ETA 66s                  
+           Checkpoint saved: 12,608/13,798 BFS rows                            
+[16:27:01] Checkpoint saved: 12,640/13,798 BFS rows                            
+[16:27:03] Checkpoint saved: 12,672/13,798 BFS rows                            
+[16:27:04] Checkpoint saved: 12,704/13,798 BFS rows                            
+[16:27:06] Checkpoint saved: 12,736/13,798 BFS rows                            
+[16:27:08] Checkpoint saved: 12,768/13,798 BFS rows                            
+[16:27:09] Exact NetworkX BFS: 12,799/13,798; 18.2/s; ETA 55s                  
+           Checkpoint saved: 12,800/13,798 BFS rows                            
+[16:27:11] Checkpoint saved: 12,832/13,798 BFS rows                            
+[16:27:12] Checkpoint saved: 12,864/13,798 BFS rows                            
+[16:27:13] Checkpoint saved: 12,896/13,798 BFS rows                            
+[16:27:15] Checkpoint saved: 12,928/13,798 BFS rows                            
+[16:27:16] Checkpoint saved: 12,960/13,798 BFS rows                            
+[16:27:18] Checkpoint saved: 12,992/13,798 BFS rows                            
+[16:27:19] Exact NetworkX BFS: 13,015/13,798; 18.3/s; ETA 43s                  
+           Checkpoint saved: 13,024/13,798 BFS rows                            
+[16:27:21] Checkpoint saved: 13,056/13,798 BFS rows                            
+[16:27:23] Checkpoint saved: 13,088/13,798 BFS rows                            
+[16:27:25] Checkpoint saved: 13,120/13,798 BFS rows                            
+[16:27:27] Checkpoint saved: 13,152/13,798 BFS rows                            
+[16:27:29] Checkpoint saved: 13,184/13,798 BFS rows                            
+           Exact NetworkX BFS: 13,191/13,798; 18.3/s; ETA 33s                  
+[16:27:30] Checkpoint saved: 13,216/13,798 BFS rows                            
+[16:27:32] Checkpoint saved: 13,248/13,798 BFS rows                            
+[16:27:34] Checkpoint saved: 13,280/13,798 BFS rows                            
+[16:27:35] Checkpoint saved: 13,312/13,798 BFS rows                            
+[16:27:37] Checkpoint saved: 13,344/13,798 BFS rows                            
+[16:27:39] Checkpoint saved: 13,376/13,798 BFS rows                            
+           Exact NetworkX BFS: 13,378/13,798; 18.3/s; ETA 23s                  
+[16:27:41] Checkpoint saved: 13,408/13,798 BFS rows                            
+[16:27:42] Checkpoint saved: 13,440/13,798 BFS rows                            
+[16:27:44] Checkpoint saved: 13,472/13,798 BFS rows                            
+[16:27:45] Checkpoint saved: 13,504/13,798 BFS rows                            
+[16:27:47] Checkpoint saved: 13,536/13,798 BFS rows                            
+[16:27:48] Checkpoint saved: 13,568/13,798 BFS rows                            
+[16:27:49] Exact NetworkX BFS: 13,592/13,798; 18.3/s; ETA 11s                  
+           Checkpoint saved: 13,600/13,798 BFS rows                            
+[16:27:51] Checkpoint saved: 13,632/13,798 BFS rows                            
+[16:27:53] Checkpoint saved: 13,664/13,798 BFS rows                            
+[16:27:54] Checkpoint saved: 13,696/13,798 BFS rows                            
+[16:27:56] Checkpoint saved: 13,728/13,798 BFS rows                            
+[16:27:58] Checkpoint saved: 13,760/13,798 BFS rows                            
+[16:27:59] Checkpoint saved: 13,792/13,798 BFS rows                            
+           Exact NetworkX BFS: 13,792/13,798; 18.4/s; ETA 0s                   
+           Checkpoint saved: 13,798/13,798 BFS rows                            
+           Exact NetworkX BFS: done in 751.8s                                  
+           Shortest-path observed + null means: 1,001 items                    
+[16:28:03] Shortest-path observed + null means: done in 3.9s                   
+           Cohesion observed + null statistics: 1,001 items                    
+[16:28:09] Cohesion observed + null statistics: done in 6.1s                   
+           Saving null distributions: curated_BioPlex_<analysis>.parquet       
+------------------------ Network 3/5: TAGC_binary2025 -------------------------
+           Loading data\processed_networks\TAGC_binary2025.parquet             
+[16:28:10] Loading data\processed_networks\TAGC_binary2025.parquet: done in    
+           0.3s                                                                
+[16:28:11] TAGC_binary2025: 14,207 proteins; 108,633 edges; 292 set proteins   
+           Drawing random protein sets: 1,000 items                            
+           Drawing random protein sets: done in 0.1s                           
+           Distance cache: 0 rows reused; 14,203 BFS rows remaining; matrix    
+           0.38 GiB                                                            
+           Cache directory:                                                    
+           C:\projects\interactome\data\analysis_runs\shortest_path_distances\a
+           5237b40c34acd0d3149afa655eb241cd18f8cd7c19e220c2121b97de1d2025d     
+           Exact NetworkX BFS: 14,203 items                                    
+[16:28:12] Checkpoint saved: 32/14,203 BFS rows                                
+[16:28:14] Checkpoint saved: 64/14,203 BFS rows                                
+[16:28:15] Checkpoint saved: 96/14,203 BFS rows                                
+[16:28:17] Checkpoint saved: 128/14,203 BFS rows                               
+[16:28:19] Checkpoint saved: 160/14,203 BFS rows                               
+[16:28:20] Checkpoint saved: 192/14,203 BFS rows                               
+[16:28:21] Exact NetworkX BFS: 208/14,203; 20.8/s; ETA 674s                    
+[16:28:22] Checkpoint saved: 224/14,203 BFS rows                               
+[16:28:23] Checkpoint saved: 256/14,203 BFS rows                               
+[16:28:25] Checkpoint saved: 288/14,203 BFS rows                               
+[16:28:26] Checkpoint saved: 320/14,203 BFS rows                               
+[16:28:28] Checkpoint saved: 352/14,203 BFS rows                               
+[16:28:29] Checkpoint saved: 384/14,203 BFS rows                               
+[16:28:31] Checkpoint saved: 416/14,203 BFS rows                               
+           Exact NetworkX BFS: 424/14,203; 21.2/s; ETA 650s                    
+[16:28:32] Checkpoint saved: 448/14,203 BFS rows                               
+[16:28:33] Checkpoint saved: 480/14,203 BFS rows                               
+[16:28:35] Checkpoint saved: 512/14,203 BFS rows                               
+[16:28:36] Checkpoint saved: 544/14,203 BFS rows                               
+[16:28:37] Checkpoint saved: 576/14,203 BFS rows                               
+[16:28:39] Checkpoint saved: 608/14,203 BFS rows                               
+[16:28:40] Checkpoint saved: 640/14,203 BFS rows                               
+[16:28:41] Exact NetworkX BFS: 659/14,203; 22.0/s; ETA 617s                    
+[16:28:42] Checkpoint saved: 672/14,203 BFS rows                               
+[16:28:43] Checkpoint saved: 704/14,203 BFS rows                               
+[16:28:44] Checkpoint saved: 736/14,203 BFS rows                               
+[16:28:46] Checkpoint saved: 768/14,203 BFS rows                               
+[16:28:47] Checkpoint saved: 800/14,203 BFS rows                               
+[16:28:49] Checkpoint saved: 832/14,203 BFS rows                               
+[16:28:50] Checkpoint saved: 864/14,203 BFS rows                               
+[16:28:51] Exact NetworkX BFS: 884/14,203; 22.1/s; ETA 603s                    
+[16:28:52] Checkpoint saved: 896/14,203 BFS rows                               
+[16:28:53] Checkpoint saved: 928/14,203 BFS rows                               
+[16:28:54] Checkpoint saved: 960/14,203 BFS rows                               
+[16:28:56] Checkpoint saved: 992/14,203 BFS rows                               
+[16:28:58] Checkpoint saved: 1,024/14,203 BFS rows                             
+[16:29:00] Checkpoint saved: 1,056/14,203 BFS rows                             
+[16:29:01] Exact NetworkX BFS: 1,075/14,203; 21.5/s; ETA 612s                  
+[16:29:02] Checkpoint saved: 1,088/14,203 BFS rows                             
+[16:29:04] Checkpoint saved: 1,120/14,203 BFS rows                             
+[16:29:06] Checkpoint saved: 1,152/14,203 BFS rows                             
+[16:29:08] Checkpoint saved: 1,184/14,203 BFS rows                             
+[16:29:09] Checkpoint saved: 1,216/14,203 BFS rows                             
+[16:29:11] Checkpoint saved: 1,248/14,203 BFS rows                             
+           Exact NetworkX BFS: 1,248/14,203; 20.8/s; ETA 624s                  
+[16:29:13] Checkpoint saved: 1,280/14,203 BFS rows                             
+[16:29:15] Checkpoint saved: 1,312/14,203 BFS rows                             
+[16:29:17] Checkpoint saved: 1,344/14,203 BFS rows                             
+[16:29:18] Checkpoint saved: 1,376/14,203 BFS rows                             
+[16:29:20] Checkpoint saved: 1,408/14,203 BFS rows                             
+[16:29:21] Checkpoint saved: 1,440/14,203 BFS rows                             
+           Exact NetworkX BFS: 1,441/14,203; 20.5/s; ETA 621s                  
+[16:29:22] Checkpoint saved: 1,472/14,203 BFS rows                             
+[16:29:24] Checkpoint saved: 1,504/14,203 BFS rows                             
+[16:29:25] Checkpoint saved: 1,536/14,203 BFS rows                             
+[16:29:29] Checkpoint saved: 1,568/14,203 BFS rows                             
+[16:29:30] Checkpoint saved: 1,600/14,203 BFS rows                             
+[16:29:31] Exact NetworkX BFS: 1,615/14,203; 20.1/s; ETA 625s                  
+[16:29:32] Checkpoint saved: 1,632/14,203 BFS rows                             
+[16:29:33] Checkpoint saved: 1,664/14,203 BFS rows                             
+[16:29:34] Checkpoint saved: 1,696/14,203 BFS rows                             
+[16:29:36] Checkpoint saved: 1,728/14,203 BFS rows                             
+[16:29:38] Checkpoint saved: 1,760/14,203 BFS rows                             
+[16:29:40] Checkpoint saved: 1,792/14,203 BFS rows                             
+[16:29:41] Exact NetworkX BFS: 1,812/14,203; 20.1/s; ETA 617s                  
+[16:29:42] Checkpoint saved: 1,824/14,203 BFS rows                             
+[16:29:44] Checkpoint saved: 1,856/14,203 BFS rows                             
+[16:29:46] Checkpoint saved: 1,888/14,203 BFS rows                             
+[16:29:47] Checkpoint saved: 1,920/14,203 BFS rows                             
+[16:29:49] Checkpoint saved: 1,952/14,203 BFS rows                             
+[16:29:50] Checkpoint saved: 1,984/14,203 BFS rows                             
+[16:29:51] Exact NetworkX BFS: 2,012/14,203; 20.1/s; ETA 607s                  
+           Checkpoint saved: 2,016/14,203 BFS rows                             
+[16:29:53] Checkpoint saved: 2,048/14,203 BFS rows                             
+[16:29:54] Checkpoint saved: 2,080/14,203 BFS rows                             
+[16:29:55] Checkpoint saved: 2,112/14,203 BFS rows                             
+[16:29:57] Checkpoint saved: 2,144/14,203 BFS rows                             
+[16:29:58] Checkpoint saved: 2,176/14,203 BFS rows                             
+[16:29:59] Checkpoint saved: 2,208/14,203 BFS rows                             
+[16:30:01] Checkpoint saved: 2,240/14,203 BFS rows                             
+           Exact NetworkX BFS: 2,250/14,203; 20.4/s; ETA 585s                  
+[16:30:02] Checkpoint saved: 2,272/14,203 BFS rows                             
+[16:30:03] Checkpoint saved: 2,304/14,203 BFS rows                             
+[16:30:05] Checkpoint saved: 2,336/14,203 BFS rows                             
+[16:30:06] Checkpoint saved: 2,368/14,203 BFS rows                             
+[16:30:07] Checkpoint saved: 2,400/14,203 BFS rows                             
+[16:30:09] Checkpoint saved: 2,432/14,203 BFS rows                             
+[16:30:10] Checkpoint saved: 2,464/14,203 BFS rows                             
+[16:30:11] Exact NetworkX BFS: 2,483/14,203; 20.7/s; ETA 567s                  
+[16:30:12] Checkpoint saved: 2,496/14,203 BFS rows                             
+[16:30:13] Checkpoint saved: 2,528/14,203 BFS rows                             
+[16:30:15] Checkpoint saved: 2,560/14,203 BFS rows                             
+[16:30:16] Checkpoint saved: 2,592/14,203 BFS rows                             
+[16:30:18] Checkpoint saved: 2,624/14,203 BFS rows                             
+[16:30:19] Checkpoint saved: 2,656/14,203 BFS rows                             
+[16:30:21] Checkpoint saved: 2,688/14,203 BFS rows                             
+           Exact NetworkX BFS: 2,695/14,203; 20.7/s; ETA 556s                  
+[16:30:22] Checkpoint saved: 2,720/14,203 BFS rows                             
+[16:30:24] Checkpoint saved: 2,752/14,203 BFS rows                             
+[16:30:26] Checkpoint saved: 2,784/14,203 BFS rows                             
+[16:30:27] Checkpoint saved: 2,816/14,203 BFS rows                             
+[16:30:28] Checkpoint saved: 2,848/14,203 BFS rows                             
+[16:30:29] Checkpoint saved: 2,880/14,203 BFS rows                             
+[16:30:31] Checkpoint saved: 2,912/14,203 BFS rows                             
+           Exact NetworkX BFS: 2,926/14,203; 20.9/s; ETA 540s                  
+[16:30:32] Checkpoint saved: 2,944/14,203 BFS rows                             
+[16:30:33] Checkpoint saved: 2,976/14,203 BFS rows                             
+[16:30:34] Checkpoint saved: 3,008/14,203 BFS rows                             
+[16:30:36] Checkpoint saved: 3,040/14,203 BFS rows                             
+[16:30:37] Checkpoint saved: 3,072/14,203 BFS rows                             
+[16:30:39] Checkpoint saved: 3,104/14,203 BFS rows                             
+[16:30:40] Checkpoint saved: 3,136/14,203 BFS rows                             
+[16:30:41] Exact NetworkX BFS: 3,165/14,203; 21.1/s; ETA 524s                  
+           Checkpoint saved: 3,168/14,203 BFS rows                             
+[16:30:43] Checkpoint saved: 3,200/14,203 BFS rows                             
+[16:30:44] Checkpoint saved: 3,232/14,203 BFS rows                             
+[16:30:45] Checkpoint saved: 3,264/14,203 BFS rows                             
+[16:30:47] Checkpoint saved: 3,296/14,203 BFS rows                             
+[16:30:48] Checkpoint saved: 3,328/14,203 BFS rows                             
+[16:30:49] Checkpoint saved: 3,360/14,203 BFS rows                             
+[16:30:50] Checkpoint saved: 3,392/14,203 BFS rows                             
+[16:30:51] Exact NetworkX BFS: 3,417/14,203; 21.3/s; ETA 506s                  
+[16:30:52] Checkpoint saved: 3,424/14,203 BFS rows                             
+[16:30:53] Checkpoint saved: 3,456/14,203 BFS rows                             
+[16:30:54] Checkpoint saved: 3,488/14,203 BFS rows                             
+[16:30:55] Checkpoint saved: 3,520/14,203 BFS rows                             
+[16:30:57] Checkpoint saved: 3,552/14,203 BFS rows                             
+[16:30:58] Checkpoint saved: 3,584/14,203 BFS rows                             
+[16:30:59] Checkpoint saved: 3,616/14,203 BFS rows                             
+[16:31:00] Checkpoint saved: 3,648/14,203 BFS rows                             
+[16:31:01] Exact NetworkX BFS: 3,668/14,203; 21.5/s; ETA 489s                  
+[16:31:02] Checkpoint saved: 3,680/14,203 BFS rows                             
+[16:31:03] Checkpoint saved: 3,712/14,203 BFS rows                             
+[16:31:04] Checkpoint saved: 3,744/14,203 BFS rows                             
+[16:31:05] Checkpoint saved: 3,776/14,203 BFS rows                             
+[16:31:07] Checkpoint saved: 3,808/14,203 BFS rows                             
+[16:31:08] Checkpoint saved: 3,840/14,203 BFS rows                             
+[16:31:09] Checkpoint saved: 3,872/14,203 BFS rows                             
+[16:31:10] Checkpoint saved: 3,904/14,203 BFS rows                             
+[16:31:11] Exact NetworkX BFS: 3,923/14,203; 21.8/s; ETA 472s                  
+[16:31:12] Checkpoint saved: 3,936/14,203 BFS rows                             
+[16:31:13] Checkpoint saved: 3,968/14,203 BFS rows                             
+[16:31:14] Checkpoint saved: 4,000/14,203 BFS rows                             
+[16:31:16] Checkpoint saved: 4,032/14,203 BFS rows                             
+[16:31:17] Checkpoint saved: 4,064/14,203 BFS rows                             
+[16:31:18] Checkpoint saved: 4,096/14,203 BFS rows                             
+[16:31:19] Checkpoint saved: 4,128/14,203 BFS rows                             
+[16:31:21] Checkpoint saved: 4,160/14,203 BFS rows                             
+           Exact NetworkX BFS: 4,178/14,203; 22.0/s; ETA 457s                  
+[16:31:22] Checkpoint saved: 4,192/14,203 BFS rows                             
+[16:31:23] Checkpoint saved: 4,224/14,203 BFS rows                             
+[16:31:24] Checkpoint saved: 4,256/14,203 BFS rows                             
+[16:31:26] Checkpoint saved: 4,288/14,203 BFS rows                             
+[16:31:27] Checkpoint saved: 4,320/14,203 BFS rows                             
+[16:31:28] Checkpoint saved: 4,352/14,203 BFS rows                             
+[16:31:29] Checkpoint saved: 4,384/14,203 BFS rows                             
+[16:31:31] Checkpoint saved: 4,416/14,203 BFS rows                             
+           Exact NetworkX BFS: 4,431/14,203; 22.1/s; ETA 442s                  
+[16:31:32] Checkpoint saved: 4,448/14,203 BFS rows                             
+[16:31:33] Checkpoint saved: 4,480/14,203 BFS rows                             
+[16:31:34] Checkpoint saved: 4,512/14,203 BFS rows                             
+[16:31:36] Checkpoint saved: 4,544/14,203 BFS rows                             
+[16:31:37] Checkpoint saved: 4,576/14,203 BFS rows                             
+[16:31:38] Checkpoint saved: 4,608/14,203 BFS rows                             
+[16:31:39] Checkpoint saved: 4,640/14,203 BFS rows                             
+[16:31:41] Checkpoint saved: 4,672/14,203 BFS rows                             
+           Exact NetworkX BFS: 4,687/14,203; 22.3/s; ETA 427s                  
+[16:31:42] Checkpoint saved: 4,704/14,203 BFS rows                             
+[16:31:43] Checkpoint saved: 4,736/14,203 BFS rows                             
+[16:31:45] Checkpoint saved: 4,768/14,203 BFS rows                             
+[16:31:46] Checkpoint saved: 4,800/14,203 BFS rows                             
+[16:31:47] Checkpoint saved: 4,832/14,203 BFS rows                             
+[16:31:48] Checkpoint saved: 4,864/14,203 BFS rows                             
+[16:31:49] Checkpoint saved: 4,896/14,203 BFS rows                             
+[16:31:51] Checkpoint saved: 4,928/14,203 BFS rows                             
+           Exact NetworkX BFS: 4,940/14,203; 22.4/s; ETA 413s                  
+[16:31:52] Checkpoint saved: 4,960/14,203 BFS rows                             
+[16:31:53] Checkpoint saved: 4,992/14,203 BFS rows                             
+[16:31:55] Checkpoint saved: 5,024/14,203 BFS rows                             
+[16:31:56] Checkpoint saved: 5,056/14,203 BFS rows                             
+[16:31:57] Checkpoint saved: 5,088/14,203 BFS rows                             
+[16:31:59] Checkpoint saved: 5,120/14,203 BFS rows                             
+[16:32:00] Checkpoint saved: 5,152/14,203 BFS rows                             
+[16:32:01] Checkpoint saved: 5,184/14,203 BFS rows                             
+           Exact NetworkX BFS: 5,190/14,203; 22.5/s; ETA 400s                  
+[16:32:02] Checkpoint saved: 5,216/14,203 BFS rows                             
+[16:32:04] Checkpoint saved: 5,248/14,203 BFS rows                             
+[16:32:05] Checkpoint saved: 5,280/14,203 BFS rows                             
+[16:32:06] Checkpoint saved: 5,312/14,203 BFS rows                             
+[16:32:07] Checkpoint saved: 5,344/14,203 BFS rows                             
+[16:32:09] Checkpoint saved: 5,376/14,203 BFS rows                             
+[16:32:10] Checkpoint saved: 5,408/14,203 BFS rows                             
+[16:32:11] Checkpoint saved: 5,440/14,203 BFS rows                             
+           Exact NetworkX BFS: 5,447/14,203; 22.7/s; ETA 386s                  
+[16:32:12] Checkpoint saved: 5,472/14,203 BFS rows                             
+[16:32:14] Checkpoint saved: 5,504/14,203 BFS rows                             
+[16:32:15] Checkpoint saved: 5,536/14,203 BFS rows                             
+[16:32:16] Checkpoint saved: 5,568/14,203 BFS rows                             
+[16:32:17] Checkpoint saved: 5,600/14,203 BFS rows                             
+[16:32:19] Checkpoint saved: 5,632/14,203 BFS rows                             
+[16:32:20] Checkpoint saved: 5,664/14,203 BFS rows                             
+[16:32:21] Exact NetworkX BFS: 5,692/14,203; 22.7/s; ETA 374s                  
+[16:32:22] Checkpoint saved: 5,696/14,203 BFS rows                             
+[16:32:23] Checkpoint saved: 5,728/14,203 BFS rows                             
+[16:32:24] Checkpoint saved: 5,760/14,203 BFS rows                             
+[16:32:26] Checkpoint saved: 5,792/14,203 BFS rows                             
+[16:32:27] Checkpoint saved: 5,824/14,203 BFS rows                             
+[16:32:28] Checkpoint saved: 5,856/14,203 BFS rows                             
+[16:32:30] Checkpoint saved: 5,888/14,203 BFS rows                             
+[16:32:31] Checkpoint saved: 5,920/14,203 BFS rows                             
+           Exact NetworkX BFS: 5,933/14,203; 22.8/s; ETA 363s                  
+[16:32:32] Checkpoint saved: 5,952/14,203 BFS rows                             
+[16:32:33] Checkpoint saved: 5,984/14,203 BFS rows                             
+[16:32:35] Checkpoint saved: 6,016/14,203 BFS rows                             
+[16:32:36] Checkpoint saved: 6,048/14,203 BFS rows                             
+[16:32:37] Checkpoint saved: 6,080/14,203 BFS rows                             
+[16:32:39] Checkpoint saved: 6,112/14,203 BFS rows                             
+[16:32:40] Checkpoint saved: 6,144/14,203 BFS rows                             
+[16:32:41] Exact NetworkX BFS: 6,163/14,203; 22.8/s; ETA 353s                  
+[16:32:42] Checkpoint saved: 6,176/14,203 BFS rows                             
+[16:32:43] Checkpoint saved: 6,208/14,203 BFS rows                             
+[16:32:45] Checkpoint saved: 6,240/14,203 BFS rows                             
+[16:32:46] Checkpoint saved: 6,272/14,203 BFS rows                             
+[16:32:47] Checkpoint saved: 6,304/14,203 BFS rows                             
+[16:32:49] Checkpoint saved: 6,336/14,203 BFS rows                             
+[16:32:50] Checkpoint saved: 6,368/14,203 BFS rows                             
+[16:32:51] Checkpoint saved: 6,400/14,203 BFS rows                             
+           Exact NetworkX BFS: 6,406/14,203; 22.8/s; ETA 341s                  
+[16:32:52] Checkpoint saved: 6,432/14,203 BFS rows                             
+[16:32:54] Checkpoint saved: 6,464/14,203 BFS rows                             
+[16:32:55] Checkpoint saved: 6,496/14,203 BFS rows                             
+[16:32:56] Checkpoint saved: 6,528/14,203 BFS rows                             
+[16:32:58] Checkpoint saved: 6,560/14,203 BFS rows                             
+[16:33:00] Checkpoint saved: 6,592/14,203 BFS rows                             
+[16:33:01] Checkpoint saved: 6,624/14,203 BFS rows                             
+           Exact NetworkX BFS: 6,634/14,203; 22.8/s; ETA 331s                  
+[16:33:02] Checkpoint saved: 6,656/14,203 BFS rows                             
+[16:33:04] Checkpoint saved: 6,688/14,203 BFS rows                             
+[16:33:05] Checkpoint saved: 6,720/14,203 BFS rows                             
+[16:33:07] Checkpoint saved: 6,752/14,203 BFS rows                             
+[16:33:08] Checkpoint saved: 6,784/14,203 BFS rows                             
+[16:33:10] Checkpoint saved: 6,816/14,203 BFS rows                             
+[16:33:11] Checkpoint saved: 6,848/14,203 BFS rows                             
+           Exact NetworkX BFS: 6,850/14,203; 22.8/s; ETA 322s                  
+[16:33:13] Checkpoint saved: 6,880/14,203 BFS rows                             
+[16:33:14] Checkpoint saved: 6,912/14,203 BFS rows                             
+[16:33:16] Checkpoint saved: 6,944/14,203 BFS rows                             
+[16:33:17] Checkpoint saved: 6,976/14,203 BFS rows                             
+[16:33:19] Checkpoint saved: 7,008/14,203 BFS rows                             
+[16:33:20] Checkpoint saved: 7,040/14,203 BFS rows                             
+[16:33:21] Checkpoint saved: 7,072/14,203 BFS rows                             
+           Exact NetworkX BFS: 7,074/14,203; 22.8/s; ETA 313s                  
+[16:33:23] Checkpoint saved: 7,104/14,203 BFS rows                             
+[16:33:24] Checkpoint saved: 7,136/14,203 BFS rows                             
+[16:33:25] Checkpoint saved: 7,168/14,203 BFS rows                             
+[16:33:27] Checkpoint saved: 7,200/14,203 BFS rows                             
+[16:33:28] Checkpoint saved: 7,232/14,203 BFS rows                             
+[16:33:29] Checkpoint saved: 7,264/14,203 BFS rows                             
+[16:33:31] Checkpoint saved: 7,296/14,203 BFS rows                             
+           Exact NetworkX BFS: 7,318/14,203; 22.8/s; ETA 301s                  
+[16:33:32] Checkpoint saved: 7,328/14,203 BFS rows                             
+[16:33:33] Checkpoint saved: 7,360/14,203 BFS rows                             
+[16:33:34] Checkpoint saved: 7,392/14,203 BFS rows                             
+[16:33:36] Checkpoint saved: 7,424/14,203 BFS rows                             
+[16:33:37] Checkpoint saved: 7,456/14,203 BFS rows                             
+[16:33:38] Checkpoint saved: 7,488/14,203 BFS rows                             
+[16:33:40] Checkpoint saved: 7,520/14,203 BFS rows                             
+[16:33:41] Checkpoint saved: 7,552/14,203 BFS rows                             
+           Exact NetworkX BFS: 7,568/14,203; 22.9/s; ETA 290s                  
+[16:33:42] Checkpoint saved: 7,584/14,203 BFS rows                             
+[16:33:43] Checkpoint saved: 7,616/14,203 BFS rows                             
+[16:33:45] Checkpoint saved: 7,648/14,203 BFS rows                             
+[16:33:46] Checkpoint saved: 7,680/14,203 BFS rows                             
+[16:33:47] Checkpoint saved: 7,712/14,203 BFS rows                             
+[16:33:48] Checkpoint saved: 7,744/14,203 BFS rows                             
+[16:33:50] Checkpoint saved: 7,776/14,203 BFS rows                             
+[16:33:51] Checkpoint saved: 7,808/14,203 BFS rows                             
+           Exact NetworkX BFS: 7,817/14,203; 23.0/s; ETA 278s                  
+[16:33:52] Checkpoint saved: 7,840/14,203 BFS rows                             
+[16:33:54] Checkpoint saved: 7,872/14,203 BFS rows                             
+[16:33:55] Checkpoint saved: 7,904/14,203 BFS rows                             
+[16:33:56] Checkpoint saved: 7,936/14,203 BFS rows                             
+[16:33:58] Checkpoint saved: 7,968/14,203 BFS rows                             
+[16:33:59] Checkpoint saved: 8,000/14,203 BFS rows                             
+[16:34:00] Checkpoint saved: 8,032/14,203 BFS rows                             
+[16:34:01] Checkpoint saved: 8,064/14,203 BFS rows                             
+           Exact NetworkX BFS: 8,064/14,203; 23.0/s; ETA 267s                  
+[16:34:03] Checkpoint saved: 8,096/14,203 BFS rows                             
+[16:34:04] Checkpoint saved: 8,128/14,203 BFS rows                             
+[16:34:05] Checkpoint saved: 8,160/14,203 BFS rows                             
+[16:34:07] Checkpoint saved: 8,192/14,203 BFS rows                             
+[16:34:08] Checkpoint saved: 8,224/14,203 BFS rows                             
+[16:34:10] Checkpoint saved: 8,256/14,203 BFS rows                             
+[16:34:11] Checkpoint saved: 8,288/14,203 BFS rows                             
+           Exact NetworkX BFS: 8,304/14,203; 23.0/s; ETA 256s                  
+[16:34:12] Checkpoint saved: 8,320/14,203 BFS rows                             
+[16:34:13] Checkpoint saved: 8,352/14,203 BFS rows                             
+[16:34:15] Checkpoint saved: 8,384/14,203 BFS rows                             
+[16:34:16] Checkpoint saved: 8,416/14,203 BFS rows                             
+[16:34:17] Checkpoint saved: 8,448/14,203 BFS rows                             
+[16:34:19] Checkpoint saved: 8,480/14,203 BFS rows                             
+[16:34:20] Checkpoint saved: 8,512/14,203 BFS rows                             
+[16:34:22] Exact NetworkX BFS: 8,532/14,203; 23.0/s; ETA 246s                  
+           Checkpoint saved: 8,544/14,203 BFS rows                             
+[16:34:24] Checkpoint saved: 8,576/14,203 BFS rows                             
+[16:34:26] Checkpoint saved: 8,608/14,203 BFS rows                             
+[16:34:27] Checkpoint saved: 8,640/14,203 BFS rows                             
+[16:34:28] Checkpoint saved: 8,672/14,203 BFS rows                             
+[16:34:30] Checkpoint saved: 8,704/14,203 BFS rows                             
+[16:34:31] Checkpoint saved: 8,736/14,203 BFS rows                             
+[16:34:32] Exact NetworkX BFS: 8,739/14,203; 23.0/s; ETA 238s                  
+[16:34:33] Checkpoint saved: 8,768/14,203 BFS rows                             
+[16:34:34] Checkpoint saved: 8,800/14,203 BFS rows                             
+[16:34:35] Checkpoint saved: 8,832/14,203 BFS rows                             
+[16:34:37] Checkpoint saved: 8,864/14,203 BFS rows                             
+[16:34:38] Checkpoint saved: 8,896/14,203 BFS rows                             
+[16:34:39] Checkpoint saved: 8,928/14,203 BFS rows                             
+[16:34:41] Checkpoint saved: 8,960/14,203 BFS rows                             
+[16:34:42] Exact NetworkX BFS: 8,979/14,203; 23.0/s; ETA 227s                  
+           Checkpoint saved: 8,992/14,203 BFS rows                             
+[16:34:43] Checkpoint saved: 9,024/14,203 BFS rows                             
+[16:34:45] Checkpoint saved: 9,056/14,203 BFS rows                             
+[16:34:46] Checkpoint saved: 9,088/14,203 BFS rows                             
+[16:34:47] Checkpoint saved: 9,120/14,203 BFS rows                             
+[16:34:49] Checkpoint saved: 9,152/14,203 BFS rows                             
+[16:34:50] Checkpoint saved: 9,184/14,203 BFS rows                             
+[16:34:52] Checkpoint saved: 9,216/14,203 BFS rows                             
+           Exact NetworkX BFS: 9,218/14,203; 23.0/s; ETA 217s                  
+[16:34:53] Checkpoint saved: 9,248/14,203 BFS rows                             
+[16:34:54] Checkpoint saved: 9,280/14,203 BFS rows                             
+[16:34:55] Checkpoint saved: 9,312/14,203 BFS rows                             
+[16:34:57] Checkpoint saved: 9,344/14,203 BFS rows                             
+[16:34:58] Checkpoint saved: 9,376/14,203 BFS rows                             
+[16:34:59] Checkpoint saved: 9,408/14,203 BFS rows                             
+[16:35:01] Checkpoint saved: 9,440/14,203 BFS rows                             
+[16:35:02] Exact NetworkX BFS: 9,463/14,203; 23.0/s; ETA 206s                  
+           Checkpoint saved: 9,472/14,203 BFS rows                             
+[16:35:03] Checkpoint saved: 9,504/14,203 BFS rows                             
+[16:35:05] Checkpoint saved: 9,536/14,203 BFS rows                             
+[16:35:06] Checkpoint saved: 9,568/14,203 BFS rows                             
+[16:35:08] Checkpoint saved: 9,600/14,203 BFS rows                             
+[16:35:09] Checkpoint saved: 9,632/14,203 BFS rows                             
+[16:35:10] Checkpoint saved: 9,664/14,203 BFS rows                             
+[16:35:11] Checkpoint saved: 9,696/14,203 BFS rows                             
+[16:35:12] Exact NetworkX BFS: 9,700/14,203; 23.1/s; ETA 195s                  
+[16:35:13] Checkpoint saved: 9,728/14,203 BFS rows                             
+[16:35:14] Checkpoint saved: 9,760/14,203 BFS rows                             
+[16:35:15] Checkpoint saved: 9,792/14,203 BFS rows                             
+[16:35:17] Checkpoint saved: 9,824/14,203 BFS rows                             
+[16:35:18] Checkpoint saved: 9,856/14,203 BFS rows                             
+[16:35:19] Checkpoint saved: 9,888/14,203 BFS rows                             
+[16:35:20] Checkpoint saved: 9,920/14,203 BFS rows                             
+[16:35:22] Exact NetworkX BFS: 9,949/14,203; 23.1/s; ETA 184s                  
+           Checkpoint saved: 9,952/14,203 BFS rows                             
+[16:35:23] Checkpoint saved: 9,984/14,203 BFS rows                             
+[16:35:24] Checkpoint saved: 10,016/14,203 BFS rows                            
+[16:35:26] Checkpoint saved: 10,048/14,203 BFS rows                            
+[16:35:27] Checkpoint saved: 10,080/14,203 BFS rows                            
+[16:35:28] Checkpoint saved: 10,112/14,203 BFS rows                            
+[16:35:30] Checkpoint saved: 10,144/14,203 BFS rows                            
+[16:35:32] Checkpoint saved: 10,176/14,203 BFS rows                            
+           Exact NetworkX BFS: 10,179/14,203; 23.1/s; ETA 174s                 
+[16:35:33] Checkpoint saved: 10,208/14,203 BFS rows                            
+[16:35:34] Checkpoint saved: 10,240/14,203 BFS rows                            
+[16:35:36] Checkpoint saved: 10,272/14,203 BFS rows                            
+[16:35:37] Checkpoint saved: 10,304/14,203 BFS rows                            
+[16:35:38] Checkpoint saved: 10,336/14,203 BFS rows                            
+[16:35:40] Checkpoint saved: 10,368/14,203 BFS rows                            
+[16:35:41] Checkpoint saved: 10,400/14,203 BFS rows                            
+[16:35:42] Exact NetworkX BFS: 10,413/14,203; 23.1/s; ETA 164s                 
+[16:35:43] Checkpoint saved: 10,432/14,203 BFS rows                            
+[16:35:44] Checkpoint saved: 10,464/14,203 BFS rows                            
+[16:35:46] Checkpoint saved: 10,496/14,203 BFS rows                            
+[16:35:47] Checkpoint saved: 10,528/14,203 BFS rows                            
+[16:35:48] Checkpoint saved: 10,560/14,203 BFS rows                            
+[16:35:50] Checkpoint saved: 10,592/14,203 BFS rows                            
+[16:35:51] Checkpoint saved: 10,624/14,203 BFS rows                            
+[16:35:52] Exact NetworkX BFS: 10,629/14,203; 23.1/s; ETA 155s                 
+[16:35:53] Checkpoint saved: 10,656/14,203 BFS rows                            
+[16:35:54] Checkpoint saved: 10,688/14,203 BFS rows                            
+[16:35:55] Checkpoint saved: 10,720/14,203 BFS rows                            
+[16:35:57] Checkpoint saved: 10,752/14,203 BFS rows                            
+[16:35:58] Checkpoint saved: 10,784/14,203 BFS rows                            
+[16:36:00] Checkpoint saved: 10,816/14,203 BFS rows                            
+[16:36:01] Checkpoint saved: 10,848/14,203 BFS rows                            
+[16:36:02] Exact NetworkX BFS: 10,865/14,203; 23.1/s; ETA 145s                 
+           Checkpoint saved: 10,880/14,203 BFS rows                            
+[16:36:04] Checkpoint saved: 10,912/14,203 BFS rows                            
+[16:36:05] Checkpoint saved: 10,944/14,203 BFS rows                            
+[16:36:06] Checkpoint saved: 10,976/14,203 BFS rows                            
+[16:36:08] Checkpoint saved: 11,008/14,203 BFS rows                            
+[16:36:09] Checkpoint saved: 11,040/14,203 BFS rows                            
+[16:36:10] Checkpoint saved: 11,072/14,203 BFS rows                            
+[16:36:12] Checkpoint saved: 11,104/14,203 BFS rows                            
+           Exact NetworkX BFS: 11,107/14,203; 23.1/s; ETA 134s                 
+[16:36:13] Checkpoint saved: 11,136/14,203 BFS rows                            
+[16:36:14] Checkpoint saved: 11,168/14,203 BFS rows                            
+[16:36:16] Checkpoint saved: 11,200/14,203 BFS rows                            
+[16:36:17] Checkpoint saved: 11,232/14,203 BFS rows                            
+[16:36:19] Checkpoint saved: 11,264/14,203 BFS rows                            
+[16:36:20] Checkpoint saved: 11,296/14,203 BFS rows                            
+[16:36:21] Checkpoint saved: 11,328/14,203 BFS rows                            
+[16:36:22] Exact NetworkX BFS: 11,343/14,203; 23.1/s; ETA 124s                 
+           Checkpoint saved: 11,360/14,203 BFS rows                            
+[16:36:24] Checkpoint saved: 11,392/14,203 BFS rows                            
+[16:36:25] Checkpoint saved: 11,424/14,203 BFS rows                            
+[16:36:26] Checkpoint saved: 11,456/14,203 BFS rows                            
+[16:36:28] Checkpoint saved: 11,488/14,203 BFS rows                            
+[16:36:29] Checkpoint saved: 11,520/14,203 BFS rows                            
+[16:36:31] Checkpoint saved: 11,552/14,203 BFS rows                            
+[16:36:32] Exact NetworkX BFS: 11,578/14,203; 23.1/s; ETA 114s                 
+           Checkpoint saved: 11,584/14,203 BFS rows                            
+[16:36:34] Checkpoint saved: 11,616/14,203 BFS rows                            
+[16:36:35] Checkpoint saved: 11,648/14,203 BFS rows                            
+[16:36:36] Checkpoint saved: 11,680/14,203 BFS rows                            
+[16:36:38] Checkpoint saved: 11,712/14,203 BFS rows                            
+[16:36:39] Checkpoint saved: 11,744/14,203 BFS rows                            
+[16:36:41] Checkpoint saved: 11,776/14,203 BFS rows                            
+[16:36:42] Exact NetworkX BFS: 11,796/14,203; 23.1/s; ETA 104s                 
+[16:36:43] Checkpoint saved: 11,808/14,203 BFS rows                            
+[16:36:44] Checkpoint saved: 11,840/14,203 BFS rows                            
+[16:36:46] Checkpoint saved: 11,872/14,203 BFS rows                            
+[16:36:47] Checkpoint saved: 11,904/14,203 BFS rows                            
+[16:36:49] Checkpoint saved: 11,936/14,203 BFS rows                            
+[16:36:50] Checkpoint saved: 11,968/14,203 BFS rows                            
+[16:36:52] Checkpoint saved: 12,000/14,203 BFS rows                            
+           Exact NetworkX BFS: 12,004/14,203; 23.0/s; ETA 95s                  
+[16:36:53] Checkpoint saved: 12,032/14,203 BFS rows                            
+[16:36:54] Checkpoint saved: 12,064/14,203 BFS rows                            
+[16:36:56] Checkpoint saved: 12,096/14,203 BFS rows                            
+[16:36:57] Checkpoint saved: 12,128/14,203 BFS rows                            
+[16:36:59] Checkpoint saved: 12,160/14,203 BFS rows                            
+[16:37:00] Checkpoint saved: 12,192/14,203 BFS rows                            
+[16:37:01] Checkpoint saved: 12,224/14,203 BFS rows                            
+[16:37:02] Exact NetworkX BFS: 12,232/14,203; 23.0/s; ETA 86s                  
+[16:37:03] Checkpoint saved: 12,256/14,203 BFS rows                            
+[16:37:04] Checkpoint saved: 12,288/14,203 BFS rows                            
+[16:37:06] Checkpoint saved: 12,320/14,203 BFS rows                            
+[16:37:07] Checkpoint saved: 12,352/14,203 BFS rows                            
+[16:37:08] Checkpoint saved: 12,384/14,203 BFS rows                            
+[16:37:10] Checkpoint saved: 12,416/14,203 BFS rows                            
+[16:37:11] Checkpoint saved: 12,448/14,203 BFS rows                            
+[16:37:12] Exact NetworkX BFS: 12,461/14,203; 23.0/s; ETA 76s                  
+[16:37:13] Checkpoint saved: 12,480/14,203 BFS rows                            
+[16:37:14] Checkpoint saved: 12,512/14,203 BFS rows                            
+[16:37:15] Checkpoint saved: 12,544/14,203 BFS rows                            
+[16:37:16] Checkpoint saved: 12,576/14,203 BFS rows                            
+[16:37:18] Checkpoint saved: 12,608/14,203 BFS rows                            
+[16:37:19] Checkpoint saved: 12,640/14,203 BFS rows                            
+[16:37:20] Checkpoint saved: 12,672/14,203 BFS rows                            
+[16:37:22] Checkpoint saved: 12,704/14,203 BFS rows                            
+           Exact NetworkX BFS: 12,709/14,203; 23.1/s; ETA 65s                  
+[16:37:23] Checkpoint saved: 12,736/14,203 BFS rows                            
+[16:37:24] Checkpoint saved: 12,768/14,203 BFS rows                            
+[16:37:25] Checkpoint saved: 12,800/14,203 BFS rows                            
+[16:37:27] Checkpoint saved: 12,832/14,203 BFS rows                            
+[16:37:28] Checkpoint saved: 12,864/14,203 BFS rows                            
+[16:37:29] Checkpoint saved: 12,896/14,203 BFS rows                            
+[16:37:30] Checkpoint saved: 12,928/14,203 BFS rows                            
+[16:37:32] Checkpoint saved: 12,960/14,203 BFS rows                            
+           Exact NetworkX BFS: 12,962/14,203; 23.1/s; ETA 54s                  
+[16:37:33] Checkpoint saved: 12,992/14,203 BFS rows                            
+[16:37:34] Checkpoint saved: 13,024/14,203 BFS rows                            
+[16:37:36] Checkpoint saved: 13,056/14,203 BFS rows                            
+[16:37:37] Checkpoint saved: 13,088/14,203 BFS rows                            
+[16:37:38] Checkpoint saved: 13,120/14,203 BFS rows                            
+[16:37:39] Checkpoint saved: 13,152/14,203 BFS rows                            
+[16:37:41] Checkpoint saved: 13,184/14,203 BFS rows                            
+[16:37:42] Exact NetworkX BFS: 13,205/14,203; 23.1/s; ETA 43s                  
+           Checkpoint saved: 13,216/14,203 BFS rows                            
+[16:37:44] Checkpoint saved: 13,248/14,203 BFS rows                            
+[16:37:45] Checkpoint saved: 13,280/14,203 BFS rows                            
+[16:37:46] Checkpoint saved: 13,312/14,203 BFS rows                            
+[16:37:48] Checkpoint saved: 13,344/14,203 BFS rows                            
+[16:37:49] Checkpoint saved: 13,376/14,203 BFS rows                            
+[16:37:50] Checkpoint saved: 13,408/14,203 BFS rows                            
+[16:37:52] Exact NetworkX BFS: 13,436/14,203; 23.1/s; ETA 33s                  
+           Checkpoint saved: 13,440/14,203 BFS rows                            
+[16:37:54] Checkpoint saved: 13,472/14,203 BFS rows                            
+[16:37:55] Checkpoint saved: 13,504/14,203 BFS rows                            
+[16:37:57] Checkpoint saved: 13,536/14,203 BFS rows                            
+[16:37:58] Checkpoint saved: 13,568/14,203 BFS rows                            
+[16:37:59] Checkpoint saved: 13,600/14,203 BFS rows                            
+[16:38:01] Checkpoint saved: 13,632/14,203 BFS rows                            
+[16:38:02] Exact NetworkX BFS: 13,659/14,203; 23.1/s; ETA 24s                  
+           Checkpoint saved: 13,664/14,203 BFS rows                            
+[16:38:03] Checkpoint saved: 13,696/14,203 BFS rows                            
+[16:38:05] Checkpoint saved: 13,728/14,203 BFS rows                            
+[16:38:06] Checkpoint saved: 13,760/14,203 BFS rows                            
+[16:38:07] Checkpoint saved: 13,792/14,203 BFS rows                            
+[16:38:08] Checkpoint saved: 13,824/14,203 BFS rows                            
+[16:38:10] Checkpoint saved: 13,856/14,203 BFS rows                            
+[16:38:11] Checkpoint saved: 13,888/14,203 BFS rows                            
+[16:38:12] Exact NetworkX BFS: 13,911/14,203; 23.2/s; ETA 13s                  
+           Checkpoint saved: 13,920/14,203 BFS rows                            
+[16:38:14] Checkpoint saved: 13,952/14,203 BFS rows                            
+[16:38:15] Checkpoint saved: 13,984/14,203 BFS rows                            
+[16:38:16] Checkpoint saved: 14,016/14,203 BFS rows                            
+[16:38:17] Checkpoint saved: 14,048/14,203 BFS rows                            
+[16:38:19] Checkpoint saved: 14,080/14,203 BFS rows                            
+[16:38:20] Checkpoint saved: 14,112/14,203 BFS rows                            
+[16:38:21] Checkpoint saved: 14,144/14,203 BFS rows                            
+[16:38:22] Exact NetworkX BFS: 14,156/14,203; 23.2/s; ETA 2s                   
+[16:38:23] Checkpoint saved: 14,176/14,203 BFS rows                            
+[16:38:24] Checkpoint saved: 14,203/14,203 BFS rows                            
+           Exact NetworkX BFS: done in 613.1s                                  
+           Shortest-path observed + null means: 1,001 items                    
+[16:38:29] Shortest-path observed + null means: done in 4.9s                   
+           Cohesion observed + null statistics: 1,001 items                    
+[16:38:37] Cohesion observed + null statistics: done in 7.7s                   
+           Saving null distributions:                                          
+           curated_TAGC_binary2025_<analysis>.parquet                          
+-------------------------- Network 4/5: huMAP2_0.05 ---------------------------
+           Loading data\processed_networks\versions\huMAP2_0.05.parquet        
+           Loading data\processed_networks\versions\huMAP2_0.05.parquet: done  
+           in 0.1s                                                             
+           huMAP2_0.05: 7,491 proteins; 24,924 edges; 240 set proteins         
+           Drawing random protein sets: 1,000 items                            
+           Drawing random protein sets: done in 0.1s                           
+           Distance cache: 0 rows reused; 7,491 BFS rows remaining; matrix 0.10
+           GiB                                                                 
+           Cache directory:                                                    
+           C:\projects\interactome\data\analysis_runs\shortest_path_distances\8
+           7ed5b307e6f4831a1a4fb98959531bb4ea1e0f7b906db2d5a3f0fbb296d07c1     
+           Exact NetworkX BFS: 7,491 items                                     
+[16:38:38] Checkpoint saved: 32/7,491 BFS rows                                 
+           Checkpoint saved: 64/7,491 BFS rows                                 
+           Checkpoint saved: 96/7,491 BFS rows                                 
+[16:38:39] Checkpoint saved: 128/7,491 BFS rows                                
+           Checkpoint saved: 160/7,491 BFS rows                                
+           Checkpoint saved: 192/7,491 BFS rows                                
+[16:38:40] Checkpoint saved: 224/7,491 BFS rows                                
+           Checkpoint saved: 256/7,491 BFS rows                                
+           Checkpoint saved: 288/7,491 BFS rows                                
+[16:38:41] Checkpoint saved: 320/7,491 BFS rows                                
+           Checkpoint saved: 352/7,491 BFS rows                                
+           Checkpoint saved: 384/7,491 BFS rows                                
+[16:38:42] Checkpoint saved: 416/7,491 BFS rows                                
+           Checkpoint saved: 448/7,491 BFS rows                                
+           Checkpoint saved: 480/7,491 BFS rows                                
+[16:38:43] Checkpoint saved: 512/7,491 BFS rows                                
+           Checkpoint saved: 544/7,491 BFS rows                                
+           Checkpoint saved: 576/7,491 BFS rows                                
+[16:38:44] Checkpoint saved: 608/7,491 BFS rows                                
+           Checkpoint saved: 640/7,491 BFS rows                                
+           Checkpoint saved: 672/7,491 BFS rows                                
+[16:38:45] Checkpoint saved: 704/7,491 BFS rows                                
+           Checkpoint saved: 736/7,491 BFS rows                                
+           Checkpoint saved: 768/7,491 BFS rows                                
+[16:38:46] Checkpoint saved: 800/7,491 BFS rows                                
+           Checkpoint saved: 832/7,491 BFS rows                                
+           Checkpoint saved: 864/7,491 BFS rows                                
+           Checkpoint saved: 896/7,491 BFS rows                                
+[16:38:47] Checkpoint saved: 928/7,491 BFS rows                                
+           Checkpoint saved: 960/7,491 BFS rows                                
+           Exact NetworkX BFS: 970/7,491; 97.0/s; ETA 67s                      
+           Checkpoint saved: 992/7,491 BFS rows                                
+[16:38:48] Checkpoint saved: 1,024/7,491 BFS rows                              
+           Checkpoint saved: 1,056/7,491 BFS rows                              
+           Checkpoint saved: 1,088/7,491 BFS rows                              
+[16:38:49] Checkpoint saved: 1,120/7,491 BFS rows                              
+           Checkpoint saved: 1,152/7,491 BFS rows                              
+           Checkpoint saved: 1,184/7,491 BFS rows                              
+[16:38:50] Checkpoint saved: 1,216/7,491 BFS rows                              
+           Checkpoint saved: 1,248/7,491 BFS rows                              
+           Checkpoint saved: 1,280/7,491 BFS rows                              
+           Checkpoint saved: 1,312/7,491 BFS rows                              
+[16:38:51] Checkpoint saved: 1,344/7,491 BFS rows                              
+           Checkpoint saved: 1,376/7,491 BFS rows                              
+           Checkpoint saved: 1,408/7,491 BFS rows                              
+[16:38:52] Checkpoint saved: 1,440/7,491 BFS rows                              
+           Checkpoint saved: 1,472/7,491 BFS rows                              
+           Checkpoint saved: 1,504/7,491 BFS rows                              
+[16:38:53] Checkpoint saved: 1,536/7,491 BFS rows                              
+           Checkpoint saved: 1,568/7,491 BFS rows                              
+           Checkpoint saved: 1,600/7,491 BFS rows                              
+           Checkpoint saved: 1,632/7,491 BFS rows                              
+[16:38:54] Checkpoint saved: 1,664/7,491 BFS rows                              
+           Checkpoint saved: 1,696/7,491 BFS rows                              
+           Checkpoint saved: 1,728/7,491 BFS rows                              
+[16:38:55] Checkpoint saved: 1,760/7,491 BFS rows                              
+           Checkpoint saved: 1,792/7,491 BFS rows                              
+           Checkpoint saved: 1,824/7,491 BFS rows                              
+[16:38:56] Checkpoint saved: 1,856/7,491 BFS rows                              
+           Checkpoint saved: 1,888/7,491 BFS rows                              
+           Checkpoint saved: 1,920/7,491 BFS rows                              
+[16:38:57] Checkpoint saved: 1,952/7,491 BFS rows                              
+           Checkpoint saved: 1,984/7,491 BFS rows                              
+           Checkpoint saved: 2,016/7,491 BFS rows                              
+           Exact NetworkX BFS: 2,035/7,491; 101.8/s; ETA 54s                   
+           Checkpoint saved: 2,048/7,491 BFS rows                              
+[16:38:58] Checkpoint saved: 2,080/7,491 BFS rows                              
+           Checkpoint saved: 2,112/7,491 BFS rows                              
+           Checkpoint saved: 2,144/7,491 BFS rows                              
+[16:38:59] Checkpoint saved: 2,176/7,491 BFS rows                              
+           Checkpoint saved: 2,208/7,491 BFS rows                              
+           Checkpoint saved: 2,240/7,491 BFS rows                              
+[16:39:00] Checkpoint saved: 2,272/7,491 BFS rows                              
+           Checkpoint saved: 2,304/7,491 BFS rows                              
+           Checkpoint saved: 2,336/7,491 BFS rows                              
+[16:39:01] Checkpoint saved: 2,368/7,491 BFS rows                              
+           Checkpoint saved: 2,400/7,491 BFS rows                              
+[16:39:02] Checkpoint saved: 2,432/7,491 BFS rows                              
+           Checkpoint saved: 2,464/7,491 BFS rows                              
+           Checkpoint saved: 2,496/7,491 BFS rows                              
+[16:39:03] Checkpoint saved: 2,528/7,491 BFS rows                              
+           Checkpoint saved: 2,560/7,491 BFS rows                              
+           Checkpoint saved: 2,592/7,491 BFS rows                              
+[16:39:04] Checkpoint saved: 2,624/7,491 BFS rows                              
+           Checkpoint saved: 2,656/7,491 BFS rows                              
+[16:39:05] Checkpoint saved: 2,688/7,491 BFS rows                              
+           Checkpoint saved: 2,720/7,491 BFS rows                              
+[16:39:06] Checkpoint saved: 2,752/7,491 BFS rows                              
+           Checkpoint saved: 2,784/7,491 BFS rows                              
+           Checkpoint saved: 2,816/7,491 BFS rows                              
+[16:39:07] Checkpoint saved: 2,848/7,491 BFS rows                              
+           Checkpoint saved: 2,880/7,491 BFS rows                              
+           Exact NetworkX BFS: 2,893/7,491; 96.4/s; ETA 48s                    
+[16:39:08] Checkpoint saved: 2,912/7,491 BFS rows                              
+           Checkpoint saved: 2,944/7,491 BFS rows                              
+           Checkpoint saved: 2,976/7,491 BFS rows                              
+[16:39:09] Checkpoint saved: 3,008/7,491 BFS rows                              
+           Checkpoint saved: 3,040/7,491 BFS rows                              
+           Checkpoint saved: 3,072/7,491 BFS rows                              
+[16:39:10] Checkpoint saved: 3,104/7,491 BFS rows                              
+           Checkpoint saved: 3,136/7,491 BFS rows                              
+[16:39:11] Checkpoint saved: 3,168/7,491 BFS rows                              
+           Checkpoint saved: 3,200/7,491 BFS rows                              
+           Checkpoint saved: 3,232/7,491 BFS rows                              
+[16:39:12] Checkpoint saved: 3,264/7,491 BFS rows                              
+           Checkpoint saved: 3,296/7,491 BFS rows                              
+           Checkpoint saved: 3,328/7,491 BFS rows                              
+[16:39:13] Checkpoint saved: 3,360/7,491 BFS rows                              
+           Checkpoint saved: 3,392/7,491 BFS rows                              
+           Checkpoint saved: 3,424/7,491 BFS rows                              
+[16:39:14] Checkpoint saved: 3,456/7,491 BFS rows                              
+           Checkpoint saved: 3,488/7,491 BFS rows                              
+           Checkpoint saved: 3,520/7,491 BFS rows                              
+[16:39:15] Checkpoint saved: 3,552/7,491 BFS rows                              
+           Checkpoint saved: 3,584/7,491 BFS rows                              
+[16:39:16] Checkpoint saved: 3,616/7,491 BFS rows                              
+           Checkpoint saved: 3,648/7,491 BFS rows                              
+           Checkpoint saved: 3,680/7,491 BFS rows                              
+[16:39:17] Checkpoint saved: 3,712/7,491 BFS rows                              
+           Checkpoint saved: 3,744/7,491 BFS rows                              
+           Exact NetworkX BFS: 3,774/7,491; 94.3/s; ETA 39s                    
+           Checkpoint saved: 3,776/7,491 BFS rows                              
+[16:39:18] Checkpoint saved: 3,808/7,491 BFS rows                              
+           Checkpoint saved: 3,840/7,491 BFS rows                              
+           Checkpoint saved: 3,872/7,491 BFS rows                              
+[16:39:19] Checkpoint saved: 3,904/7,491 BFS rows                              
+           Checkpoint saved: 3,936/7,491 BFS rows                              
+           Checkpoint saved: 3,968/7,491 BFS rows                              
+[16:39:20] Checkpoint saved: 4,000/7,491 BFS rows                              
+           Checkpoint saved: 4,032/7,491 BFS rows                              
+           Checkpoint saved: 4,064/7,491 BFS rows                              
+[16:39:21] Checkpoint saved: 4,096/7,491 BFS rows                              
+           Checkpoint saved: 4,128/7,491 BFS rows                              
+           Checkpoint saved: 4,160/7,491 BFS rows                              
+[16:39:22] Checkpoint saved: 4,192/7,491 BFS rows                              
+           Checkpoint saved: 4,224/7,491 BFS rows                              
+           Checkpoint saved: 4,256/7,491 BFS rows                              
+[16:39:23] Checkpoint saved: 4,288/7,491 BFS rows                              
+           Checkpoint saved: 4,320/7,491 BFS rows                              
+           Checkpoint saved: 4,352/7,491 BFS rows                              
+[16:39:24] Checkpoint saved: 4,384/7,491 BFS rows                              
+           Checkpoint saved: 4,416/7,491 BFS rows                              
+           Checkpoint saved: 4,448/7,491 BFS rows                              
+[16:39:25] Checkpoint saved: 4,480/7,491 BFS rows                              
+           Checkpoint saved: 4,512/7,491 BFS rows                              
+[16:39:26] Checkpoint saved: 4,544/7,491 BFS rows                              
+           Checkpoint saved: 4,576/7,491 BFS rows                              
+           Checkpoint saved: 4,608/7,491 BFS rows                              
+[16:39:27] Checkpoint saved: 4,640/7,491 BFS rows                              
+           Checkpoint saved: 4,672/7,491 BFS rows                              
+           Checkpoint saved: 4,704/7,491 BFS rows                              
+           Exact NetworkX BFS: 4,709/7,491; 94.2/s; ETA 30s                    
+[16:39:28] Checkpoint saved: 4,736/7,491 BFS rows                              
+           Checkpoint saved: 4,768/7,491 BFS rows                              
+           Checkpoint saved: 4,800/7,491 BFS rows                              
+           Checkpoint saved: 4,832/7,491 BFS rows                              
+[16:39:29] Checkpoint saved: 4,864/7,491 BFS rows                              
+           Checkpoint saved: 4,896/7,491 BFS rows                              
+           Checkpoint saved: 4,928/7,491 BFS rows                              
+[16:39:30] Checkpoint saved: 4,960/7,491 BFS rows                              
+           Checkpoint saved: 4,992/7,491 BFS rows                              
+           Checkpoint saved: 5,024/7,491 BFS rows                              
+[16:39:31] Checkpoint saved: 5,056/7,491 BFS rows                              
+           Checkpoint saved: 5,088/7,491 BFS rows                              
+           Checkpoint saved: 5,120/7,491 BFS rows                              
+[16:39:32] Checkpoint saved: 5,152/7,491 BFS rows                              
+           Checkpoint saved: 5,184/7,491 BFS rows                              
+           Checkpoint saved: 5,216/7,491 BFS rows                              
+[16:39:33] Checkpoint saved: 5,248/7,491 BFS rows                              
+[16:39:34] Checkpoint saved: 5,280/7,491 BFS rows                              
+           Checkpoint saved: 5,312/7,491 BFS rows                              
+           Checkpoint saved: 5,344/7,491 BFS rows                              
+[16:39:35] Checkpoint saved: 5,376/7,491 BFS rows                              
+           Checkpoint saved: 5,408/7,491 BFS rows                              
+           Checkpoint saved: 5,440/7,491 BFS rows                              
+[16:39:36] Checkpoint saved: 5,472/7,491 BFS rows                              
+           Checkpoint saved: 5,504/7,491 BFS rows                              
+[16:39:37] Checkpoint saved: 5,536/7,491 BFS rows                              
+           Exact NetworkX BFS: 5,566/7,491; 92.8/s; ETA 21s                    
+           Checkpoint saved: 5,568/7,491 BFS rows                              
+[16:39:38] Checkpoint saved: 5,600/7,491 BFS rows                              
+           Checkpoint saved: 5,632/7,491 BFS rows                              
+           Checkpoint saved: 5,664/7,491 BFS rows                              
+[16:39:39] Checkpoint saved: 5,696/7,491 BFS rows                              
+           Checkpoint saved: 5,728/7,491 BFS rows                              
+           Checkpoint saved: 5,760/7,491 BFS rows                              
+[16:39:40] Checkpoint saved: 5,792/7,491 BFS rows                              
+           Checkpoint saved: 5,824/7,491 BFS rows                              
+           Checkpoint saved: 5,856/7,491 BFS rows                              
+[16:39:41] Checkpoint saved: 5,888/7,491 BFS rows                              
+           Checkpoint saved: 5,920/7,491 BFS rows                              
+           Checkpoint saved: 5,952/7,491 BFS rows                              
+[16:39:42] Checkpoint saved: 5,984/7,491 BFS rows                              
+           Checkpoint saved: 6,016/7,491 BFS rows                              
+           Checkpoint saved: 6,048/7,491 BFS rows                              
+[16:39:43] Checkpoint saved: 6,080/7,491 BFS rows                              
+           Checkpoint saved: 6,112/7,491 BFS rows                              
+           Checkpoint saved: 6,144/7,491 BFS rows                              
+[16:39:44] Checkpoint saved: 6,176/7,491 BFS rows                              
+           Checkpoint saved: 6,208/7,491 BFS rows                              
+           Checkpoint saved: 6,240/7,491 BFS rows                              
+[16:39:45] Checkpoint saved: 6,272/7,491 BFS rows                              
+           Checkpoint saved: 6,304/7,491 BFS rows                              
+           Checkpoint saved: 6,336/7,491 BFS rows                              
+[16:39:46] Checkpoint saved: 6,368/7,491 BFS rows                              
+           Checkpoint saved: 6,400/7,491 BFS rows                              
+           Checkpoint saved: 6,432/7,491 BFS rows                              
+[16:39:47] Checkpoint saved: 6,464/7,491 BFS rows                              
+           Exact NetworkX BFS: 6,491/7,491; 92.7/s; ETA 11s                    
+           Checkpoint saved: 6,496/7,491 BFS rows                              
+[16:39:48] Checkpoint saved: 6,528/7,491 BFS rows                              
+           Checkpoint saved: 6,560/7,491 BFS rows                              
+[16:39:49] Checkpoint saved: 6,592/7,491 BFS rows                              
+           Checkpoint saved: 6,624/7,491 BFS rows                              
+           Checkpoint saved: 6,656/7,491 BFS rows                              
+[16:39:50] Checkpoint saved: 6,688/7,491 BFS rows                              
+           Checkpoint saved: 6,720/7,491 BFS rows                              
+           Checkpoint saved: 6,752/7,491 BFS rows                              
+[16:39:51] Checkpoint saved: 6,784/7,491 BFS rows                              
+           Checkpoint saved: 6,816/7,491 BFS rows                              
+[16:39:52] Checkpoint saved: 6,848/7,491 BFS rows                              
+           Checkpoint saved: 6,880/7,491 BFS rows                              
+           Checkpoint saved: 6,912/7,491 BFS rows                              
+[16:39:53] Checkpoint saved: 6,944/7,491 BFS rows                              
+           Checkpoint saved: 6,976/7,491 BFS rows                              
+           Checkpoint saved: 7,008/7,491 BFS rows                              
+[16:39:54] Checkpoint saved: 7,040/7,491 BFS rows                              
+           Checkpoint saved: 7,072/7,491 BFS rows                              
+[16:39:55] Checkpoint saved: 7,104/7,491 BFS rows                              
+           Checkpoint saved: 7,136/7,491 BFS rows                              
+           Checkpoint saved: 7,168/7,491 BFS rows                              
+[16:39:56] Checkpoint saved: 7,200/7,491 BFS rows                              
+           Checkpoint saved: 7,232/7,491 BFS rows                              
+           Checkpoint saved: 7,264/7,491 BFS rows                              
+[16:39:57] Checkpoint saved: 7,296/7,491 BFS rows                              
+           Checkpoint saved: 7,328/7,491 BFS rows                              
+           Exact NetworkX BFS: 7,353/7,491; 91.9/s; ETA 2s                     
+           Checkpoint saved: 7,360/7,491 BFS rows                              
+[16:39:58] Checkpoint saved: 7,392/7,491 BFS rows                              
+           Checkpoint saved: 7,424/7,491 BFS rows                              
+           Checkpoint saved: 7,456/7,491 BFS rows                              
+[16:39:59] Checkpoint saved: 7,488/7,491 BFS rows                              
+           Checkpoint saved: 7,491/7,491 BFS rows                              
+           Exact NetworkX BFS: done in 81.4s                                   
+           Shortest-path observed + null means: 1,001 items                    
+[16:40:02] Shortest-path observed + null means: done in 3.1s                   
+           Cohesion observed + null statistics: 1,001 items                    
+[16:40:06] Cohesion observed + null statistics: done in 4.2s                   
+           Saving null distributions: curated_huMAP2_0.05_<analysis>.parquet   
+-------------------------- Network 5/5: huMAP2_0.95 ---------------------------
+           Loading data\processed_networks\versions\huMAP2_0.95.parquet        
+           Loading data\processed_networks\versions\huMAP2_0.95.parquet: done  
+           in 0.0s                                                             
+           huMAP2_0.95: 687 proteins; 3,281 edges; 63 set proteins             
+           Drawing random protein sets: 1,000 items                            
+           Drawing random protein sets: done in 0.1s                           
+           Distance cache: 0 rows reused; 656 BFS rows remaining; matrix 0.00  
+           GiB                                                                 
+           Cache directory:                                                    
+           C:\projects\interactome\data\analysis_runs\shortest_path_distances\d
+           debce82e44feab3135ba3a84a9ea117ca56e65005739e1c3be4e5293205a57a     
+           Exact NetworkX BFS: 656 items                                       
+           Checkpoint saved: 32/656 BFS rows                                   
+           Checkpoint saved: 64/656 BFS rows                                   
+           Checkpoint saved: 96/656 BFS rows                                   
+           Checkpoint saved: 128/656 BFS rows                                  
+           Checkpoint saved: 160/656 BFS rows                                  
+           Checkpoint saved: 192/656 BFS rows                                  
+           Checkpoint saved: 224/656 BFS rows                                  
+           Checkpoint saved: 256/656 BFS rows                                  
+           Checkpoint saved: 288/656 BFS rows                                  
+           Checkpoint saved: 320/656 BFS rows                                  
+           Checkpoint saved: 352/656 BFS rows                                  
+           Checkpoint saved: 384/656 BFS rows                                  
+           Checkpoint saved: 416/656 BFS rows                                  
+[16:40:07] Checkpoint saved: 448/656 BFS rows                                  
+           Checkpoint saved: 480/656 BFS rows                                  
+           Checkpoint saved: 512/656 BFS rows                                  
+           Checkpoint saved: 544/656 BFS rows                                  
+           Checkpoint saved: 576/656 BFS rows                                  
+           Checkpoint saved: 608/656 BFS rows                                  
+           Checkpoint saved: 640/656 BFS rows                                  
+           Checkpoint saved: 656/656 BFS rows                                  
+           Exact NetworkX BFS: done in 0.5s                                    
+           Shortest-path observed + null means: 1,001 items                    
+           Shortest-path observed + null means: done in 0.7s                   
+           Cohesion observed + null statistics: 1,001 items                    
+[16:40:08] Cohesion observed + null statistics: done in 1.0s                   
+           Saving null distributions: curated_huMAP2_0.95_<analysis>.parquet   
+                              Monte Carlo results                              
++-----------------------------------------------------------------------------+
+|          |          |          | Null     |           |          |          |
+| Network  | Measure  | Observed | mean     | Effect    | q (BH)   | Signifi� |
+|----------+----------+----------+----------+-----------+----------+----------|
+| HuRI     | mean_sh� | 3.7773   | 3.8807   | -0.10343  | 0.087413 | ns       |
+| HuRI     | interna� | 13       | 7.681    | 5.319     | 0.065649 | ns       |
+| HuRI     | largest� | 3        | 3.774    | -0.774    | 0.85215  | ns       |
+| BioPlex  | mean_sh� | 3.7245   | 3.6497   | 0.074819  | 0.00333  | **       |
+| BioPlex  | interna� | 164      | 79.847   | 84.153    | 0.001665 | **       |
+| BioPlex  | largest� | 18       | 26.057   | -8.057    | 0.84471  | ns       |
+| TAGC_bi� | mean_sh� | 3.1578   | 3.2358   | -0.077987 | 0.00333  | **       |
+| TAGC_bi� | interna� | 287      | 176.14   | 110.86    | 0.001665 | **       |
+| TAGC_bi� | largest� | 152      | 114.9    | 37.101    | 0.001665 | **       |
+| huMAP2_� | mean_sh� | 4.8493   | 5.5158   | -0.66651  | 0.00333  | **       |
+| huMAP2_� | interna� | 315      | 180.78   | 134.22    | 0.001665 | **       |
+| huMAP2_� | largest� | 127      | 54.924   | 72.076    | 0.001665 | **       |
+| huMAP2_� | mean_sh� | 6.9324   | 7.3484   | -0.416    | 0.2957   | ns       |
+| huMAP2_� | interna� | 90       | 70.439   | 19.561    | 0.001665 | **       |
+| huMAP2_� | largest� | 15       | 13.133   | 1.867     | 0.1511   | ns       |
++-----------------------------------------------------------------------------+
+           Summary saved:                                                      
+           C:\projects\interactome\data\analysis_runs/<protein_set>_<network>_<
+           analysis>_summary.csv                                               
++-------------------------------- Interactome --------------------------------+
+| Fixed-network Monte Carlo                                                   |
+| Exact NetworkX distances � reusable disk cache                              |
++-----------------------------------------------------------------------------+
+[16:40:08] Simulations: 1,000; seed: 42; protein set: moonlitdb; scope: lcc;   
+           degree matching: True                                               
+           Loading and mapping protein set                                     
+           Loading and mapping protein set: done in 0.0s                       
+           Mapped protein set: 458 proteins                                    
+------------------------------ Network 1/5: HuRI ------------------------------
+           Loading data\processed_networks\HuRI.parquet                        
+[16:40:09] Loading data\processed_networks\HuRI.parquet: done in 0.1s          
+           HuRI: 8,070 proteins; 51,524 edges; 200 set proteins                
+           Drawing random protein sets: 1,000 items                            
+           Drawing random protein sets: done in 0.1s                           
+           Distance cache: 7,751 rows reused; 0 BFS rows remaining; matrix 0.12
+           GiB                                                                 
+           Cache directory:                                                    
+           C:\projects\interactome\data\analysis_runs\shortest_path_distances\e
+           4209b5cbf8f716266d1781e7de16fe9c26436212e5df8e56a5218d7e1c800b7     
+           Exact NetworkX BFS: 0 items                                         
+           Exact NetworkX BFS: done in 0.0s                                    
+           Shortest-path observed + null means: 1,001 items                    
+[16:40:12] Shortest-path observed + null means: done in 2.7s                   
+           Cohesion observed + null statistics: 1,001 items                    
+[16:40:15] Cohesion observed + null statistics: done in 3.0s                   
+           Saving null distributions: moonlitdb_HuRI_<analysis>.parquet        
+---------------------------- Network 2/5: BioPlex -----------------------------
+           Loading data\processed_networks\BioPlex.parquet                     
+           Loading data\processed_networks\BioPlex.parquet: done in 0.3s       
+[16:40:16] BioPlex: 13,806 proteins; 128,090 edges; 394 set proteins           
+           Drawing random protein sets: 1,000 items                            
+           Drawing random protein sets: done in 0.1s                           
+[16:40:17] Distance cache: 13,798 rows reused; 0 BFS rows remaining; matrix    
+           0.36 GiB                                                            
+           Cache directory:                                                    
+           C:\projects\interactome\data\analysis_runs\shortest_path_distances\0
+           944edfb5835c76ac31db793dfb5215dd4177199b5f50ff3cc2dd66b0e119e6f     
+           Exact NetworkX BFS: 0 items                                         
+           Exact NetworkX BFS: done in 0.0s                                    
+           Shortest-path observed + null means: 1,001 items                    
+[16:40:23] Shortest-path observed + null means: done in 5.9s                   
+           Cohesion observed + null statistics: 1,001 items                    
+[16:40:31] Cohesion observed + null statistics: done in 8.1s                   
+           Saving null distributions: moonlitdb_BioPlex_<analysis>.parquet     
+------------------------ Network 3/5: TAGC_binary2025 -------------------------
+           Loading data\processed_networks\TAGC_binary2025.parquet             
+           Loading data\processed_networks\TAGC_binary2025.parquet: done in    
+           0.3s                                                                
+[16:40:32] TAGC_binary2025: 14,207 proteins; 108,633 edges; 429 set proteins   
+           Drawing random protein sets: 1,000 items                            
+           Drawing random protein sets: done in 0.2s                           
+           Distance cache: 14,203 rows reused; 1 BFS rows remaining; matrix    
+           0.38 GiB                                                            
+           Cache directory:                                                    
+           C:\projects\interactome\data\analysis_runs\shortest_path_distances\a
+           5237b40c34acd0d3149afa655eb241cd18f8cd7c19e220c2121b97de1d2025d     
+           Exact NetworkX BFS: 1 items                                         
+           Checkpoint saved: 1/1 BFS rows                                      
+           Exact NetworkX BFS: done in 0.0s                                    
+           Shortest-path observed + null means: 1,001 items                    
+[16:40:39] Shortest-path observed + null means: done in 6.5s                   
+           Cohesion observed + null statistics: 1,001 items                    
+[16:40:48] Cohesion observed + null statistics: done in 9.5s                   
+           Saving null distributions:                                          
+           moonlitdb_TAGC_binary2025_<analysis>.parquet                        
+-------------------------- Network 4/5: huMAP2_0.05 ---------------------------
+           Loading data\processed_networks\versions\huMAP2_0.05.parquet        
+           Loading data\processed_networks\versions\huMAP2_0.05.parquet: done  
+           in 0.0s                                                             
+[16:40:49] huMAP2_0.05: 7,491 proteins; 24,924 edges; 305 set proteins         
+           Drawing random protein sets: 1,000 items                            
+           Drawing random protein sets: done in 0.1s                           
+           Distance cache: 7,491 rows reused; 0 BFS rows remaining; matrix 0.10
+           GiB                                                                 
+           Cache directory:                                                    
+           C:\projects\interactome\data\analysis_runs\shortest_path_distances\8
+           7ed5b307e6f4831a1a4fb98959531bb4ea1e0f7b906db2d5a3f0fbb296d07c1     
+           Exact NetworkX BFS: 0 items                                         
+           Exact NetworkX BFS: done in 0.0s                                    
+           Shortest-path observed + null means: 1,001 items                    
+[16:40:53] Shortest-path observed + null means: done in 4.1s                   
+           Cohesion observed + null statistics: 1,001 items                    
+[16:40:57] Cohesion observed + null statistics: done in 4.6s                   
+           Saving null distributions: moonlitdb_huMAP2_0.05_<analysis>.parquet 
+-------------------------- Network 5/5: huMAP2_0.95 ---------------------------
+[16:40:58] Loading data\processed_networks\versions\huMAP2_0.95.parquet        
+           Loading data\processed_networks\versions\huMAP2_0.95.parquet: done  
+           in 0.1s                                                             
+           huMAP2_0.95: 687 proteins; 3,281 edges; 78 set proteins             
+           Drawing random protein sets: 1,000 items                            
+           Drawing random protein sets: done in 0.1s                           
+           Distance cache: 656 rows reused; 31 BFS rows remaining; matrix 0.00 
+           GiB                                                                 
+           Cache directory:                                                    
+           C:\projects\interactome\data\analysis_runs\shortest_path_distances\d
+           debce82e44feab3135ba3a84a9ea117ca56e65005739e1c3be4e5293205a57a     
+           Exact NetworkX BFS: 31 items                                        
+           Checkpoint saved: 31/31 BFS rows                                    
+           Exact NetworkX BFS: done in 0.0s                                    
+           Shortest-path observed + null means: 1,001 items                    
+[16:40:59] Shortest-path observed + null means: done in 0.8s                   
+           Cohesion observed + null statistics: 1,001 items                    
+[16:41:00] Cohesion observed + null statistics: done in 1.4s                   
+           Saving null distributions: moonlitdb_huMAP2_0.95_<analysis>.parquet 
+                              Monte Carlo results                              
++-----------------------------------------------------------------------------+
+|          |          |          | Null     |           |          |          |
+| Network  | Measure  | Observed | mean     | Effect    | q (BH)   | Signifi� |
+|----------+----------+----------+----------+-----------+----------+----------|
+| HuRI     | mean_sh� | 4.0698   | 4.0072   | 0.062645  | 0.23776  | ns       |
+| HuRI     | interna� | 13       | 11.222   | 1.778     | 0.32967  | ns       |
+| HuRI     | largest� | 5        | 4.013    | 0.987     | 0.30303  | ns       |
+| BioPlex  | mean_sh� | 3.7273   | 3.6707   | 0.056625  | 0.004995 | **       |
+| BioPlex  | interna� | 250      | 137.48   | 112.52    | 0.001998 | **       |
+| BioPlex  | largest� | 83       | 56.194   | 26.806    | 0.2155   | ns       |
+| TAGC_bi� | mean_sh� | 3.2325   | 3.285    | -0.052529 | 0.00999  | **       |
+| TAGC_bi� | interna� | 382      | 240.94   | 141.06    | 0.001998 | **       |
+| TAGC_bi� | largest� | 225      | 164.76   | 60.24     | 0.001998 | **       |
+| huMAP2_� | mean_sh� | 5.3108   | 5.8209   | -0.51005  | 0.004995 | **       |
+| huMAP2_� | interna� | 404      | 234.3    | 169.7     | 0.001998 | **       |
+| huMAP2_� | largest� | 114      | 60.535   | 53.465    | 0.001998 | **       |
+| huMAP2_� | mean_sh� | 6.7249   | 7.1945   | -0.46954  | 0.23776  | ns       |
+| huMAP2_� | interna� | 164      | 142.86   | 21.137    | 0.014985 | *        |
+| huMAP2_� | largest� | 21       | 19.642   | 1.358     | 0.30303  | ns       |
++-----------------------------------------------------------------------------+
+           Summary saved:                                                      
+           C:\projects\interactome\data\analysis_runs/<protein_set>_<network>_<
+           analysis>_summary.csv                                               
++-------------------------------- Interactome --------------------------------+
+| Fixed-network Monte Carlo                                                   |
+| Exact NetworkX distances � reusable disk cache                              |
++-----------------------------------------------------------------------------+
+[16:41:00] Simulations: 1,000; seed: 42; protein set: moonprot; scope: lcc;    
+           degree matching: True                                               
+           Loading and mapping protein set                                     
+           Loading and mapping protein set: done in 0.0s                       
+           Mapped protein set: 138 proteins                                    
+------------------------------ Network 1/5: HuRI ------------------------------
+           Loading data\processed_networks\HuRI.parquet                        
+           Loading data\processed_networks\HuRI.parquet: done in 0.1s          
+[16:41:01] HuRI: 8,070 proteins; 51,524 edges; 65 set proteins                 
+           Drawing random protein sets: 1,000 items                            
+           Drawing random protein sets: done in 0.1s                           
+           Distance cache: 7,995 rows reused; 0 BFS rows remaining; matrix 0.12
+           GiB                                                                 
+           Cache directory:                                                    
+           C:\projects\interactome\data\analysis_runs\shortest_path_distances\e
+           4209b5cbf8f716266d1781e7de16fe9c26436212e5df8e56a5218d7e1c800b7     
+           Exact NetworkX BFS: 0 items                                         
+           Exact NetworkX BFS: done in 0.0s                                    
+           Shortest-path observed + null means: 1,001 items                    
+           Shortest-path observed + null means: done in 0.8s                   
+           Cohesion observed + null statistics: 1,001 items                    
+[16:41:02] Cohesion observed + null statistics: done in 0.9s                   
+           Saving null distributions: moonprot_HuRI_<analysis>.parquet         
+---------------------------- Network 2/5: BioPlex -----------------------------
+           Loading data\processed_networks\BioPlex.parquet                     
+[16:41:03] Loading data\processed_networks\BioPlex.parquet: done in 0.2s       
+[16:41:04] BioPlex: 13,806 proteins; 128,090 edges; 126 set proteins           
+           Drawing random protein sets: 1,000 items                            
+           Drawing random protein sets: done in 0.1s                           
+           Distance cache: 13,785 rows reused; 0 BFS rows remaining; matrix    
+           0.36 GiB                                                            
+           Cache directory:                                                    
+           C:\projects\interactome\data\analysis_runs\shortest_path_distances\0
+           944edfb5835c76ac31db793dfb5215dd4177199b5f50ff3cc2dd66b0e119e6f     
+           Exact NetworkX BFS: 0 items                                         
+           Exact NetworkX BFS: done in 0.0s                                    
+           Shortest-path observed + null means: 1,001 items                    
+[16:41:06] Shortest-path observed + null means: done in 1.6s                   
+           Cohesion observed + null statistics: 1,001 items                    
+[16:41:08] Cohesion observed + null statistics: done in 2.6s                   
+           Saving null distributions: moonprot_BioPlex_<analysis>.parquet      
+------------------------ Network 3/5: TAGC_binary2025 -------------------------
+           Loading data\processed_networks\TAGC_binary2025.parquet             
+[16:41:09] Loading data\processed_networks\TAGC_binary2025.parquet: done in    
+           0.3s                                                                
+           TAGC_binary2025: 14,207 proteins; 108,633 edges; 129 set proteins   
+           Drawing random protein sets: 1,000 items                            
+           Drawing random protein sets: done in 0.1s                           
+[16:41:10] Distance cache: 13,915 rows reused; 0 BFS rows remaining; matrix    
+           0.38 GiB                                                            
+           Cache directory:                                                    
+           C:\projects\interactome\data\analysis_runs\shortest_path_distances\a
+           5237b40c34acd0d3149afa655eb241cd18f8cd7c19e220c2121b97de1d2025d     
+           Exact NetworkX BFS: 0 items                                         
+           Exact NetworkX BFS: done in 0.0s                                    
+           Shortest-path observed + null means: 1,001 items                    
+[16:41:11] Shortest-path observed + null means: done in 1.6s                   
+           Cohesion observed + null statistics: 1,001 items                    
+[16:41:15] Cohesion observed + null statistics: done in 3.3s                   
+           Saving null distributions:                                          
+           moonprot_TAGC_binary2025_<analysis>.parquet                         
+-------------------------- Network 4/5: huMAP2_0.05 ---------------------------
+           Loading data\processed_networks\versions\huMAP2_0.05.parquet        
+           Loading data\processed_networks\versions\huMAP2_0.05.parquet: done  
+           in 0.2s                                                             
+           huMAP2_0.05: 7,491 proteins; 24,924 edges; 113 set proteins         
+           Drawing random protein sets: 1,000 items                            
+           Drawing random protein sets: done in 0.1s                           
+           Distance cache: 7,438 rows reused; 0 BFS rows remaining; matrix 0.10
+           GiB                                                                 
+           Cache directory:                                                    
+           C:\projects\interactome\data\analysis_runs\shortest_path_distances\8
+           7ed5b307e6f4831a1a4fb98959531bb4ea1e0f7b906db2d5a3f0fbb296d07c1     
+           Exact NetworkX BFS: 0 items                                         
+           Exact NetworkX BFS: done in 0.0s                                    
+           Shortest-path observed + null means: 1,001 items                    
+[16:41:16] Shortest-path observed + null means: done in 1.4s                   
+           Cohesion observed + null statistics: 1,001 items                    
+[16:41:18] Cohesion observed + null statistics: done in 1.9s                   
+           Saving null distributions: moonprot_huMAP2_0.05_<analysis>.parquet  
+-------------------------- Network 5/5: huMAP2_0.95 ---------------------------
+           Loading data\processed_networks\versions\huMAP2_0.95.parquet        
+           Loading data\processed_networks\versions\huMAP2_0.95.parquet: done  
+           in 0.0s                                                             
+           huMAP2_0.95: 687 proteins; 3,281 edges; 36 set proteins             
+           Drawing random protein sets: 1,000 items                            
+[16:41:19] Drawing random protein sets: done in 0.1s                           
+           Distance cache: 656 rows reused; 0 BFS rows remaining; matrix 0.00  
+           GiB                                                                 
+           Cache directory:                                                    
+           C:\projects\interactome\data\analysis_runs\shortest_path_distances\d
+           debce82e44feab3135ba3a84a9ea117ca56e65005739e1c3be4e5293205a57a     
+           Exact NetworkX BFS: 0 items                                         
+           Exact NetworkX BFS: done in 0.0s                                    
+           Shortest-path observed + null means: 1,001 items                    
+           Shortest-path observed + null means: done in 0.5s                   
+           Cohesion observed + null statistics: 1,001 items                    
+[16:41:20] Cohesion observed + null statistics: done in 0.8s                   
+           Saving null distributions: moonprot_huMAP2_0.95_<analysis>.parquet  
+                              Monte Carlo results                              
++-----------------------------------------------------------------------------+
+|          |          |          | Null     |          |           |          |
+| Network  | Measure  | Observed | mean     | Effect   | q (BH)    | Signifi� |
+|----------+----------+----------+----------+----------+-----------+----------|
+| HuRI     | mean_sh� | 3.7827   | 3.8348   | -0.0520� | 0.53746   | ns       |
+| HuRI     | interna� | 5        | 2.726    | 2.274    | 0.18357   | ns       |
+| HuRI     | largest� | 3        | 2.58     | 0.42     | 0.41558   | ns       |
+| BioPlex  | mean_sh� | 3.6702   | 3.5862   | 0.084022 | 0.02331   | *        |
+| BioPlex  | interna� | 73       | 18.149   | 54.851   | 0.0024975 | **       |
+| BioPlex  | largest� | 14       | 6.646    | 7.354    | 0.045669  | *        |
+| TAGC_bi� | mean_sh� | 3.0882   | 3.1759   | -0.0877� | 0.02331   | *        |
+| TAGC_bi� | interna� | 51       | 34.77    | 16.23    | 0.01332   | *        |
+| TAGC_bi� | largest� | 39       | 20.435   | 18.565   | 0.01332   | *        |
+| huMAP2_� | mean_sh� | 4.509    | 5.2366   | -0.72759 | 0.00999   | **       |
+| huMAP2_� | interna� | 137      | 65.271   | 71.729   | 0.0024975 | **       |
+| huMAP2_� | largest� | 44       | 18.548   | 25.452   | 0.0024975 | **       |
+| huMAP2_� | mean_sh� | 6.381    | 6.8555   | -0.47451 | 0.51449   | ns       |
+| huMAP2_� | interna� | 56       | 42.077   | 13.923   | 0.0024975 | **       |
+| huMAP2_� | largest� | 11       | 10.422   | 0.578    | 0.36852   | ns       |
++-----------------------------------------------------------------------------+
+           Summary saved:                                                      
+           C:\projects\interactome\data\analysis_runs/<protein_set>_<network>_<
+           analysis>_summary.csv                                               
++-------------------------------- Interactome --------------------------------+
+| Fixed-network Monte Carlo                                                   |
+| Exact NetworkX distances � reusable disk cache                              |
++-----------------------------------------------------------------------------+
+[16:41:20] Simulations: 1,000; seed: 42; protein set: metamoon; scope: lcc;    
+           degree matching: True                                               
+           Loading and mapping protein set                                     
+           Loading and mapping protein set: done in 0.0s                       
+           Mapped protein set: 76 proteins                                     
+------------------------------ Network 1/5: HuRI ------------------------------
+           Loading data\processed_networks\HuRI.parquet                        
+           Loading data\processed_networks\HuRI.parquet: done in 0.2s          
+           HuRI: 8,070 proteins; 51,524 edges; 26 set proteins                 
+           Drawing random protein sets: 1,000 items                            
+           Drawing random protein sets: done in 0.1s                           
+           Distance cache: 6,732 rows reused; 0 BFS rows remaining; matrix 0.12
+           GiB                                                                 
+           Cache directory:                                                    
+           C:\projects\interactome\data\analysis_runs\shortest_path_distances\e
+           4209b5cbf8f716266d1781e7de16fe9c26436212e5df8e56a5218d7e1c800b7     
+           Exact NetworkX BFS: 0 items                                         
+           Exact NetworkX BFS: done in 0.0s                                    
+           Shortest-path observed + null means: 1,001 items                    
+[16:41:21] Shortest-path observed + null means: done in 0.3s                   
+           Cohesion observed + null statistics: 1,001 items                    
+           Cohesion observed + null statistics: done in 0.3s                   
+           Saving null distributions: metamoon_HuRI_<analysis>.parquet         
+---------------------------- Network 2/5: BioPlex -----------------------------
+           Loading data\processed_networks\BioPlex.parquet                     
+           Loading data\processed_networks\BioPlex.parquet: done in 0.3s       
+[16:41:22] BioPlex: 13,806 proteins; 128,090 edges; 68 set proteins            
+           Drawing random protein sets: 1,000 items                            
+           Drawing random protein sets: done in 0.1s                           
+[16:41:23] Distance cache: 13,245 rows reused; 0 BFS rows remaining; matrix    
+           0.36 GiB                                                            
+           Cache directory:                                                    
+           C:\projects\interactome\data\analysis_runs\shortest_path_distances\0
+           944edfb5835c76ac31db793dfb5215dd4177199b5f50ff3cc2dd66b0e119e6f     
+           Exact NetworkX BFS: 0 items                                         
+           Exact NetworkX BFS: done in 0.0s                                    
+           Shortest-path observed + null means: 1,001 items                    
+           Shortest-path observed + null means: done in 0.9s                   
+           Cohesion observed + null statistics: 1,001 items                    
+[16:41:24] Cohesion observed + null statistics: done in 0.9s                   
+           Saving null distributions: metamoon_BioPlex_<analysis>.parquet      
+------------------------ Network 3/5: TAGC_binary2025 -------------------------
+           Loading data\processed_networks\TAGC_binary2025.parquet             
+[16:41:25] Loading data\processed_networks\TAGC_binary2025.parquet: done in    
+           0.2s                                                                
+[16:41:26] TAGC_binary2025: 14,207 proteins; 108,633 edges; 71 set proteins    
+           Drawing random protein sets: 1,000 items                            
+           Drawing random protein sets: done in 0.1s                           
+           Distance cache: 13,855 rows reused; 0 BFS rows remaining; matrix    
+           0.38 GiB                                                            
+           Cache directory:                                                    
+           C:\projects\interactome\data\analysis_runs\shortest_path_distances\a
+           5237b40c34acd0d3149afa655eb241cd18f8cd7c19e220c2121b97de1d2025d     
+           Exact NetworkX BFS: 0 items                                         
+           Exact NetworkX BFS: done in 0.0s                                    
+           Shortest-path observed + null means: 1,001 items                    
+[16:41:27] Shortest-path observed + null means: done in 1.0s                   
+           Cohesion observed + null statistics: 1,001 items                    
+[16:41:28] Cohesion observed + null statistics: done in 1.2s                   
+           Saving null distributions:                                          
+           metamoon_TAGC_binary2025_<analysis>.parquet                         
+-------------------------- Network 4/5: huMAP2_0.05 ---------------------------
+           Loading data\processed_networks\versions\huMAP2_0.05.parquet        
+           Loading data\processed_networks\versions\huMAP2_0.05.parquet: done  
+           in 0.0s                                                             
+           huMAP2_0.05: 7,491 proteins; 24,924 edges; 62 set proteins          
+           Drawing random protein sets: 1,000 items                            
+[16:41:29] Drawing random protein sets: done in 0.1s                           
+           Distance cache: 7,360 rows reused; 0 BFS rows remaining; matrix 0.10
+           GiB                                                                 
+           Cache directory:                                                    
+           C:\projects\interactome\data\analysis_runs\shortest_path_distances\8
+           7ed5b307e6f4831a1a4fb98959531bb4ea1e0f7b906db2d5a3f0fbb296d07c1     
+           Exact NetworkX BFS: 0 items                                         
+           Exact NetworkX BFS: done in 0.0s                                    
+           Shortest-path observed + null means: 1,001 items                    
+           Shortest-path observed + null means: done in 0.8s                   
+           Cohesion observed + null statistics: 1,001 items                    
+[16:41:30] Cohesion observed + null statistics: done in 0.8s                   
+           Saving null distributions: metamoon_huMAP2_0.05_<analysis>.parquet  
+-------------------------- Network 5/5: huMAP2_0.95 ---------------------------
+           Loading data\processed_networks\versions\huMAP2_0.95.parquet        
+           Loading data\processed_networks\versions\huMAP2_0.95.parquet: done  
+           in 0.0s                                                             
+           huMAP2_0.95: 687 proteins; 3,281 edges; 12 set proteins             
+           Drawing random protein sets: 1,000 items                            
+           Drawing random protein sets: done in 0.0s                           
+           Distance cache: 513 rows reused; 0 BFS rows remaining; matrix 0.00  
+           GiB                                                                 
+           Cache directory:                                                    
+           C:\projects\interactome\data\analysis_runs\shortest_path_distances\d
+           debce82e44feab3135ba3a84a9ea117ca56e65005739e1c3be4e5293205a57a     
+           Exact NetworkX BFS: 0 items                                         
+           Exact NetworkX BFS: done in 0.0s                                    
+           Shortest-path observed + null means: 1,001 items                    
+           Shortest-path observed + null means: done in 0.1s                   
+           Cohesion observed + null statistics: 1,001 items                    
+[16:41:31] Cohesion observed + null statistics: done in 0.1s                   
+           Saving null distributions: metamoon_huMAP2_0.95_<analysis>.parquet  
+                              Monte Carlo results                              
++-----------------------------------------------------------------------------+
+| Network  | Measure  | Observed | Null mean | Effect   | q (BH)   | Signifi� |
+|----------+----------+----------+-----------+----------+----------+----------|
+| HuRI     | mean_sh� | 3.9538   | 4.1243    | -0.17048 | 0.23177  | ns       |
+| HuRI     | interna� | 2        | 0.078     | 1.922    | 0.00999  | **       |
+| HuRI     | largest� | 2        | 1.076     | 0.924    | 0.092408 | ns       |
+| BioPlex  | mean_sh� | 4.1286   | 3.999     | 0.12965  | 0.044955 | *        |
+| BioPlex  | interna� | 24       | 1.169     | 22.831   | 0.001998 | **       |
+| BioPlex  | largest� | 6        | 1.756     | 4.244    | 0.001998 | **       |
+| TAGC_bi� | mean_sh� | 3.2483   | 3.4181    | -0.16977 | 0.00666  | **       |
+| TAGC_bi� | interna� | 19       | 3.321     | 15.679   | 0.001998 | **       |
+| TAGC_bi� | largest� | 7        | 2.813     | 4.187    | 0.017126 | *        |
+| huMAP2_� | mean_sh� | 4.1063   | 5.711     | -1.6047  | 0.004995 | **       |
+| huMAP2_� | interna� | 49       | 6.899     | 42.101   | 0.001998 | **       |
+| huMAP2_� | largest� | 24       | 3.521     | 20.479   | 0.001998 | **       |
+| huMAP2_� | mean_sh� | 5.2273   | 8.7714    | -3.5441  | 0.004995 | **       |
+| huMAP2_� | interna� | 1        | 0.238     | 0.762    | 0.21878  | ns       |
+| huMAP2_� | largest� | 2        | 1.225     | 0.775    | 0.21878  | ns       |
++-----------------------------------------------------------------------------+
+           Summary saved:                                                      
+           C:\projects\interactome\data\analysis_runs/<protein_set>_<network>_<
+           analysis>_summary.csv                                               
++-------------------------------- Interactome --------------------------------+
+| Fixed-network Monte Carlo                                                   |
+| Exact NetworkX distances � reusable disk cache                              |
++-----------------------------------------------------------------------------+
+[16:41:31] Simulations: 1,000; seed: 42; protein set: multitask; scope: lcc;   
+           degree matching: True                                               
+           Loading and mapping protein set                                     
+           Loading and mapping protein set: done in 0.0s                       
+           Mapped protein set: 179 proteins                                    
+------------------------------ Network 1/5: HuRI ------------------------------
+           Loading data\processed_networks\HuRI.parquet                        
+           Loading data\processed_networks\HuRI.parquet: done in 0.1s          
+           HuRI: 8,070 proteins; 51,524 edges; 70 set proteins                 
+           Drawing random protein sets: 1,000 items                            
+           Drawing random protein sets: done in 0.1s                           
+           Distance cache: 7,747 rows reused; 0 BFS rows remaining; matrix 0.12
+           GiB                                                                 
+           Cache directory:                                                    
+           C:\projects\interactome\data\analysis_runs\shortest_path_distances\e
+           4209b5cbf8f716266d1781e7de16fe9c26436212e5df8e56a5218d7e1c800b7     
+           Exact NetworkX BFS: 0 items                                         
+           Exact NetworkX BFS: done in 0.0s                                    
+           Shortest-path observed + null means: 1,001 items                    
+[16:41:32] Shortest-path observed + null means: done in 0.9s                   
+           Cohesion observed + null statistics: 1,001 items                    
+[16:41:33] Cohesion observed + null statistics: done in 0.7s                   
+           Saving null distributions: multitask_HuRI_<analysis>.parquet        
+---------------------------- Network 2/5: BioPlex -----------------------------
+           Loading data\processed_networks\BioPlex.parquet                     
+           Loading data\processed_networks\BioPlex.parquet: done in 0.3s       
+[16:41:34] BioPlex: 13,806 proteins; 128,090 edges; 158 set proteins           
+           Drawing random protein sets: 1,000 items                            
+           Drawing random protein sets: done in 0.1s                           
+           Distance cache: 13,797 rows reused; 0 BFS rows remaining; matrix    
+           0.36 GiB                                                            
+           Cache directory:                                                    
+           C:\projects\interactome\data\analysis_runs\shortest_path_distances\0
+           944edfb5835c76ac31db793dfb5215dd4177199b5f50ff3cc2dd66b0e119e6f     
+           Exact NetworkX BFS: 0 items                                         
+           Exact NetworkX BFS: done in 0.0s                                    
+           Shortest-path observed + null means: 1,001 items                    
+[16:41:36] Shortest-path observed + null means: done in 2.0s                   
+           Cohesion observed + null statistics: 1,001 items                    
+[16:41:40] Cohesion observed + null statistics: done in 3.6s                   
+           Saving null distributions: multitask_BioPlex_<analysis>.parquet     
+------------------------ Network 3/5: TAGC_binary2025 -------------------------
+           Loading data\processed_networks\TAGC_binary2025.parquet             
+           Loading data\processed_networks\TAGC_binary2025.parquet: done in    
+           0.2s                                                                
+[16:41:41] TAGC_binary2025: 14,207 proteins; 108,633 edges; 167 set proteins   
+           Drawing random protein sets: 1,000 items                            
+           Drawing random protein sets: done in 0.1s                           
+           Distance cache: 14,175 rows reused; 0 BFS rows remaining; matrix    
+           0.38 GiB                                                            
+           Cache directory:                                                    
+           C:\projects\interactome\data\analysis_runs\shortest_path_distances\a
+           5237b40c34acd0d3149afa655eb241cd18f8cd7c19e220c2121b97de1d2025d     
+           Exact NetworkX BFS: 0 items                                         
+           Exact NetworkX BFS: done in 0.0s                                    
+           Shortest-path observed + null means: 1,001 items                    
+[16:41:44] Shortest-path observed + null means: done in 2.1s                   
+           Cohesion observed + null statistics: 1,001 items                    
+[16:41:49] Cohesion observed + null statistics: done in 5.1s                   
+           Saving null distributions:                                          
+           multitask_TAGC_binary2025_<analysis>.parquet                        
+-------------------------- Network 4/5: huMAP2_0.05 ---------------------------
+           Loading data\processed_networks\versions\huMAP2_0.05.parquet        
+           Loading data\processed_networks\versions\huMAP2_0.05.parquet: done  
+           in 0.0s                                                             
+           huMAP2_0.05: 7,491 proteins; 24,924 edges; 129 set proteins         
+           Drawing random protein sets: 1,000 items                            
+           Drawing random protein sets: done in 0.2s                           
+           Distance cache: 7,482 rows reused; 0 BFS rows remaining; matrix 0.10
+           GiB                                                                 
+           Cache directory:                                                    
+           C:\projects\interactome\data\analysis_runs\shortest_path_distances\8
+           7ed5b307e6f4831a1a4fb98959531bb4ea1e0f7b906db2d5a3f0fbb296d07c1     
+           Exact NetworkX BFS: 0 items                                         
+           Exact NetworkX BFS: done in 0.0s                                    
+           Shortest-path observed + null means: 1,001 items                    
+[16:41:51] Shortest-path observed + null means: done in 1.6s                   
+           Cohesion observed + null statistics: 1,001 items                    
+[16:41:53] Cohesion observed + null statistics: done in 2.5s                   
+           Saving null distributions: multitask_huMAP2_0.05_<analysis>.parquet 
+-------------------------- Network 5/5: huMAP2_0.95 ---------------------------
+           Loading data\processed_networks\versions\huMAP2_0.95.parquet        
+           Loading data\processed_networks\versions\huMAP2_0.95.parquet: done  
+           in 0.0s                                                             
+           huMAP2_0.95: 687 proteins; 3,281 edges; 41 set proteins             
+           Drawing random protein sets: 1,000 items                            
+           Drawing random protein sets: done in 0.1s                           
+           Distance cache: 656 rows reused; 0 BFS rows remaining; matrix 0.00  
+           GiB                                                                 
+           Cache directory:                                                    
+           C:\projects\interactome\data\analysis_runs\shortest_path_distances\d
+           debce82e44feab3135ba3a84a9ea117ca56e65005739e1c3be4e5293205a57a     
+           Exact NetworkX BFS: 0 items                                         
+           Exact NetworkX BFS: done in 0.0s                                    
+           Shortest-path observed + null means: 1,001 items                    
+[16:41:54] Shortest-path observed + null means: done in 0.4s                   
+           Cohesion observed + null statistics: 1,001 items                    
+[16:41:55] Cohesion observed + null statistics: done in 0.8s                   
+           Saving null distributions: multitask_huMAP2_0.95_<analysis>.parquet 
+                              Monte Carlo results                              
++-----------------------------------------------------------------------------+
+|          |          |          | Null     |           |          |          |
+| Network  | Measure  | Observed | mean     | Effect    | q (BH)   | Signifi� |
+|----------+----------+----------+----------+-----------+----------+----------|
+| HuRI     | mean_sh� | 3.8555   | 3.9076   | -0.052112 | 0.53147  | ns       |
+| HuRI     | interna� | 4        | 1.319    | 2.681     | 0.075639 | ns       |
+| HuRI     | largest� | 3        | 1.829    | 1.171     | 0.11655  | ns       |
+| BioPlex  | mean_sh� | 3.6703   | 3.6052   | 0.065103  | 0.032468 | *        |
+| BioPlex  | interna� | 61       | 34.239   | 26.761    | 0.001998 | **       |
+| BioPlex  | largest� | 15       | 11.722   | 3.278     | 0.22877  | ns       |
+| TAGC_bi� | mean_sh� | 3.1357   | 3.2065   | -0.070746 | 0.032468 | *        |
+| TAGC_bi� | interna� | 153      | 80.137   | 72.863    | 0.001998 | **       |
+| TAGC_bi� | largest� | 81       | 53.361   | 27.639    | 0.001998 | **       |
+| huMAP2_� | mean_sh� | 4.6765   | 5.1847   | -0.50818  | 0.01998  | *        |
+| huMAP2_� | interna� | 158      | 102.11   | 55.887    | 0.001998 | **       |
+| huMAP2_� | largest� | 57       | 28.095   | 28.905    | 0.001998 | **       |
+| huMAP2_� | mean_sh� | 5.9      | 6.9678   | -1.0678   | 0.032468 | *        |
+| huMAP2_� | interna� | 75       | 62.55    | 12.45     | 0.00333  | **       |
+| huMAP2_� | largest� | 14       | 12.533   | 1.467     | 0.11655  | ns       |
++-----------------------------------------------------------------------------+
+           Summary saved:                                                      
+           C:\projects\interactome\data\analysis_runs/<protein_set>_<network>_<
+           analysis>_summary.csv                                               
++-------------------------------- Interactome --------------------------------+
+| Fixed-network Monte Carlo                                                   |
+| Exact NetworkX distances � reusable disk cache                              |
++-----------------------------------------------------------------------------+
+[16:41:55] Simulations: 1,000; seed: 42; protein set: moondb_curated; scope:   
+           lcc; degree matching: True                                          
+           Loading and mapping protein set                                     
+           Loading and mapping protein set: done in 0.0s                       
+           Mapped protein set: 47 proteins                                     
+------------------------------ Network 1/5: HuRI ------------------------------
+           Loading data\processed_networks\HuRI.parquet                        
+           Loading data\processed_networks\HuRI.parquet: done in 0.1s          
+           HuRI: 8,070 proteins; 51,524 edges; 28 set proteins                 
+           Drawing random protein sets: 1,000 items                            
+           Drawing random protein sets: done in 0.1s                           
+           Distance cache: 6,769 rows reused; 0 BFS rows remaining; matrix 0.12
+           GiB                                                                 
+           Cache directory:                                                    
+           C:\projects\interactome\data\analysis_runs\shortest_path_distances\e
+           4209b5cbf8f716266d1781e7de16fe9c26436212e5df8e56a5218d7e1c800b7     
+           Exact NetworkX BFS: 0 items                                         
+           Exact NetworkX BFS: done in 0.0s                                    
+           Shortest-path observed + null means: 1,001 items                    
+[16:41:56] Shortest-path observed + null means: done in 0.3s                   
+           Cohesion observed + null statistics: 1,001 items                    
+           Cohesion observed + null statistics: done in 0.4s                   
+           Saving null distributions: moondb_curated_HuRI_<analysis>.parquet   
+---------------------------- Network 2/5: BioPlex -----------------------------
+           Loading data\processed_networks\BioPlex.parquet                     
+           Loading data\processed_networks\BioPlex.parquet: done in 0.3s       
+[16:41:57] BioPlex: 13,806 proteins; 128,090 edges; 43 set proteins            
+           Drawing random protein sets: 1,000 items                            
+[16:41:58] Drawing random protein sets: done in 0.1s                           
+           Distance cache: 12,790 rows reused; 0 BFS rows remaining; matrix    
+           0.36 GiB                                                            
+           Cache directory:                                                    
+           C:\projects\interactome\data\analysis_runs\shortest_path_distances\0
+           944edfb5835c76ac31db793dfb5215dd4177199b5f50ff3cc2dd66b0e119e6f     
+           Exact NetworkX BFS: 0 items                                         
+           Exact NetworkX BFS: done in 0.0s                                    
+           Shortest-path observed + null means: 1,001 items                    
+           Shortest-path observed + null means: done in 0.7s                   
+           Cohesion observed + null statistics: 1,001 items                    
+[16:41:59] Cohesion observed + null statistics: done in 1.0s                   
+           Saving null distributions: moondb_curated_BioPlex_<analysis>.parquet
+------------------------ Network 3/5: TAGC_binary2025 -------------------------
+           Loading data\processed_networks\TAGC_binary2025.parquet             
+[16:42:00] Loading data\processed_networks\TAGC_binary2025.parquet: done in    
+           0.3s                                                                
+[16:42:01] TAGC_binary2025: 14,207 proteins; 108,633 edges; 47 set proteins    
+           Drawing random protein sets: 1,000 items                            
+           Drawing random protein sets: done in 0.1s                           
+           Distance cache: 11,368 rows reused; 0 BFS rows remaining; matrix    
+           0.38 GiB                                                            
+           Cache directory:                                                    
+           C:\projects\interactome\data\analysis_runs\shortest_path_distances\a
+           5237b40c34acd0d3149afa655eb241cd18f8cd7c19e220c2121b97de1d2025d     
+           Exact NetworkX BFS: 0 items                                         
+           Exact NetworkX BFS: done in 0.0s                                    
+           Shortest-path observed + null means: 1,001 items                    
+           Shortest-path observed + null means: done in 0.6s                   
+           Cohesion observed + null statistics: 1,001 items                    
+[16:42:03] Cohesion observed + null statistics: done in 1.3s                   
+           Saving null distributions:                                          
+           moondb_curated_TAGC_binary2025_<analysis>.parquet                   
+-------------------------- Network 4/5: huMAP2_0.05 ---------------------------
+           Loading data\processed_networks\versions\huMAP2_0.05.parquet        
+           Loading data\processed_networks\versions\huMAP2_0.05.parquet: done  
+           in 0.0s                                                             
+           huMAP2_0.05: 7,491 proteins; 24,924 edges; 34 set proteins          
+           Drawing random protein sets: 1,000 items                            
+           Drawing random protein sets: done in 0.1s                           
+           Distance cache: 6,914 rows reused; 0 BFS rows remaining; matrix 0.10
+           GiB                                                                 
+           Cache directory:                                                    
+           C:\projects\interactome\data\analysis_runs\shortest_path_distances\8
+           7ed5b307e6f4831a1a4fb98959531bb4ea1e0f7b906db2d5a3f0fbb296d07c1     
+           Exact NetworkX BFS: 0 items                                         
+           Exact NetworkX BFS: done in 0.0s                                    
+           Shortest-path observed + null means: 1,001 items                    
+[16:42:04] Shortest-path observed + null means: done in 0.4s                   
+           Cohesion observed + null statistics: 1,001 items                    
+           Cohesion observed + null statistics: done in 0.5s                   
+           Saving null distributions:                                          
+           moondb_curated_huMAP2_0.05_<analysis>.parquet                       
+-------------------------- Network 5/5: huMAP2_0.95 ---------------------------
+           Loading data\processed_networks\versions\huMAP2_0.95.parquet        
+           Loading data\processed_networks\versions\huMAP2_0.95.parquet: done  
+           in 0.1s                                                             
+           huMAP2_0.95: 687 proteins; 3,281 edges; 4 set proteins              
+           Drawing random protein sets: 1,000 items                            
+           Drawing random protein sets: done in 0.0s                           
+           Distance cache: 512 rows reused; 0 BFS rows remaining; matrix 0.00  
+           GiB                                                                 
+           Cache directory:                                                    
+           C:\projects\interactome\data\analysis_runs\shortest_path_distances\d
+           debce82e44feab3135ba3a84a9ea117ca56e65005739e1c3be4e5293205a57a     
+           Exact NetworkX BFS: 0 items                                         
+           Exact NetworkX BFS: done in 0.0s                                    
+           Shortest-path observed + null means: 1,001 items                    
+           Shortest-path observed + null means: done in 0.0s                   
+           Cohesion observed + null statistics: 1,001 items                    
+           Cohesion observed + null statistics: done in 0.0s                   
+           Saving null distributions:                                          
+           moondb_curated_huMAP2_0.95_<analysis>.parquet                       
+                              Monte Carlo results                              
++-----------------------------------------------------------------------------+
+|          |          |          | Null     |           |          |          |
+| Network  | Measure  | Observed | mean     | Effect    | q (BH)   | Signifi� |
+|----------+----------+----------+----------+-----------+----------+----------|
+| HuRI     | mean_sh� | 3.6746   | 3.8865   | -0.21193  | 0.11489  | ns       |
+| HuRI     | interna� | 3        | 0.181    | 2.819     | 0.00666  | **       |
+| HuRI     | largest� | 2        | 1.175    | 0.825     | 0.20729  | ns       |
+| BioPlex  | mean_sh� | 3.5293   | 3.5598   | -0.030503 | 0.6034   | ns       |
+| BioPlex  | interna� | 7        | 2.37     | 4.63      | 0.027473 | *        |
+| BioPlex  | largest� | 4        | 2.315    | 1.685     | 0.11274  | ns       |
+| TAGC_bi� | mean_sh� | 2.9852   | 3.1059   | -0.12073  | 0.05994  | ns       |
+| TAGC_bi� | interna� | 15       | 5.146    | 9.854     | 0.004995 | **       |
+| TAGC_bi� | largest� | 8        | 3.576    | 4.424     | 0.04995  | *        |
+| huMAP2_� | mean_sh� | 4.9964   | 5.7965   | -0.8001   | 0.05994  | ns       |
+| huMAP2_� | interna� | 10       | 1.402    | 8.598     | 0.004995 | **       |
+| huMAP2_� | largest� | 4        | 1.897    | 2.103     | 0.045954 | *        |
+| huMAP2_� | mean_sh� | 5.8333   | 8.956    | -3.1227   | 0.11489  | ns       |
+| huMAP2_� | interna� | 0        | 0.012    | -0.012    | 1        | ns       |
+| huMAP2_� | largest� | 1        | 1.012    | -0.012    | 1        | ns       |
++-----------------------------------------------------------------------------+
+[16:42:05] Summary saved:                                                      
+           C:\projects\interactome\data\analysis_runs/<protein_set>_<network>_<
+           analysis>_summary.csv                                               
++-------------------------------- Interactome --------------------------------+
+| Fixed-network Monte Carlo                                                   |
+| Exact NetworkX distances � reusable disk cache                              |
++-----------------------------------------------------------------------------+
+[16:42:05] Simulations: 1,000; seed: 42; protein set: moondb_predicted; scope: 
+           lcc; degree matching: True                                          
+           Loading and mapping protein set                                     
+           Loading and mapping protein set: done in 0.0s                       
+           Mapped protein set: 235 proteins                                    
+------------------------------ Network 1/5: HuRI ------------------------------
+           Loading data\processed_networks\HuRI.parquet                        
+           Loading data\processed_networks\HuRI.parquet: done in 0.1s          
+           HuRI: 8,070 proteins; 51,524 edges; 153 set proteins                
+           Drawing random protein sets: 1,000 items                            
+           Drawing random protein sets: done in 0.1s                           
+           Distance cache: 7,977 rows reused; 63 BFS rows remaining; matrix    
+           0.12 GiB                                                            
+           Cache directory:                                                    
+           C:\projects\interactome\data\analysis_runs\shortest_path_distances\e
+           4209b5cbf8f716266d1781e7de16fe9c26436212e5df8e56a5218d7e1c800b7     
+           Exact NetworkX BFS: 63 items                                        
+[16:42:06] Checkpoint saved: 32/63 BFS rows                                    
+           Checkpoint saved: 63/63 BFS rows                                    
+           Exact NetworkX BFS: done in 1.1s                                    
+           Shortest-path observed + null means: 1,001 items                    
+[16:42:08] Shortest-path observed + null means: done in 1.9s                   
+           Cohesion observed + null statistics: 1,001 items                    
+[16:42:13] Cohesion observed + null statistics: done in 4.3s                   
+           Saving null distributions: moondb_predicted_HuRI_<analysis>.parquet 
+---------------------------- Network 2/5: BioPlex -----------------------------
+           Loading data\processed_networks\BioPlex.parquet                     
+           Loading data\processed_networks\BioPlex.parquet: done in 0.3s       
+[16:42:14] BioPlex: 13,806 proteins; 128,090 edges; 216 set proteins           
+           Drawing random protein sets: 1,000 items                            
+           Drawing random protein sets: done in 0.1s                           
+           Distance cache: 13,796 rows reused; 8 BFS rows remaining; matrix    
+           0.36 GiB                                                            
+           Cache directory:                                                    
+           C:\projects\interactome\data\analysis_runs\shortest_path_distances\0
+           944edfb5835c76ac31db793dfb5215dd4177199b5f50ff3cc2dd66b0e119e6f     
+           Exact NetworkX BFS: 8 items                                         
+[16:42:15] Checkpoint saved: 8/8 BFS rows                                      
+           Exact NetworkX BFS: done in 0.4s                                    
+           Shortest-path observed + null means: 1,001 items                    
+[16:42:17] Shortest-path observed + null means: done in 2.9s                   
+           Cohesion observed + null statistics: 1,001 items                    
+[16:42:22] Cohesion observed + null statistics: done in 4.8s                   
+           Saving null distributions:                                          
+           moondb_predicted_BioPlex_<analysis>.parquet                         
+------------------------ Network 3/5: TAGC_binary2025 -------------------------
+           Loading data\processed_networks\TAGC_binary2025.parquet             
+[16:42:23] Loading data\processed_networks\TAGC_binary2025.parquet: done in    
+           0.3s                                                                
+           TAGC_binary2025: 14,207 proteins; 108,633 edges; 232 set proteins   
+           Drawing random protein sets: 1,000 items                            
+[16:42:24] Drawing random protein sets: done in 0.1s                           
+           Distance cache: 12,308 rows reused; 3 BFS rows remaining; matrix    
+           0.38 GiB                                                            
+           Cache directory:                                                    
+           C:\projects\interactome\data\analysis_runs\shortest_path_distances\a
+           5237b40c34acd0d3149afa655eb241cd18f8cd7c19e220c2121b97de1d2025d     
+           Exact NetworkX BFS: 3 items                                         
+           Checkpoint saved: 3/3 BFS rows                                      
+           Exact NetworkX BFS: done in 0.1s                                    
+           Shortest-path observed + null means: 1,001 items                    
+[16:42:27] Shortest-path observed + null means: done in 3.1s                   
+           Cohesion observed + null statistics: 1,001 items                    
+[16:42:37] Cohesion observed + null statistics: 651/1,001; 65.1/s; ETA 5s      
+[16:42:42] Cohesion observed + null statistics: done in 15.4s                  
+           Saving null distributions:                                          
+           moondb_predicted_TAGC_binary2025_<analysis>.parquet                 
+-------------------------- Network 4/5: huMAP2_0.05 ---------------------------
+           Loading data\processed_networks\versions\huMAP2_0.05.parquet        
+           Loading data\processed_networks\versions\huMAP2_0.05.parquet: done  
+           in 0.0s                                                             
+[16:42:43] huMAP2_0.05: 7,491 proteins; 24,924 edges; 168 set proteins         
+           Drawing random protein sets: 1,000 items                            
+           Drawing random protein sets: done in 0.1s                           
+           Distance cache: 7,491 rows reused; 0 BFS rows remaining; matrix 0.10
+           GiB                                                                 
+           Cache directory:                                                    
+           C:\projects\interactome\data\analysis_runs\shortest_path_distances\8
+           7ed5b307e6f4831a1a4fb98959531bb4ea1e0f7b906db2d5a3f0fbb296d07c1     
+           Exact NetworkX BFS: 0 items                                         
+           Exact NetworkX BFS: done in 0.0s                                    
+           Shortest-path observed + null means: 1,001 items                    
+[16:42:45] Shortest-path observed + null means: done in 2.2s                   
+           Cohesion observed + null statistics: 1,001 items                    
+[16:42:47] Cohesion observed + null statistics: done in 2.0s                   
+           Saving null distributions:                                          
+           moondb_predicted_huMAP2_0.05_<analysis>.parquet                     
+-------------------------- Network 5/5: huMAP2_0.95 ---------------------------
+           Loading data\processed_networks\versions\huMAP2_0.95.parquet        
+           Loading data\processed_networks\versions\huMAP2_0.95.parquet: done  
+           in 0.1s                                                             
+           huMAP2_0.95: 687 proteins; 3,281 edges; 21 set proteins             
+           Drawing random protein sets: 1,000 items                            
+           Drawing random protein sets: done in 0.1s                           
+           Distance cache: 625 rows reused; 0 BFS rows remaining; matrix 0.00  
+           GiB                                                                 
+           Cache directory:                                                    
+           C:\projects\interactome\data\analysis_runs\shortest_path_distances\d
+           debce82e44feab3135ba3a84a9ea117ca56e65005739e1c3be4e5293205a57a     
+           Exact NetworkX BFS: 0 items                                         
+           Exact NetworkX BFS: done in 0.0s                                    
+           Shortest-path observed + null means: 1,001 items                    
+           Shortest-path observed + null means: done in 0.2s                   
+           Cohesion observed + null statistics: 1,001 items                    
+[16:42:48] Cohesion observed + null statistics: done in 0.2s                   
+           Saving null distributions:                                          
+           moondb_predicted_huMAP2_0.95_<analysis>.parquet                     
+                              Monte Carlo results                              
++-----------------------------------------------------------------------------+
+|          |          |          | Null     |          |           |          |
+| Network  | Measure  | Observed | mean     | Effect   | q (BH)    | Signifi� |
+|----------+----------+----------+----------+----------+-----------+----------|
+| HuRI     | mean_sh� | 3.2853   | 3.2751   | 0.010254 | 0.80519   | ns       |
+| HuRI     | interna� | 181      | 129.34   | 51.657   | 0.001998  | **       |
+| HuRI     | largest� | 97       | 71.572   | 25.428   | 0.0028543 | **       |
+| BioPlex  | mean_sh� | 3.5662   | 3.5584   | 0.00782� | 0.80519   | ns       |
+| BioPlex  | interna� | 111      | 54.046   | 56.954   | 0.001998  | **       |
+| BioPlex  | largest� | 47       | 16.995   | 30.005   | 0.0028543 | **       |
+| TAGC_bi� | mean_sh� | 2.4621   | 2.5598   | -0.0976� | 0.004995  | **       |
+| TAGC_bi� | interna� | 1086     | 772.03   | 313.97   | 0.001998  | **       |
+| TAGC_bi� | largest� | 221      | 211.76   | 9.242    | 0.0074925 | **       |
+| huMAP2_� | mean_sh� | 6.0077   | 6.3731   | -0.36544 | 0.07659   | ns       |
+| huMAP2_� | interna� | 59       | 25.993   | 33.007   | 0.001998  | **       |
+| huMAP2_� | largest� | 29       | 8.397    | 20.603   | 0.001998  | **       |
+| huMAP2_� | mean_sh� | 5.0524   | 7.4056   | -2.3532  | 0.004995  | **       |
+| huMAP2_� | interna� | 8        | 3.006    | 4.994    | 0.01998   | *        |
+| huMAP2_� | largest� | 4        | 2.61     | 1.39     | 0.14885   | ns       |
++-----------------------------------------------------------------------------+
+           Summary saved:                                                      
+           C:\projects\interactome\data\analysis_runs/<protein_set>_<network>_<
+           analysis>_summary.csv                                               

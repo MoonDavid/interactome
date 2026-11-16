@@ -1,0 +1,95 @@
+Title
+-----
+
+OCG - Overlapping Class Generator
+
+Authors
+-------
+Alain Guenoche (I2M, guenoche@iml.univ-mrs.fr) with contributions from Benoit Robisson and Charles E. Chapple  
+
+Maintener
+---------
+Lionel Spinelli (TAGC, lionel.spinelli@univ-amu.fr)
+
+Separate OpenAI variant
+-----------------------
+
+OCG_fast_openai.c is a separate optimized variant. OCG.c, OCG_fast.c and
+their existing executables are preserved. Build with GCC and OpenMP:
+
+    gcc -O3 -fopenmp ocg/OCG_fast_openai.c -o ocg/bin/ocg_fast_openai
+
+On Windows, use ocg/bin/ocg_fast_openai.exe as the output filename. The
+compiler's bin directory must be on PATH. Omit -fopenmp for a serial build;
+do not use -ffast-math, which can change modularity comparisons.
+
+The Python runner uses the OpenAI executable and supports worker control:
+
+    python -m pipelines.run_ocg_c --input data/processed_networks/HuRI.parquet --threads 4
+
+The default requests up to eight workers. Small merge workloads run serially
+to avoid thread overhead. More workers do not always improve runtime; compare
+--threads 1 and --threads 4 for the selected network. The binary fingerprint
+keeps previous results separate from runs of the new implementation.
+
+Changes relative to OCG_fast.c:
+- Hash vertex labels during collection instead of scanning all previous labels.
+- Transform weights into modularity values in place, removing an 8*N*N-byte
+  dense matrix from peak storage (1.8 GB at 15,000 vertices).
+- Make OpenMP inner-loop counters private to prevent data races.
+- Initialize the modularity diagonal read by the final contribution filter.
+- Build a compact list of eligible merge updates and start OpenMP workers only
+  when at least 32 updates and 100,000 protein-pair evaluations are available.
+  Row-cache maintenance stays serial below 2,048 active classes.
+
+The algorithm still uses quadratic dense storage, and its hierarchical merge
+decisions remain sequential. Maximal-clique and edge initialization can be
+expensive. The Python runner retains the 30,000-node / 500,000-edge limits;
+these limits do not guarantee that a graph fits available memory.
+
+Validation: native tests compile serial and OpenMP versions and compare exact
+partition output with one and four threads, including all initialization modes,
+class-size constraints and weighted input. Set CC to GCC and run:
+
+    python -m pytest tests/test_ocg_c.py tests/test_run_ocg_c.py
+
+Details
+-------
+This program builds an overlapping class system from an unweighted simple graph G=(V,E).
+ Let |V|=n and |E|=m.										   
+  												   
+ It is essentially a hierarchical ascending algorithm joining two classes at each step.	   
+ The optimized criterion is the modularity. It can be either the average gain or the total gain. 
+  												   
+ The initial overlapping class system can be : 						   
+ - the set of all maximal cliques (it can take a long time to establish)       		   
+ - the set of edges (many initial classes (m) implying many steps (O(m))			   
+ - the set of "centered cliques" (at most n), giving a fast solution for large graphs.	   
+  												   
+ Two class systems can be calculated, the one maximazing the modularity, or the final one.	   
+ In that case, the expected minimum number of clusters and the maximum caldinality of the 	   
+ final clusters are required.									   
+  												   
+ Fusion of classes are realized until one of these conditions is fullfiled. 			   
+ When no more class fusion can be realized the algorithm stops.				   
+  												   
+ Let p be the number of initial classes. The complexity is this algorithm is O(p^3).		   
+ 
+ Licence
+ -------
+ Copyright (C) 2011 Alain Guenoche (guenoche@iml.univ-mrs.fr) with contributions from Benoit Robisson and Charles E. Chapple    
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    
+    

@@ -1,0 +1,48 @@
+{
+  "summary": [
+    {
+      "network": "BioPlex",
+      "tested": 111858,
+      "compatible_runs": 41,
+      "excluded_runs": 0,
+      "significant_small": 103,
+      "selected": 103,
+      "annotation_bundles": 24,
+      "unique_memberships": 88,
+      "unique_proteins": 1005,
+      "background": 13834,
+      "moonprot": 126,
+      "methods": 24,
+      "top_label": "tRNA aminoacylation for protein translation",
+      "top_hits": 7,
+      "top_size": 16,
+      "top_fold": 48.03472222222223
+    },
+    {
+      "network": "TAGC_binary2025",
+      "tested": 105041,
+      "compatible_runs": 41,
+      "excluded_runs": 0,
+      "significant_small": 20,
+      "selected": 20,
+      "annotation_bundles": 7,
+      "unique_memberships": 19,
+      "unique_proteins": 609,
+      "background": 14235,
+      "moonprot": 129,
+      "methods": 7,
+      "top_label": "canonical glycolysis",
+      "top_hits": 7,
+      "top_size": 10,
+      "top_fold": 77.24418604651163
+    }
+  ],
+  "validated_clusters": 123,
+  "max_proteins_exclusive": 200,
+  "checks": [
+    "Strict protein-count bound and global q < 0.05",
+    "Membership counts match saved cluster sizes",
+    "Hypergeometric p-values independently recomputed",
+    "Fold enrichment independently recomputed"
+  ]
+}

@@ -1,0 +1,17 @@
+community,core_size,primary_status,primary_label,primary_term_id,primary_library,interface_size,interface_status,interface_label,interface_term_id,interface_library,full_size,full_context_status,full_context_label,full_context_term_id,full_context_library
+1012,1,no_qualifying_term,,,,33,labeled,Viral mRNA Translation,R-HSA-192823,Reactome,34,labeled,Viral mRNA Translation,R-HSA-192823,Reactome
+1035,1,no_qualifying_term,,,,26,labeled,Viral mRNA Translation,R-HSA-192823,Reactome,27,labeled,Viral mRNA Translation,R-HSA-192823,Reactome
+1140,1,no_qualifying_term,,,,35,labeled,Viral mRNA Translation,R-HSA-192823,Reactome,36,labeled,Viral mRNA Translation,R-HSA-192823,Reactome
+1141,1,no_qualifying_term,,,,21,labeled,Viral mRNA Translation,R-HSA-192823,Reactome,22,labeled,Viral mRNA Translation,R-HSA-192823,Reactome
+1151,1,no_qualifying_term,,,,24,labeled,Viral mRNA Translation,R-HSA-192823,Reactome,25,labeled,Viral mRNA Translation,R-HSA-192823,Reactome
+1171,1,no_qualifying_term,,,,29,labeled,Viral mRNA Translation,R-HSA-192823,Reactome,30,labeled,Viral mRNA Translation,R-HSA-192823,Reactome
+1174,1,no_qualifying_term,,,,19,labeled,Viral mRNA Translation,R-HSA-192823,Reactome,20,labeled,Viral mRNA Translation,R-HSA-192823,Reactome
+1175,0,empty_subset,,,,35,labeled,Viral mRNA Translation,R-HSA-192823,Reactome,35,labeled,Viral mRNA Translation,R-HSA-192823,Reactome
+1179,0,empty_subset,,,,40,labeled,Viral mRNA Translation,R-HSA-192823,Reactome,40,labeled,Viral mRNA Translation,R-HSA-192823,Reactome
+120,1,no_qualifying_term,,,,33,labeled,Viral mRNA Translation,R-HSA-192823,Reactome,34,labeled,Viral mRNA Translation,R-HSA-192823,Reactome
+150,0,empty_subset,,,,34,labeled,Viral mRNA Translation,R-HSA-192823,Reactome,34,labeled,Viral mRNA Translation,R-HSA-192823,Reactome
+164,6,labeled,nuclear lamina,GO:0005652,GO_CC,8,labeled,regulatory RNA binding,GO:0061980,GO_MF,14,core_labeled,,,
+481,7,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC,11,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC,18,core_labeled,,,
+50,11,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC,0,empty_subset,,,,11,core_labeled,,,
+8,2,labeled,Viral mRNA Translation,R-HSA-192823,Reactome,52,labeled,Viral mRNA Translation,R-HSA-192823,Reactome,54,core_labeled,,,
+867,0,empty_subset,,,,14,labeled,cytosolic large ribosomal subunit,GO:0022625,GO_CC,14,labeled,cytosolic large ribosomal subunit,GO:0022625,GO_CC

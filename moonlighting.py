@@ -34,6 +34,11 @@ CACHE_ROOT = Path(__file__).resolve().parent / 'data' / 'cache'
 _CENTRALITY_MEM_CACHE: dict[str, tuple[pl.DataFrame, dict]] = {}
 _CLUSTERING_MEM_CACHE: dict[str, dict] = {}
 _METHOD_MEM_CACHE: dict[str, dict] = {}
+EXTRA_CENTRALITY_METRICS = [
+    'core_number', 'clustering', 'betweenness', 'eigenvector',
+    'bridging_coefficient', 'bridging_centrality', 'laplacian_centrality',
+    'triangles', 'effective_size', 'neighborhood_efficiency',
+]
 
 SOURCES = ['curated', 'moonlitdb', 'moonprot', 'metamoon', 'multitask', 'moondb_curated', 'moondb_predicted']
 ADVANCED_EDGE_LIMIT = 500_000
@@ -69,10 +74,12 @@ SIGNIFICANCE_LEGEND = (
 METRIC_LABELS = {
     'degree': 'Degree', 'strength': 'Weighted<br>strength', 'pagerank': 'PageRank',
     'mean_neighbor_degree': 'Mean neighbor<br>degree', 'core_number': 'Core<br>number',
-    'clustering': 'Clustering', 'betweenness_approx': 'Betweenness<br>centrality',
-    'betweenness': 'Betweenness<br>centrality',
+    'clustering': 'Clustering', 'betweenness': 'Betweenness<br>centrality',
     'eigenvector': 'Eigenvector<br>centrality', 'bridging_coefficient': 'Bridging<br>coefficient',
     'bridging_centrality': 'Bridging<br>centrality',
+    'laplacian_centrality': 'Laplacian<br>centrality',
+    'triangles': 'Triangle<br>count', 'effective_size': 'Effective<br>size',
+    'neighborhood_efficiency': 'Neighborhood<br>efficiency',
     'participation': 'Community<br>participation', 'community_entropy': 'Community<br>entropy',
     'within_module_z': 'Within-module<br>z score',
     'num_communities': 'Overlapping<br>modules',
@@ -131,11 +138,6 @@ CLUSTERING_CATALOG: dict[str, dict[str, str]] = {
         'description': 'Connected components of maximal k-core shells.',
     },
     # 2. Overlapping / Multi-Membership Clustering
-    'ego_splitting': {
-        'label': 'Ego-Splitting Persona Clustering (Overlapping)',
-        'paradigm': 'overlapping',
-        'description': 'Splits each protein into local ego-net personas, clusters the persona graph, and maps back to overlapping node communities (Epasto et al. 2017).',
-    },
     'link_communities': {
         'label': 'Ahn–Bagrow–Lehmann Link / Edge Communities (Overlapping)',
         'paradigm': 'overlapping',
@@ -145,11 +147,6 @@ CLUSTERING_CATALOG: dict[str, dict[str, str]] = {
         'label': 'Clique Percolation Method / CFinder k=3 (Overlapping)',
         'paradigm': 'overlapping',
         'description': 'Unions of adjacent k-cliques sharing k-1 vertices (Palla et al. 2005).',
-    },
-    'demon': {
-        'label': 'DEMON Local Ego Consensus (Overlapping)',
-        'paradigm': 'overlapping',
-        'description': 'Democratic Estimate of Modular Organization via ego-minus-ego label propagation (Coscia et al. 2012).',
     },
     'mcode_complexes': {
         'label': 'MCODE Protein Complex Detection + Fluff (Overlapping)',
@@ -265,24 +262,35 @@ def mapping_coverage(graph, data, selected_ids):
 
 
 def cross_network_analysis(first, second, cohort):
-    common = matching_nodes(set(first['nodes']) & set(second['nodes']), cohort)
+    shared_population = set(first['nodes']) & set(second['nodes'])
+    common = matching_nodes(shared_population, cohort)
     records = []
     percentiles = [rankdata(g['degree'], method='average') / max(1, len(g['nodes'])) for g in (first, second)]
     for protein in sorted(common):
         i, j = first['index'][protein], second['index'][protein]
         a = set(first['nodes'][first['adj'].indices[first['adj'].indptr[i]:first['adj'].indptr[i + 1]]])
         b = set(second['nodes'][second['adj'].indices[second['adj'].indptr[j]:second['adj'].indptr[j + 1]]])
+        shared_a, shared_b = a & shared_population, b & shared_population
+        shared_union = shared_a | shared_b
         records.append({
             'protein': protein, 'degree_A': int(first['degree'][i]), 'degree_B': int(second['degree'][j]),
             'degree_percentile_A': float(percentiles[0][i]), 'degree_percentile_B': float(percentiles[1][j]),
             'percentile_shift_B_minus_A': float(percentiles[1][j] - percentiles[0][i]),
             'partner_jaccard': len(a & b) / len(a | b) if a | b else 0,
             'partner_turnover': 1 - len(a & b) / len(a | b) if a | b else 0,
+            'partners_A_in_both': len(shared_a), 'partners_B_in_both': len(shared_b),
+            'shared_partner_intersection': len(shared_a & shared_b),
+            'shared_partner_union': len(shared_union),
+            'shared_population_n': len(shared_population),
+            'partner_jaccard_shared': len(shared_a & shared_b) / len(shared_union) if shared_union else np.nan,
         })
     table = pl.DataFrame(records, schema={
         'protein': pl.String, 'degree_A': pl.Int64, 'degree_B': pl.Int64,
         'degree_percentile_A': pl.Float64, 'degree_percentile_B': pl.Float64,
         'percentile_shift_B_minus_A': pl.Float64, 'partner_jaccard': pl.Float64, 'partner_turnover': pl.Float64,
+        'partners_A_in_both': pl.Int64, 'partners_B_in_both': pl.Int64,
+        'shared_partner_intersection': pl.Int64, 'shared_partner_union': pl.Int64,
+        'shared_population_n': pl.Int64, 'partner_jaccard_shared': pl.Float64,
     })
     rho = pvalue = None
     if len(table) > 2 and table['degree_A'].n_unique() > 1 and table['degree_B'].n_unique() > 1:
@@ -353,7 +361,7 @@ def _decode_archive(archive_bytes: bytes) -> dict:
 
 def cached_analysis_run(name: str, metadata: dict, compute_fn, root: Path = Path('data'),
                         use_cache: bool = True) -> dict:
-    """Load an analysis result from memory/disk cache (`data/cache/methods/` or `data/analysis_runs/`) or compute and cache it."""
+    """Reuse cached results when enabled; always persist newly computed results, including refreshes."""
     sig_payload = json.dumps(metadata, sort_keys=True, default=str)
     signature = hashlib.sha256(sig_payload.encode('utf-8')).hexdigest()
     short_sig = signature[:16]
@@ -383,12 +391,8 @@ def cached_analysis_run(name: str, metadata: dict, compute_fn, root: Path = Path
 
     result = compute_fn()
     saved, archive = save_analysis(result, metadata, root)
-    if use_cache:
-        try:
-            cache_dir.mkdir(parents=True, exist_ok=True)
-            zip_cache.write_bytes(archive)
-        except Exception:
-            pass
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    zip_cache.write_bytes(archive)
     entry = {
         'signature': signature,
         'result': result,
@@ -396,13 +400,12 @@ def cached_analysis_run(name: str, metadata: dict, compute_fn, root: Path = Path
         'archive': archive,
         'cache_hit': False,
     }
-    if use_cache:
-        _METHOD_MEM_CACHE[cache_key] = entry
+    _METHOD_MEM_CACHE[cache_key] = entry
     return entry
 
 
 # ---------------------------------------------------------------------------
-# Centralities, Cohesion, Local Ego Wiring & Louvain Cartography
+# Centralities, Cohesion, Louvain Cartography
 # ---------------------------------------------------------------------------
 
 def bh_adjust(pvalues):
@@ -551,7 +554,7 @@ def _exact_betweenness_csr(adj: sparse.csr_matrix, normalized: bool = True) -> n
 
 
 def cached_network_centralities(graph, extra=False, seed=42, landmarks=None,
-                                use_cache=True, cache_dir: Path | None = None) -> tuple[pl.DataFrame, dict]:
+                                use_cache=True, cache_dir: Path | None = None, cached_only=False) -> tuple[pl.DataFrame, dict]:
     """Compute graph-level node centralities (including exact betweenness) once and cache to disk."""
     degree = np.asarray(graph['degree'], dtype=float)
     n = len(degree)
@@ -560,48 +563,76 @@ def cached_network_centralities(graph, extra=False, seed=42, landmarks=None,
     exact_mode = landmarks is None or int(landmarks) >= n
     fp = _graph_fingerprint(graph)
     mode_tag = 'exact' if exact_mode else f'k{int(landmarks)}_s{int(seed)}'
-    cache_key = f'{fp}_extra{int(bool(extra))}_{mode_tag}'
-
-    if use_cache and cache_key in _CENTRALITY_MEM_CACHE:
-        df_cached, notes_cached = _CENTRALITY_MEM_CACHE[cache_key]
-        return df_cached.clone(), dict(notes_cached, cache_hit=True)
+    cache_key = f'{fp}_extra{int(bool(extra))}_{mode_tag}_localmetrics_v3'
 
     cdir = (Path(cache_dir) if cache_dir is not None else CACHE_ROOT / 'centralities')
     parquet_path = cdir / f'centralities_{cache_key}.parquet'
     meta_path = cdir / f'centralities_{cache_key}.json'
+    required = ['protein', 'degree', 'strength', 'pagerank', 'mean_neighbor_degree']
+    if extra:
+        required += EXTRA_CENTRALITY_METRICS
+    existing = None
+    notes = {}
+    if use_cache:
+        candidates = [parquet_path] + [
+            cdir / f'centralities_{fp}_extra{int(bool(extra))}_{mode_tag}{suffix}.parquet'
+            for suffix in ('_localmetrics_v2', '')]
+        for candidate in candidates:
+            try:
+                if candidate == parquet_path and cache_key in _CENTRALITY_MEM_CACHE:
+                    frame, candidate_notes = _CENTRALITY_MEM_CACHE[cache_key]
+                else:
+                    if not candidate.is_file() or not candidate.with_suffix('.json').is_file():
+                        continue
+                    frame = pl.read_parquet(candidate)
+                    candidate_notes = json.loads(candidate.with_suffix('.json').read_text(encoding='utf-8'))
+                if frame.height != n or frame['protein'].to_list() != list(map(str, graph['nodes'])):
+                    continue
+                if 'betweenness_approx' in frame.columns and 'betweenness' not in frame.columns:
+                    frame = frame.rename({'betweenness_approx': 'betweenness'})
+                existing, notes = frame.clone(), dict(candidate_notes, cache_hit=True, cache_path=str(candidate))
+                if cached_only or all(column in frame.columns for column in required):
+                    return frame.clone(), notes
+                break
+            except (OSError, ValueError, pl.exceptions.PolarsError):
+                continue
+    if cached_only:
+        raise FileNotFoundError('No compatible centrality cache for this network.')
 
-    if use_cache and n >= 50 and parquet_path.exists() and meta_path.exists():
-        try:
-            df_disk = pl.read_parquet(parquet_path)
-            notes_disk = json.loads(meta_path.read_text(encoding='utf-8'))
-            if df_disk.height == n and df_disk['protein'].to_list() == [str(x) for x in graph['nodes']]:
-                notes_disk['cache_hit'] = True
-                notes_disk['cache_path'] = str(parquet_path)
-                _CENTRALITY_MEM_CACHE[cache_key] = (df_disk, notes_disk)
-                return df_disk.clone(), dict(notes_disk)
-        except Exception:
-            pass
-
-    pagerank, convergence = _pagerank(weights)
-    neighbor_degree = np.divide(np.asarray(adjacency @ degree).ravel(), degree,
-                                out=np.zeros(n), where=degree > 0)
-    frame = pl.DataFrame({
-        'protein': [str(x) for x in graph['nodes']],
-        'degree': degree,
-        'strength': np.asarray(weights.sum(axis=1)).ravel(),
-        'pagerank': pagerank,
-        'mean_neighbor_degree': neighbor_degree,
-    })
-    notes = {
-        'pagerank': convergence,
-        'comparison': 'Two-sided Mann–Whitney U; Benjamini–Hochberg across displayed metrics; background excludes cohort proteins.',
-        'cache_hit': False,
-    }
+    if existing is None:
+        pagerank, convergence = _pagerank(weights)
+        neighbor_degree = np.divide(np.asarray(adjacency @ degree).ravel(), degree,
+                                    out=np.zeros(n), where=degree > 0)
+        frame = pl.DataFrame({
+            'protein': [str(x) for x in graph['nodes']],
+            'degree': degree,
+            'strength': np.asarray(weights.sum(axis=1)).ravel(),
+            'pagerank': pagerank,
+            'mean_neighbor_degree': neighbor_degree,
+        })
+        notes = {
+            'pagerank': convergence,
+            'comparison': 'Two-sided Mann–Whitney U; Benjamini–Hochberg across displayed metrics; background excludes cohort proteins.',
+            'cache_hit': False,
+        }
+    else:
+        frame = existing
     if extra:
         network = _advanced_graph(graph)
-        core = nx.core_number(network)
-        clustering = nx.clustering(network)
-        if exact_mode:
+        core = nx.core_number(network) if 'core_number' not in frame.columns else dict(enumerate(frame['core_number']))
+        clustering = nx.clustering(network) if 'clustering' not in frame.columns else dict(enumerate(frame['clustering']))
+        # Use explicit node order, including isolates, for every per-protein array.
+        triangle_counts = {i: clustering[i] * degree[i] * (degree[i] - 1) / 2 for i in range(n)}
+        triangles = np.asarray([triangle_counts[i] for i in range(n)], dtype=float)
+        effective_size = degree - np.divide(2 * triangles, degree, out=np.zeros(n), where=degree > 0)
+        effective_size[degree == 0] = np.nan
+        efficiency = np.divide(effective_size, degree, out=np.full(n, np.nan), where=degree > 0)
+        energy = float(np.sum(degree ** 2 + degree))
+        energy_drop = degree ** 2 + degree + 2 * np.asarray(adjacency @ degree).ravel()
+        laplacian = energy_drop / energy if energy > 0 else np.zeros(n)
+        if 'betweenness' in frame.columns:
+            betweenness_arr = frame['betweenness'].to_numpy()
+        elif exact_mode:
             betweenness_arr = _exact_betweenness_csr(adjacency, normalized=True)
             notes['betweenness_mode'] = 'exact (all nodes, cached)'
             notes['betweenness_landmarks'] = n
@@ -616,9 +647,15 @@ def cached_network_centralities(graph, extra=False, seed=42, landmarks=None,
         frame = frame.with_columns(
             pl.Series('core_number', [core[i] for i in range(n)], dtype=pl.Int64),
             pl.Series('clustering', [clustering[i] for i in range(n)], dtype=pl.Float64),
-            pl.Series('betweenness_approx', betweenness_arr, dtype=pl.Float64),
+            pl.Series('betweenness', betweenness_arr, dtype=pl.Float64),
+            pl.Series('laplacian_centrality', laplacian, dtype=pl.Float64),
+            pl.Series('triangles', triangles, dtype=pl.Float64),
+            pl.Series('effective_size', effective_size, dtype=pl.Float64),
+            pl.Series('neighborhood_efficiency', efficiency, dtype=pl.Float64),
         )
-        if n > 2:
+        if 'eigenvector' in frame.columns:
+            eigenvector = frame['eigenvector'].to_numpy()
+        elif n > 2:
             _, eigenvectors = eigsh(adjacency.astype(float), k=1, which='LA', tol=1e-8, v0=np.random.default_rng(seed).random(n))
             eigenvector = np.abs(eigenvectors[:, 0])
         else:
@@ -628,19 +665,14 @@ def cached_network_centralities(graph, extra=False, seed=42, landmarks=None,
         inverse_degree = np.divide(1., degree, out=np.zeros(n), where=degree > 0)
         neighbor_inverse = np.asarray(adjacency @ inverse_degree).ravel()
         frame = frame.with_columns(pl.Series('bridging_coefficient', np.divide(inverse_degree, neighbor_inverse, out=np.zeros(n), where=neighbor_inverse > 0), dtype=pl.Float64))
-        frame = frame.with_columns((pl.col('betweenness_approx') * pl.col('bridging_coefficient')).alias('bridging_centrality'))
+        frame = frame.with_columns((pl.col('betweenness') * pl.col('bridging_coefficient')).alias('bridging_centrality'))
         notes['eigenvector'] = 'Unweighted leading adjacency eigenvector, L2-normalized; disconnected components with tied largest eigenvalues need not have a unique eigenvector.'
 
-    if use_cache:
-        _CENTRALITY_MEM_CACHE[cache_key] = (frame, dict(notes))
-        if n >= 50:
-            try:
-                cdir.mkdir(parents=True, exist_ok=True)
-                frame.write_parquet(parquet_path)
-                notes['cache_path'] = str(parquet_path)
-                meta_path.write_text(json.dumps(notes, indent=2), encoding='utf-8')
-            except Exception:
-                pass
+    cdir.mkdir(parents=True, exist_ok=True)
+    frame.write_parquet(parquet_path)
+    notes['cache_path'] = str(parquet_path)
+    meta_path.write_text(json.dumps(notes, indent=2), encoding='utf-8')
+    _CENTRALITY_MEM_CACHE[cache_key] = (frame, dict(notes))
     return frame.clone(), notes
 
 
@@ -657,7 +689,7 @@ def centrality_analysis(graph, cohort, extra=False, seed=42, landmarks=None, use
     ordered_cols = ['protein', 'is_moonlighting', 'group', 'degree', 'strength', 'pagerank', 'mean_neighbor_degree']
     names = ['degree', 'strength', 'pagerank', 'mean_neighbor_degree']
     if extra:
-        extra_cols = ['core_number', 'clustering', 'betweenness_approx', 'eigenvector', 'bridging_coefficient', 'bridging_centrality']
+        extra_cols = EXTRA_CENTRALITY_METRICS
         ordered_cols += extra_cols
         names += extra_cols
     frame = frame.select(ordered_cols)
@@ -689,6 +721,229 @@ def _induced_stats(adjacency, indices):
     else:
         components = lcc = 0
     return edges, lcc, int(components)
+
+
+def scoped_graph(graph, scope='lcc'):
+    """Restrict the comparison population to the largest full-network component."""
+    if scope == 'network':
+        return graph
+    if scope != 'lcc':
+        raise ValueError(f'Unknown graph scope: {scope}')
+    if not len(graph['nodes']):
+        return graph
+    _, labels = connected_components(graph['adj'], directed=False)
+    indices = np.flatnonzero(labels == np.bincount(labels).argmax())
+    adj = graph['adj'][indices][:, indices].copy()
+    nodes = graph['nodes'][indices]
+    return {**graph, 'nodes': nodes, 'index': {str(node): i for i, node in enumerate(nodes)},
+            'adj': adj, 'weights': graph['weights'][indices][:, indices].copy(),
+            'degree': np.diff(adj.indptr), 'edge_count': adj.nnz // 2}
+
+
+def protein_set_connectivity(path, cohort, scope='network'):
+    """Exact set-to-set distances using all interactome proteins as intermediates."""
+    graph = scoped_graph(graph_from_path(path), scope)
+    network = _advanced_graph(graph)
+    present = sorted(matching_nodes(graph['nodes'], cohort))
+    indices = [graph['index'][node] for node in present]
+    selected = set(indices)
+    _, labels = connected_components(graph['adj'], directed=False)
+    full_sizes = np.bincount(labels)
+    set_sizes = Counter(int(labels[i]) for i in indices)
+    n = len(indices)
+    pairs = n * (n - 1) // 2
+    hops, protein_rows = Counter(), []
+    for node, index in zip(present, indices):
+        distances = nx.single_source_shortest_path_length(network, index)
+        values = [distance for target, distance in distances.items() if target in selected and target != index]
+        hops.update(distance for target, distance in distances.items() if target in selected and target > index)
+        component = int(labels[index])
+        protein_rows.append({'protein': node, 'full_network_component': component + 1,
+                             'full_network_component_size': int(full_sizes[component]),
+                             'set_members_in_component': set_sizes[component],
+                             '1_hop_set_partners': sum(distance == 1 for distance in values),
+                             'reachable_set_partners': len(values),
+                             'mean_shortest_path_to_set': sum(values) / len(values) if values else None})
+    reachable = sum(hops.values())
+    reached_one_hop = sum(row['1_hop_set_partners'] > 0 for row in protein_rows)
+    largest = max(set_sizes.values(), default=0)
+    mapped_present = set(cohort) & {label for node in present for label in node.split('|')}
+    summary = {
+        'Mapped set accessions': len(cohort), 'Mapped accessions present': len(mapped_present),
+        'Mapped accessions absent': len(cohort) - len(mapped_present),
+        'Set proteins present (nodes)': n, 'Full-network components containing set': len(set_sizes),
+        'All set proteins mutually reachable': bool(n > 0 and len(set_sizes) == 1),
+        'Proteins without a 1-hop set partner': n - reached_one_hop,
+        'Largest set group in a full-network component': largest,
+        'Largest set group (%)': 100 * largest / n if n else None,
+        'Proteins with a 1-hop set partner': reached_one_hop,
+        'Proteins with a 1-hop set partner (%)': 100 * reached_one_hop / n if n else None,
+        '1-hop set pairs (edges)': hops[1],
+        'Possible set pairs': pairs,
+        '1-hop set pairs (%)': 100 * hops[1] / pairs if pairs else None,
+        'Reachable set pairs (any hops)': reachable,
+        'Reachable set pairs (%)': 100 * reachable / pairs if pairs else None,
+        'Unreachable set pairs': pairs - reachable,
+        'Average shortest path (full interactome)': sum(h * c for h, c in hops.items()) / reachable if reachable else None,
+        'Minimum shortest path': min(hops) if hops else None,
+        'Maximum shortest path': max(hops) if hops else None,
+    }
+    _, induced_largest, induced_components = _induced_stats(graph['adj'], np.asarray(indices, dtype=int))
+    summary.update({
+        'Induced components (set-only edges)': induced_components,
+        'Induced isolated set proteins': n - reached_one_hop,
+        'Largest induced component': induced_largest,
+        'Largest induced component (%)': 100 * induced_largest / n if n else None,
+    })
+    proteins = pl.DataFrame(protein_rows, schema={
+        'protein': pl.String, 'full_network_component': pl.Int64, 'full_network_component_size': pl.Int64,
+        'set_members_in_component': pl.Int64, '1_hop_set_partners': pl.Int64,
+        'reachable_set_partners': pl.Int64, 'mean_shortest_path_to_set': pl.Float64})
+    components = pl.DataFrame([{'component': c + 1, 'network_proteins': int(full_sizes[c]), 'set_proteins': s}
+                               for c, s in sorted(set_sizes.items())], schema={
+                                   'component': pl.Int64, 'network_proteins': pl.Int64, 'set_proteins': pl.Int64})
+    hop_table = pl.DataFrame([{'hops': h, 'set_pairs': c, 'possible_pairs_pct': 100 * c / pairs}
+                              for h, c in sorted(hops.items())], schema={
+                                  'hops': pl.Int64, 'set_pairs': pl.Int64, 'possible_pairs_pct': pl.Float64})
+    return {'summary': summary, 'proteins': proteins, 'components': components, 'hops': hop_table}
+
+
+def subset_betweenness_analysis(graph, cohort, permutations=0, seed=42, degree_matched=True):
+    """Set-to-set mediation on the full graph, with optional matched-set inference.
+
+    Unnormalized NetworkX subset scores count unordered endpoint pairs; endpoints
+    are excluded and tied shortest paths contribute fractional dependencies.
+    """
+    if not 0 <= int(permutations) <= 10000:
+        raise ValueError('Use between 0 and 10,000 simulations.')
+    network = _advanced_graph(graph)
+    mask = _selection(graph, cohort)
+    query = np.flatnonzero(mask)
+    if len(query) < 3:
+        raise ValueError('At least three set proteins are needed for within-set mediation.')
+    _, component_labels = connected_components(graph['adj'], directed=False)
+
+    def measure(indices):
+        scores = nx.betweenness_centrality_subset(network, sources=list(indices), targets=list(indices),
+                                                 normalized=False, weight=None)
+        counts = Counter(component_labels[indices])
+        reachable = sum(int(s) * (int(s) - 1) // 2 for s in counts.values())
+        internal = float(sum(scores[int(i)] for i in indices))
+        total = float(sum(scores.values()))
+        return scores, reachable, internal, total, internal / reachable if reachable else float('nan')
+
+    scores, reachable, internal, total, observed = measure(query)
+    rows = [{'protein': str(node), 'in_protein_set': bool(mask[i]),
+             'subset_betweenness': float(scores[i]),
+             'score_per_reachable_set_pair': scores[i] / reachable if reachable else None}
+            for i, node in enumerate(graph['nodes'])]
+    null_rows = []
+    rng = np.random.default_rng(seed)
+    if permutations and np.count_nonzero(~mask) < len(query):
+        raise ValueError('The other-protein background is smaller than the protein set.')
+    for run in range(int(permutations)):
+        sampled = (_sample_matching(graph['degree'], query, rng, candidates=~mask) if degree_matched
+                   else rng.choice(np.flatnonzero(~mask), size=len(query), replace=False))
+        _, nr, ni, _, value = measure(sampled)
+        null_rows.append({'simulation': run + 1, 'mean_internal_set_intermediaries': value,
+                          'reachable_set_pairs': nr, 'internal_dependency_sum': ni})
+    null = pl.DataFrame(null_rows, schema={'simulation': pl.Int64,
+        'mean_internal_set_intermediaries': pl.Float64, 'reachable_set_pairs': pl.Int64,
+        'internal_dependency_sum': pl.Float64})
+    values = null['mean_internal_set_intermediaries'].to_numpy()
+    finite = np.isfinite(values)
+    available = bool(len(values) and finite.all() and np.isfinite(observed))
+    pvalue = (min(1., 2 * min((1 + np.sum(values <= observed)) / (len(values) + 1),
+                            (1 + np.sum(values >= observed)) / (len(values) + 1)))
+              if available else float('nan'))
+    null_mean = float(values[finite].mean()) if finite.any() else float('nan')
+    return {'scores': pl.DataFrame(rows), 'null': null, 'summary': {
+        'query_nodes': len(query), 'reachable_set_pairs': reachable,
+        'possible_set_pairs': len(query) * (len(query) - 1) // 2,
+        'internal_dependency_sum': internal, 'external_dependency_sum': total - internal,
+        'internal_fraction_of_intermediary_dependencies': internal / total if total else None,
+        'mean_internal_set_intermediaries': observed,
+        'null_mean': null_mean, 'effect_observed_minus_null': observed - null_mean,
+        'p_value': pvalue, 'permutations': int(permutations), 'valid_simulations': int(finite.sum()),
+        'seed': int(seed), 'degree_matched': bool(degree_matched), 'path_scope': 'network',
+    }}
+
+
+def shortest_path_monte_carlo(graph, cohort, permutations=1000, seed=42, degree_matched=True):
+    """Exact reachable-pair distances versus size/degree-matched complement sets.
+
+    Undefined replicates are retained; inference is unavailable if any are undefined.
+    This avoids silently conditioning the null on connectivity.
+    """
+    if not 1 <= int(permutations) <= 10000:
+        raise ValueError('Use between 1 and 10,000 simulations.')
+    network = _advanced_graph(graph)
+    mask = _selection(graph, cohort)
+    query = np.flatnonzero(mask)
+    candidates = np.flatnonzero(~mask)
+    if len(query) < 2:
+        raise ValueError('At least two protein set nodes must be present in the network.')
+    if len(candidates) < len(query):
+        raise ValueError('The other-protein background is smaller than the protein set.')
+    degree = np.asarray(graph['degree'])
+    rng = np.random.default_rng(seed)
+
+
+
+    def measure(indices):
+        nodes = sorted(int(i) for i in indices)
+        selected = set(nodes)
+        total, pairs = 0, 0
+        for source in nodes:
+            for target, distance in nx.single_source_shortest_path_length(network, source).items():
+                if target in selected and target > source:
+                    total += distance
+                    pairs += 1
+        return (total / pairs if pairs else float('nan'), pairs / (len(nodes) * (len(nodes) - 1) / 2))
+
+    observed, reachable = measure(query)
+    records = []
+    for run in range(int(permutations)):
+        sampled = (_sample_matching(degree, query, rng, candidates=~mask) if degree_matched
+                   else rng.choice(candidates, size=len(query), replace=False))
+        value, fraction = measure(sampled)
+        records.append({'simulation': run + 1, 'mean_shortest_path': value, 'reachable_pair_fraction': fraction})
+    null = pl.DataFrame(records)
+    values = null['mean_shortest_path'].to_numpy()
+    valid = np.isfinite(values)
+    available = np.isfinite(observed) and valid.all()
+    # Inclusive tails and +1 correction; doubling the smaller tail tests either direction.
+    pvalue = min(1., 2 * min((1 + np.sum(values <= observed)) / (len(values) + 1),
+                            (1 + np.sum(values >= observed)) / (len(values) + 1))) if available else float('nan')
+    mean = float(values[valid].mean()) if valid.any() else float('nan')
+    fractions = null['reachable_pair_fraction'].to_numpy()
+    reach_mean = float(fractions.mean())
+    reach_p = min(1., 2 * min((1 + np.sum(fractions <= reachable)) / (len(fractions) + 1),
+                             (1 + np.sum(fractions >= reachable)) / (len(fractions) + 1)))
+    possible = len(query) * (len(query) - 1) // 2
+    return {'null': null, 'summary': {
+        'query_nodes': len(query), 'background_nodes': len(candidates),
+        'possible_pairs': possible, 'reachable_pairs': round(reachable * possible),
+        'unreachable_pairs': possible - round(reachable * possible),
+        'unreachable_pair_fraction': 1 - reachable,
+        'reachability_null_mean': reach_mean,
+        'reachability_effect_observed_minus_null': reachable - reach_mean,
+        'reachability_p_value': reach_p,
+        'observed': observed, 'reachable_pair_fraction': reachable,
+        'null_mean': mean, 'effect_observed_minus_null': observed - mean,
+        'p_value': pvalue, 'valid_simulations': int(valid.sum()),
+        'permutations': int(permutations), 'seed': int(seed), 'path_scope': 'network',
+        'degree_matched': bool(degree_matched),
+    }}
+
+
+
+
+
+
+
+
+
 
 
 def cohesion_analysis(graph, cohort, permutations=100, seed=42, degree_matched=True):
@@ -735,41 +990,6 @@ def cohesion_analysis(graph, cohort, permutations=100, seed=42, degree_matched=T
     return {'summary': summary, 'null': null}
 
 
-def wiring_analysis(graph, cohort, max_nodes=100, seed=42, set_name='Moonlighting'):
-    """Exact ego statistics for a cohort sample and degree-binned controls."""
-    _advanced_graph(graph)
-    mask = _selection(graph, cohort)
-    rng = np.random.default_rng(seed)
-    query = np.flatnonzero(mask)
-    if len(query) > int(max_nodes):
-        query = np.sort(rng.choice(query, size=int(max_nodes), replace=False))
-    if int(max_nodes) < 1:
-        raise ValueError('max_nodes must be positive.')
-    controls = _sample_matching(np.asarray(graph['degree']), query, rng, candidates=~mask)
-    rows = []
-    for node in np.concatenate([query, controls]):
-        neighbors = graph['adj'].indices[graph['adj'].indptr[node]:graph['adj'].indptr[node + 1]]
-        k = len(neighbors)
-        ego = graph['adj'][neighbors][:, neighbors]
-        triangles = ego.nnz // 2
-        components, labels = connected_components(ego, directed=False) if k else (0, np.array([], dtype=int))
-        sizes = np.bincount(labels) if k else np.array([])
-        entropy = float(-(sizes / k * np.log(sizes / k)).sum()) if k else 0.
-        wedges = k * (k - 1) // 2
-        rows.append({
-            'protein': str(graph['nodes'][node]), 'is_moonlighting': bool(mask[node]),
-            'group': set_name if mask[node] else 'Background', 'degree': k,
-            'triangles': int(triangles), 'clustering': triangles / wedges if wedges else 0.,
-            'open_wedges': int(wedges - triangles), 'ego_components': int(components),
-            'ego_component_entropy': entropy,
-            'effective_size': k - 2 * triangles / k if k else 0.,
-        })
-        
-    frame = pl.DataFrame(rows)
-    columns = ['triangles', 'clustering', 'open_wedges', 'ego_components', 'ego_component_entropy', 'effective_size']
-    return {'metrics': frame, 'tests': _comparison_table(frame, columns, group=set_name),
-            'notes': {'query_sample': len(query), 'control_sample': len(controls), 'seed': int(seed),
-                      'controls': 'Network complement, sampled without replacement in the same floor(log2 degree) bins as the sampled cohort.'}}
 
 
 def _spectral_embedding(adjacency: sparse.csr_matrix, k: int, seed: int = 42) -> np.ndarray:
@@ -947,50 +1167,6 @@ def _execute_clustering_algorithm(
         return list(buckets.values()), None, extra_meta
 
     # ---- 2. OVERLAPPING / MULTI-MEMBERSHIP CLUSTERING ----
-    if algo == 'ego_splitting':
-        persona_graph = nx.Graph()
-        node_personas: dict[int, list[int]] = {}
-        neighbor_persona_map: dict[tuple[int, int], int] = {}
-        p_id = 0
-        for u in range(n):
-            nbrs = indices[indptr[u]:indptr[u + 1]]
-            if len(nbrs) == 0:
-                persona_graph.add_node(p_id)
-                node_personas[u] = [p_id]
-                p_id += 1
-                continue
-            ego_sub = adjacency[nbrs][:, nbrs]
-            n_c, comp_labels = connected_components(ego_sub, directed=False)
-            u_pids = []
-            for c_idx in range(n_c):
-                persona_graph.add_node(p_id)
-                u_pids.append(p_id)
-                for local_idx in np.flatnonzero(comp_labels == c_idx):
-                    v = int(nbrs[local_idx])
-                    neighbor_persona_map[(u, v)] = p_id
-                p_id += 1
-            node_personas[u] = u_pids
-
-        for u, v in network.edges():
-            pu = neighbor_persona_map.get((u, v))
-            pv = neighbor_persona_map.get((v, u))
-            if pu is not None and pv is not None:
-                persona_graph.add_edge(pu, pv)
-
-        p_comms = nx.community.louvain_communities(persona_graph, seed=int(seed), resolution=float(resolution), weight=None)
-        p_to_comm = {}
-        for c_idx, members in enumerate(p_comms):
-            for p_node in members:
-                p_to_comm[p_node] = c_idx
-
-        comm_sets: dict[int, set[int]] = {}
-        for u, pids in node_personas.items():
-            for pid in pids:
-                c_idx = p_to_comm[pid]
-                comm_sets.setdefault(c_idx, set()).add(u)
-        comms = [members for members in comm_sets.values() if members]
-        return comms, None, extra_meta
-
     if algo == 'link_communities':
         edges = list(network.edges())
         if not edges:
@@ -1041,37 +1217,6 @@ def _execute_clustering_algorithm(
         extra_meta['clique_k'] = k_val
         return cpm, None, extra_meta
 
-    if algo == 'demon':
-        raw_modules: list[set[int]] = []
-        for u in range(n):
-            nbrs = indices[indptr[u]:indptr[u + 1]]
-            if len(nbrs) < 2:
-                continue
-            ego_sub = network.subgraph(nbrs.tolist())
-            for lpa_c in nx.community.fast_label_propagation_communities(ego_sub, seed=int(seed)):
-                if len(lpa_c) >= 2:
-                    mod = set(lpa_c)
-                    mod.add(u)
-                    raw_modules.append(mod)
-        # Deduplicate and merge modules with Jaccard >= 0.6
-        raw_modules.sort(key=len, reverse=True)
-        merged: list[set[int]] = []
-        for mod in raw_modules[:min(len(raw_modules), 1500)]:
-            placed = False
-            for existing in merged:
-                inter = len(mod & existing)
-                if inter / max(1, min(len(mod), len(existing))) >= 0.65:
-                    existing.update(mod)
-                    placed = True
-                    break
-            if not placed:
-                merged.append(set(mod))
-        covered = set().union(*merged) if merged else set()
-        for u in range(n):
-            if u not in covered:
-                merged.append({u})
-        return merged, None, extra_meta
-
     if algo == 'mcode_complexes':
         cores = nx.core_number(network)
         weights = {}
@@ -1080,8 +1225,8 @@ def _execute_clustering_algorithm(
             if len(nbrs) < 2:
                 weights[u] = 0.0
             else:
-                ego = adjacency[nbrs][:, nbrs]
-                e_cnt = ego.nnz // 2 + len(nbrs)
+                neighborhood = adjacency[nbrs][:, nbrs]
+                e_cnt = neighborhood.nnz // 2 + len(nbrs)
                 n_cnt = len(nbrs) + 1
                 density = (2.0 * e_cnt) / (n_cnt * (n_cnt - 1))
                 weights[u] = float(cores[u]) * density
@@ -2299,8 +2444,10 @@ def _missing_labels(fig, z, metrics, groups):
                                    text='NA', showarrow=False, font=dict(color='#555555', size=13))
 
 
-def centrality_heatmap(profiles: pl.DataFrame, value='rank_biserial') -> go.Figure:
+def centrality_heatmap(profiles: pl.DataFrame, value='rank_biserial', annotation_mode='effect', significance_column='fdr_bh') -> go.Figure:
     """Show source-versus-background effects with stars from supplied BH q-values."""
+    sig_label = 'BH-adjusted q' if significance_column == 'fdr_bh' else 'Unadjusted p'
+    sig_symbol = 'q' if significance_column == 'fdr_bh' else 'p'
     if value != 'rank_biserial':
         raise ValueError('Supported centrality heatmap value: rank_biserial')
     if profiles.is_empty() or not {'group', 'metric', value}.issubset(profiles.columns):
@@ -2317,8 +2464,10 @@ def centrality_heatmap(profiles: pl.DataFrame, value='rank_biserial') -> go.Figu
                 zr.append(None); tr.append('NA'); hr.append('Comparison unavailable')
                 continue
             effect = float(row[value])
-            stars = significance_label(row.get('fdr_bh'))
-            zr.append(effect); tr.append(f'{effect:+.2f}<br>{stars}')
+            stars = significance_label(row.get(significance_column))
+            label = (f'{stars}<br>{sig_symbol}={_fmt(row.get(significance_column), 3)}' if annotation_mode == 'q'
+                     else f'{effect:+.2f}<br>{stars}')
+            zr.append(effect); tr.append(label)
             hr.append(f'{GROUP_LABELS.get(group, group)} · {_metric_label(metric).replace("<br>", " ")}<br>'
                       f'Rank-biserial effect: {effect:.6g}<br>'
                       f'Source median: {_fmt(row.get("query_median"))}<br>'
@@ -2328,7 +2477,7 @@ def centrality_heatmap(profiles: pl.DataFrame, value='rank_biserial') -> go.Figu
                       f'Source n: {row.get("query_n", "unavailable")}<br>'
                       f'Background n: {row.get("background_n", "unavailable")}<br>'
                       f'Raw p: {_fmt(row.get("p_value"), 6)}<br>'
-                      f'BH-adjusted q: {_fmt(row.get("fdr_bh"), 6)} ({stars})')
+                      f'{sig_label}: {_fmt(row.get(significance_column), 6)} ({stars})')
         z.append(zr); text.append(tr); hover.append(hr)
     fig.add_trace(go.Heatmap(
         x=[_metric_label(m) for m in metrics], y=[GROUP_LABELS.get(g, g) for g in groups], z=z,
@@ -2339,14 +2488,16 @@ def centrality_heatmap(profiles: pl.DataFrame, value='rank_biserial') -> go.Figu
         customdata=hover, hovertemplate='%{customdata}<extra></extra>',
         hoverongaps=False, xgap=3, ygap=3))
     fig.add_annotation(x=0, y=1.13, xref='paper', yref='paper', xanchor='left', showarrow=False,
-                       text='Source vs shared background · positive effects indicate higher centrality · stars: BH-adjusted q',
+                       text=f'Source vs shared background · positive effects indicate higher centrality · stars: {sig_label}',
                        font=dict(size=11, color='#444444'))
     _missing_labels(fig, z, metrics, groups)
     return fig
 
 
-def hub_enrichment_heatmap(table: pl.DataFrame) -> go.Figure:
+def hub_enrichment_heatmap(table: pl.DataFrame, significance_column='fdr_bh') -> go.Figure:
     """Show exact hub-enrichment fold; only the color saturates above twofold."""
+    sig_label = 'BH-adjusted q' if significance_column == 'fdr_bh' else 'Unadjusted p'
+    sig_symbol = 'q' if significance_column == 'fdr_bh' else 'p'
     if table.is_empty() or not {'group', 'metric', 'fold'}.issubset(table.columns):
         return _base_heatmap('Hub enrichment across protein sets')
     groups, metrics = _axes(table)
@@ -2359,7 +2510,7 @@ def hub_enrichment_heatmap(table: pl.DataFrame) -> go.Figure:
             row = lookup.get((group, metric))
             if row is None or not _finite(row.get('fold')) or row['fold'] < 0:
                 zr.append(None); tr.append('NA'); hr.append('Comparison unavailable'); continue
-            fold = float(row['fold']); stars = significance_label(row.get('fdr_bh'))
+            fold = float(row['fold']); stars = significance_label(row.get(significance_column))
             zr.append(fold - 1); tr.append(f'{fold:.2f}×<br>{stars}')
             hr.append(f'{GROUP_LABELS.get(group, group)} · {_metric_label(metric).replace("<br>", " ")}<br>'
                       f'Hub enrichment fold: {fold:.6g}×<br>'
@@ -2367,7 +2518,7 @@ def hub_enrichment_heatmap(table: pl.DataFrame) -> go.Figure:
                       f'Network hubs: {row.get("top_n", "unavailable")} / {row.get("population_n", "unavailable")}<br>'
                       f'Hub cutoff: {_fmt(row.get("cutoff"))}<br>'
                       f'Raw p: {_fmt(row.get("p_value"), 6)}<br>'
-                      f'BH-adjusted q: {_fmt(row.get("fdr_bh"), 6)} ({stars})<br>'
+                      f'{sig_label}: {_fmt(row.get(significance_column), 6)} ({stars})<br>'
                       'Color saturates at 2×; cell labels report the exact fold.')
         z.append(zr); text.append(tr); hover.append(hr)
     fig.add_trace(go.Heatmap(
@@ -2377,7 +2528,7 @@ def hub_enrichment_heatmap(table: pl.DataFrame) -> go.Figure:
         text=text, texttemplate='%{text}', textfont=dict(size=13), customdata=hover,
         hovertemplate='%{customdata}<extra></extra>', hoverongaps=False, xgap=3, ygap=3))
     fig.add_annotation(x=0, y=1.13, xref='paper', yref='paper', xanchor='left', showarrow=False,
-                       text='Exact fold enrichment · colors saturate at ≥2× · stars: BH-adjusted q',
+                       text=f'Exact fold enrichment · colors saturate at ≥2× · stars: {sig_label}',
                        font=dict(size=11, color='#444444'))
     _missing_labels(fig, z, metrics, groups)
     return fig
@@ -2410,8 +2561,12 @@ def multi_network_centrality_comparison(
     landmarks: int | None = None,
     use_cache: bool = True,
     set_name: str = 'Moonlighting',
+    correction_scope: str = 'all',
+    cached_only: bool = False,
 ) -> dict:
     """Compute cached centralities across multiple networks and compare cohort vs background across networks."""
+    if correction_scope not in {'all', 'within_network'}:
+        raise ValueError('correction_scope must be all or within_network')
     if not graphs:
         raise ValueError('Provide at least one network to compare.')
     metrics_frames = []
@@ -2425,7 +2580,7 @@ def multi_network_centrality_comparison(
         present = matching_nodes(nodes, cohort)
         mask = np.asarray([str(node) in present for node in graph['nodes']], dtype=bool)
         base_frame, notes = cached_network_centralities(
-            graph, extra=extra, seed=seed, landmarks=landmarks, use_cache=use_cache
+            graph, extra=extra, seed=seed, landmarks=landmarks, use_cache=use_cache, cached_only=cached_only
         )
         notes_by_network[net_name] = notes
         covered_labels = len(cohort & {label for node in nodes for label in str(node).split('|')})
@@ -2446,7 +2601,7 @@ def multi_network_centrality_comparison(
         })
         metric_cols = ['degree', 'strength', 'pagerank', 'mean_neighbor_degree']
         if extra:
-            metric_cols += ['core_number', 'clustering', 'betweenness_approx', 'eigenvector', 'bridging_coefficient', 'bridging_centrality']
+            metric_cols += EXTRA_CENTRALITY_METRICS
         metric_cols = [c for c in metric_cols if c in base_frame.columns]
 
         net_frame = base_frame.with_columns(
@@ -2513,6 +2668,15 @@ def multi_network_centrality_comparison(
         'cutoff': pl.Float64, 'fold': pl.Float64, 'p_value': pl.Float64,
     }).with_columns(pl.Series('fdr_bh', bh_adjust([r['p_value'] for r in hub_records])))
 
+    if correction_scope == 'within_network':
+        def adjust_per_network(frame):
+            return pl.concat([
+                part.with_columns(pl.Series('fdr_bh', bh_adjust(part['p_value'])))
+                for part in frame.partition_by('network', maintain_order=True)
+            ])
+        effects_df = adjust_per_network(effects_df)
+        hubs_df = adjust_per_network(hubs_df)
+
     return {
         'networks': pl.DataFrame(network_summaries),
         'metrics': combined_metrics,
@@ -2532,12 +2696,18 @@ def cross_network_metric_figure(
     plot_kind: str = 'box',
     log_scale: bool = False,
     set_name: str | None = None,
+    annotation_mode: str = 'q',
+    correction_scope: str = 'all',
+    significance_column: str = 'fdr_bh',
 ) -> go.Figure:
     """Single unified plot showing how a metric varies for a protein set vs Background across multiple networks."""
+    sig_label = 'BH-adjusted q' if significance_column == 'fdr_bh' else 'Unadjusted p'
+    sig_symbol = 'q' if significance_column == 'fdr_bh' else 'p'
     if plot_kind not in {'box', 'violin', 'bar'}:
         raise ValueError('plot_kind must be box, violin, or bar')
     fig = go.Figure()
-    title = metric.replace('_', ' ').title()
+    title = {'core_number': 'K-core index', 'clustering': 'Clustering coefficient',
+             'betweenness': 'Betweenness centrality'}.get(metric, metric.replace('_', ' ').title())
     target_group = set_name or (
         [g for g in frame['group'].drop_nulls().unique(maintain_order=True).to_list() if g != 'Background']
         if 'group' in frame.columns else []
@@ -2546,12 +2716,12 @@ def cross_network_metric_figure(
     label_name = GROUP_LABELS.get(target_name, target_name)
     fig.update_layout(
         template='plotly_white',
-        title=f'{title} across interactomes ({label_name} vs Background)',
+        title=f'{title} across interactomes',
         yaxis_title=title + (' (log scale)' if log_scale else ''),
         xaxis_title='Interactome network',
         legend_title_text='Protein group',
         height=520,
-        margin=dict(l=65, r=30, t=105, b=95),
+        margin=dict(l=65, r=30, t=130, b=110),
         boxmode='group',
         violinmode='group',
         barmode='group',
@@ -2621,25 +2791,27 @@ def cross_network_metric_figure(
             ))
 
     fig.update_xaxes(categoryorder='array', categoryarray=networks)
-    if tests is not None and len(groups) <= 2 and {'metric', 'fdr_bh'}.issubset(tests.columns):
+    if tests is not None and len(groups) <= 2 and {'metric', significance_column}.issubset(tests.columns):
         net_col = 'network' if 'network' in tests.columns else 'group'
         for row in tests.filter(pl.col('metric') == metric).iter_rows(named=True):
             net = row.get(net_col)
             if net not in networks:
                 continue
-            q = row.get('fdr_bh')
+            q = row.get(significance_column)
             stars = significance_label(q)
             rb = row.get('rank_biserial')
             rb_txt = f' (r={float(rb):+.2f})' if _finite(rb) else ''
-            hover = f'{net}: Moonlighting vs Background<br>BH-adjusted q = {_fmt(q, 6)}{rb_txt}'
+            detail = f'{sig_symbol}={_fmt(q, 3)}' if annotation_mode == 'q' else rb_txt.strip()
+            hover = f'{net}: {label_name} vs Background<br>{sig_label} = {_fmt(q, 6)}{rb_txt}'
             fig.add_annotation(
                 x=net, y=1.05, xref='x', yref='paper',
-                text=f'<b>{stars}</b>{rb_txt}', hovertext=hover,
+                text=f'<b>{stars}</b><br>{detail}', hovertext=hover,
                 showarrow=False, font=dict(size=13, color='#0072B2'),
             )
         fig.add_annotation(
             x=0, y=1.12, xref='paper', yref='paper', xanchor='left',
-            text='Stars & rank-biserial r compare Moonlighting vs Background within each network (BH-adjusted q across networks & metrics)',
+            text=f'{label_name} vs Background within each network · stars: {sig_label} ' +
+                 ('without multiple-testing correction' if significance_column == 'p_value' else ('across metrics within each network' if correction_scope == 'within_network' else 'across networks and metrics')),
             showarrow=False, font=dict(size=11, color='#444444'),
         )
     return fig

@@ -1,0 +1,203 @@
+Started BioPlex / native.clusterone
+Started BioPlex / native.oslom
+Started TAGC_binary2025 / native.clusterone
+Started TAGC_binary2025 / native.oslom
+Started huMAP2_0.05 / native.clusterone
+Started huMAP2_0.05 / native.oslom
+Started huMAP2_0.95 / native.clusterone
+Started huMAP2_0.95 / native.oslom
+Started huMAP3_0.95 / native.clusterone
+Started huMAP3_0.95 / native.oslom
+1/12 results saved
+2/12 results saved
+3/12 results saved
+4/12 results saved
+5/12 results saved
+6/12 results saved
+7/12 results saved
+8/12 results saved
+10/12 results saved
+11/12 results saved
+12/12 results saved
+[
+  {
+    "status": "success",
+    "nodes": 8163,
+    "edges": 51574,
+    "communities": 362,
+    "covered_nodes": 1272,
+    "unassigned_nodes": 6891,
+    "overlapping_nodes": 101,
+    "elapsed_seconds": 4.46,
+    "peak_rss_bytes": 310165504,
+    "reason": null,
+    "network": "HuRI",
+    "method": "native.clusterone",
+    "target": "/mnt/c/projects/interactome/data/analysis_runs/clustering_native/HuRI/native.clusterone/9f10ede056b217cb"
+  },
+  {
+    "status": "failed",
+    "nodes": null,
+    "edges": null,
+    "communities": null,
+    "covered_nodes": null,
+    "unassigned_nodes": null,
+    "overlapping_nodes": null,
+    "elapsed_seconds": 301.659,
+    "peak_rss_bytes": 308670464,
+    "reason": "TimeoutExpired: Command '['/mnt/c/projects/interactome/.tools/OSLOM2/oslom_undir', '-uw', '-seed', '42', '-r', '10', '-hr', '10', '-f', '/mnt/c/projects/interactome/.tools/tmp/atlas_oslom_alo0_0bz/edges.txt']' timed out after 300 seconds",
+    "network": "HuRI",
+    "method": "native.oslom",
+    "target": "/mnt/c/projects/interactome/data/analysis_runs/clustering_native/HuRI/native.oslom/daea75faebeb9bf1"
+  },
+  {
+    "status": "success",
+    "nodes": 13834,
+    "edges": 128104,
+    "communities": 1085,
+    "covered_nodes": 5063,
+    "unassigned_nodes": 8771,
+    "overlapping_nodes": 1167,
+    "elapsed_seconds": 14.399,
+    "peak_rss_bytes": 332283904,
+    "reason": null,
+    "network": "BioPlex",
+    "method": "native.clusterone",
+    "target": "/mnt/c/projects/interactome/data/analysis_runs/clustering_native/BioPlex/native.clusterone/51233d159b0b4b2c"
+  },
+  {
+    "status": "failed",
+    "nodes": null,
+    "edges": null,
+    "communities": null,
+    "covered_nodes": null,
+    "unassigned_nodes": null,
+    "overlapping_nodes": null,
+    "elapsed_seconds": 302.898,
+    "peak_rss_bytes": 335065088,
+    "reason": "TimeoutExpired: Command '['/mnt/c/projects/interactome/.tools/OSLOM2/oslom_undir', '-uw', '-seed', '42', '-r', '10', '-hr', '10', '-f', '/mnt/c/projects/interactome/.tools/tmp/atlas_oslom_u0pbq2fy/edges.txt']' timed out after 300 seconds",
+    "network": "BioPlex",
+    "method": "native.oslom",
+    "target": "/mnt/c/projects/interactome/data/analysis_runs/clustering_native/BioPlex/native.oslom/c6306043f711a4cd"
+  },
+  {
+    "status": "success",
+    "nodes": 14235,
+    "edges": 108649,
+    "communities": 583,
+    "covered_nodes": 2124,
+    "unassigned_nodes": 12111,
+    "overlapping_nodes": 286,
+    "elapsed_seconds": 14.959,
+    "peak_rss_bytes": 303931392,
+    "reason": null,
+    "network": "TAGC_binary2025",
+    "method": "native.clusterone",
+    "target": "/mnt/c/projects/interactome/data/analysis_runs/clustering_native/TAGC_binary2025/native.clusterone/a96f2e04161fada3"
+  },
+  {
+    "status": "failed",
+    "nodes": null,
+    "edges": null,
+    "communities": null,
+    "covered_nodes": null,
+    "unassigned_nodes": null,
+    "overlapping_nodes": null,
+    "elapsed_seconds": 302.977,
+    "peak_rss_bytes": 308301824,
+    "reason": "TimeoutExpired: Command '['/mnt/c/projects/interactome/.tools/OSLOM2/oslom_undir', '-uw', '-seed', '42', '-r', '10', '-hr', '10', '-f', '/mnt/c/projects/interactome/.tools/tmp/atlas_oslom_imkjphw6/edges.txt']' timed out after 300 seconds",
+    "network": "TAGC_binary2025",
+    "method": "native.oslom",
+    "target": "/mnt/c/projects/interactome/data/analysis_runs/clustering_native/TAGC_binary2025/native.oslom/307d543ab35712d5"
+  },
+  {
+    "status": "success",
+    "nodes": 8709,
+    "edges": 25713,
+    "communities": 1581,
+    "covered_nodes": 6240,
+    "unassigned_nodes": 2469,
+    "overlapping_nodes": 1403,
+    "elapsed_seconds": 7.561,
+    "peak_rss_bytes": 258486272,
+    "reason": null,
+    "network": "huMAP2_0.05",
+    "method": "native.clusterone",
+    "target": "/mnt/c/projects/interactome/data/analysis_runs/clustering_native/huMAP2_0.05/native.clusterone/2fff01748d9cb8ac"
+  },
+  {
+    "status": "success",
+    "nodes": 8709,
+    "edges": 25713,
+    "communities": 1351,
+    "covered_nodes": 8709,
+    "unassigned_nodes": 0,
+    "overlapping_nodes": 326,
+    "elapsed_seconds": 164.506,
+    "peak_rss_bytes": 263974912,
+    "reason": null,
+    "network": "huMAP2_0.05",
+    "method": "native.oslom",
+    "target": "/mnt/c/projects/interactome/data/analysis_runs/clustering_native/huMAP2_0.05/native.oslom/a4ae81e3f780a5da"
+  },
+  {
+    "status": "success",
+    "nodes": 3273,
+    "edges": 6619,
+    "communities": 469,
+    "covered_nodes": 2033,
+    "unassigned_nodes": 1240,
+    "overlapping_nodes": 263,
+    "elapsed_seconds": 3.724,
+    "peak_rss_bytes": 247676928,
+    "reason": null,
+    "network": "huMAP2_0.95",
+    "method": "native.clusterone",
+    "target": "/mnt/c/projects/interactome/data/analysis_runs/clustering_native/huMAP2_0.95/native.clusterone/99229d8f478de263"
+  },
+  {
+    "status": "success",
+    "nodes": 3273,
+    "edges": 6619,
+    "communities": 1700,
+    "covered_nodes": 3273,
+    "unassigned_nodes": 0,
+    "overlapping_nodes": 12,
+    "elapsed_seconds": 32.305,
+    "peak_rss_bytes": 257433600,
+    "reason": null,
+    "network": "huMAP2_0.95",
+    "method": "native.oslom",
+    "target": "/mnt/c/projects/interactome/data/analysis_runs/clustering_native/huMAP2_0.95/native.oslom/d06962ff238772ce"
+  },
+  {
+    "status": "success",
+    "nodes": 13028,
+    "edges": 98360,
+    "communities": 2676,
+    "covered_nodes": 10784,
+    "unassigned_nodes": 2244,
+    "overlapping_nodes": 3263,
+    "elapsed_seconds": 11.85,
+    "peak_rss_bytes": 296534016,
+    "reason": null,
+    "network": "huMAP3_0.95",
+    "method": "native.clusterone",
+    "target": "/mnt/c/projects/interactome/data/analysis_runs/clustering_native/huMAP3_0.95/native.clusterone/9eb6974dcaa9f242"
+  },
+  {
+    "status": "failed",
+    "nodes": null,
+    "edges": null,
+    "communities": null,
+    "covered_nodes": null,
+    "unassigned_nodes": null,
+    "overlapping_nodes": null,
+    "elapsed_seconds": 302.438,
+    "peak_rss_bytes": 308543488,
+    "reason": "TimeoutExpired: Command '['/mnt/c/projects/interactome/.tools/OSLOM2/oslom_undir', '-uw', '-seed', '42', '-r', '10', '-hr', '10', '-f', '/mnt/c/projects/interactome/.tools/tmp/atlas_oslom_56whgpq2/edges.txt']' timed out after 300 seconds",
+    "network": "huMAP3_0.95",
+    "method": "native.oslom",
+    "target": "/mnt/c/projects/interactome/data/analysis_runs/clustering_native/huMAP3_0.95/native.oslom/d419a481a8371b9b"
+  }
+]

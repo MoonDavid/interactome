@@ -1,0 +1,3 @@
+community,core_size,primary_status,primary_label,primary_term_id,primary_library,interface_size,interface_status,interface_label,interface_term_id,interface_library,full_size,full_context_status,full_context_label,full_context_term_id,full_context_library
+162,16,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC,0,empty_subset,,,,16,core_labeled,,,
+28,65,labeled,INO80-type complex,GO:0097346,GO_CC,0,empty_subset,,,,65,core_labeled,,,

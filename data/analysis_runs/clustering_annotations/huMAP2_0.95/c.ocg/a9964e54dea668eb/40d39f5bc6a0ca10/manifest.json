@@ -1,0 +1,177 @@
+{
+  "schema_version": 5,
+  "created_utc": "2026-11-16T09:48:20.319189+00:00",
+  "uniprot_function_labels": {
+    "status": "complete",
+    "source": {
+      "path": "C:\\projects\\interactome\\data\\annotations\\uniprot_functions.tsv",
+      "size": 12656888,
+      "mtime_ns": 1794488715910466500,
+      "sha256": "70cb62ffe3388445866a7707867b4e9c831234aa63742e3febbd7f5444237494"
+    },
+    "generif": {
+      "source": {
+        "path": "C:\\projects\\interactome\\data\\generif\\generifs_basic.gz",
+        "size": 96837860,
+        "mtime_ns": 1794570885667359400,
+        "sha256": "8cfa3f40d635a3d5e413dff9632709f5245179c9ca61b969c8f2ede92c5690f4"
+      },
+      "mapping": {
+        "path": "C:\\projects\\interactome\\data\\mappings\\generif_geneid_uniprot.json",
+        "size": 771145,
+        "mtime_ns": 1794571356490879800,
+        "sha256": "8c59f69b1531f963502c9b18ba7c8f68e482d7564eab19e9a93eb11b7bcfe284"
+      },
+      "mapped_human_proteins": 16709,
+      "abstracts": null,
+      "limitations": "GeneRIF statements are not abstracts; mapping coverage may be incomplete; one-to-many GeneID mappings retain all candidate accessions."
+    },
+    "keyphrases": "unavailable: install interactome[text-annotation] for YAKE",
+    "log_odds_status": "available",
+    "ctfidf_average_words": 2978.727195945946,
+    "prior_annotated_proteins": 17361,
+    "prior_strength": 1000.0,
+    "log_odds_units": "natural log-odds over the combined n-gram feature vocabulary",
+    "annotated_background": 3223,
+    "population": 3273,
+    "policy": "UniProt FUNCTION plus optional human GeneRIF/local linked abstracts; ctfidf uses full-cluster average word count and network term frequencies; log_odds uses human UniProt prior and network complement; 1-4 grams with GeneRIF; evidence references removed; lowercase unigrams and bigrams; fixed stopwords; sublinear TF, smoothed protein-document IDF, L2 normalization, mean over all subset proteins; document_lift uses annotated subset vs annotated complement with 0.5/1 smoothing; >=2 supporting proteins; top 10 positive scores per method/subset; descriptive scores, no p-values or significance; phrases may be redundant"
+  },
+  "sources": {
+    "network": {
+      "path": "C:\\projects\\interactome\\data\\processed_networks\\versions\\huMAP2_0.95.parquet",
+      "size": 55422,
+      "mtime_ns": 1794304630966636300,
+      "sha256": "92ed9888c58f3b6ba480c9b0a3d746ed577559194cfc3283d0f22a98724629d9"
+    },
+    "memberships": {
+      "path": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\huMAP2_0.95\\c.ocg\\a9964e54dea668eb\\memberships.parquet",
+      "size": 26787,
+      "mtime_ns": 1794581533052491900,
+      "sha256": "d2ecb614c6816bd681794bf04fb8eb757c0cd2d47025a13e738f3516feb70d6a"
+    },
+    "network_audit": {
+      "path": "C:\\projects\\interactome\\data\\processed_networks\\versions\\huMAP2_0.95.json",
+      "size": 3702,
+      "mtime_ns": 1794304630978957900,
+      "sha256": "64886d21ad01f1a039e1b5c499321b66832142bb9de7f80b99f553772a6f81cd"
+    },
+    "clustering_result": {
+      "path": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\huMAP2_0.95\\c.ocg\\a9964e54dea668eb\\result.json",
+      "size": 1051,
+      "mtime_ns": 1794581533058010400,
+      "sha256": "56576475e6800084336b454b259878606049a1d6d08bc2361fbfba21abfaa85d"
+    },
+    "go": {
+      "created_utc": "2026-11-10T12:19:28.737587+00:00",
+      "policy": "UniProtKB human primary taxon; exclude NOT; collapse numeric isoform suffix; GO ancestor propagation via is_a and part_of; evidence retained",
+      "sources": {
+        "gaf": {
+          "path": "C:\\projects\\interactome\\data\\GO\\HUMAN-uniprot.gaf.gz",
+          "size": 12109254,
+          "mtime_ns": 1794234165140993200
+        },
+        "obo": {
+          "path": "C:\\projects\\interactome\\data\\GO\\go-basic.obo",
+          "size": 32227785,
+          "mtime_ns": 1794234248139794700
+        }
+      },
+      "gaf_sha256": "a0afba19dfb1f8fa996bc1bdcd61fd0c9bd4cf0d2bf2509d09ac86993c0e70a2",
+      "obo_sha256": "b08d45b268b8c24ccb2513dbbbc7d4df9f6521c099b413f79eb31e06e0fa3bcc",
+      "gaf_headers": [
+        "!gaf-version: 2.2",
+        "!generated-by: UniProt",
+        "!date-generated: 2026-07-28 19:42",
+        "!go-version: http://purl.obolibrary.org/obo/go/releases/2026-07-26/extensions/go-plus.ofn"
+      ],
+      "ontology_headers": [
+        "format-version: 1.2",
+        "data-version: releases/2026-07-26"
+      ],
+      "audit": {
+        "source_rows": 910476,
+        "not_rows_excluded": 1497,
+        "nonhuman_or_nonuniprot_rows_excluded": 47765,
+        "unknown_or_obsolete_terms_excluded": 0
+      },
+      "direct_unique_evidence_rows": 437530,
+      "propagated_protein_term_rows": 1511426,
+      "proteins": 19775,
+      "terms": 20984
+    },
+    "reactome": {
+      "path": "C:\\projects\\interactome\\data\\reactome\\UniProt2Reactome.txt",
+      "size": 43219161,
+      "mtime_ns": 1794238025981646900,
+      "sha256": "e16cf600292fc592957daf696ab5ffd9373ed6b49582def5988ec5bedfcc48cf"
+    }
+  },
+  "parameters": {
+    "selected_communities": [
+      "1012",
+      "1035",
+      "1140",
+      "1141",
+      "1151",
+      "1171",
+      "1174",
+      "1175",
+      "1179",
+      "120",
+      "150",
+      "164",
+      "481",
+      "50",
+      "8",
+      "867"
+    ],
+    "libraries": [
+      "GO_BP",
+      "GO_MF",
+      "GO_CC",
+      "Reactome"
+    ],
+    "min_background_hits": 5,
+    "min_label_hits": 2,
+    "max_qvalue": 0.05,
+    "ancestor_hit_jaccard_strictly_above": 0.7,
+    "test": "one-sided hypergeometric; one BH family across nonempty subsets and libraries",
+    "reactome_policy": "human R-HSA pathways in the supplied lowest-level mapping",
+    "majority_policy": "GO is_a/part_of propagation; minimum root distance; roots excluded; unique protein votes / all subset proteins; strict >50%; all terms with hits per depth; summary includes every term with >=2 hits at every depth and deepest majority; protein supports may overlap; descriptive, no statistical test"
+  },
+  "coverage": {
+    "background": 3273,
+    "assigned": 106,
+    "unassigned": 3167,
+    "libraries": {
+      "GO_BP": {
+        "annotated_background": 3138,
+        "annotated_assigned": 104,
+        "eligible_terms": 3504
+      },
+      "GO_MF": {
+        "annotated_background": 3209,
+        "annotated_assigned": 105,
+        "eligible_terms": 768
+      },
+      "GO_CC": {
+        "annotated_background": 3213,
+        "annotated_assigned": 105,
+        "eligible_terms": 758
+      },
+      "Reactome": {
+        "annotated_background": 2480,
+        "annotated_assigned": 102,
+        "eligible_terms": 808
+      }
+    }
+  },
+  "clusters": 16,
+  "tested_subsets": 43,
+  "memberships_sha256": "4c41cd1a42930f1791781630a59037fe2006aa29768cb963389fbcff79d15b91",
+  "tests": 251034,
+  "zero_hit_tests_omitted_from_table": 234473,
+  "cytoscape_comparison": {
+    "status": "not_requested"
+  }
+}

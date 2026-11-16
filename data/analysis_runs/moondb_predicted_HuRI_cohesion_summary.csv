@@ -1,0 +1,3 @@
+protein_set,network,network_path,measure,observed,null_mean,effect_observed_minus_null,p_value,query_nodes,valid_simulations,reachable_pair_fraction,fdr_bh,significance
+moondb_predicted,HuRI,C:\projects\interactome\data\processed_networks\HuRI.parquet,internal_edges,181.0,129.343,51.65700000000001,0.000999000999000999,153,1000,1.0,0.001998001998001998,**
+moondb_predicted,HuRI,C:\projects\interactome\data\processed_networks\HuRI.parquet,largest_component,97.0,71.572,25.427999999999997,0.001998001998001998,153,1000,1.0,0.0028542885685742827,**

@@ -1,0 +1,14 @@
+{
+  "method": "UMAP",
+  "dimensions": 3,
+  "seed": 42,
+  "neighbors": 15,
+  "min_dist": 0.1,
+  "perplexity": 30.0,
+  "vectors_sha256": "1a37b62b19b667d3d08d0e72dfc9eb698816adff52b287386743330ed81e816a",
+  "code_sha256": "3e6f244b98a04ff983193c42e6f9d33b919d4ec7ffa5d07d2741b57eb9043f5a",
+  "versions": {
+    "scikit-learn": "1.9.1",
+    "umap-learn": "0.5.12"
+  }
+}

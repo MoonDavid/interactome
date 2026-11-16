@@ -1,0 +1,8 @@
+{
+  "stderr": "C:\\projects\\interactome\\data\\analysis_runs\\norma_server\\20261116_144241.stderr.log",
+  "pid": 102556,
+  "started": "2026-11-16T14:42:41.4123699+01:00",
+  "stdout": "C:\\projects\\interactome\\data\\analysis_runs\\norma_server\\20261116_144241.stdout.log",
+  "url": "http://localhost:8000",
+  "python": "C:\\projects\\interactome\\.venv\\.tooling\\python\\cpython-3.11-windows-x86_64-none\\python.exe"
+}

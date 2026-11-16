@@ -6,7 +6,7 @@ import pytest
 
 from moonlighting import graph_from_path
 from moonlighting_extensions import (
-    _connected_five_node_orbits, _hodge_participation, _link_homology,
+    _connected_five_node_orbits, _hodge_participation,
     _rooted_graphlets, cohort_filtration, cohort_separation, removal_efficiency,
 )
 
@@ -35,8 +35,6 @@ def test_graphlets_classify_standard_orbits_and_budget():
 def test_filled_triangles_remove_harmonic_cycles():
     cycle = nx.cycle_graph(4)
     triangle = nx.complete_graph(3)
-    assert _link_homology(cycle) == (1, 0)
-    assert _link_homology(triangle) == (0, 1)
     participation, rank = _hodge_participation(cycle)
     assert rank == 1
     np.testing.assert_allclose(participation, .5)

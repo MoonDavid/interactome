@@ -1,0 +1,38 @@
+community,core_size,primary_status,primary_label,primary_term_id,primary_library,interface_size,interface_status,interface_label,interface_term_id,interface_library,full_size,full_context_status,full_context_label,full_context_term_id,full_context_library
+100,14,labeled,carboxylic ester hydrolase activity,GO:0052689,GO_MF,34,labeled,protein K69-linked ufmylation,GO:1990592,GO_BP,48,core_labeled,,,
+102,5,labeled,cytosolic large ribosomal subunit,GO:0022625,GO_CC,60,labeled,Peptide chain elongation,R-HSA-156902,Reactome,65,core_labeled,,,
+175,5,labeled,aminoacyl-tRNA ligase activity,GO:0004812,GO_MF,25,labeled,canonical glycolysis,GO:0061621,GO_BP,30,core_labeled,,,
+1951,1,no_qualifying_term,,,,32,labeled,Peptide chain elongation,R-HSA-156902,Reactome,33,labeled,Peptide chain elongation,R-HSA-156902,Reactome
+1967,0,empty_subset,,,,45,labeled,Peptide chain elongation,R-HSA-156902,Reactome,45,labeled,Peptide chain elongation,R-HSA-156902,Reactome
+197,0,empty_subset,,,,29,labeled,Peptide chain elongation,R-HSA-156902,Reactome,29,labeled,Peptide chain elongation,R-HSA-156902,Reactome
+1982,0,empty_subset,,,,51,labeled,Peptide chain elongation,R-HSA-156902,Reactome,51,labeled,Peptide chain elongation,R-HSA-156902,Reactome
+206,1,no_qualifying_term,,,,60,labeled,Peptide chain elongation,R-HSA-156902,Reactome,61,labeled,Peptide chain elongation,R-HSA-156902,Reactome
+207,3,labeled,SARS-CoV-1 modulates host translation machinery,R-HSA-9735869,Reactome,64,labeled,Peptide chain elongation,R-HSA-156902,Reactome,67,core_labeled,,,
+208,0,empty_subset,,,,52,labeled,Peptide chain elongation,R-HSA-156902,Reactome,52,labeled,Peptide chain elongation,R-HSA-156902,Reactome
+227,5,labeled,monocarboxylic acid transport,GO:0015718,GO_BP,43,labeled,nicotinamide nucleotide metabolic process,GO:0046496,GO_BP,48,core_labeled,,,
+229,2,no_qualifying_term,,,,31,labeled,Peptide chain elongation,R-HSA-156902,Reactome,33,labeled,Peptide chain elongation,R-HSA-156902,Reactome
+249,25,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC,28,labeled,HAUS complex,GO:0070652,GO_CC,53,core_labeled,,,
+267,15,labeled,Maturation of TCA enzymes and regulation of TCA cycle,R-HSA-9854311,Reactome,40,labeled,eukaryotic translation elongation factor 1 complex,GO:0005853,GO_CC,55,core_labeled,,,
+307,16,labeled,peroxiredoxin activity,GO:0051920,GO_MF,42,labeled,cadherin binding,GO:0045296,GO_MF,58,core_labeled,,,
+399,2,no_qualifying_term,,,,24,labeled,Peptide chain elongation,R-HSA-156902,Reactome,26,labeled,Peptide chain elongation,R-HSA-156902,Reactome
+443,4,labeled,mRNA stabilization,GO:0048255,GO_BP,31,labeled,Nonsense Mediated Decay (NMD) independent of the Exon Junction Complex (EJC),R-HSA-975956,Reactome,35,core_labeled,,,
+45,17,labeled,protein-disulfide reductase [NAD(P)H] activity,GO:0047134,GO_MF,38,labeled,BBSome,GO:0034464,GO_CC,55,core_labeled,,,
+472,0,empty_subset,,,,47,labeled,Peptide chain elongation,R-HSA-156902,Reactome,47,labeled,Peptide chain elongation,R-HSA-156902,Reactome
+479,2,no_qualifying_term,,,,31,labeled,Peptide chain elongation,R-HSA-156902,Reactome,33,labeled,Peptide chain elongation,R-HSA-156902,Reactome
+6,11,labeled,histone acetyltransferase complex,GO:0000123,GO_CC,31,labeled,histone acetyltransferase complex,GO:0000123,GO_CC,42,core_labeled,,,
+627,0,empty_subset,,,,53,labeled,Peptide chain elongation,R-HSA-156902,Reactome,53,labeled,Peptide chain elongation,R-HSA-156902,Reactome
+720,0,empty_subset,,,,52,labeled,Peptide chain elongation,R-HSA-156902,Reactome,52,labeled,Peptide chain elongation,R-HSA-156902,Reactome
+721,0,empty_subset,,,,52,labeled,Peptide chain elongation,R-HSA-156902,Reactome,52,labeled,Peptide chain elongation,R-HSA-156902,Reactome
+749,0,empty_subset,,,,48,labeled,Peptide chain elongation,R-HSA-156902,Reactome,48,labeled,Peptide chain elongation,R-HSA-156902,Reactome
+80,15,labeled,membrane-membrane adaptor activity,GO:0140177,GO_MF,46,labeled,tricarboxylic acid metabolic process,GO:0072350,GO_BP,61,core_labeled,,,
+81,81,labeled,glycoside metabolic process,GO:0016137,GO_BP,137,labeled,carboxylic acid metabolic process,GO:0019752,GO_BP,218,core_labeled,,,
+86,2,labeled,intracellular iron ion homeostasis,GO:0006879,GO_BP,41,labeled,Peptide chain elongation,R-HSA-156902,Reactome,43,core_labeled,,,
+860,6,no_qualifying_term,,,,24,labeled,Peptide chain elongation,R-HSA-156902,Reactome,30,labeled,Peptide chain elongation,R-HSA-156902,Reactome
+89,34,labeled,fatty acid transport,GO:0015908,GO_BP,93,labeled,carboxylic acid metabolic process,GO:0019752,GO_BP,127,core_labeled,,,
+91,21,labeled,toxic metabolite repair,GO:0110052,GO_BP,51,labeled,small molecule metabolic process,GO:0044281,GO_BP,72,core_labeled,,,
+910,2,no_qualifying_term,,,,33,labeled,Peptide chain elongation,R-HSA-156902,Reactome,35,labeled,Peptide chain elongation,R-HSA-156902,Reactome
+926,0,empty_subset,,,,52,labeled,Peptide chain elongation,R-HSA-156902,Reactome,52,labeled,Peptide chain elongation,R-HSA-156902,Reactome
+933,2,labeled,Antimicrobial peptides,R-HSA-6803157,Reactome,23,labeled,Peptide chain elongation,R-HSA-156902,Reactome,25,core_labeled,,,
+94,2,labeled,blood microparticle,GO:0072562,GO_CC,35,labeled,Peptide chain elongation,R-HSA-156902,Reactome,37,core_labeled,,,
+978,3,no_qualifying_term,,,,23,labeled,Peptide chain elongation,R-HSA-156902,Reactome,26,labeled,Peptide chain elongation,R-HSA-156902,Reactome
+98,8,no_qualifying_term,,,,25,labeled,nicotinamide nucleotide metabolic process,GO:0046496,GO_BP,33,labeled,nicotinamide nucleotide metabolic process,GO:0046496,GO_BP

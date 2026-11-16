@@ -14,7 +14,17 @@ Requires-Dist: venny4py==1.0.4
 Requires-Dist: numpy>=1.26.0
 Requires-Dist: scipy>=1.11.0
 Requires-Dist: networkx>=3.2.0
+Requires-Dist: pyvis<0.4,>=0.3.2
+Requires-Dist: rich>=13.7.0
+Requires-Dist: psutil>=5.9
 Requires-Dist: py4cytoscape>=1.13.0
+Requires-Dist: qrcode[pil]<9,>=8.2
+Provides-Extra: text-annotation
+Requires-Dist: yake<0.7,>=0.4.8; extra == "text-annotation"
+Provides-Extra: embeddings
+Requires-Dist: nodevectors==0.1.23; extra == "embeddings"
+Requires-Dist: umap-learn<0.6,>=0.5.7; extra == "embeddings"
+Requires-Dist: scikit-learn<2,>=1.4; extra == "embeddings"
 Provides-Extra: go
 Requires-Dist: goatools<2,>=1.4; extra == "go"
 Provides-Extra: clustering
@@ -36,7 +46,28 @@ Requires-Dist: pytest>=8.0.0; extra == "test"
 
 # Human Interactome Atlas
 
+**Local wiring** provides graphlet profiles and edge geometry. Community analysis
+offers 17 classic, overlapping and fuzzy algorithms. General GO enrichment and
+GO neighborhood geometry remain available as independently runnable analyses.
+
 A Streamlit app for the local HuRI, merged BioPlex HEK293T, huMAP2 and `TAGC_binary2025` networks.
+
+The **Other analyses → Cluster reports** sidebar page reads the saved BioPlex/TAGC MoonLitDB and MoonProt community studies,
+including selection criteria, network populations, enriched clusters, functional
+annotations and complete UniProt memberships. Filter clusters by any significant
+saved GO or Reactome term, and inspect MoonLitDB members (or all members) with gene
+names, protein names and full local Swiss-Prot FUNCTION descriptions.
+MoonLitDB canonical and moonlighting functions retain the source GO-slim annotations
+and are available in the protein table, detail view and CSV export. The displayed
+protein table can be downloaded as CSV. Missing metadata is explicit; current
+MoonLitDB mapping changes are flagged against the saved enrichment hit counts.
+The page does not rerun analyses or apply
+the current sidebar isoform policy to historical results. Regenerate the study
+with `python pipelines/study_moonlitdb_communities.py` and assemble its report
+evidence with `python pipelines/assemble_community_study.py`.
+For MoonProt, add `--protein-set moonprot` to both commands. The protein-set selector
+switches the report, enrichment population and displayed source members together.
+MoonProt primary and secondary function descriptions are included where supplied.
 
 The active application uses Polars for tabular loading, manipulation, plotting inputs, and CSV exports. NumPy and SciPy handle numerical and sparse-graph calculations. Keep new DataFrame code in Polars; repository guidance is in `AGENTS.md`. The archived application retains its original dependencies.
 
@@ -46,9 +77,69 @@ The active application uses Polars for tabular loading, manipulation, plotting i
 
 **Interactomes Overview**, the first page, includes local topology statistics, degree distributions, descriptions and paper links, a huMAP2 probability filter, and the preserved BioPlex merge code and pipeline explanation. Statistics and overlaps use the canonical UniProt networks described below.
 
-**Topological analysis** includes a shared guide to effects, significance and unavailable results, plus a metric interpretation expander in each tab. These explain metric direction, comparison populations, null models and limitations. Statistical significance is reported with asterisks from adjusted q-values; descriptive curves and native confidence scores are not significance tests.
+Topological analysis starts with **Interactome stats and [selected protein set] coverage**,
+followed by **Topology metrics enriched**, then **Monte Carlo & connectivity**.
+The first tab reports accession counts and coverage for both the entire interactome and
+its largest connected component, using the full selected mapped protein set as the denominator.
+Tabs run independently; **Source sets** is the last visible tab. Later analysis tabs are hidden.
+The sidebar keeps **Clustering and communities**, **Network embeddings**, and
+**Network Visualization / Cytoscape** in a collapsed **Other analyses** expander;
+their existing URLs remain available.
 
-Under **Advanced centralities → Cytoscape apps**, send full selected networks (up to 500,000 edges each) to Cytoscape Desktop, run NetworkAnalyzer from the page, or calculate cytoHubba/other app scores in Desktop and read their numeric node columns. Select the metric columns and click **Compare imported metrics** for effects, distributions and BH-adjusted significance across all imported network-by-metric tests. Import checks the complete source node set and undirected edges, recomputes membership from the current protein set, and keeps missing/non-finite scores unavailable. Downloads and `data/analysis_runs/` bundles retain imported tables, tests, source fingerprints, app identity, versions and parameters. Changes to sources, protein sets or metric selections invalidate the corresponding results. The Overview also accepts older cached coverage tables and labels them with the current protein set name.
+The topology tab starts with four full-width plots stacked vertically: degree,
+k-coreness, clustering coefficient, and exact betweenness centrality. Choose
+**Static** (default) or **Interactive**. Static boxplots have a bracket joining the
+selected protein set (MoonLitDB by default) and its network-complement background,
+with raw p, BH-adjusted q, q-based significance stars and signed rank-biserial r.
+Each plot has an expander containing a metric info box and the population, test,
+correction family, effect definition and limitations. Tests use all finite values;
+BH covers all eligible computed centrality measures separately within each
+interactome, never across interactomes in this tab. Hub tests use a separate
+within-interactome family. Static degree uses symlog to retain zero values.
+The centrality effect heatmap is at the end of the tab. Display changes do not
+change the correction family.
+Under **Other topological metrics**, a metric-specific info box explains the selected
+measure, how to interpret higher/lower values, the network-complement background,
+and limitations, including for bridging coefficient and bridging centrality.
+Additional measures include normalized unweighted Laplacian centrality (relative
+Laplacian-energy drop), triangle count, effective size (`k − 2T/k`) and Burt’s
+neighborhood efficiency (effective size / degree). Effective size and efficiency
+are undefined for isolates, which are excluded from those tests. These measures
+join the full centrality and separate hub BH families; older centrality caches
+are invalidated. They retain the advanced-analysis 500,000-edge guard.
+**Other topological metrics** lists only additional metrics, excluding the four plots
+above. The overview uses exact betweenness (stored as `betweenness`). Newly
+computed centralities are saved for networks of every size; recalculation bypasses
+cache reads and updates the saved cache. Metric info boxes focus on definitions
+and interpretation, with test details in the statistical-methods expanders.
+Compatible legacy centrality caches are upgraded by reusing their existing
+columns (including exact betweenness) and computing only missing measures. The
+topology overview displays compatible cached results while a background worker
+updates missing metrics; a polling fragment refreshes the page when complete.
+Figure construction is cached on disk and the static view displays saved PNGs.
+Windows multiprocessing imports skip Streamlit UI execution to prevent repeated
+`missing ScriptRunContext` warnings from exact-betweenness workers.
+Topological Analysis tabs use ordinary `with tab:` rendering, so switching tabs
+does not require a server rerun. Workspace-membership checks only omit sections
+that are not part of that page; tab content is not gated by `.open`.
+The collapsed connectivity comparison at the end of the topology tab includes
+a protein-by-network degree-percentile heatmap and a network-pair-by-protein
+partner-Jaccard heatmap. Choose up to 80 proteins (default: up to 30 with the
+largest percentile range, prioritizing proteins observed in multiple networks).
+Partner overlap can use full neighborhoods or restrict partners to nodes present
+in both networks; hover details show coverage counts. Gray marks missing or
+undefined cells. Both views are descriptive, without significance tests. The
+pairwise scatter and tables remain available in a nested expander.
+
+Generated Topological Analysis plots are automatically saved under
+`data/plots/topological_analysis/`. The four main metrics always save both static
+PNG/SVG and standalone interactive HTML, regardless of the displayed mode.
+Other Plotly charts save standalone HTML when generated in their lazy tab.
+Names identify the analysis/metric, protein set and selected networks; a digest
+keeps different results/settings separate. Matching JSON files record inputs,
+network provenance and output filenames. Identical reruns reuse the plot files.
+
+The hidden **Advanced centralities â†’ Cytoscape apps**, send full selected networks (up to 500,000 edges each) to Cytoscape Desktop, run NetworkAnalyzer from the page, or calculate cytoHubba/other app scores in Desktop and read their numeric node columns. Select the metric columns and click **Compare imported metrics** for effects, distributions and BH-adjusted significance across all imported network-by-metric tests. Import checks the complete source node set and undirected edges, recomputes membership from the current protein set, and keeps missing/non-finite scores unavailable. Downloads and `data/analysis_runs/` bundles retain imported tables, tests, source fingerprints, app identity, versions and parameters. Changes to sources, protein sets or metric selections invalidate the corresponding results. The Overview also accepts older cached coverage tables and labels them with the current protein set name.
 
 Data lives in `data/raw_networks/`; `data/allmoon_with_moonlitdb_human.csv` supplies the moonlighting analysis page. The previous application, package, scripts, tests, caches and saved networks are archived in `old_streamlit_app/`. Its original configuration and README are preserved there. Run the legacy app with `cd old_streamlit_app && PYTHONPATH=src ../.venv/bin/streamlit run app.py`.
 
@@ -59,6 +150,54 @@ The standalone BioPlex pipeline is `pipelines/bioplex_merge.py`. It reads the th
 ```
 
 ## Canonical UniProt networks and comparisons
+
+### Moonlighting first-neighbor visualization
+
+On **Network Visualization**, choose **Moonlighting + first neighbors** and select a source protein set (for example MoonLitDB). This view retains exactly those interactions with at least one endpoint in the selected protein set, excluding interactions between two neighbors outside the set. Blue nodes identify set members, gray nodes identify their partners, and size reflects displayed degree. Cytoscape.js offers multiple layouts; Apache ECharts offers circular and force layouts; **3D** provides a rotatable graph with hover details, capped at 2,000 displayed proteins and 20,000 edges. Cluster selection uses orange highlights while preserving membership colors.
+
+The **PyVis** viewer provides an interactive force simulation with drag, pan, zoom, hover details, optional labels and a simulation toggle. Its downloadable HTML embeds the visualization assets and retains protein-set colors, diamond shapes and orange selected-cluster borders. PyVis uses up to 2,000 displayed proteins and 20,000 edges; it is included in the project dependencies.
+
+The **Static** viewer offers NetworkX spring, circular and Kamada–Kawai layouts, plus igraph spring and circular layouts when the optional clustering dependencies are installed. A **graph-tool** engine provides SFDP, spring and circular layouts when `graph_tool` is installed in the environment running Streamlit. It is optional and is not a pip dependency: on Windows, run the app in WSL or Docker following the [official graph-tool installation guide](https://graph-tool.skewed.de/installation.html). The UI explains this requirement when unavailable. Static views export PNG, SVG and PDF with the displayed highlighting and legend. Static drawings use up to 2,000 displayed proteins and 20,000 edges; Kamada–Kawai is capped at 500 proteins. Accession labels are optional for graphs with at most 100 proteins.
+
+Browser edge limits produce an explicitly labeled repeatable sample. Under **Download network / open in Cytoscape Desktop**, the default export includes **all matching interactions**, independently of the browser limit. Download GraphML directly, a node-attribute CSV, or the Cytoscape ZIP; alternatively send to a running Desktop instance using its CyREST URL. GraphML retains membership, source protein-set names, fill color, shape, size, selected-cluster membership and border color. GraphML readers do not share a universal style; map `color` to node fill and `border_color` to border paint in the destination tool. Static SVG/PDF exports preserve their visual appearance directly. Selected-cluster attributes describe the displayed clustering only, even when exporting the full network. Direct sending applies the moonlighting style. Graph layout is descriptive and does not establish functional or statistical significance. NORMA remains available as an external viewer; its upload contains interaction pairs only and does not preserve membership styling.
+
+### Batch ClusterONE with optional Cytoscape visualization
+
+`pipelines/run_clusterone.py` runs the official ClusterONE Java CLI on one or
+more canonical Parquets (`a`/`b` endpoints). Java and Polars are required.
+The published ClusterONE plugin documentation targets Cytoscape 2.x; this
+script runs the JAR directly and optionally imports results into Cytoscape 3
+through CyREST, rather than assuming an undocumented app command exists.
+See the [official CLI documentation](https://paccanarolab.org/static_content/clusterone/cl1-cmdline-1.0.html).
+
+Windows PowerShell example (from the repository root):
+
+```powershell
+.venv/Scripts/python.exe pipelines/run_clusterone.py data/processed_networks/HuRI.parquet data/processed_networks/BioPlex.parquet data/processed_networks/versions/huMAP2_0.05.parquet --jar "C:\Users\david\PycharmProjects\scrapepapers\springer_pdfs\cluster_one-1.0.jar" --min-size 3 --min-density 0.3
+```
+
+Add `--cytoscape --base-url http://127.0.0.1:1234/v1` to import each full
+network with `clusterone_clusters` (semicolon-separated memberships) and
+`clusterone_count` node columns into running Cytoscape. Use your actual CyREST
+port (the app may use 1235). Import creates a new network without layout.
+No ClusterONE Cytoscape app is needed. Proteins outside detected clusters have
+an empty membership and count zero. Composite UniProt node labels stay intact.
+
+Edges are unweighted by default. For a separate weighted run, pass one network
+and `--weight-column probability` (huMAP2/huMAP3) or `--weight-column pInt`
+(BioPlex). All weights must be finite and within [0,1]; missing or invalid
+weights fail explicitly. Scores are source-specific and are not calibrated
+across interactomes. The default density is explicitly 0.3, not CLI `auto`.
+Select threshold versions for large networks: inputs above 500,000 edges are
+rejected. Raw inputs and existing analysis results are preserved.
+
+Each run saves the exact input edge list, raw cluster memberships, long-form
+`memberships.csv`, Java stderr, and a manifest with input/JAR hashes and the
+exact command in a unique folder under `data/analysis_runs/clusterone/`.
+The membership table retains overlaps; this script does not calculate
+enrichment tests or assign significance stars. Dense overlapping clusters
+are candidate complexes, and topology alone does not validate moonlighting
+or binding exclusivity. Cite Nepusz, Yu & Paccanaro (2012), doi:10.1038/nmeth.1938.
 
 Put `HuRI.psi`, the [huMAP2 accession-pair archive](https://zenodo.org/records/15293715/files/humap2_ppis_ACC_20200821.pairsWprob.gz?download=1), and optionally `TAGC_binaryInteractome2025.csv` in `data/raw_networks/`. Run `.venv/bin/python networks.py` with internet access to prepare all networks, or run `.venv/bin/python networks.py --huri-only` for offline HuRI preparation. On Windows, use `.venv/Scripts/python.exe` in these commands. For BioPlex, huMAP2 and TAGC, the app checks the human accession list for exact IDs and queries UniProtKB for secondary accessions, annotated isoforms, and Ensembl and GeneID cross-references. Results persist in `data/mappings/`. Prepared Parquet files and audits live in `data/processed_networks/`.
 
@@ -115,22 +254,20 @@ The **Mapping & provenance** tab lists every source ID, exact isoform matches, p
 
 Open **Topological Analysis** from the Streamlit sidebar. **Network scope** defaults to **Compare networks** with MoonLitDB selected. The report compares every pair of selected interactomes, using the saved huMAP2 0.05 version by default when available. The analysis tabs group measures by type and use the sidebar's **Network for individual analyses** where a method takes one network. The visualization page uses the overview selection to order its network options and takes its starting network and cohort settings from Topological Analysis. The page uses AllMoon and MoonLitDB source cohorts and resolves accessions through the saved UniProt mapping (`data/mappings/moonlighting_uniprot.json`).
 
-Ten independently executed tabs cover mapping/coverage, centralities (with exact Brandes betweenness computed once per network and cached in `data/cache/centralities/`), cohort cohesion with degree-binned permutations, local ego wiring with matched complement controls, multi-paradigm community clustering across 19 cached Classic/Hard, Overlapping, and Fuzzy/Soft algorithms (`data/cache/clusterings/`), random walk with restart and candidate linkers, GO enrichment, node-removal robustness, cross-network rank shifts/partner turnover, and source-set comparisons. Tabs load lazily and each Run button saves only its own result. Changing inputs marks prior results stale; switching tabs retains completed results.
 
-**Compare source sets** opens by default with MoonProt, Multitask and MoonLitDB selected separately. A checked-by-default **Show union of selected sets** option adds a fourth, automatically deduplicated Union cohort to the plots. Hiding Union updates the plots immediately; the analysis always includes Union in its BH correction, keeping other stars unchanged. Union membership and results remain in the saved ZIP. The view displays multiple curated or other source cohorts with stable source colors. Choose box or violin distributions: boxes are the default for discrete metrics such as degree, while violins are the default for continuous metrics. Bars show full-data means with descriptive SEM error bars. Violin shapes sample up to 5,000 values per set; boxes, bar summaries, observed medians and tests use the full data. A background histogram adds dashed vertical lines at each source's full-data observed median; this reference is not a permutation null. Its source selection is independent of the sidebar union/intersection filter; reviewed-entry and publication filters still apply. Shared proteins appear in each applicable source, and the common background excludes the union of selected sets. Each source is tested against that background using two-sided Mann–Whitney U tests, with BH correction across all selected source/metric comparisons plus Union in the run. Stars show adjusted q-values (* < 0.05, ** < 0.01, *** < 0.001, **** < 0.0001); they do not compare sources to one another. Missing tests are unavailable rather than significant. Downloads include plots as HTML and ZIP bundles with source IDs, coverage, overlaps, metrics, tests and provenance. Centrality, local-wiring and community plots use the same box, bar and observed-median views.
+**Compare source sets** opens by default with MoonProt, Multitask and MoonLitDB selected separately. A checked-by-default **Show union of selected sets** option adds a fourth, automatically deduplicated Union cohort to the plots. Hiding Union updates the plots immediately; the analysis always includes Union in its BH correction, keeping other stars unchanged. Union membership and results remain in the saved ZIP. The view displays multiple curated or other source cohorts with stable source colors. Choose box or violin distributions: boxes are the default for discrete metrics such as degree, while violins are the default for continuous metrics. Bars show full-data means with descriptive SEM error bars. Violin shapes sample up to 5,000 values per set; boxes, bar summaries, observed medians and tests use the full data. A background histogram adds dashed vertical lines at each source's full-data observed median; this reference is not a permutation null. Its source selection is independent of the sidebar union/intersection filter; reviewed-entry and publication filters still apply. Shared proteins appear in each applicable source, and the common background excludes the union of selected sets. Each source is tested against that background using two-sided Mannâ€“Whitney U tests, with BH correction across all selected source/metric comparisons plus Union in the run. Stars show adjusted q-values (* < 0.05, ** < 0.01, *** < 0.001, **** < 0.0001); they do not compare sources to one another. Missing tests are unavailable rather than significant. Downloads include plots as HTML and ZIP bundles with source IDs, coverage, overlaps, metrics, tests and provenance. Centrality, local-wiring and community plots use the same box, bar and observed-median views.
 
-Two heatmaps summarize all centrality measures across sets before the individual distributions. **Centrality signatures** show rank-biserial effects (`2U/(n_source × n_background) − 1`): positive means higher values in the source, negative means lower, and zero means no rank tendency. Each cell includes its effect and BH significance label; hover shows medians, median difference/fold, sample sizes and exact test values. Median fold is unavailable when the background median is zero. **Hub enrichment** tests whether a set is overrepresented among proteins at or above each metric's full-network 90th percentile, including ties. The actual hub fraction may exceed 10%; a constant metric makes every finite-valued protein a hub and gives a baseline fold of 1. Hub tests use a separate hypergeometric/BH family over all sets and measures, including Union, with the full finite-valued network as the population. Labels show exact folds; colors saturate at ≥2×. Missing comparisons stay unavailable. Both heatmaps export HTML and CSV and are included in saved analysis tables. Enable advanced centralities for core number, clustering, betweenness, eigenvector and bridging measures, subject to the graph-size guard.
+Two heatmaps summarize all centrality measures across sets before the individual distributions. **Centrality signatures** show rank-biserial effects (`2U/(n_source Ã— n_background) âˆ’ 1`): positive means higher values in the source, negative means lower, and zero means no rank tendency. Each cell includes its effect and BH significance label; hover shows medians, median difference/fold, sample sizes and exact test values. Median fold is unavailable when the background median is zero. **Hub enrichment** tests whether a set is overrepresented among proteins at or above each metric's full-network 90th percentile, including ties. The actual hub fraction may exceed 10%; a constant metric makes every finite-valued protein a hub and gives a baseline fold of 1. Hub tests use a separate hypergeometric/BH family over all sets and measures, including Union, with the full finite-valued network as the population. Labels show exact folds; colors saturate at â‰¥2Ã—. Missing comparisons stay unavailable. Both heatmaps export HTML and CSV and are included in saved analysis tables. Enable advanced centralities for core number, clustering, betweenness, eigenvector and bridging measures, subject to the graph-size guard.
 
 Each network's full node set defines the statistical population. Comparison metrics use the complement of the selected cohort; this is unlabelled background rather than validated negative proteins. Degree bins use `floor(log2 degree)` and empirical tests use +1 corrections. GO uses the local human GOA and ontology (October 2025), excludes NOT qualifiers, propagates is_a/part_of, reports annotation coverage, and corrects over all eligible terms. Do not infer binding exclusivity or validated moonlighting from topology alone.
 
-Successful runs persist ZIPs of CSV tables and JSON parameters, cohort IDs, source provenance and diagnostics in `data/analysis_runs/`. Advanced NetworkX analyses and permutation-heavy diffusion/removal require ≤500,000 edges: select a saved huMAP probability version for these analyses. The unfiltered graph remains available for coverage, basic centrality, diffusion ranking, and GO.
+Successful runs persist ZIPs of CSV tables and JSON parameters, cohort IDs, source provenance and diagnostics in `data/analysis_runs/`. Advanced NetworkX analyses and permutation-heavy diffusion/removal require â‰¤500,000 edges: select a saved huMAP probability version for these analyses. The unfiltered graph remains available for coverage, basic centrality, diffusion ranking, and GO.
 
 Use the **Analysis** selector within each of the five tabs.
 
 | Tab | Analyses |
 | --- | --- |
 | **Sources & coverage** | Side-by-side source centralities and mapping coverage |
-| **Topology & wiring** | Basic centrality, path and spectral roles, electrical and walk roles, local wiring, ego geometry, rooted graphlets, edge curvature and L3 links |
 | **Communities & function** | Community detection and enrichment, module cartography and brokerage, GO enrichment, GO neighborhood geometry, and protein metadata and partner annotations |
 | **Cohesion & resilience** | Cohesion, overlap-preserving source separation, diffusion and linkers, and connectivity and efficiency after removal |
 | **Across networks** | Degree and partner turnover, two-layer participation and diffusion, and native-score filtration |
@@ -156,9 +293,8 @@ The displayed interactions are available as CSV, with the network's native confi
 Open **Network Visualization / Cytoscape** in the sidebar and choose **Cytoscape Desktop** to connect canonical UniProt networks (`HuRI`, `BioPlex`, `huMAP2`) and moonlighting cohorts (`MoonProt`, `Multitask`, `MoonLitDB`, and `Union`) to a local Cytoscape Desktop instance via **`py4cytoscape`** (CyREST `v1`) and an embedded interactive **Cytoscape.js** viewer.
 
 - **Subnetwork & bridge modes (Polars-native):**
-  - *Moonlighting induced + 1-hop linker bridges*: extracts cohort edges and non-cohort proteins that bridge ≥ *k* distinct moonlighting proteins, annotating edges as `moonlighting_internal`, `linker_bridge`, or `background`, and computing Augmented Forman–Ricci curvature ($\kappa_F(u,v) = 4 - k_u - k_v + 3 t_{uv}$).
-  - *Ego-network*: extracts 1-hop or 2-hop neighborhoods around selected moonlighting seed proteins.
-  - *Cross-network multiplex*: combines edges across 2–3 canonical networks for the same moonlighting seed/bridge node set, tagging each edge with its source network and multiplicity.
+  - *Moonlighting induced + 1-hop linker bridges*: extracts cohort edges and non-cohort proteins that bridge â‰¥ *k* distinct moonlighting proteins, annotating edges as `moonlighting_internal`, `linker_bridge`, or `background`, and computing Augmented Formanâ€“Ricci curvature ($\kappa_F(u,v) = 4 - k_u - k_v + 3 t_{uv}$).
+  - *Cross-network multiplex*: combines edges across 2â€“3 canonical networks for the same moonlighting seed/bridge node set, tagging each edge with its source network and multiplicity.
 - **Cytoscape Desktop automation via `py4cytoscape`:**
   - *Connection & port diagnostics*: probes CyREST (`http://127.0.0.1:1234/v1` by default, configurable host/port in the sidebar) and detects port conflicts (such as LM Studio occupying port `1234`).
   - *Push & visual styling*: sends Polars node/edge tables to Cytoscape via `py4cytoscape`, applies visual mappings (node fill by moonlighting source cohort, diamond shape for multi-source/bridge proteins, border width for linkers, edge color by bridge role or source network), and triggers layouts (`force-directed`, `kamada-kawai`, `circular`, `attribute-circle`, `grid`).
@@ -169,13 +305,15 @@ The full research catalogue in `MOONLIGHTING_TOPOLOGICAL_ANALYSES.md` includes a
 
 ## Cluster annotation
 
-- **Network Visualization** → **Cluster and annotate this view** runs Louvain or
+See [Cluster annotation methods](CLUSTER_ANNOTATION_METHODS.md) for majority rule, enrichment, and UniProt/GeneRIF text scoring.
+
+- **Network Visualization** â†’ **Cluster and annotate this view** runs Louvain or
   an overlapping method on the displayed graph. Enrichment uses all proteins in
   the selected network or saved version. Inspecting a cluster highlights its
   proteins in Cytoscape.js and Apache ECharts.
-- **Topological Analysis** → **Communities & function** → **Community map** → **Annotate these communities with
+- **Topological Analysis** â†’ **Communities & function** â†’ **Community map** â†’ **Annotate these communities with
   GO and Reactome** uses the memberships from the current clustering run.
-- **Cytoscape Bridge** → **clusterMaker2 & Module Bridging** → **Annotate Cytoscape
+- **Cytoscape Bridge** â†’ **clusterMaker2 & Module Bridging** â†’ **Annotate Cytoscape
   clusters with GO and Reactome** reads the selected Desktop network and
   optionally compares both AutoAnnotate labels.
 
@@ -229,6 +367,41 @@ fingerprints, coverage, and any comparison problems.
 
 ## Batch clustering CLI
 
+Shortest path and cohesion share a sidebar population selector, defaulting to
+the largest connected component of each interactome. Both observed proteins and
+random sets are restricted to that population; paths can traverse any retained
+protein. Degree matching uses degrees in the selected population. Switching to
+the entire network invalidates live results and selects only saved results with
+matching scope. Previous full-network Monte Carlo bundles are retained under
+`data/analysis_runs/archive/monte_carlo_network/`. The Monte Carlo CLI also
+defaults to `--scope lcc`; pass `--scope network` for full-network comparisons.
+
+The Monte Carlo tab automatically prepares missing shortest-path and cohesion
+results together (1,000 degree-matched trials, sidebar seed), then displays them
+in one view. There is no saved/new simulation switch or manual simulation button.
+The tab refreshes precompute progress every 10 seconds. One background writer
+shares the resumable exact-distance cache across sessions; completed corrected
+bundles are published together. Job settings, logs and status are stored in
+`data/analysis_runs/automatic_monte_carlo/`. Changing the protein set, source
+filters, networks or population schedules the matching results automatically.
+
+ClusterONE and OSLOM are available in the shared clustering selector and batch
+runner as `native.clusterone` and `native.oslom`. Both run the original external
+tools on undirected, unweighted edges, preserve overlapping memberships, and leave
+uncovered proteins unassigned. Their results use the usual portable saved-run format.
+ClusterONE requires Java on PATH (or `JAVA` pointing to the Java executable) and
+`CLUSTERONE_JAR` pointing to the original ClusterONE JAR. OSLOM requires the
+undirected executable on PATH as `oslom_undir`, or `OSLOM_EXEC` pointing to it.
+Configure these environment variables before starting Streamlit or the batch CLI.
+Missing tools are recorded as `unavailable`, never as successful empty results.
+OSLOM uses the finest hierarchy level (`tp`), 10 first-level and higher-level runs,
+and the selected seed. ClusterONE uses its native default thresholds. Each native
+invocation has a 300-second safety timeout in addition to the batch job timeout.
+For example: `python cluster_networks.py run --method native.clusterone --method native.oslom`.
+Native tool artifact hashes and options are included in each result's details.
+See the [ClusterONE command-line documentation](https://paccanarolab.org/static_content/clusterone/cl1-cmdline-1.0.html)
+and [OSLOM sources](https://github.com/eXascaleInfolab/oslom2) for installation.
+
 `cluster_networks.py` provides a Typer/Rich terminal interface with progress,
 elapsed times, logs, per-job timeouts and resume. Install the CPU backends and
 inspect the available methods before running all discovered networks:
@@ -274,3 +447,487 @@ Costly and dense methods default to 5,000 and 3,000 nodes, respectively; adjust
 `--costly-node-limit` or `--dense-node-limit` to attempt larger jobs. Each job has
 a 300-second default timeout, adjustable with `--timeout`. Seeds are recorded,
 although parallel backends can be nondeterministic. See `run --help` for options.
+
+### Standalone Monte Carlo precomputation
+
+Run `.venv/bin/python pipelines/precompute_monte_carlo.py --networks data/processed_networks/HuRI.parquet --protein-set moonlitdb --simulations 1000` (add `--dry-run` to validate inputs). The script is self-contained and imports no application modules. Pass multiple canonical Parquet paths after `--networks`; add `--analyses shortest_path cohesion` for both analyses.
+
+Random protein sets preserve the observed set size and full-network `floor(log2 degree)` bin counts. Sampling is without replacement within each trial from all network proteins, including observed members. Exact unweighted NetworkX BFS distances run through the fixed full interactome, including proteins outside the set. Each needed source row is computed once and persisted under `data/analysis_runs/shortest_path_distances/`; later trials and reruns reuse it. The first run may still require BFS from most proteins. Disk storage is approximately `2 Ã— NÂ²` bytes for networks below 65,535 proteins, with bounded per-row working memory. Run one cache writer at a time.
+
+The default mean excludes disconnected pairs and reports observed and simulated reachable-pair fractions. Use `--scope lcc` to restrict both observed and random protein sets to the largest connected component (degree bins then use that comparison graph). Shortest-path tests use twice the smaller +1-corrected empirical tail; cohesion uses an upper tail. BH correction spans all requested networks separately for shortest path and cohesion. Tests are unavailable if any trial lacks a finite pair mean. CSV summaries, null-distribution Parquet files and metadata are saved under `data/analysis_runs/`. Each analysis has separate files named `<protein_set>_<interactome>_shortest_path` or `<protein_set>_<interactome>_cohesion`, with `.parquet`, `.json` and `_summary.csv` suffixes. Rerunning replaces the files for the requested protein set, interactome and analysis; run settings and provenance remain in JSON. Splitting summaries preserves the original full-network BH correction families. The shared `shortest_path_distances/` cache is retained across runs. These standalone outputs are not automatically loaded into the Streamlit analysis cache. The 500,000-edge guard applies.
+
+The precompute CLI uses Rich stage spinners and progress bars with elapsed time and ETA on terminals, then prints a results table. Add `-v` / `--verbose` for cache locations, checkpoint messages, throughput updates and error tracebacks. Use `--no-progress` for plain stage logs; redirected output automatically disables animations. Ctrl+C preserves completed distance checkpoints for the next run.
+
+Use `--protein-set each` to run every source separately (Curated, MoonLitDB, MoonProt, MetaMoon, Multitask, MoonDB curated and MoonDB predicted), reusing distance caches between sources. `--protein-set all` instead tests their union. Each source has its own summary and BH correction families across requested networks; output filenames include the source name. Networks with fewer than two mapped members are skipped.
+## Shortest-path Monte Carlo comparison
+
+Open **Monte Carlo & connectivity** to browse saved results for the sidebar protein
+set. The default population is the largest connected component; huMAP3 remains
+available but is not selected by default. Matching precomputed runs load directly,
+including older exports validated against unchanged local source/mapping files and
+current resolved membership. Network selection does not invalidate a completed run.
+Versioned network names such as huMAP2_0.05 retain their full filenames. Available
+results remain visible while missing networks are prepared in the background.
+
+Choose **Interactive** or **Static** under **Plot format**. Distributions show the
+observed statistic, null mean and signed observed-minus-null effect. Static PNG/SVG
+exports include legends and statistical annotations and are saved in
+`data/plots/monte_carlo/`. Each plot has a lazy exact-calculation expander with
+inclusive tail counts, ties, +1 formulas and saved settings. Stars use unadjusted
+empirical p-values for individual tests. Methods and interpretation appear in
+expanders. Undefined tests show n/a.
+
+The Monte Carlo view displays shortest-path and cohesion results. The separate
+reachable/unreachable comparison panel is omitted; saved reachability data remain
+available in analysis exports.
+An opening info box explains equal-size random sets and degree-bin matching.
+In **Topology metrics enriched**, the optional **Apply Benjamini–Hochberg correction**
+checkbox is off by default: stars use raw test p-values. Enabling it switches stars
+and plot labels to BH-adjusted values within each interactome, separately for
+centrality and hub tests. Tables retain both raw p and BH-adjusted values.
+Plot captions and statistical explanations are available in collapsed expanders.
+Monte Carlo results tables and stars use raw empirical p-values. Previously saved
+BH values remain in the underlying analysis exports for provenance.
+
+The Overview groups these analyses under one main **Connectivity** question:
+direct connections and induced fragmentation; proximity through the full
+interactome; and subset betweenness (mediation of set-to-set shortest paths).
+Induced component count, isolates and largest-component size complement the
+full-interactome component statistics without restricting shortest-path routes.
+
+Subset betweenness uses NetworkX `betweenness_centrality_subset`, with both
+endpoint sets equal to the selected protein set and paths through the full
+interactome. Endpoints are excluded and tied shortest paths share credit.
+Per-node tables include external mediators. The aggregate statistic is the sum
+of set-member scores divided by reachable set pairs: the expected number of
+internal set intermediaries per pair, not the fraction of paths touching the set.
+Optional size/degree-bin-matched Monte Carlo tests use a two-sided +1 empirical
+p-value and a separate BH family across selected networks. Without simulations,
+results are descriptive. Per-node bars are always descriptive. This section runs
+only via its own Recalculate button; parameters, input changes and the
+500,000-edge guard use the existing cached analysis workflow.
+
+The Overview also provides a connectivity table for every sidebar-selected
+network, independently of Monte Carlo simulation. It includes mapped accession
+coverage, full-network components containing set members, proteins with
+at least one 1-hop set partner, unique 1-hop pairs, and reachable/unreachable
+pairs through any number of hops in the full interactome, plus mean, minimum and
+maximum shortest-path length. All paths may use non-set proteins as intermediates.
+Percentages state their denominators in the definitions expander. Per-protein
+distances and partner counts, full-network component sizes and exact hop-count
+distributions are available in the detail expander and ZIP download. These counts
+are descriptive and have no significance tests. The 500,000-edge guard applies.
+
+The first section of **Topological analysis â†’ Overview** asks whether the selected
+protein set has shorter average paths than other proteins. Select networks,
+simulation count and optional degree matching, then click **Run shortest-path simulation**.
+Both observed and random protein sets always use the full interactome for paths.
+This runs independently of automatic overview computation and supports networks
+with at most 500,000 edges. Exact full-network paths can be slow.
+
+Random sets have the same size and exclude selected protein set nodes; matching
+preserves `floor(log2(max(1, degree)))` bin counts. Means include only reachable
+unordered pairs, with reachability reported separately. If an observed or null
+mean is undefined, inference is unavailable rather than discarding simulations.
+Two-sided empirical p-values double the smaller inclusive tail with +1 corrections;
+BH correction covers available tests across all networks selected for that run.
+The distribution shows the observed value as a red vertical line, the effect in
+interaction steps, empirical p, adjusted q, and significance. Statistical expanders
+explain each Overview plot's population, test, correction family, and limitations.
+Results and provenance use the existing cached analysis bundles.
+# Precompute Monte Carlo analyses
+
+Run the offline batch script with the project environment (Windows shown):
+
+```powershell
+.venv/Scripts/python.exe pipelines/precompute_monte_carlo.py --dry-run
+.venv/Scripts/python.exe pipelines/precompute_monte_carlo.py
+```
+
+On Linux use `.venv/bin/python`. The default is **1,000 simulations**, seed 42,
+degree-bin matching, and the **MoonLitDB protein set** across the five default
+interactomes: HuRI, BioPlex, TAGC binary 2025, huMAP2_0.05, and huMAP2_0.95.
+Prepared canonical networks and the saved moonlighting UniProt mapping are required;
+the script does not download or remap data. Use `--help` for source, network,
+isoform and filter options. For example, `--protein-set all` selects the union,
+and `--analyses cohesion` runs only cohesion.
+
+Each completed network/analysis job saves a bundle in `data/analysis_runs/` and
+warms the application's method cache. Rerun the same command to reuse completed
+jobs. In the app choose the same protein set, filters, networks, seed, matching
+and 1,000 permutations/simulations to reuse these results. Interrupted individual
+jobs restart from their beginning. Exact shortest-path simulations may take a
+long time; the 500,000-edge guard remains enforced. Skipped jobs are reported and
+produce a nonzero exit status while other jobs continue.
+
+Cohesion tests internal edges and the induced largest component against random
+protein sets from the whole network. Shortest paths compare average unweighted
+distance between reachable protein-set pairs through the **full interactome**
+against equally sized sets from the protein-set complement. Matching uses
+`floor(log2 degree)` bins with the existing sampler's fallback behavior.
+Reachability is reported separately: a shorter conditional mean can reflect
+fragmentation. Undefined observed or null distances make that test unavailable.
+The existing empirical tests retain their +1 corrections: upper-tail for
+cohesion, doubled smaller inclusive tail for shortest paths.
+
+The summary CSV and JSON in `data/analysis_runs/` record effects, provenance,
+failures, and BH correction separately across all available requested
+network/metric tests for each analysis (both cohesion metrics share one family).
+Significance labels use adjusted q-values: `*` < 0.05, `**` < 0.01,
+`***` < 0.001, `****` < 0.0001; `ns` is nonsignificant and `n/a` unavailable.
+With 1,000 simulations the smallest two-sided shortest-path p-value is 2/1001.
+Topology alone does not establish moonlighting or binding exclusivity.
+
+# Saved clustering explorer
+
+The **Precomputed clusters** page browses all saved runs under
+`data/analysis_runs/clustering_raw`, including historical attempts and failed-job
+diagnostics. Select a network, algorithm, and run to inspect cluster sizes,
+protein memberships, and GO/Reactome annotation evidence. These saved networks
+are independent of the sidebar isoform selection.
+
+Precompute functional labels with `python clustering_explorer.py`. Defaults are
+`--methods` followed by method IDs. Successful runs are annotated against their
+original network population, with network fingerprint validation. Bundles live
+in `data/analysis_runs/clustering_annotations/` and are keyed by source, annotation,
+and code fingerprints. Repeated runs reuse matching bundles. GO propagation is
+cached in `data/annotations/` using the existing source-validation policy.
+Labels use GO BP/MF/CC and Reactome one-sided hypergeometric enrichment with one
+BH family across eligible terms, clusters, and full/core/interface subsets per
+run. They summarize functional evidence and require biological interpretation.
+
+# Coverage and topology notebook
+
+`notebooks/coverage_topology.ipynb` reproduces the coverage, optional connectivity simulations, topology distributions, and hub-enrichment plots using the selected local network files and protein-set filters. Configure its parameters before running; optional simulations and uncached centrality calculations can be slow. The overview degree distribution uses a logarithmic axis.
+
+### huMAP3
+
+huMAP3 uses the full candidate-pair archive `humap3_all_ppis_202305.pairsWprob.gz` in `data/raw_networks/` (25,992,007 source rows and 17,233 distinct source endpoint IDs). The earlier complex-only preparation has been removed. Run `.venv/Scripts/python.exe pipelines/map_networks.py` to refresh official UniProt mapping and prepare canonical networks and confidence versions. Raw inputs are preserved.
+
+The shared UniProt mapping, isoform policies, filtering audits and inclusive confidence cutoffs apply to the full network. Native confidence scores are not p-values and are not assumed calibrated across huMAP releases. See the [official file definitions](https://humap3.proteincomplexes.org/download).
+
+The full huMAP3 archive was prepared with official UniProt release `2026_04`. Under the parent-accession collapse policy, the base contains 16,634 nodes and 25,436,441 edges; score ≥ 0.05 retains 15,506 nodes and 3,757,080 edges; score ≥ 0.95 retains 13,028 nodes and 98,360 edges. Full filtering counts, mapping provenance, node annotations and alternate isoform views are saved under `data/processed_networks/`. Use the 0.95 version for analyses subject to the 500,000-edge guard; both the base and 0.05 version exceed it.
+
+Cluster annotation is implemented in `clusterannotation.py`; the existing
+`annotate_clusters` import and CLI remain compatible. Run, for example:
+
+```powershell
+python -m clusterannotation --memberships memberships.parquet --network HuRI --output data/analysis_runs/labels
+```
+
+Every new bundle also includes `go_hierarchy_labels.csv` and `label_summary.csv`.
+The hierarchy table reports all tied leading GO terms at each minimum root distance
+for BP, MF and CC, for full clusters, exclusive cores and shared interfaces.
+Annotations propagate through is_a/part_of; roots are excluded. Each protein votes
+once per term. Support uses all subset proteins, including unannotated proteins;
+a strict majority requires >50%. GO is a DAG, so these depths are descriptive,
+not exclusive biological levels. Plurality leaders are retained with
+`is_majority=false` when no majority exists. No significance test applies to votes.
+The summary shows the deepest majority terms and, independently, the best full-cluster
+GO BP/MF/CC and Reactome enrichment labels with q-values and folds. Missing labels
+remain empty. Enrichment uses the full network background and the existing single
+BH family across all eligible terms, clusters and subsets, including zero-hit tests.
+Changing the annotation implementation invalidates saved explorer annotation caches.
+
+Hierarchy labels now support multiple processes with unequal counts at the same
+depth. The detailed hierarchy CSV retains every term with at least one protein hit.
+The summary's `GO_*_hierarchy_labels` columns list all terms with at least two
+protein hits at every depth, with GO IDs, counts, denominators and percentages.
+For example, process b1 (8/20, 40%) and process b2 (12/20, 60%) both appear.
+Only b2 is a strict majority in this example. A protein can support several GO
+terms, so percentages need not sum to 100%. This supersedes the tied-leaders-only
+policy described above. Enrichment labels and correction remain unchanged.
+
+UniProt FUNCTION text labels are optional and implemented in `clusterannotation.py`:
+
+```powershell
+python -m clusterannotation --memberships memberships.parquet --network HuRI --uniprot-functions data/annotations/uniprot_functions.tsv --fetch-uniprot --output data/analysis_runs/function_labels
+```
+
+`--fetch-uniprot` downloads human accession and `cc_function` fields through the
+UniProt API only when the target TSV does not exist. Omit that flag for offline
+use. The TSV accepts `Entry` / `Function [CC]` (UniProt export), `protein` /
+`function`, or `protein` / `cc_function` columns. Text labels are disabled when
+neither option is supplied; no online request occurs implicitly.
+
+`uniprot_function_labels.parquet` contains up to ten positive-scoring labels per
+cluster/subset/method, with scores, supporting accession lists, protein counts,
+annotated query counts and background document counts. `label_summary.csv`
+adds `UniProt_FUNCTION_tfidf` and `UniProt_FUNCTION_document_lift` columns.
+These labels complement GO BP/MF/CC and Reactome; UniProt FUNCTION comments are
+free text, distinct from GO cellular component (CC).
+
+TF-IDF fits IDF over all annotated proteins in the supplied network background,
+using lowercase words and adjacent two-word phrases, fixed stopwords, reference
+removal, sublinear term frequency and L2-normalized protein documents. Cluster
+scores average across all subset proteins, including those without comments.
+Document-frequency lift compares annotated subset proteins with their annotated
+network complement using smoothed frequencies `(hits + 0.5)/(documents + 1)`;
+it is unavailable when that complement is empty. Both methods require at least
+two supporting proteins and retain multiple labels. Missing comments, annotation
+bias, synonyms and redundant phrases limit interpretation; scores have no
+statistical test, q-value or significance stars. The manifest records the input
+fingerprint, annotation coverage and method policy. Downloaded snapshots have a
+sidecar containing retrieval time and the UniProt release header when available.
+# 3D cluster explorer
+
+The **Network Visualization / Cytoscape → 3D cluster explorer** workspace shows
+an entire interactome as a graph of saved, disjoint clusters. Node size scales
+with protein count and link width with the number of unique intercluster
+interactions. Clicking a cluster opens its protein-level induced network; a
+cluster selector and Back button provide the same navigation. MoonLitDB or
+another source protein set can be outlined independently of cluster colors.
+Unassigned proteins remain visible as an explicitly named group. Source hashes
+are validated against the saved clustering manifest.
+
+Seeded 3D force layouts and summaries are cached on disk. Aggregation uses the
+complete network with Polars. Drawing is bounded to 2,000 nodes and 20,000 links,
+with visible counts, optional link thresholds and a within-cluster focus protein.
+Complete cluster summaries, assignments and selected-cluster interactions are
+downloadable even when drawing is bounded. Layout coordinates are descriptive
+and have no physical spatial meaning; no significance tests apply.
+The viewer uses **3d-force-graph 1.80.2 / Three.js / WebGL**, bundled locally
+without visualization services or CDN dependencies. Links have adjustable opacity
+and thickness, and hovering a node emphasizes its incident links. Fit graph,
+Zoom and Focus selected controls support close inspection. Protein hovers show
+gene symbols, protein names and exact UniProt IDs from local human GAF,
+moonlighting and BioPlex metadata where available; unknown names stay unavailable.
+Cached starting positions receive a short browser force/collision adjustment.
+
+The component is generated from Streamlit's official CCv2 Pure TypeScript
+template in `components/interactome-graph-3d`. Prebuilt assets ship with the
+repository and the main Python package. To rebuild after frontend changes, run
+`npm ci` and `npm run build` in its `interactome_graph_3d/frontend` directory.
+
+The collapsed **View this network in AR on your phone** panel creates a QR code
+for a read-only snapshot using `3d-force-graph-ar` (A-Frame / AR.js). Choose a
+phone node limit, create a temporary HTTPS link, scan it on a phone, tap
+**Start AR camera**, and point the phone at the included Hiro marker on screen
+or paper. A model-size slider controls its apparent size. Phone snapshots keep
+gene/protein tooltips, cluster colors and protein-set outlines, with up to
+2,000 eligible links. Snapshots are saved in `data/analysis_runs/ar_snapshots/`.
+
+Temporary links use Cloudflare Quick Tunnels to a dedicated loopback-only
+snapshot server; repository files and the Streamlit app are not exposed. Anyone
+with a link can read that snapshot until it is stopped or the app process exits.
+The PC/app must remain running and have internet access. The panel provides
+**Stop this phone AR link**, QR/marker downloads and a standalone HTML export.
+Phone AR requires HTTPS, camera permission and a supported mobile browser;
+the phone loads pinned AR dependencies from jsDelivr. Camera behavior needs
+verification on the target phone. Install `cloudflared` on PATH or set
+`INTERACTOME_CLOUDFLARED`; this workspace also supports the checksum-verified
+2026.11.0 Windows helper under `.venv/.tooling/cloudflared/`.
+
+# Network embeddings
+
+Install the optional tools with `pip install -e ".[embeddings]"`. The **Network embeddings**
+page trains ProNE (default) or GGVec from [nodevectors](https://github.com/VHRanger/nodevectors)
+on every protein in a selected canonical network or saved threshold version. It follows the
+sidebar isoform policy. Use the batch button to prepare all discovered networks for that policy,
+or run `python network_embeddings.py` (`interactome-embed` after installation).
+The CLI also accepts `--method GGVec`, `--dimensions 64`, `--isoforms retain`, and
+`--networks HuRI BioPlex`. Run separately for each desired isoform policy.
+
+Embeddings use sparse undirected binary adjacency with unique pairs and no self loops,
+without NetworkX conversion or edge sampling. Confidence weights are not used. The existing
+500,000-edge guards for advanced NetworkX analyses remain unchanged. Learned vectors and
+source/parameter/package provenance are saved under `data/analysis_runs/network_embeddings/`.
+Source content, parameters, package versions and code fingerprints invalidate saved results.
+ProNE is seeded; GGVec's internal stochastic routines may vary despite the recorded seed.
+
+UMAP, PCA and t-SNE are calculated independently on demand in **2D or 3D**, with cached
+coordinates. Protein-set highlighting defaults to MoonLitDB and is independent of
+the color encoding: open rings or diamonds with white halos and dark borders mark
+members while preserving degree colors. Other source sets and custom UniProt
+accessions are supported, with adjustable outline size, base-point opacity and
+optional accession labels. Highlight changes reuse the selected projection.
+All proteins are displayed with accession/degree hover, degree coloring, protein
+set highlighting (including MoonLitDB), exact accession search, and coordinate/vector downloads.
+Projection settings invalidate the displayed projection until recalculated. Coordinates from
+separate networks are not aligned. These views are descriptive, have no significance test,
+and do not establish functional similarity or moonlighting.
+
+
+The **Clustering and communities** page replaces **Precomputed clusters**.
+The clustering tab has moved out of Topological Analysis into this page's
+**Community analysis → Atlas clustering** workspace; its algorithms, module
+roles, algorithm comparisons, Cytoscape integration and graph-size guard remain
+available. **Community analysis → Saved clustering** uses an existing saved
+partition without rerunning community discovery. Atlas clustering continues to
+reuse caches matching the network and algorithm parameters.
+
+Saved cluster tables and annotation label tables support single-row selection.
+Select a cluster row, then **Autoannotate selected cluster** to compute GO,
+Reactome and optional local Swiss-Prot FUNCTION text labels. The network
+background remains the original full network. The selected-cluster BH family
+includes all eligible terms/libraries and its full/core/interface subsets;
+core/interface membership is computed before selecting the cluster, preserving
+proteins shared with other communities. Whole-run annotation retains the broader
+family across all clusters. Annotation inputs, selected cluster and implementation
+fingerprints distinguish caches. The **Protein-set enrichment** view compares a
+named protein set against every saved community using hypergeometric tests and
+BH across all communities, without rerunning clustering.
+
+Selected-cluster and whole-run annotation views include a GO BP/MF Sankey diagram
+at minimum root depths **2 → 3 → 4**, with full/core/interface selectors, minimum
+protein support and a maximum number of terms per depth. Multiple labels are
+retained. Diagram edges connect actual is_a/part_of ancestors at adjacent depths;
+width counts distinct shared supporting proteins. GO is an overlapping DAG, so
+these widths are not conserved flows and percentages need not sum to 100%.
+Display filtering never recomputes q-values. Nodes show protein support and the
+original enrichment significance; hover includes GO IDs, q-values and folds.
+Unsupported enrichment is `n/a`. The full filtered term table remains inspectable,
+including terms omitted from the diagram. Download standalone interactive HTML
+or the bundle's `go_hierarchy_support.parquet` for supporting accessions.
+
+The default downloaded FUNCTION snapshot is now **human reviewed
+UniProtKB/Swiss-Prot only** (`organism_id:9606 AND reviewed:true`). The local
+`data/annotations/uniprot_functions.tsv` snapshot contains 20,429 unique entries,
+17,361 with FUNCTION comments, from UniProt release 2026_04. Blank descriptions
+are retained. Downloads validate paginated totals and accession uniqueness before
+writing the final TSV. This supersedes the all-human download policy above.
+
+The community workspace now uses a **single clustering algorithm selector**.
+Each method shows its saved-version count or **not saved**, regardless of where
+its partition was computed. Choose an existing **Clustering version**, or open
+**Compute a clustering version** to compute and save one. Atlas computations
+reuse their parameter cache and save the same portable membership/run format;
+other adapters use the existing isolated batch worker. Optional backends remain
+optional, and graph-size/cost guards remain active. Advanced module-role,
+algorithm-comparison and Cytoscape workflows remain under **Additional community
+analyses**. This replaces the separate Atlas/Saved workspace controls above.
+
+In **Cluster enrichment**, click **Analyze cluster enrichment**, select one or
+more result rows, then **Autoannotate selected clusters**. Results persist across
+selection and annotation reruns and are invalidated when the version, protein set
+or source inputs change. The selected clusters share one GO/Reactome BH family;
+all original memberships determine cores/interfaces. Cluster-size tables also
+support multi-selection and the same annotation action.
+
+GO hierarchy diagrams explicitly use black labels and depth headings on a white
+background, plus white tooltips with black text. Protein counts, fractions and
+percentages appear **bold on each node**, not just on hover. Streamlit's chart
+theme is disabled for these diagrams so it cannot override their text contrast;
+the downloadable HTML uses the same colors and labels.
+
+The all-saved-runs community enrichment view includes **Annotation overview across
+clustering methods**. It reads existing annotation bundles for the chosen network,
+shows readable vertical sections per method and library with q-value, stars,
+fold enrichment and protein support, and exports a readable Markdown report or CSV.
+GO sections show the strongest term; Reactome sections show up to five distinct
+pathways, only when enriched (fold > 1) and significant (original adjusted q < 0.05).
+Selected-cluster reports use the same layout instead of a wide label-summary row.
+Reactome also lists up to five pathways with majority support (>50% of all proteins
+in the indicated cluster subset), ranked by support fraction independently of
+enrichment significance. This descriptive summary uses available saved evidence
+and its background-size eligibility; missing annotations remain in the denominator.
+The Markdown report includes these majority labels separately from enrichment.
+Compact reports also include saved UniProt/Swiss-Prot FUNCTION keywords and phrases
+above the GO hierarchy: up to five per subset and scoring method (TF-IDF and
+document lift), with scores and protein support. These are descriptive, without
+significance stars. The cross-method Markdown report includes them as well.
+Original bundle correction families are retained; different families or network
+snapshots prevent interpreting this table as an algorithm benchmark. Descriptive
+GO support and Swiss-Prot FUNCTION scores are not assigned significance.
+GO hierarchy diagrams have a **GO depth range (minimum–maximum)** slider bounded
+by the available support depths for the chosen cluster, subset and GO library.
+Changing depth or display filters does not rerun enrichment or adjust q-values.
+
+In **Clustering and communities → Overlapping memberships**, inspect which saved
+runs actually assign proteins to multiple clusters, then compare every source
+protein set with the shared source-union complement. The analysis counts unique
+cluster IDs per protein and includes unassigned network proteins as zero. It
+reports means, medians, fraction in at least two clusters, overlap odds ratios,
+and rank-biserial effects. One-sided Fisher exact (overlap frequency) and
+Mann–Whitney U (membership burden) tests share one BH family across all compatible
+saved runs and sources in the chosen network. Stars in the fraction plot use the
+adjusted Fisher result. Saved network fingerprints must match. This is an
+unadjusted comparison: degree, coverage and algorithm design can drive overlap;
+it does not establish moonlighting or favor one algorithm biologically.
+
+The overlapping-membership view can apply an exact user-selected threshold to
+saved normalized fuzzy C-means/NMF/RWR/neighborhood scores, with optional strongest
+cluster fallback. This does not modify saved partitions or rerun clustering.
+Results record threshold and fallback, and invalidate when these controls change.
+Disable the option to use the original saved assignments and their algorithm-specific
+adaptive cutoff. Missing/invalid fuzzy matrices are excluded explicitly. Correction
+covers the selected threshold only; exploring thresholds is not a corrected sensitivity test.
+
+### R/linkcomm overlapping cluster generator (OCG)
+
+Run the actual R implementation of `linkcomm::getOCG.clusters` through Python:
+
+```powershell
+# Once, in R (the wrapper never installs packages automatically):
+# install.packages("linkcomm")
+
+python -m pipelines.run_ocg --input data/processed_networks/HuRI.parquet
+
+# Explicit R executable and algorithm controls:
+python -m pipelines.run_ocg --input data/processed_networks/HuRI.parquet --rscript "C:/Program Files/R/R-4.5.0/bin/Rscript.exe" --init-class-sys 3 --cent-class-sys 1 --min-class 2 --max-class-card 0 --timeout 3600
+```
+
+The input is a canonical accession-space Parquet with `a`/`b` columns. Polars
+removes loops and duplicate undirected edges; raw inputs remain untouched. OCG
+receives numeric node labels, and the wrapper maps every returned membership back
+to the original protein. It retains overlapping assignments and records proteins
+omitted by OCG as unassigned rather than inventing singleton communities.
+
+Parameters mirror the [official getOCG.clusters reference](https://alextkalinka.github.io/linkcomm/reference/getOCG.clusters.html):
+initial classes are maximal cliques (1), edges (2), or centered cliques (3, default).
+Centered-class mode 1 maximizes modularity; mode 0 requests a constrained final
+system and requires a positive maximum cardinality. Maximum cardinality 0 means
+unconstrained. These are OCG controls, not fuzzy-membership probability cutoffs.
+
+Successful runs appear as `r.linkcomm_ocg` under Clustering and communities and
+participate in saved-run enrichment, annotation and overlap comparisons. Outputs
+are stored under `data/analysis_runs/clustering_raw/<network>/r.linkcomm_ocg/<hash>/`:
+`memberships.parquet`, `community_sizes.parquet`, `node_map.parquet`, provenance
+and result JSON, the R log/session information, raw R memberships and `ocg.rds`.
+Hashes include the source network, algorithm parameters, bridge code and R/package
+versions. Identical successful runs are reused. R executes in a temporary working
+directory to isolate its intermediate files. A 500,000-edge guard and configurable
+execution timeout limit expensive jobs. Failed runs retain diagnostics; select
+another `--output` directory to retry one with the same identity.
+
+Rscript is found on PATH or in standard Windows R installations. Use `--rscript`
+to override it and `--r-library` to select a library containing linkcomm. Use
+`--network` only to override the input filename's network label and `--output` to
+choose another saved-run root. Installing `linkcomm` follows the
+[package's installation instructions](https://alextkalinka.github.io/linkcomm/).
+
+Local installation: `linkcomm` 1.0-15 and its required dependencies are installed
+in `.r-library/` (ignored by Git). The wrapper automatically selects this library
+when it exists. The source commit is recorded in
+`.r-library/linkcomm-source-commit.txt`. The R bridge was smoke-tested on a
+60-node synthetic network and returned overlapping memberships successfully.
+
+GeneRIF text is included automatically when annotating saved clusters or using the
+shared annotation panel, when `data/generif/generifs_basic.gz` is present. Only human
+(taxon 9606) statements are used, joined through the saved GeneID-to-UniProt mapping.
+Unmapped genes are omitted; ambiguous mappings retain all candidate accessions.
+The CLI opts in with `--generif data/generif/generifs_basic.gz`; use `--gene-mapping`
+to supply a different human mapping JSON (`taxon: 9606`, `mapping: {GeneID: [accessions]}`).
+
+Cluster pseudo-documents combine UniProt FUNCTION text and GeneRIF statements.
+New descriptive methods are c-TF-IDF (cluster term count / retained word count,
+multiplied by log(1 + mean full-cluster word count / network term count)) and
+Dirichlet-smoothed log-odds against the annotated network complement. The latter
+uses the entire supplied UniProt FUNCTION corpus as an informative prior with
+strength 1,000 and additive vocabulary smoothing; it is unavailable without that
+corpus. The full partition defines the c-TF-IDF mean even for selected-cluster runs.
+Overlapping clusters contribute to that mean, while network term counts count each
+protein once. Terms require two supporting proteins, so singleton clusters can
+have no labels. These are rankings, not significance tests, and carry no stars.
+
+Optional YAKE keyphrases (2–4 words) are enabled by installing
+`pip install -e ".[text-annotation]"`; availability is recorded in the manifest.
+YAKE uses lexical statistics, not embedding cosine similarity or noun parsing;
+its score is displayed as `1 / (1 + native_score)` so higher is better.
+GeneRIF statements are not full abstracts. To include linked abstracts offline,
+provide `data/generif/abstracts.tsv` with `pmid` and `abstract` columns (or CLI
+`--abstracts`). Each protein/abstract pair is deduplicated. No articles are fetched
+automatically. Coverage, source fingerprints and mapping limitations are saved in
+the annotation manifest. Source and code changes invalidate saved annotation caches.
+
+In Cluster reports, select one cluster with Inspect cluster and open GO flow diagrams for this cluster to view its saved BP/MF hierarchy, adjust depth and protein subset, or download the diagram. This reads the original annotation bundle and preserves its q-values; it does not rerun enrichment.

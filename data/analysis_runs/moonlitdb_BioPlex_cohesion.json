@@ -1,0 +1,43 @@
+{
+  "data": "C:\\projects\\interactome\\data",
+  "networks": [
+    "C:\\projects\\interactome\\data\\processed_networks\\HuRI.parquet",
+    "C:\\projects\\interactome\\data\\processed_networks\\BioPlex.parquet",
+    "C:\\projects\\interactome\\data\\processed_networks\\TAGC_binary2025.parquet",
+    "C:\\projects\\interactome\\data\\processed_networks\\versions\\huMAP2_0.05.parquet",
+    "C:\\projects\\interactome\\data\\processed_networks\\versions\\huMAP2_0.95.parquet",
+    "C:\\projects\\interactome\\data\\processed_networks\\versions\\huMAP3_0.95.parquet"
+  ],
+  "protein_set": "moonlitdb",
+  "simulations": 1000,
+  "seed": 42,
+  "analyses": [
+    "shortest_path",
+    "cohesion"
+  ],
+  "uniform": false,
+  "reviewed_only": false,
+  "min_publications": 0,
+  "scope": "lcc",
+  "dry_run": false,
+  "verbose": true,
+  "no_progress": true,
+  "cohort_sha256": "47794ebecc025570c04f87d5f0f9fcc0d09fd043ee49657eb25d5a14aad89116",
+  "distance_definition": "Exact unweighted mean over finite unordered distinct within-set pairs; paths traverse the fixed full graph. Disconnected pairs excluded and reachable fractions reported.",
+  "null_model": "Independent equal-size sets sampled without replacement per trial from the comparison graph, including query proteins; floor(log2 degree) counts preserved unless --uniform.",
+  "test": "Shortest path: two-sided doubled smaller +1 empirical tail (unavailable if any trial has no reachable pairs). Cohesion: upper +1 empirical tail.",
+  "correction": "BH across all requested networks/metrics separately for shortest path and cohesion. Stars: q<0.05/0.01/0.001/0.0001; ns otherwise; n/a unavailable.",
+  "limitation": "Finite-pair means condition on reachability; compare reachable fractions or use --scope lcc. Topology does not establish moonlighting.",
+  "distance_cache": "C:\\projects\\interactome\\data\\analysis_runs\\shortest_path_distances\\0944edfb5835c76ac31db793dfb5215dd4177199b5f50ff3cc2dd66b0e119e6f",
+  "reachable_pair_fraction": 1.0,
+  "run_signature": "b6c062b7455bd333",
+  "network_path": "C:\\projects\\interactome\\data\\processed_networks\\BioPlex.parquet",
+  "network_sha256": "f003d0b74df34903dd020a6137e97c4f2e6440d72f7faa0742f18b2835c10ded",
+  "analysis": "cohesion",
+  "exported_columns": [
+    "simulation",
+    "internal_edges",
+    "largest_component"
+  ],
+  "automatic_job_key": "0a9702844036119e"
+}

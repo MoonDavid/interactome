@@ -1,0 +1,64 @@
+[
+  {
+    "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\TAGC_binary2025\\cdlib.ego_networks\\8c40c39df1f6f3f2",
+    "annotation_directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\TAGC_binary2025\\cdlib.ego_networks\\8c40c39df1f6f3f2\\edaa46adcba34b57",
+    "communities": [
+      "5108",
+      "3477",
+      "643",
+      "191",
+      "8706",
+      "4613",
+      "186",
+      "5529",
+      "830",
+      "5342",
+      "130",
+      "631",
+      "7769"
+    ]
+  },
+  {
+    "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\TAGC_binary2025\\igraph.infomap\\8cca66dc0917003e",
+    "annotation_directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\TAGC_binary2025\\igraph.infomap\\8cca66dc0917003e\\6d474a2a08b3b602",
+    "communities": [
+      "403",
+      "135"
+    ]
+  },
+  {
+    "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\TAGC_binary2025\\atlas.ego_splitting\\694036a91c9713f9",
+    "annotation_directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\TAGC_binary2025\\atlas.ego_splitting\\694036a91c9713f9\\c2934e5d1286338e",
+    "communities": [
+      "204"
+    ]
+  },
+  {
+    "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\TAGC_binary2025\\networkx.k_clique_communities\\48fa1a4d19d96250",
+    "annotation_directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\TAGC_binary2025\\networkx.k_clique_communities\\48fa1a4d19d96250\\e7d946b0da2ed804",
+    "communities": [
+      "188"
+    ]
+  },
+  {
+    "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\TAGC_binary2025\\cdlib.surprise_communities\\93f70bdd0ca23176",
+    "annotation_directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\TAGC_binary2025\\cdlib.surprise_communities\\93f70bdd0ca23176\\2fcba8e0d6ecd6e6",
+    "communities": [
+      "107"
+    ]
+  },
+  {
+    "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\TAGC_binary2025\\markov_clustering.mcl\\80c1ab1c68fee98e",
+    "annotation_directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\TAGC_binary2025\\markov_clustering.mcl\\80c1ab1c68fee98e\\a5b11f87f8793b45",
+    "communities": [
+      "146"
+    ]
+  },
+  {
+    "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\TAGC_binary2025\\atlas.k_core_shells\\40341cf3c579c27d",
+    "annotation_directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\TAGC_binary2025\\atlas.k_core_shells\\40341cf3c579c27d\\ac451406a63f402b",
+    "communities": [
+      "98"
+    ]
+  }
+]

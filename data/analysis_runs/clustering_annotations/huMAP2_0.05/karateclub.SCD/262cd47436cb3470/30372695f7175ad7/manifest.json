@@ -1,0 +1,139 @@
+{
+  "schema_version": 5,
+  "created_utc": "2026-11-12T14:29:37.627401+00:00",
+  "uniprot_function_labels": {
+    "status": "complete",
+    "source": {
+      "path": "C:\\projects\\interactome\\data\\annotations\\uniprot_functions.tsv",
+      "size": 12656888,
+      "mtime_ns": 1794488715910466500,
+      "sha256": "70cb62ffe3388445866a7707867b4e9c831234aa63742e3febbd7f5444237494"
+    },
+    "annotated_background": 8036,
+    "population": 8709,
+    "policy": "FUNCTION comments only; evidence references removed; lowercase unigrams and bigrams; fixed stopwords; sublinear TF, smoothed protein-document IDF, L2 normalization, mean over all subset proteins; document_lift uses annotated subset vs annotated complement with 0.5/1 smoothing; >=2 supporting proteins; top 10 positive scores per method/subset; descriptive scores, no p-values or significance; phrases may be redundant"
+  },
+  "sources": {
+    "network": {
+      "path": "C:\\projects\\interactome\\data\\processed_networks\\versions\\huMAP2_0.05.parquet",
+      "size": 257593,
+      "mtime_ns": 1794304629556620800,
+      "sha256": "8ecfd921a219c06d17bb6d2a9321d298e0e8325a85cab79eb7a823c780a91173"
+    },
+    "memberships": {
+      "path": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\huMAP2_0.05\\karateclub.SCD\\262cd47436cb3470\\memberships.parquet",
+      "size": 50243,
+      "mtime_ns": 1794474128149686900,
+      "sha256": "21b088b7973908d270d2f0ff46a01e79d9d6066d6fbcee1a77363ec682cd5f7d"
+    },
+    "network_audit": {
+      "path": "C:\\projects\\interactome\\data\\processed_networks\\versions\\huMAP2_0.05.json",
+      "size": 3704,
+      "mtime_ns": 1794304629573224500,
+      "sha256": "2953b37b92bfd5a212d1f367d4f9df4999fa51c66c38ad17eff1e6ec35ca285a"
+    },
+    "clustering_result": {
+      "path": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\huMAP2_0.05\\karateclub.SCD\\262cd47436cb3470\\result.json",
+      "size": 7035,
+      "mtime_ns": 1794474128151680800,
+      "sha256": "e3994a8c732b76947fa7cea90f56cb907591ff87683864b3da932da07b163944"
+    },
+    "go": {
+      "created_utc": "2026-11-10T12:19:28.737587+00:00",
+      "policy": "UniProtKB human primary taxon; exclude NOT; collapse numeric isoform suffix; GO ancestor propagation via is_a and part_of; evidence retained",
+      "sources": {
+        "gaf": {
+          "path": "C:\\projects\\interactome\\data\\GO\\HUMAN-uniprot.gaf.gz",
+          "size": 12109254,
+          "mtime_ns": 1794234165140993200
+        },
+        "obo": {
+          "path": "C:\\projects\\interactome\\data\\GO\\go-basic.obo",
+          "size": 32227785,
+          "mtime_ns": 1794234248139794700
+        }
+      },
+      "gaf_sha256": "a0afba19dfb1f8fa996bc1bdcd61fd0c9bd4cf0d2bf2509d09ac86993c0e70a2",
+      "obo_sha256": "b08d45b268b8c24ccb2513dbbbc7d4df9f6521c099b413f79eb31e06e0fa3bcc",
+      "gaf_headers": [
+        "!gaf-version: 2.2",
+        "!generated-by: UniProt",
+        "!date-generated: 2026-07-28 19:42",
+        "!go-version: http://purl.obolibrary.org/obo/go/releases/2026-07-26/extensions/go-plus.ofn"
+      ],
+      "ontology_headers": [
+        "format-version: 1.2",
+        "data-version: releases/2026-07-26"
+      ],
+      "audit": {
+        "source_rows": 910476,
+        "not_rows_excluded": 1497,
+        "nonhuman_or_nonuniprot_rows_excluded": 47765,
+        "unknown_or_obsolete_terms_excluded": 0
+      },
+      "direct_unique_evidence_rows": 437530,
+      "propagated_protein_term_rows": 1511426,
+      "proteins": 19775,
+      "terms": 20984
+    },
+    "reactome": {
+      "path": "C:\\projects\\interactome\\data\\reactome\\UniProt2Reactome.txt",
+      "size": 43219161,
+      "mtime_ns": 1794238025981646900,
+      "sha256": "e16cf600292fc592957daf696ab5ffd9373ed6b49582def5988ec5bedfcc48cf"
+    }
+  },
+  "parameters": {
+    "selected_communities": [
+      "35"
+    ],
+    "libraries": [
+      "GO_BP",
+      "GO_MF",
+      "GO_CC",
+      "Reactome"
+    ],
+    "min_background_hits": 5,
+    "min_label_hits": 2,
+    "max_qvalue": 0.05,
+    "ancestor_hit_jaccard_strictly_above": 0.7,
+    "test": "one-sided hypergeometric; one BH family across nonempty subsets and libraries",
+    "reactome_policy": "human R-HSA pathways in the supplied lowest-level mapping",
+    "majority_policy": "GO is_a/part_of propagation; minimum root distance; roots excluded; unique protein votes / all subset proteins; strict >50%; all terms with hits per depth; summary includes every term with >=2 hits at every depth and deepest majority; protein supports may overlap; descriptive, no statistical test"
+  },
+  "coverage": {
+    "background": 8709,
+    "assigned": 11,
+    "unassigned": 8698,
+    "libraries": {
+      "GO_BP": {
+        "annotated_background": 8102,
+        "annotated_assigned": 11,
+        "eligible_terms": 5914
+      },
+      "GO_MF": {
+        "annotated_background": 8437,
+        "annotated_assigned": 11,
+        "eligible_terms": 1386
+      },
+      "GO_CC": {
+        "annotated_background": 8463,
+        "annotated_assigned": 11,
+        "eligible_terms": 1062
+      },
+      "Reactome": {
+        "annotated_background": 5813,
+        "annotated_assigned": 11,
+        "eligible_terms": 1280
+      }
+    }
+  },
+  "clusters": 1,
+  "tested_subsets": 2,
+  "memberships_sha256": "1496861c90b4c7e84b3f1fa7e0a38c172706b8e7dc58428b50d71b90ee66a432",
+  "tests": 19284,
+  "zero_hit_tests_omitted_from_table": 18462,
+  "cytoscape_comparison": {
+    "status": "not_requested"
+  }
+}

@@ -6,7 +6,7 @@ workers; listing methods never imports heavyweight or GPU packages.
 from __future__ import annotations
 
 import ast
-from dataclasses import asdict, dataclass
+from dataclasses import asdict
 from datetime import datetime, timezone
 import hashlib
 import importlib
@@ -34,6 +34,8 @@ from rich.table import Table
 
 from networks import _fingerprint, _write_json, _write_parquet, discover_datasets, load_network
 
+from clustering_methods import Method, catalog
+
 app = typer.Typer(no_args_is_help=True, pretty_exceptions_enable=False,
                   help="Cluster canonical interactomes with native and research backends.")
 console = Console()
@@ -51,56 +53,14 @@ SCHEMA_VERSION = 1
 EDGE_LIMIT = 500_000
 
 
-@dataclass(frozen=True)
-class Method:
-    id: str
-    backend: str
-    name: str
-    family: str = 'hard'
-    costly: bool = False
-    dense: bool = False
 
 
-def catalog() -> dict[str, Method]:
-    from moonlighting import CLUSTERING_CATALOG
-    methods = [Method(f'atlas.{name}', 'atlas', name, spec['paradigm'],
-                      name not in {'louvain', 'label_propagation', 'k_core_shells'})
-               for name, spec in CLUSTERING_CATALOG.items()]
-
-    def add(backend, names, family='hard', costly=False, dense=False):
-        methods.extend(Method(f'{backend}.{name}', backend, name, family, costly, dense)
-                       for name in names.split())
-
-    add('networkx', 'louvain_communities fast_label_propagation_communities '
-        'asyn_lpa_communities label_propagation_communities')
-    add('networkx', 'greedy_modularity_communities girvan_newman', 'hierarchical', True)
-    add('networkx', 'k_clique_communities', 'overlapping', True)
-    add('igraph', 'multilevel leiden infomap label_propagation')
-    add('igraph', 'fastgreedy walktrap leading_eigenvector edge_betweenness', 'hierarchical', True)
-    add('leidenalg', 'RBConfigurationVertexPartition CPMVertexPartition ModularityVertexPartition')
-    add('sknetwork', 'Louvain Leiden PropagationClustering')
-    add('sknetwork_hierarchy', 'Paris LouvainHierarchy', 'hierarchical', True)
-    add('graspologic_partition', 'leiden hierarchical_leiden')
-    add('graspologic_cluster', 'AutoGMMCluster KMeansCluster', 'embedding', True)
-    add('sklearn', 'KMeans MiniBatchKMeans Birch DBSCAN OPTICS MeanShift', 'embedding', True)
-    add('sklearn', 'AffinityPropagation AgglomerativeClustering', 'embedding', True, True)
-    add('sklearn', 'SpectralClustering', 'spectral', True)
-    add('cdlib', 'louvain leiden infomap label_propagation')
-    add('cdlib', 'demon ego_networks slpa angel kclique', 'overlapping', True)
-    add('cdlib', 'walktrap surprise_communities significance_communities', 'hard', True)
-    add('karateclub', 'BigClam DANMF MNMF NNSED SymmNMF', 'soft', True)
-    add('karateclub', 'EgoNetSplitter', 'overlapping', True)
-    add('karateclub', 'EdMot SCD GEMSEC', 'hard', True)
-    add('networkit', 'PLM PLP ParallelLeiden')
-    add('cugraph', 'louvain leiden ecg')
-    add('infomap', 'Infomap')
-    add('markov_clustering', 'mcl', 'flow', True)
-    add('hdbscan', 'HDBSCAN', 'embedding', True)
-    return {m.id: m for m in methods}
 
 
 def versions() -> dict:
     result = {'python': sys.version, 'platform': sys.platform}
+    from native_clustering import tool_fingerprints
+    result['native_tools'] = tool_fingerprints()
     for name in PACKAGES:
         try:
             result[name] = metadata.version(name)
@@ -116,10 +76,23 @@ def source_digest() -> str:
                 'compatible_source_digests', 'reusable', 'worker_resources', 'gpu_resources',
                 'resource_label', 'worker_runtimes', 'run', 'inspect_module', 'main'}
     source = ast.parse(Path(__file__).read_bytes())
-    source.body = [node for node in source.body
-                   if not (isinstance(node, ast.FunctionDef) and node.name in cli_only)]
+    inventory = ast.parse(Path(__file__).with_name('clustering_methods.py').read_bytes())
+    definitions = [node for node in inventory.body if isinstance(node, (ast.ClassDef, ast.FunctionDef))]
+    body = []
+    # Inline the shared inventory for hashing so moving it out of this CLI does
+    # not invalidate unchanged clustering workers or historical resume keys.
+    for node in source.body:
+        if isinstance(node, ast.ImportFrom) and node.module == 'clustering_methods':
+            continue
+        if isinstance(node, ast.ImportFrom) and node.module == 'dataclasses':
+            node.names.append(ast.alias(name='dataclass'))
+        if isinstance(node, ast.FunctionDef) and node.name == 'versions':
+            body.extend(definitions)
+        if not (isinstance(node, ast.FunctionDef) and node.name in cli_only):
+            body.append(node)
+    source.body = body
     digest.update(ast.dump(source).encode())
-    for name in ('moonlighting.py', 'networks.py'):
+    for name in ('moonlighting.py', 'networks.py', 'native_clustering.py'):
         digest.update(Path(__file__).with_name(name).read_bytes())
     return digest.hexdigest()
 
@@ -209,8 +182,6 @@ def select_methods(patterns: list[str] | None) -> list[Method]:
             ('markov_clustering.mcl', 'atlas.mcl'),
             ('sklearn.SpectralClustering', 'atlas.spectral'),
             ('networkx.k_clique_communities', 'atlas.k_clique_percolation', 'cdlib.kclique'),
-            ('atlas.ego_splitting', 'karateclub.EgoNetSplitter'),
-            ('atlas.demon', 'cdlib.demon'),
             ('atlas.bigclam_nmf', 'karateclub.BigClam'),
             ('atlas.fuzzy_nmf', 'karateclub.SymmNMF'),
             ('sklearn.MiniBatchKMeans', 'sklearn.KMeans', 'graspologic_cluster.KMeansCluster'),
@@ -290,7 +261,10 @@ def execute(method: Method, graph: dict, p: dict):
     k = min(p['clusters'], n)
     extra, soft = {}, None
     backend, name = method.backend, method.name
-    if backend == 'atlas':
+    if backend == 'native':
+        from native_clustering import execute_native
+        communities, extra = execute_native(name, graph, seed)
+    elif backend == 'atlas':
         from moonlighting import _execute_clustering_algorithm
         communities, soft, extra = _execute_clustering_algorithm(
             graph, nx_graph(graph), algorithm=name, resolution=resolution,
@@ -377,7 +351,7 @@ def execute(method: Method, graph: dict, p: dict):
         from cdlib import algorithms
         kwargs = {
             'louvain': {'resolution': resolution, 'randomize': seed},
-            'demon': {'epsilon': 0.25}, 'slpa': {'t': 100, 'r': 0.1},
+            'slpa': {'t': 100, 'r': 0.1},
             'angel': {'threshold': 0.25}, 'kclique': {'k': p['clique_k']},
         }.get(name, {})
         communities = getattr(algorithms, name)(nx_graph(graph), **kwargs).communities

@@ -60,8 +60,13 @@ def test_cli_verbose_saves_summary(tmp_path, capsys):
     assert 'Checkpoint saved' in output
     assert 'Monte Carlo results' in output
     assert 'Summary saved' in output
-    summary = next((tmp_path / 'analysis_runs').glob('*summary.csv'))
-    assert pl.read_csv(summary).height == 3
+    folder = tmp_path / 'analysis_runs'
+    assert pl.read_csv(folder / 'moonlitdb_tiny_shortest_path_summary.csv').height == 1
+    assert pl.read_csv(folder / 'moonlitdb_tiny_cohesion_summary.csv').height == 2
+    assert pl.read_parquet(folder / 'moonlitdb_tiny_shortest_path.parquet').columns == [
+        'simulation', 'mean_shortest_path', 'reachable_pair_fraction']
+    assert pl.read_parquet(folder / 'moonlitdb_tiny_cohesion.parquet').columns == [
+        'simulation', 'internal_edges', 'largest_component']
 
 
 def test_each_source_uses_independent_arguments(monkeypatch):

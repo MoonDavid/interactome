@@ -1,0 +1,89 @@
+{
+  "description": "Seed 729; ring plus 4N random edges; median of 3 runs; all partitions identical",
+  "results": [
+    {
+      "nodes": 1200,
+      "edges": 5974,
+      "version": "before",
+      "threads": 1,
+      "seconds": 0.3428
+    },
+    {
+      "nodes": 1200,
+      "edges": 5974,
+      "version": "before",
+      "threads": 4,
+      "seconds": 0.3571
+    },
+    {
+      "nodes": 1200,
+      "edges": 5974,
+      "version": "before",
+      "threads": 8,
+      "seconds": 0.4483
+    },
+    {
+      "nodes": 1200,
+      "edges": 5974,
+      "version": "after",
+      "threads": 1,
+      "seconds": 0.2714
+    },
+    {
+      "nodes": 1200,
+      "edges": 5974,
+      "version": "after",
+      "threads": 4,
+      "seconds": 0.2791
+    },
+    {
+      "nodes": 1200,
+      "edges": 5974,
+      "version": "after",
+      "threads": 8,
+      "seconds": 0.3119
+    },
+    {
+      "nodes": 3000,
+      "edges": 14983,
+      "version": "before",
+      "threads": 1,
+      "seconds": 3.2876
+    },
+    {
+      "nodes": 3000,
+      "edges": 14983,
+      "version": "before",
+      "threads": 4,
+      "seconds": 3.9759
+    },
+    {
+      "nodes": 3000,
+      "edges": 14983,
+      "version": "before",
+      "threads": 8,
+      "seconds": 3.2459
+    },
+    {
+      "nodes": 3000,
+      "edges": 14983,
+      "version": "after",
+      "threads": 1,
+      "seconds": 2.9092
+    },
+    {
+      "nodes": 3000,
+      "edges": 14983,
+      "version": "after",
+      "threads": 4,
+      "seconds": 2.422
+    },
+    {
+      "nodes": 3000,
+      "edges": 14983,
+      "version": "after",
+      "threads": 8,
+      "seconds": 2.5262
+    }
+  ]
+}

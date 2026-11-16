@@ -1,0 +1,14 @@
+{
+  "method": "PCA",
+  "dimensions": 2,
+  "seed": 42,
+  "neighbors": 15,
+  "min_dist": 0.1,
+  "perplexity": 30.0,
+  "vectors_sha256": "1a37b62b19b667d3d08d0e72dfc9eb698816adff52b287386743330ed81e816a",
+  "code_sha256": "04b8a9572eb017e5362ee8f3106478242bff479e8ed431b12fe3a4f8fb22e5f8",
+  "versions": {
+    "scikit-learn": "1.9.1",
+    "umap-learn": "0.5.12"
+  }
+}

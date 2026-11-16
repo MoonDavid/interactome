@@ -74,6 +74,8 @@ def test_offline_bundle_and_global_correction(inputs, tmp_path):
     assert 'GO:0000001' in evidence['term_id'].to_list()
     manifest = json.loads((output / 'manifest.json').read_text())
     assert manifest['coverage']['background'] == 80
+    assert manifest['uniprot_function_labels']['status'] == 'not_requested'
+    assert pl.read_parquet(output / 'uniprot_function_labels.parquet').is_empty()
     assert manifest['coverage']['unassigned'] == 55
     assert manifest['tests'] == 4 * 12
     assert manifest['coverage']['libraries']['Reactome']['eligible_terms'] == 1
@@ -87,6 +89,20 @@ def test_gaf_compression_preserves_annotations(inputs, tmp_path):
     plain = prepare_go_annotations(tmp_path / 'plain', gaf, obo)
     zipped = prepare_go_annotations(tmp_path / 'compressed', compressed, obo)
     assert pl.read_parquet(plain).equals(pl.read_parquet(zipped))
+
+
+def test_selected_cluster_preserves_original_interface_membership(inputs, tmp_path):
+    network, members, obo, _, compressed, reactome = inputs
+    frame, population, source = annotate.file_input(members, str(network))
+    result = annotate.annotate_memberships(frame, population, source, gaf=compressed,
+        obo=obo, reactome=reactome, communities=['A'])
+    labels = result['labels'].row(0, named=True)
+    assert result['labels'].height == 1
+    assert labels['core_size'] == 5
+    assert labels['interface_size'] == 5
+    assert result['manifest']['coverage']['background'] == 80
+    assert result['manifest']['parameters']['selected_communities'] == ['A']
+    assert result['manifest']['tests'] == 4 * 3
 
 
 def test_unmatched_membership_is_reported():

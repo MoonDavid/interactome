@@ -1,0 +1,247 @@
+[
+  {
+    "network": "HuRI",
+    "network_sha256": "5f1e8b6af1b7016c1da34dc1ad99475dc19d25b5b9da7cd19d24a8593f810e2c",
+    "metadata": {
+      "data": "C:\\projects\\interactome\\data",
+      "networks": [
+        "C:\\projects\\interactome\\data\\processed_networks\\HuRI.parquet",
+        "C:\\projects\\interactome\\data\\processed_networks\\BioPlex.parquet",
+        "C:\\projects\\interactome\\data\\processed_networks\\TAGC_binary2025.parquet",
+        "C:\\projects\\interactome\\data\\processed_networks\\versions\\huMAP2_0.05.parquet",
+        "C:\\projects\\interactome\\data\\processed_networks\\versions\\huMAP2_0.95.parquet",
+        "C:\\projects\\interactome\\data\\processed_networks\\versions\\huMAP3_0.95.parquet"
+      ],
+      "protein_set": "moonlitdb",
+      "simulations": 1000,
+      "seed": 42,
+      "analyses": [
+        "shortest_path",
+        "cohesion"
+      ],
+      "uniform": false,
+      "reviewed_only": false,
+      "min_publications": 0,
+      "scope": "lcc",
+      "dry_run": false,
+      "verbose": true,
+      "no_progress": true,
+      "cohort_sha256": "47794ebecc025570c04f87d5f0f9fcc0d09fd043ee49657eb25d5a14aad89116",
+      "distance_definition": "Exact unweighted mean over finite unordered distinct within-set pairs; paths traverse the fixed full graph. Disconnected pairs excluded and reachable fractions reported.",
+      "null_model": "Independent equal-size sets sampled without replacement per trial from the comparison graph, including query proteins; floor(log2 degree) counts preserved unless --uniform.",
+      "test": "Shortest path: two-sided doubled smaller +1 empirical tail (unavailable if any trial has no reachable pairs). Cohesion: upper +1 empirical tail.",
+      "correction": "BH across all requested networks/metrics separately for shortest path and cohesion. Stars: q<0.05/0.01/0.001/0.0001; ns otherwise; n/a unavailable.",
+      "limitation": "Finite-pair means condition on reachability; compare reachable fractions or use --scope lcc. Topology does not establish moonlighting.",
+      "distance_cache": "C:\\projects\\interactome\\data\\analysis_runs\\shortest_path_distances\\e4209b5cbf8f716266d1781e7de16fe9c26436212e5df8e56a5218d7e1c800b7",
+      "reachable_pair_fraction": 1.0,
+      "run_signature": "b6c062b7455bd333",
+      "network_path": "C:\\projects\\interactome\\data\\processed_networks\\HuRI.parquet",
+      "network_sha256": "5f1e8b6af1b7016c1da34dc1ad99475dc19d25b5b9da7cd19d24a8593f810e2c",
+      "analysis": "shortest_path",
+      "exported_columns": [
+        "simulation",
+        "mean_shortest_path",
+        "reachable_pair_fraction"
+      ],
+      "automatic_job_key": "0a9702844036119e"
+    },
+    "ocg_run": "baf37da45ad36e01",
+    "ocg_result_path": "data\\analysis_runs\\clustering_raw\\HuRI\\c.ocg\\baf37da45ad36e01\\result.json"
+  },
+  {
+    "network": "BioPlex",
+    "network_sha256": "f003d0b74df34903dd020a6137e97c4f2e6440d72f7faa0742f18b2835c10ded",
+    "metadata": {
+      "data": "C:\\projects\\interactome\\data",
+      "networks": [
+        "C:\\projects\\interactome\\data\\processed_networks\\HuRI.parquet",
+        "C:\\projects\\interactome\\data\\processed_networks\\BioPlex.parquet",
+        "C:\\projects\\interactome\\data\\processed_networks\\TAGC_binary2025.parquet",
+        "C:\\projects\\interactome\\data\\processed_networks\\versions\\huMAP2_0.05.parquet",
+        "C:\\projects\\interactome\\data\\processed_networks\\versions\\huMAP2_0.95.parquet",
+        "C:\\projects\\interactome\\data\\processed_networks\\versions\\huMAP3_0.95.parquet"
+      ],
+      "protein_set": "moonlitdb",
+      "simulations": 1000,
+      "seed": 42,
+      "analyses": [
+        "shortest_path",
+        "cohesion"
+      ],
+      "uniform": false,
+      "reviewed_only": false,
+      "min_publications": 0,
+      "scope": "lcc",
+      "dry_run": false,
+      "verbose": true,
+      "no_progress": true,
+      "cohort_sha256": "47794ebecc025570c04f87d5f0f9fcc0d09fd043ee49657eb25d5a14aad89116",
+      "distance_definition": "Exact unweighted mean over finite unordered distinct within-set pairs; paths traverse the fixed full graph. Disconnected pairs excluded and reachable fractions reported.",
+      "null_model": "Independent equal-size sets sampled without replacement per trial from the comparison graph, including query proteins; floor(log2 degree) counts preserved unless --uniform.",
+      "test": "Shortest path: two-sided doubled smaller +1 empirical tail (unavailable if any trial has no reachable pairs). Cohesion: upper +1 empirical tail.",
+      "correction": "BH across all requested networks/metrics separately for shortest path and cohesion. Stars: q<0.05/0.01/0.001/0.0001; ns otherwise; n/a unavailable.",
+      "limitation": "Finite-pair means condition on reachability; compare reachable fractions or use --scope lcc. Topology does not establish moonlighting.",
+      "distance_cache": "C:\\projects\\interactome\\data\\analysis_runs\\shortest_path_distances\\0944edfb5835c76ac31db793dfb5215dd4177199b5f50ff3cc2dd66b0e119e6f",
+      "reachable_pair_fraction": 1.0,
+      "run_signature": "b6c062b7455bd333",
+      "network_path": "C:\\projects\\interactome\\data\\processed_networks\\BioPlex.parquet",
+      "network_sha256": "f003d0b74df34903dd020a6137e97c4f2e6440d72f7faa0742f18b2835c10ded",
+      "analysis": "shortest_path",
+      "exported_columns": [
+        "simulation",
+        "mean_shortest_path",
+        "reachable_pair_fraction"
+      ],
+      "automatic_job_key": "0a9702844036119e"
+    },
+    "ocg_run": "bdc40c5d6b02d84b",
+    "ocg_result_path": "data\\analysis_runs\\clustering_raw\\BioPlex\\c.ocg\\bdc40c5d6b02d84b\\result.json"
+  },
+  {
+    "network": "huMAP2_0.05",
+    "network_sha256": "8ecfd921a219c06d17bb6d2a9321d298e0e8325a85cab79eb7a823c780a91173",
+    "metadata": {
+      "data": "C:\\projects\\interactome\\data",
+      "networks": [
+        "C:\\projects\\interactome\\data\\processed_networks\\HuRI.parquet",
+        "C:\\projects\\interactome\\data\\processed_networks\\BioPlex.parquet",
+        "C:\\projects\\interactome\\data\\processed_networks\\TAGC_binary2025.parquet",
+        "C:\\projects\\interactome\\data\\processed_networks\\versions\\huMAP2_0.05.parquet",
+        "C:\\projects\\interactome\\data\\processed_networks\\versions\\huMAP2_0.95.parquet",
+        "C:\\projects\\interactome\\data\\processed_networks\\versions\\huMAP3_0.95.parquet"
+      ],
+      "protein_set": "moonlitdb",
+      "simulations": 1000,
+      "seed": 42,
+      "analyses": [
+        "shortest_path",
+        "cohesion"
+      ],
+      "uniform": false,
+      "reviewed_only": false,
+      "min_publications": 0,
+      "scope": "lcc",
+      "dry_run": false,
+      "verbose": true,
+      "no_progress": true,
+      "cohort_sha256": "47794ebecc025570c04f87d5f0f9fcc0d09fd043ee49657eb25d5a14aad89116",
+      "distance_definition": "Exact unweighted mean over finite unordered distinct within-set pairs; paths traverse the fixed full graph. Disconnected pairs excluded and reachable fractions reported.",
+      "null_model": "Independent equal-size sets sampled without replacement per trial from the comparison graph, including query proteins; floor(log2 degree) counts preserved unless --uniform.",
+      "test": "Shortest path: two-sided doubled smaller +1 empirical tail (unavailable if any trial has no reachable pairs). Cohesion: upper +1 empirical tail.",
+      "correction": "BH across all requested networks/metrics separately for shortest path and cohesion. Stars: q<0.05/0.01/0.001/0.0001; ns otherwise; n/a unavailable.",
+      "limitation": "Finite-pair means condition on reachability; compare reachable fractions or use --scope lcc. Topology does not establish moonlighting.",
+      "distance_cache": "C:\\projects\\interactome\\data\\analysis_runs\\shortest_path_distances\\87ed5b307e6f4831a1a4fb98959531bb4ea1e0f7b906db2d5a3f0fbb296d07c1",
+      "reachable_pair_fraction": 1.0,
+      "run_signature": "b6c062b7455bd333",
+      "network_path": "C:\\projects\\interactome\\data\\processed_networks\\versions\\huMAP2_0.05.parquet",
+      "network_sha256": "8ecfd921a219c06d17bb6d2a9321d298e0e8325a85cab79eb7a823c780a91173",
+      "analysis": "shortest_path",
+      "exported_columns": [
+        "simulation",
+        "mean_shortest_path",
+        "reachable_pair_fraction"
+      ],
+      "automatic_job_key": "0a9702844036119e"
+    },
+    "ocg_run": "072ec593edf82537",
+    "ocg_result_path": "data\\analysis_runs\\clustering_raw\\huMAP2_0.05\\c.ocg\\072ec593edf82537\\result.json"
+  },
+  {
+    "network": "huMAP2_0.95",
+    "network_sha256": "92ed9888c58f3b6ba480c9b0a3d746ed577559194cfc3283d0f22a98724629d9",
+    "metadata": {
+      "data": "C:\\projects\\interactome\\data",
+      "networks": [
+        "C:\\projects\\interactome\\data\\processed_networks\\HuRI.parquet",
+        "C:\\projects\\interactome\\data\\processed_networks\\BioPlex.parquet",
+        "C:\\projects\\interactome\\data\\processed_networks\\TAGC_binary2025.parquet",
+        "C:\\projects\\interactome\\data\\processed_networks\\versions\\huMAP2_0.05.parquet",
+        "C:\\projects\\interactome\\data\\processed_networks\\versions\\huMAP2_0.95.parquet",
+        "C:\\projects\\interactome\\data\\processed_networks\\versions\\huMAP3_0.95.parquet"
+      ],
+      "protein_set": "moonlitdb",
+      "simulations": 1000,
+      "seed": 42,
+      "analyses": [
+        "shortest_path",
+        "cohesion"
+      ],
+      "uniform": false,
+      "reviewed_only": false,
+      "min_publications": 0,
+      "scope": "lcc",
+      "dry_run": false,
+      "verbose": true,
+      "no_progress": true,
+      "cohort_sha256": "47794ebecc025570c04f87d5f0f9fcc0d09fd043ee49657eb25d5a14aad89116",
+      "distance_definition": "Exact unweighted mean over finite unordered distinct within-set pairs; paths traverse the fixed full graph. Disconnected pairs excluded and reachable fractions reported.",
+      "null_model": "Independent equal-size sets sampled without replacement per trial from the comparison graph, including query proteins; floor(log2 degree) counts preserved unless --uniform.",
+      "test": "Shortest path: two-sided doubled smaller +1 empirical tail (unavailable if any trial has no reachable pairs). Cohesion: upper +1 empirical tail.",
+      "correction": "BH across all requested networks/metrics separately for shortest path and cohesion. Stars: q<0.05/0.01/0.001/0.0001; ns otherwise; n/a unavailable.",
+      "limitation": "Finite-pair means condition on reachability; compare reachable fractions or use --scope lcc. Topology does not establish moonlighting.",
+      "distance_cache": "C:\\projects\\interactome\\data\\analysis_runs\\shortest_path_distances\\ddebce82e44feab3135ba3a84a9ea117ca56e65005739e1c3be4e5293205a57a",
+      "reachable_pair_fraction": 1.0,
+      "run_signature": "b6c062b7455bd333",
+      "network_path": "C:\\projects\\interactome\\data\\processed_networks\\versions\\huMAP2_0.95.parquet",
+      "network_sha256": "92ed9888c58f3b6ba480c9b0a3d746ed577559194cfc3283d0f22a98724629d9",
+      "analysis": "shortest_path",
+      "exported_columns": [
+        "simulation",
+        "mean_shortest_path",
+        "reachable_pair_fraction"
+      ],
+      "automatic_job_key": "0a9702844036119e"
+    },
+    "ocg_run": "a9964e54dea668eb",
+    "ocg_result_path": "data\\analysis_runs\\clustering_raw\\huMAP2_0.95\\c.ocg\\a9964e54dea668eb\\result.json"
+  },
+  {
+    "network": "TAGC_binary2025",
+    "network_sha256": "30c3be2b328044e6743a50ca23fb8fb33886592aac447bb94b149db6c4171807",
+    "metadata": {
+      "data": "C:\\projects\\interactome\\data",
+      "networks": [
+        "C:\\projects\\interactome\\data\\processed_networks\\HuRI.parquet",
+        "C:\\projects\\interactome\\data\\processed_networks\\BioPlex.parquet",
+        "C:\\projects\\interactome\\data\\processed_networks\\TAGC_binary2025.parquet",
+        "C:\\projects\\interactome\\data\\processed_networks\\versions\\huMAP2_0.05.parquet",
+        "C:\\projects\\interactome\\data\\processed_networks\\versions\\huMAP2_0.95.parquet",
+        "C:\\projects\\interactome\\data\\processed_networks\\versions\\huMAP3_0.95.parquet"
+      ],
+      "protein_set": "moonlitdb",
+      "simulations": 1000,
+      "seed": 42,
+      "analyses": [
+        "shortest_path",
+        "cohesion"
+      ],
+      "uniform": false,
+      "reviewed_only": false,
+      "min_publications": 0,
+      "scope": "lcc",
+      "dry_run": false,
+      "verbose": true,
+      "no_progress": true,
+      "cohort_sha256": "47794ebecc025570c04f87d5f0f9fcc0d09fd043ee49657eb25d5a14aad89116",
+      "distance_definition": "Exact unweighted mean over finite unordered distinct within-set pairs; paths traverse the fixed full graph. Disconnected pairs excluded and reachable fractions reported.",
+      "null_model": "Independent equal-size sets sampled without replacement per trial from the comparison graph, including query proteins; floor(log2 degree) counts preserved unless --uniform.",
+      "test": "Shortest path: two-sided doubled smaller +1 empirical tail (unavailable if any trial has no reachable pairs). Cohesion: upper +1 empirical tail.",
+      "correction": "BH across all requested networks/metrics separately for shortest path and cohesion. Stars: q<0.05/0.01/0.001/0.0001; ns otherwise; n/a unavailable.",
+      "limitation": "Finite-pair means condition on reachability; compare reachable fractions or use --scope lcc. Topology does not establish moonlighting.",
+      "distance_cache": "C:\\projects\\interactome\\data\\analysis_runs\\shortest_path_distances\\a5237b40c34acd0d3149afa655eb241cd18f8cd7c19e220c2121b97de1d2025d",
+      "reachable_pair_fraction": 1.0,
+      "run_signature": "b6c062b7455bd333",
+      "network_path": "C:\\projects\\interactome\\data\\processed_networks\\TAGC_binary2025.parquet",
+      "network_sha256": "30c3be2b328044e6743a50ca23fb8fb33886592aac447bb94b149db6c4171807",
+      "analysis": "shortest_path",
+      "exported_columns": [
+        "simulation",
+        "mean_shortest_path",
+        "reachable_pair_fraction"
+      ],
+      "automatic_job_key": "0a9702844036119e"
+    },
+    "ocg_run": "81c464cbc2a9d356",
+    "ocg_result_path": "data\\analysis_runs\\clustering_raw\\TAGC_binary2025\\c.ocg\\81c464cbc2a9d356\\result.json"
+  }
+]

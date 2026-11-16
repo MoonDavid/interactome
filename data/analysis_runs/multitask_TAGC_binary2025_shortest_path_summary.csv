@@ -1,0 +1,2 @@
+protein_set,network,network_path,measure,observed,null_mean,effect_observed_minus_null,p_value,query_nodes,valid_simulations,reachable_pair_fraction,fdr_bh,significance
+multitask,TAGC_binary2025,C:\projects\interactome\data\processed_networks\TAGC_binary2025.parquet,mean_shortest_path,3.1357044946252075,3.206450977562947,-0.07074648293773933,0.025974025974025976,167,1000,1.0,0.03246753246753247,*

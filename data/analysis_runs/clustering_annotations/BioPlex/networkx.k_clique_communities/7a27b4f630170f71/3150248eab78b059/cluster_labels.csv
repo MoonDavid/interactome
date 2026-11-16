@@ -1,0 +1,3 @@
+community,core_size,primary_status,primary_label,primary_term_id,primary_library,interface_size,interface_status,interface_label,interface_term_id,interface_library,full_size,full_context_status,full_context_label,full_context_term_id,full_context_library
+509,3,labeled,Gluconeogenesis,R-HSA-70263,Reactome,0,empty_subset,,,,3,core_labeled,,,
+75,2,no_qualifying_term,,,,5,labeled,elongator holoenzyme complex,GO:0033588,GO_CC,7,labeled,elongator holoenzyme complex,GO:0033588,GO_CC

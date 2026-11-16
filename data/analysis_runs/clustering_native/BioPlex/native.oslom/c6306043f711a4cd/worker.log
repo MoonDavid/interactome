@@ -1,0 +1,21 @@
+Traceback (most recent call last):
+  File "/mnt/c/projects/interactome/cluster_networks.py", line 463, in _worker
+    communities, soft, extra = execute(method, graph, p)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/projects/interactome/cluster_networks.py", line 266, in execute
+    communities, extra = execute_native(name, graph, seed)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/projects/interactome/native_clustering.py", line 48, in execute_native
+    result = subprocess.run(args, cwd=temporary, capture_output=True, text=True,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 550, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 1209, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 2116, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+  File "/usr/lib/python3.12/subprocess.py", line 1253, in _check_timeout
+    raise TimeoutExpired(
+subprocess.TimeoutExpired: Command '['/mnt/c/projects/interactome/.tools/OSLOM2/oslom_undir', '-uw', '-seed', '42', '-r', '10', '-hr', '10', '-f', '/mnt/c/projects/interactome/.tools/tmp/atlas_oslom_u0pbq2fy/edges.txt']' timed out after 300 seconds

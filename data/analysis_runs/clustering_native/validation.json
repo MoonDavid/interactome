@@ -1,0 +1,42 @@
+[
+  {
+    "network": "HuRI",
+    "method": "native.clusterone",
+    "validated": true
+  },
+  {
+    "network": "BioPlex",
+    "method": "native.clusterone",
+    "validated": true
+  },
+  {
+    "network": "TAGC_binary2025",
+    "method": "native.clusterone",
+    "validated": true
+  },
+  {
+    "network": "huMAP2_0.05",
+    "method": "native.clusterone",
+    "validated": true
+  },
+  {
+    "network": "huMAP2_0.05",
+    "method": "native.oslom",
+    "validated": true
+  },
+  {
+    "network": "huMAP2_0.95",
+    "method": "native.clusterone",
+    "validated": true
+  },
+  {
+    "network": "huMAP2_0.95",
+    "method": "native.oslom",
+    "validated": true
+  },
+  {
+    "network": "huMAP3_0.95",
+    "method": "native.clusterone",
+    "validated": true
+  }
+]

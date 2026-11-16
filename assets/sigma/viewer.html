@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Sigma protein network</title>
+<style>
+body{margin:0;font:14px system-ui,sans-serif;color:#1f2937;background:white}
+#toolbar{padding:10px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+#graph{height:590px;width:100%}#details{padding:10px;min-height:30px}
+input,button{font:inherit;padding:5px}#legend{padding:0 10px;color:#374151}
+</style><script>__GRAPHOLOGY_JS__</script><script>__SIGMA_JS__</script></head>
+<body><div id="toolbar"><strong id="title"></strong><input id="search" aria-label="Search protein accession" placeholder="UniProt accession"><button id="find">Find</button><button id="reset">Reset view</button></div>
+<div id="legend">Blue: selected moonlighting protein set · Gray: other proteins · Orange labels: selected cluster · Fixed Python layout</div>
+<div id="graph"></div><div id="details" role="status">Hover or click a protein for details.</div>
+<script>
+const data = __NETWORK_DATA__;
+const graph = new graphology.UndirectedGraph({allowSelfLoops:true});
+graph.import({nodes:data.nodes,edges:data.edges});
+document.getElementById('title').textContent=data.title;
+let renderer;
+const details=document.getElementById('details');
+try {
+renderer=new Sigma(graph,document.getElementById('graph'),{
+  renderEdgeLabels:false,labelDensity:0.07,labelGridCellSize:100,labelRenderedSizeThreshold:8,
+  labelColor:{attribute:'labelColor',color:'#1F2937'},hideEdgesOnMove:true
+});
+let hover=null,neighbors=new Set();
+renderer.setSetting('nodeReducer',(node,attributes)=>{
+  if(hover && node!==hover && !neighbors.has(node))return {...attributes,color:'#E5E7EB',label:'',forceLabel:false};
+  return attributes;
+});
+function show(node){
+  const a=graph.getNodeAttributes(node);
+  details.textContent=`${node} · ${a.protein_set} · Displayed degree: ${a.degree}${a.cluster_selected?' · Selected cluster':''}`;
+}
+renderer.on('enterNode',({node})=>{hover=node;neighbors=new Set(graph.neighbors(node));show(node);renderer.refresh();});
+renderer.on('leaveNode',()=>{hover=null;neighbors.clear();renderer.refresh();});
+renderer.on('clickNode',({node})=>show(node));
+function find(){
+  const query=document.getElementById('search').value.trim().toUpperCase();
+  const node=graph.hasNode(query)?query:graph.nodes().find(n=>query && n.toUpperCase().includes(query));
+  if(!node){details.textContent='No matching accession in the displayed graph.';return;}
+  const point=renderer.getNodeDisplayData(node);
+  renderer.getCamera().animate({x:point.x,y:point.y,ratio:0.15},{duration:400});show(node);
+}
+document.getElementById('find').onclick=find;
+document.getElementById('search').onkeydown=e=>{if(e.key==='Enter')find();};
+document.getElementById('reset').onclick=()=>renderer.getCamera().animatedReset();
+}catch(error){details.textContent='Sigma could not initialize WebGL. Try Static or another viewer. '+error.message;}
+</script></body></html>

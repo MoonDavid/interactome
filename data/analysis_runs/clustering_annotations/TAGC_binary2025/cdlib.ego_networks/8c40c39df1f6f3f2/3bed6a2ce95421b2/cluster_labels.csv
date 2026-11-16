@@ -1,0 +1,26 @@
+community,core_size,primary_status,primary_label,primary_term_id,primary_library,interface_size,interface_status,interface_label,interface_term_id,interface_library,full_size,full_context_status,full_context_label,full_context_term_id,full_context_library
+1054,0,empty_subset,,,,48,labeled,"Signaling by phosphorylated juxtamembrane, extracellular and kinase domain KIT mutants",R-HSA-9670439,Reactome,48,labeled,"Signaling by phosphorylated juxtamembrane, extracellular and kinase domain KIT mutants",R-HSA-9670439,Reactome
+11026,0,empty_subset,,,,3,labeled,spermatid development,GO:0007286,GO_BP,3,labeled,spermatid development,GO:0007286,GO_BP
+1324,0,empty_subset,,,,40,labeled,Signaling by ERBB2,R-HSA-1227986,Reactome,40,labeled,Signaling by ERBB2,R-HSA-1227986,Reactome
+1543,0,empty_subset,,,,35,labeled,gamma-catenin binding,GO:0045295,GO_MF,35,labeled,gamma-catenin binding,GO:0045295,GO_MF
+1554,0,empty_subset,,,,35,labeled,beta-tubulin binding,GO:0048487,GO_MF,35,labeled,beta-tubulin binding,GO:0048487,GO_MF
+1852,0,empty_subset,,,,30,labeled,inclusion body,GO:0016234,GO_CC,30,labeled,inclusion body,GO:0016234,GO_CC
+2602,0,empty_subset,,,,22,labeled,MAP kinase activity,GO:0004707,GO_MF,22,labeled,MAP kinase activity,GO:0004707,GO_MF
+2862,0,empty_subset,,,,20,labeled,eukaryotic translation elongation factor 1 complex,GO:0005853,GO_CC,20,labeled,eukaryotic translation elongation factor 1 complex,GO:0005853,GO_CC
+2943,0,empty_subset,,,,20,labeled,negative regulation of hydrogen peroxide metabolic process,GO:0010727,GO_BP,20,labeled,negative regulation of hydrogen peroxide metabolic process,GO:0010727,GO_BP
+3164,0,empty_subset,,,,18,labeled,Impaired BRCA2 binding to PALB2,R-HSA-9709603,Reactome,18,labeled,Impaired BRCA2 binding to PALB2,R-HSA-9709603,Reactome
+360,0,empty_subset,,,,90,labeled,Hsp90 protein binding,GO:0051879,GO_MF,90,labeled,Hsp90 protein binding,GO:0051879,GO_MF
+3966,0,empty_subset,,,,14,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC,14,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC
+456,0,empty_subset,,,,80,labeled,ficolin-1-rich granule lumen,GO:1904813,GO_CC,80,labeled,ficolin-1-rich granule lumen,GO:1904813,GO_CC
+5108,0,empty_subset,,,,10,labeled,canonical glycolysis,GO:0061621,GO_BP,10,labeled,canonical glycolysis,GO:0061621,GO_BP
+5342,0,empty_subset,,,,10,labeled,canonical glycolysis,GO:0061621,GO_BP,10,labeled,canonical glycolysis,GO:0061621,GO_BP
+544,0,empty_subset,,,,72,labeled,SUMOylation of transcription factors,R-HSA-3232118,Reactome,72,labeled,SUMOylation of transcription factors,R-HSA-3232118,Reactome
+631,0,empty_subset,,,,67,labeled,Signaling by ERBB2,R-HSA-1227986,Reactome,67,labeled,Signaling by ERBB2,R-HSA-1227986,Reactome
+6368,0,empty_subset,,,,8,no_qualifying_term,,,,8,no_qualifying_term,,,
+643,0,empty_subset,,,,66,labeled,secretory granule lumen,GO:0034774,GO_CC,66,labeled,secretory granule lumen,GO:0034774,GO_CC
+657,0,empty_subset,,,,65,labeled,profilin binding,GO:0005522,GO_MF,65,labeled,profilin binding,GO:0005522,GO_MF
+6978,0,empty_subset,,,,7,labeled,protein localization to synapse,GO:0035418,GO_BP,7,labeled,protein localization to synapse,GO:0035418,GO_BP
+849,0,empty_subset,,,,56,labeled,amyloid fibril formation,GO:1990000,GO_BP,56,labeled,amyloid fibril formation,GO:1990000,GO_BP
+8743,0,empty_subset,,,,5,labeled,RISC complex assembly,GO:0070922,GO_BP,5,labeled,RISC complex assembly,GO:0070922,GO_BP
+888,0,empty_subset,,,,54,labeled,PECAM1 interactions,R-HSA-210990,Reactome,54,labeled,PECAM1 interactions,R-HSA-210990,Reactome
+896,0,empty_subset,,,,54,labeled,amyloid fibril formation,GO:1990000,GO_BP,54,labeled,amyloid fibril formation,GO:1990000,GO_BP

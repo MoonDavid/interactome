@@ -1,3 +1,5 @@
 [console_scripts]
-interactome-annotate = annotate_clusters:main
+interactome-annotate = clusterannotation:main
 interactome-cluster = cluster_networks:main
+interactome-embed = network_embeddings:main
+interactome-ocg = pipelines.run_ocg:main

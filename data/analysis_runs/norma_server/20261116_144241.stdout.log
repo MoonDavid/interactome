@@ -1,0 +1,6 @@
+NORMA 3.0 (local mode) is running at http://localhost:8000/
+  REST API: http://localhost:8000/api/external
+  relays:   string, arena3d, databases
+  settings: C:\projects\interactome\tools\NORMA\norma.config.json
+  files:    C:\projects\interactome\tools\NORMA\frontend\dist
+Press Ctrl+C to stop.

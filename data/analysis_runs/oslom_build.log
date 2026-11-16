@@ -1,0 +1,51 @@
+In file included from Sources_2_5/OSLOM_files/main_undirected.cpp:98:
+Sources_2_5/OSLOM_files/hierarchies.h: In function ‘void external_program_to_call(std::string, oslom_net_global&, std::string, int&)’:
+Sources_2_5/OSLOM_files/hierarchies.h:55:13: warning: variable ‘sy’ set but not used [-Wunused-but-set-variable]
+   55 |         int sy;
+      |             ^~
+Sources_2_5/OSLOM_files/hierarchies.h: In function ‘bool write_tp_of_this_level(int, oslom_net_global&, char*, int)’:
+Sources_2_5/OSLOM_files/hierarchies.h:225:13: warning: variable ‘csy’ set but not used [-Wunused-but-set-variable]
+  225 |         int csy;
+      |             ^~~
+In file included from Sources_2_5/OSLOM_files/main_undirected.cpp:126:
+Sources_2_5/OSLOM_files/main_body.cpp: In function ‘int main(int, char**)’:
+Sources_2_5/OSLOM_files/main_body.cpp:60:13: warning: variable ‘sy’ set but not used [-Wunused-but-set-variable]
+   60 |         int sy=system(char_to_use);
+      |             ^~
+Sources_2_5/OSLOM_files/main_body.cpp:59:37: warning: ‘%s’ directive writing up to 999 bytes into a region of size 994 [-Wformat-overflow=]
+   59 |         sprintf(char_to_use, "mkdir %s_oslo_files", directory_char);
+      |                                     ^~              ~~~~~~~~~~~~~~
+In file included from /usr/include/stdio.h:980,
+                 from /usr/include/c++/13/cstdio:42,
+                 from /usr/include/c++/13/ext/string_conversions.h:45,
+                 from /usr/include/c++/13/bits/basic_string.h:4109,
+                 from /usr/include/c++/13/string:54,
+                 from /usr/include/c++/13/bits/locale_classes.h:40,
+                 from /usr/include/c++/13/bits/ios_base.h:41,
+                 from /usr/include/c++/13/ios:44,
+                 from /usr/include/c++/13/ostream:40,
+                 from /usr/include/c++/13/iostream:41,
+                 from Sources_2_5/OSLOM_files/standard_package/standard_include.cpp:6,
+                 from Sources_2_5/OSLOM_files/main_undirected.cpp:29:
+In function ‘int sprintf(char*, const char*, ...)’,
+    inlined from ‘int main(int, char**)’ at Sources_2_5/OSLOM_files/main_body.cpp:59:9:
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:30:34: note: ‘__builtin___sprintf_chk’ output between 18 and 1017 bytes into a destination of size 1000
+   30 |   return __builtin___sprintf_chk (__s, __USE_FORTIFY_LEVEL - 1,
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   31 |                                   __glibc_objsize (__s), __fmt,
+      |                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   32 |                                   __va_arg_pack ());
+      |                                   ~~~~~~~~~~~~~~~~~
+Sources_2_5/OSLOM_files/main_body.cpp: In function ‘int main(int, char**)’:
+Sources_2_5/OSLOM_files/main_body.cpp:61:37: warning: ‘%s’ directive writing up to 999 bytes into a region of size 994 [-Wformat-overflow=]
+   61 |         sprintf(char_to_use, "rm -r %s_oslo_files/*", directory_char);
+      |                                     ^~                ~~~~~~~~~~~~~~
+In function ‘int sprintf(char*, const char*, ...)’,
+    inlined from ‘int main(int, char**)’ at Sources_2_5/OSLOM_files/main_body.cpp:61:9:
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:30:34: note: ‘__builtin___sprintf_chk’ output between 20 and 1019 bytes into a destination of size 1000
+   30 |   return __builtin___sprintf_chk (__s, __USE_FORTIFY_LEVEL - 1,
+      |          ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   31 |                                   __glibc_objsize (__s), __fmt,
+      |                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   32 |                                   __va_arg_pack ());
+      |                                   ~~~~~~~~~~~~~~~~~

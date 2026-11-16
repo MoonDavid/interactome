@@ -3,6 +3,10 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 .venv/
+node_modules/
+/tools/NORMA/
+build/
+*.egg-info/
 *.tmp
 
 # Raw and unfiltered huMAP2 files (>100 MB); keep huMAP2_0.05 and higher versions
@@ -10,3 +14,17 @@ data/raw_networks/humap2_ppis_ACC_20200821.pairsWprob.gz
 data/processed_networks/huMAP2.parquet
 data/processed_networks/isoforms/
 data/mappings/uniprot_search/
+
+# Local environments and downloaded development dependencies
+.venv-native/
+.tooling/
+.uv-cache/
+.uv-research-cache/
+.cache/
+tools/dev/
+
+# Large generated matrices and annotation exports
+data/analysis_runs/shortest_path_distances/
+data/analysis_runs/clustering_annotations/**/go_hierarchy_labels.csv
+data/processed_networks/huMAP3.parquet
+data/raw_networks/humap3_all_ppis_202305.pairsWprob.gz

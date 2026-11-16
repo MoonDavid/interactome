@@ -1,0 +1,47 @@
+{
+  "job": {
+    "network": "HuRI",
+    "method": "atlas.label_propagation",
+    "parameters": {
+      "seed": 42,
+      "resolution": 1.0,
+      "n_clusters": 16
+    },
+    "provenance": {
+      "input": {
+        "path": "C:\\projects\\interactome\\data\\processed_networks\\HuRI.parquet",
+        "size": 428882,
+        "mtime_ns": 1794310006058675900,
+        "sha256": "5f1e8b6af1b7016c1da34dc1ad99475dc19d25b5b9da7cd19d24a8593f810e2c"
+      }
+    },
+    "code_sha256": "6263fe78589a97b56acce9647f4284d3ce44aa7c5ded81e3384acc23aa63bb5c",
+    "key": "41d79e1f32f15c69ce7fcd0c49d8c11bb43460d64bc1bccf8eebd65f83ed4da8",
+    "path": "C:\\projects\\interactome\\data\\processed_networks\\HuRI.parquet",
+    "target": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\HuRI\\atlas.label_propagation\\41d79e1f32f15c69"
+  },
+  "key": "41d79e1f32f15c69ce7fcd0c49d8c11bb43460d64bc1bccf8eebd65f83ed4da8",
+  "method": "atlas.label_propagation",
+  "status": "success",
+  "nodes": 8163,
+  "edges": 51574,
+  "communities": 123,
+  "covered_nodes": 8163,
+  "unassigned_nodes": 0,
+  "overlapping_nodes": 0,
+  "elapsed_seconds": 0.8899999999994179,
+  "details": {
+    "algorithm": "label_propagation",
+    "algorithm_label": "Fast Consensus Label Propagation / LPA (Classic Hard)",
+    "paradigm": "classic",
+    "communities": 123,
+    "resolution": 1.0,
+    "seed": 42,
+    "modularity": 0.35834275040870534,
+    "overlapping_nodes": 0,
+    "overlapping_fraction": 0.0,
+    "mean_communities_per_node": 1.0,
+    "cache_hit": false,
+    "cache_path": "C:\\projects\\interactome\\data\\cache\\clusterings\\cluster_eed87724d861d737_label_propagation_0fdc2672e3.parquet"
+  }
+}

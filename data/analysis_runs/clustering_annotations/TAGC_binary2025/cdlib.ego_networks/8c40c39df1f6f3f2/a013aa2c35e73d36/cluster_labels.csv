@@ -1,0 +1,5 @@
+community,core_size,primary_status,primary_label,primary_term_id,primary_library,interface_size,interface_status,interface_label,interface_term_id,interface_library,full_size,full_context_status,full_context_label,full_context_term_id,full_context_library
+186,0,empty_subset,,,,129,labeled,Formation of a pool of free 40S subunits,R-HSA-72689,Reactome,129,labeled,Formation of a pool of free 40S subunits,R-HSA-72689,Reactome
+191,0,empty_subset,,,,127,labeled,Regulation of TP53 Degradation,R-HSA-6804757,Reactome,127,labeled,Regulation of TP53 Degradation,R-HSA-6804757,Reactome
+631,0,empty_subset,,,,67,labeled,Signaling by ERBB2,R-HSA-1227986,Reactome,67,labeled,Signaling by ERBB2,R-HSA-1227986,Reactome
+643,0,empty_subset,,,,66,labeled,secretory granule lumen,GO:0034774,GO_CC,66,labeled,secretory granule lumen,GO:0034774,GO_CC

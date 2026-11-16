@@ -1,0 +1,44 @@
+[
+  {
+    "network": "BioPlex",
+    "run": "bdc40c5d6b02d84b",
+    "pid": 34568,
+    "exit_code": 0,
+    "finished": "2026-11-16T11:59:38.055619+00:00"
+  },
+  {
+    "network": "huMAP2_0.05",
+    "run": "072ec593edf82537",
+    "pid": 78832,
+    "exit_code": 0,
+    "finished": "2026-11-16T11:57:18.850400+00:00"
+  },
+  {
+    "network": "huMAP2_0.95",
+    "run": "a9964e54dea668eb",
+    "pid": 80972,
+    "exit_code": 0,
+    "finished": "2026-11-16T11:51:01.792895+00:00"
+  },
+  {
+    "network": "huMAP3_0.95",
+    "run": "4c19666c18b30375",
+    "pid": 98140,
+    "exit_code": 0,
+    "finished": "2026-11-16T12:00:50.057364+00:00"
+  },
+  {
+    "network": "HuRI",
+    "run": "baf37da45ad36e01",
+    "pid": 68864,
+    "exit_code": 0,
+    "finished": "2026-11-16T12:01:07.017030+00:00"
+  },
+  {
+    "network": "TAGC_binary2025",
+    "run": "81c464cbc2a9d356",
+    "pid": 103460,
+    "exit_code": 0,
+    "finished": "2026-11-16T12:22:33.531195+00:00"
+  }
+]

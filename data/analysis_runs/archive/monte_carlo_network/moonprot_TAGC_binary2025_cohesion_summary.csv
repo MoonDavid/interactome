@@ -1,0 +1,3 @@
+protein_set,network,network_path,measure,observed,null_mean,effect_observed_minus_null,p_value,query_nodes,valid_simulations,reachable_pair_fraction,fdr_bh,significance
+moonprot,TAGC_binary2025,/home/davide/projects/interactome/data/processed_networks/TAGC_binary2025.parquet,internal_edges,51.0,34.738,16.262,0.005994005994005994,129,1000,1.0,0.011988011988011988,*
+moonprot,TAGC_binary2025,/home/davide/projects/interactome/data/processed_networks/TAGC_binary2025.parquet,largest_component,39.0,20.429,18.571,0.00999000999000999,129,1000,1.0,0.016650016650016652,*

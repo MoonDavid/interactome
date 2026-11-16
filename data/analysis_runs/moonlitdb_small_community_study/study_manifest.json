@@ -1,0 +1,26 @@
+{
+  "generated_at": "2026-11-13T07:54:32.716996+00:00",
+  "protein_set": "MoonLitDB",
+  "max_proteins_exclusive": 200,
+  "selection": "Up to 200 clusters per network; proteins < 200 and global BH q < 0.05; existing global-q/fold/hit ranking",
+  "networks": [
+    {
+      "network": "BioPlex",
+      "tested": 111858,
+      "compatible_runs": 41,
+      "excluded_runs": 0,
+      "significant_small": 49,
+      "selected": 49,
+      "annotation_bundles": 19
+    },
+    {
+      "network": "TAGC_binary2025",
+      "tested": 105041,
+      "compatible_runs": 41,
+      "excluded_runs": 0,
+      "significant_small": 47,
+      "selected": 47,
+      "annotation_bundles": 7
+    }
+  ]
+}

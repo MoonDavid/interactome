@@ -118,7 +118,7 @@ def build_topology_network_tables(path: Path, cohort: set[str]) -> dict[str, pl.
     count = scan.select(pl.len()).collect().item()
     if count > ADVANCED_EDGE_LIMIT:
         raise ValueError('Cytoscape topology analyses are limited to 500,000 edges; select a threshold version.')
-    score_columns = [c for c in SCORE_COLUMNS.values() if c in scan.collect_schema()]
+    score_columns = [c for c in dict.fromkeys(SCORE_COLUMNS.values()) if c in scan.collect_schema()]
     edges = scan.select(pl.col('a').alias('source'), pl.col('b').alias('target'), *score_columns).collect()
     if not edges.height:
         raise ValueError('The selected network has no edges.')
@@ -370,36 +370,7 @@ def build_subnetwork_tables(
     )
 
     # Select subnetwork node indices according to mode
-    ego_component_map: dict[int, int] = {}
-    if mode == 'ego_bridge':
-        seeds = [p for p in (seed_proteins or cohort_in_net[:3]) if p in node_to_idx]
-        if not seeds:
-            seeds = cohort_in_net[:3]
-        seed_idx = [node_to_idx[p] for p in seeds]
-        visited = set(seed_idx)
-        frontier = set(seed_idx)
-        for _ in range(max(1, min(2, int(hop_radius)))):
-            next_frontier: set[int] = set()
-            for u in frontier:
-                nbrs = adj.indices[adj.indptr[u]:adj.indptr[u + 1]]
-                next_frontier.update(int(v) for v in nbrs)
-            visited.update(next_frontier)
-            frontier = next_frontier
-        # Compute ego-neighborhood connected components when removing the seed(s)
-        neighbor_only = sorted(visited - set(seed_idx))
-        if neighbor_only:
-            sub_nbr = adj[neighbor_only, :][:, neighbor_only]
-            _, comp_labels = connected_components(sub_nbr, directed=False)
-            for idx_val, comp_id in zip(neighbor_only, comp_labels):
-                ego_component_map[int(idx_val)] = int(comp_id) + 1
-        for s in seed_idx:
-            ego_component_map[int(s)] = 0
-        ordered_candidates = seed_idx + sorted(
-            visited - set(seed_idx),
-            key=lambda i: (not cohort_mask[i], -int(moon_neighbors[i]), -float(bridging_coeff[i]), str(nodes_arr[i])),
-        )
-        selected_indices = sorted(ordered_candidates[:max_nodes])
-    elif mode == 'top_bridges':
+    if mode == 'top_bridges':
         cohort_indices = np.flatnonzero(cohort_mask)
         ranked_cohort = cohort_indices[np.argsort(-bridging_coeff[cohort_indices], kind='stable')]
         core_seeds = [int(i) for i in ranked_cohort[:min(len(ranked_cohort), max(5, max_nodes // 3))]]
@@ -584,7 +555,6 @@ def build_subnetwork_tables(
             'subnetwork_triangles': tri_sub,
             'subnetwork_open_wedges': int(wedges_sub),
             'non_simmelian_fraction': non_simm_frac,
-            'ego_component': int(ego_component_map.get(global_i, 0)),
         })
 
     base_nodes_df = pl.DataFrame(
@@ -607,7 +577,6 @@ def build_subnetwork_tables(
             'subnetwork_triangles': pl.Int64,
             'subnetwork_open_wedges': pl.Int64,
             'non_simmelian_fraction': pl.Float64,
-            'ego_component': pl.Int64,
         },
     )
 
@@ -644,7 +613,6 @@ def build_subnetwork_tables(
         'background_nodes': int((nodes_df['node_role'] == 'Background').sum()),
         'bridge_edges_zero_triangles': bridge_edges_count,
         'negative_forman_ricci_edges': neg_curvature_count,
-        'ego_components_bridged': int(nodes_df['ego_component'].max() or 0),
     }
     return {'nodes': nodes_df, 'edges': edges_df, 'summary': summary}
 
@@ -767,7 +735,6 @@ def build_multiplex_subnetwork_tables(
             'subnetwork_triangles': 0,
             'subnetwork_open_wedges': 0,
             'non_simmelian_fraction': float(turnover_map.get(u, 0.0)),
-            'ego_component': 1 if (da > 0 and db > 0) else (2 if da > 0 else 3),
         })
 
     base_nodes = pl.DataFrame(node_rows)
@@ -1430,8 +1397,8 @@ const cy = cytoscape({{
         'color': '#111827',
         'text-valign': 'top',
         'text-halign': 'center',
-        'border-width': 1.8,
-        'border-color': '#1f2937'
+        'border-width': function(ele) {{ return ele.data('cluster_selected') ? 4 : 1.8; }},
+        'border-color': function(ele) {{ return ele.data('cluster_selected') ? '#F39C12' : '#1f2937'; }}
       }}
     }},
     {{

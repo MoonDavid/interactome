@@ -14,7 +14,7 @@ import networks
 # long-running server. Refresh the loader so existing sessions pick up updates.
 importlib.reload(networks)
 from networks import (
-    BIOPLEX_ORIGINAL, FILES, ISOFORM_POLICIES, NETWORK_MAPPING, SOURCE_ISOFORM, TAGC_NAME,
+    BIOPLEX_ORIGINAL, FILES, HUMAP_NAMES, ISOFORM_POLICIES, NETWORK_MAPPING, SOURCE_ISOFORM, TAGC_NAME,
     available_huri_isoform_policies, bioplex_release_paths, bioplex_source_ids, compare_isoform_mapping,
     degree_distribution, discover_datasets, ensure_swissprot_reference, filtering_audit_table, mapping_target_statistics,
     load_edges, load_network, membership_counts, network_source_path, prepare_huri_psi,
@@ -30,7 +30,7 @@ st.set_page_config(page_title='Interactomes Overview | Human Interactome Atlas',
 st.markdown('<style>.block-container{padding-top:2.5rem}</style>', unsafe_allow_html=True)
 
 
-st.write(f'Compare HuRI, BioPlex HEK293T, huMAP2 and {TAGC_NAME}. Save confidence-filtered networks and revisit them across sessions.')
+st.write(f'Compare HuRI, BioPlex HEK293T, huMAP2, huMAP3 and {TAGC_NAME}. Save confidence-filtered networks and revisit them across sessions.')
 
 @st.cache_data(show_spinner=False, max_entries=16)
 def analyze(path_string, mtime, size):
@@ -62,7 +62,7 @@ def cached_filtering_audit(specs):
     return filtering_audit_table({name: Path(path) for name, path, _, _ in specs})
 
 
-@st.cache_data(show_spinner='Reading the raw huMAP2 columns…', max_entries=2)
+@st.cache_data(show_spinner='Reading the raw huMAP columns…', max_entries=4)
 def humap_source_view(path, mtime_ns, size):
     source = scan_humap_source(path)
     ids, rows, isoform_rows = source_endpoint_profile(source)
@@ -139,7 +139,7 @@ if len(psi_policies) < len(ISOFORM_POLICIES) and network_source_path(DATA, 'HuRI
             prepare_huri_psi(DATA)
         st.rerun()
 if isoforms == 'collapse' and not ('HuRI' in datasets and 'BioPlex' in datasets and any(name == 'huMAP2' or name.startswith('huMAP2_') for name in datasets)):
-    st.info(f'Prepare HuRI from its PSI file and resolve BioPlex, huMAP2 and {TAGC_NAME} identifiers with UniProt. Results are saved on disk.')
+    st.info(f'Prepare HuRI from its PSI file and resolve BioPlex, huMAP2, huMAP3 and {TAGC_NAME} identifiers with UniProt. Results are saved on disk.')
     st.code('.venv/bin/python networks.py', language='bash')
     if st.button('Map IDs with UniProt and prepare networks', type='primary'):
         try:
@@ -154,7 +154,7 @@ if isoforms == 'collapse' and not ('HuRI' in datasets and 'BioPlex' in datasets 
 
 with st.sidebar:
     st.title('Interactomes Overview')
-    previous = st.session_state.get('overview_networks', [name for name in datasets if name != 'huMAP2'])
+    previous = st.session_state.get('overview_networks', [name for name in datasets if name not in HUMAP_NAMES])
     active = st.multiselect('Networks to explore', list(datasets), default=[name for name in previous if name in datasets])
     st.session_state['overview_networks'] = active
     st.caption('Dataset selectors include confidence versions saved for the active isoform policy.')
@@ -234,6 +234,8 @@ def render_original_ids():
          'Primary interactor columns. Ensembl IDs in the alternate-ID columns are additional annotations.'),
         ('huMAP2', 'huMAP2', [network_source_path(DATA, 'huMAP2')],
          'All pairs in the original accession archive.'),
+        ('huMAP3', 'huMAP3 · all scored candidate pairs', [network_source_path(DATA, 'huMAP3')],
+         'All pairs in the full scored candidate network.'),
         ('BioPlex', 'BioPlex HEK293T', bio_sources,
          'Distinct supplied accessions, plus NCBI Gene IDs with no accession in any included release.'),
         (TAGC_NAME, TAGC_NAME, [network_source_path(DATA, TAGC_NAME)],
@@ -303,7 +305,7 @@ if overview.open:
             frames=[]
             for name, frame in degrees.items():
                 frames.append(frame.with_columns(pl.lit(name).alias('Network')))
-            fig=px.scatter(pl.concat(frames), x='degree', y='count', color='Network', log_x=True, log_y=True, labels={'degree':'Degree (interaction partners)','count':'Nodes at this degree'}, title='How connections are distributed across proteins')
+            fig=px.scatter(pl.concat(frames), x='degree', y='count', color='Network', log_x=True, log_y=True, labels={'degree':'Degree (interaction partners)','count':'Nodes at this degree'}, title='Degree distribution of each network', hover_data={'Network':True,'degree':':,','count':':,'})
             fig.update_layout(template='plotly_white')
             st.plotly_chart(fig, width='stretch')
         else:
@@ -343,13 +345,15 @@ if overlap.open:
         else:
             st.info('Select datasets to compare.')
 
-if versions.open and any(name in datasets for name in ['huMAP2', 'BioPlex', 'HuRI']):
+if versions.open and any(name in datasets for name in [*HUMAP_NAMES, 'BioPlex', 'HuRI']):
     with versions:
         st.subheader('Choose your confidence threshold')
-        scored_name=st.selectbox('Scored interaction network',[name for name in ['huMAP2','BioPlex','HuRI'] if name in datasets],key='confidence_network')
+        scored_name=st.selectbox('Scored interaction network',[name for name in [*HUMAP_NAMES,'BioPlex','HuRI'] if name in datasets],key='confidence_network')
         score=score_column(scored_name)
-        if scored_name == 'huMAP2':
-            st.write('The huMAP2 confidence score (0–1) estimates support for a protein-pair association: higher scores indicate greater confidence. Keep pairs whose score is at least the selected cutoff. This is not a statistical p-value.')
+        if scored_name in HUMAP_NAMES:
+            st.write(f'The {scored_name} confidence score (0–1) estimates support for a protein-pair association: higher scores indicate greater confidence. Keep pairs whose score is at least the selected cutoff. This is not a statistical p-value.')
+            if scored_name == 'huMAP3':
+                st.info('The full huMAP3 source contains all scored candidate pairs, including low-confidence associations. The 0.05 and 0.95 cutoffs are convenience filters; scores are not assumed calibrated across releases. No significance test applies to native confidence scores.')
         elif scored_name == 'BioPlex':
             st.write('BioPlex pInt, labelled p(Interaction) in the source files, is the model’s interaction confidence score (0–1). Keep protein pairs with pInt at least the selected cutoff. It is not a statistical p-value, and it is not calibrated to the same scale as huMAP2 scores.')
         else:
@@ -365,7 +369,7 @@ if versions.open and any(name in datasets for name in ['huMAP2', 'BioPlex', 'HuR
         if score not in pl.read_parquet_schema(parent):
             st.warning(f'The canonical {scored_name} network does not yet preserve its confidence score. Rebuild this canonical network before filtering.')
         else:
-            if scored_name == 'huMAP2':
+            if scored_name in HUMAP_NAMES:
                 standard=st.selectbox('Standard confidence cutoff', [0.05, 0.95, 'Custom'],key='confidence_standard_'+scored_name)
                 cutoff=st.number_input('Minimum interaction confidence score',min_value=0.0,max_value=1.0,value=0.05,step=0.05,format='%.4f',key='confidence_custom_'+scored_name) if standard == 'Custom' else float(standard)
             else:
@@ -380,15 +384,17 @@ if versions.open and any(name in datasets for name in ['huMAP2', 'BioPlex', 'HuR
             saved_policy, saved_name = st.session_state.get('saved_isoform_version', (None, None))
             if saved_policy == isoforms and saved_name in datasets:
                 st.success(f'Saved {saved_name} for the active isoform policy.')
-            if scored_name == 'huMAP2':
+            if scored_name in HUMAP_NAMES:
                 st.warning('The unfiltered huMAP2 base includes the full scored candidate list, including low-confidence associations.')
             with st.spinner('Calculating threshold sensitivity…'):
+                #display the threshold curve for the selected scored network, showing how many edges and nodes remain at each confidence score cutoff
+                
                 curve=curve_data(parent,info.st_mtime_ns,info.st_size,scored_name)
             log_counts=st.toggle('Logarithmic count axes',value=True)
             fig=make_subplots(rows=1,cols=2,subplot_titles=['Edges retained','Nodes with at least one retained edge'])
             for i, metric in enumerate(['edges','nodes'],1):
                 fig.add_trace(go.Scatter(x=curve['threshold'],y=curve[metric],mode='lines+markers',line_color='#555555',name=metric.title(),hovertemplate='Confidence score ≥ %{x:.2f}<br>'+metric+': %{y:,}<extra></extra>'),row=1,col=i)
-                if scored_name == 'huMAP2':
+                if scored_name in HUMAP_NAMES:
                     for threshold, color in [(0.05, '#0072B2'), (0.95, '#B35C00')]:
                         count=int(curve.sort((pl.col('threshold')-threshold).abs())[metric][0])
                         fig.add_vline(x=threshold,line_dash='dash',line_color=color,row=1,col=i)
@@ -411,7 +417,7 @@ if versions.open and any(name in datasets for name in ['huMAP2', 'BioPlex', 'HuR
         if saved: st.dataframe(pl.DataFrame(saved),width='stretch',hide_index=True)
         else: st.caption('No threshold versions saved yet.')
 
-if versions.open and not any(name in datasets for name in ['huMAP2', 'BioPlex', 'HuRI']):
+if versions.open and not any(name in datasets for name in [*HUMAP_NAMES, 'BioPlex', 'HuRI']):
     versions.info('Prepare a scored HuRI, BioPlex or huMAP2 network to explore confidence thresholds.')
 
 if mapping_tab.open:
@@ -420,7 +426,7 @@ if mapping_tab.open:
             render_original_ids()
         st.subheader('Trace each network to its source')
         st.write('The audit checks complete IDs first, including isoform suffixes, and retries unresolved isoforms with the parent accession. Every human UniProtKB match is shown.')
-        st.caption(f'BioPlex, huMAP2 and {TAGC_NAME} use the saved UniProt mappings and the active isoform policy. '
+        st.caption(f'BioPlex, huMAP2, huMAP3 and {TAGC_NAME} use the saved UniProt mappings and the active isoform policy. '
                    'HuRI PSI views use the IDs supplied in the interactor columns. HuRI lookup results are shown here for comparison.')
         st.markdown('[UniProt ID Mapping tool](https://www.uniprot.org/mapping) · [Official API documentation](https://www.uniprot.org/help/id_mapping_prog)')
         if st.button('Refresh UniProt mapping and mapped networks', key='refresh_network_mapping'):
@@ -432,23 +438,24 @@ if mapping_tab.open:
             except Exception as exc:
                 st.error(f'Mapping refresh failed. {exc}')
 
-        humap_source = network_source_path(DATA, 'huMAP2')
-        with st.expander('huMAP2 raw source and isoforms', expanded=True):
-            if humap_source.is_file():
-                info = humap_source.stat()
-                preview, unique_ids, source_rows, isoform_rows, source_isoforms = humap_source_view(
-                    humap_source, info.st_mtime_ns, info.st_size)
-                st.write('The source is a headerless TSV. The preview labels its fields **a** and **b** for source IDs and **probability** for the native confidence score.')
-                st.caption(f'{source_rows:,} source rows · {unique_ids:,} distinct IDs · '
-                           f'{source_isoforms.height:,} distinct IDs with an isoform suffix · '
-                           f'{isoform_rows:,} rows with at least one suffix')
-                st.dataframe(preview, hide_index=True, alt='First 12 rows of the raw huMAP2 source')
-                if source_isoforms.height:
-                    st.dataframe(source_isoforms, hide_index=True, alt='Source IDs with an explicit isoform suffix')
+        for humap_name in HUMAP_NAMES:
+            humap_source = network_source_path(DATA, humap_name)
+            with st.expander(f'{humap_name} raw source and isoforms', expanded=True):
+                if humap_source.is_file():
+                    info = humap_source.stat()
+                    preview, unique_ids, source_rows, isoform_rows, source_isoforms = humap_source_view(
+                        humap_source, info.st_mtime_ns, info.st_size)
+                    st.write('The source is a headerless TSV. The preview labels its fields **a** and **b** for source IDs and **probability** for the native confidence score.')
+                    st.caption(f'{source_rows:,} source rows · {unique_ids:,} distinct IDs · '
+                               f'{source_isoforms.height:,} distinct IDs with an isoform suffix · '
+                               f'{isoform_rows:,} rows with at least one suffix')
+                    st.dataframe(preview, hide_index=True, alt=f'First 12 rows of the raw {humap_name} source')
+                    if source_isoforms.height:
+                        st.dataframe(source_isoforms, hide_index=True, alt='Source IDs with an explicit isoform suffix')
+                    else:
+                        st.info('Neither endpoint column contains an explicit numeric isoform suffix.')
                 else:
-                    st.info('Neither endpoint column contains an explicit numeric isoform suffix.')
-            else:
-                st.info(f'Place {humap_source.name} in data/raw_networks to inspect its raw columns.')
+                    st.info(f'Place {humap_source.name} in data/raw_networks to inspect its raw columns.')
 
         report = DATA / 'mappings' / NETWORK_MAPPING
         if report.is_file():
@@ -522,8 +529,8 @@ if mapping_tab.open:
                     name = st.selectbox('Network for edge comparison', sorted(source_info.keys() & source_names.keys()))
                     source = network_source_path(DATA, name)
                     cutoff = 0.05
-                    if name == 'huMAP2':
-                        cutoff = st.number_input('Minimum huMAP2 probability', 0.0, 1.0, 0.05, step=0.01,
+                    if name in HUMAP_NAMES:
+                        cutoff = st.number_input(f'Minimum {name} probability', 0.0, 1.0, 0.05, step=0.01,
                                                  help='Applies to both sides of the comparison. Use 0 for all valid scores.')
                     if not source.is_file():
                         st.info(f'The local source file is missing: {source.name}')
@@ -582,6 +589,9 @@ if resources.open:
         st.subheader('huMAP2 · integrated protein-complex evidence')
         st.write('hu.MAP 2.0 integrates more than 15,000 mass-spectrometry experiments using machine learning to infer protein associations and assemblies. This app reads the scored pairwise interaction file, rather than the final complex catalogue. The probability cutoff changes which pairs enter the graph.')
         st.markdown('[Drew et al. (2021). hu.MAP 2.0: integration of over 15,000 proteomic experiments builds a global compendium of human multiprotein assemblies. Molecular Systems Biology 17, e10016.](https://doi.org/10.15252/msb.202010016)')
+        st.subheader('huMAP3 · all scored candidate pairs')
+        st.write('huMAP3 is configured for the full scored candidate-pair network. Supply the all-PPIs archive before preparing this network. Scores indicate model confidence, not statistical significance; huMAP3 and huMAP2 scores are not assumed to be calibrated alike.')
+        st.markdown('[huMAP3 source and file definitions](https://humap3.proteincomplexes.org/download) · [huMAP3 paper](https://doi.org/10.1038/s44320-025-00121-5)')
         st.subheader(TAGC_NAME)
         st.write('The local CSV supplies two interactor identifiers per row. The app resolves them to human UniProtKB accessions and uses unique undirected pairs.')
         st.caption('Paper descriptions explain the resources. All displayed counts are calculated from your canonicalized local files and may differ from publication totals. huMAP2 integrates overlapping proteomics sources, so the networks are not independent evidence sets.')

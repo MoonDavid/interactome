@@ -166,17 +166,6 @@ def test_build_subnetwork_tables_and_forman_ricci():
     assert p1_row['label'] == 'GAPDH'
     assert 'moonprot' in p1_row['source_sets']
 
-    # Check ego_bridge mode around P1
-    ego_res = build_subnetwork_tables(
-        g, moon_df, cohort, mode='ego_bridge', seed_proteins=['P1'], hop_radius=1, max_nodes=20
-    )
-    ego_edges = ego_res['edges']
-    # Edge (P2, P3) has shared triangle P1 in full graph; check Forman-Ricci formula 4 - k_u - k_v + 3*t_uv
-    for row in ego_edges.to_dicts():
-        u_deg = ego_res['nodes'].filter(pl.col('protein') == row['source'])['subnetwork_degree'][0]
-        v_deg = ego_res['nodes'].filter(pl.col('protein') == row['target'])['subnetwork_degree'][0]
-        expected_frc = 4 - u_deg - v_deg + 3 * row['subnetwork_triangles']
-        assert row['forman_ricci_sub'] == pytest.approx(expected_frc)
 
 
 def test_multiplex_subnetwork_and_exports():
@@ -348,14 +337,14 @@ def test_exact_cached_betweenness_and_all_19_clustering_algorithms(tmp_path):
     _, notes2 = cached_network_centralities(g, extra=True, landmarks=None, cache_dir=tmp_path / 'cent')
     assert notes2['cache_hit'] is True
 
-    # Test all 19 clustering algorithms across classic, overlapping, and fuzzy paradigms
-    assert len(CLUSTERING_CATALOG) == 19
+    # Test all remaining clustering algorithms across classic, overlapping, and fuzzy paradigms
+    assert len(CLUSTERING_CATALOG) == 17
     suite = compare_clustering_algorithms(g, {'P1', 'P2', 'P4'}, algorithms=list(CLUSTERING_CATALOG.keys()), seed=42, resolution=1.0)
-    assert suite['summary_table'].height == 19
+    assert suite['summary_table'].height == 17
     assert set(suite['summary_table']['paradigm'].to_list()) == {'classic', 'overlapping', 'fuzzy'}
     fig = clustering_comparison_heatmap(suite['effects'])
     assert len(fig.data) == 1
 
     # Verify cache hit on second call
-    cached_c = run_cached_clustering(g, algorithm='ego_splitting', resolution=1.0, seed=42)
+    cached_c = run_cached_clustering(g, algorithm='louvain', resolution=1.0, seed=42)
     assert cached_c['meta']['cache_hit'] is True

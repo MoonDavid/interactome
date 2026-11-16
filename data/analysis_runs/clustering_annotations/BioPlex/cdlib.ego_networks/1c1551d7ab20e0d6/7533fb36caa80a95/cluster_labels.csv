@@ -1,0 +1,28 @@
+community,core_size,primary_status,primary_label,primary_term_id,primary_library,interface_size,interface_status,interface_label,interface_term_id,interface_library,full_size,full_context_status,full_context_label,full_context_term_id,full_context_library
+1035,0,empty_subset,,,,50,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC,50,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC
+1057,0,empty_subset,,,,50,labeled,INO80-type complex,GO:0097346,GO_CC,50,labeled,INO80-type complex,GO:0097346,GO_CC
+1161,0,empty_subset,,,,48,labeled,nucleosome,GO:0000786,GO_CC,48,labeled,nucleosome,GO:0000786,GO_CC
+1167,0,empty_subset,,,,48,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC,48,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC
+150,0,empty_subset,,,,122,labeled,blood microparticle,GO:0072562,GO_CC,122,labeled,blood microparticle,GO:0072562,GO_CC
+1790,0,empty_subset,,,,38,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC,38,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC
+2641,0,empty_subset,,,,31,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC,31,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC
+2773,0,empty_subset,,,,30,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC,30,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC
+4072,0,empty_subset,,,,22,labeled,nucleosome,GO:0000786,GO_CC,22,labeled,nucleosome,GO:0000786,GO_CC
+4153,0,empty_subset,,,,21,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC,21,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC
+458,0,empty_subset,,,,77,labeled,nucleosome,GO:0000786,GO_CC,77,labeled,nucleosome,GO:0000786,GO_CC
+4771,0,empty_subset,,,,18,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC,18,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC
+5240,0,empty_subset,,,,16,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC,16,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC
+5241,0,empty_subset,,,,16,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC,16,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC
+5849,0,empty_subset,,,,14,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC,14,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC
+6108,0,empty_subset,,,,13,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC,13,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC
+626,0,empty_subset,,,,65,labeled,nucleosome,GO:0000786,GO_CC,65,labeled,nucleosome,GO:0000786,GO_CC
+67,0,empty_subset,,,,162,labeled,cytosolic large ribosomal subunit,GO:0022625,GO_CC,162,labeled,cytosolic large ribosomal subunit,GO:0022625,GO_CC
+672,0,empty_subset,,,,63,labeled,INO80-type complex,GO:0097346,GO_CC,63,labeled,INO80-type complex,GO:0097346,GO_CC
+6968,0,empty_subset,,,,11,labeled,Peptide chain elongation,R-HSA-156902,Reactome,11,labeled,Peptide chain elongation,R-HSA-156902,Reactome
+7279,0,empty_subset,,,,10,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC,10,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC
+7756,0,empty_subset,,,,9,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC,9,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC
+8250,0,empty_subset,,,,8,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC,8,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC
+8251,0,empty_subset,,,,8,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC,8,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC
+8252,0,empty_subset,,,,8,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC,8,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC
+9160,0,empty_subset,,,,7,labeled,eukaryotic translation elongation factor 1 complex,GO:0005853,GO_CC,7,labeled,eukaryotic translation elongation factor 1 complex,GO:0005853,GO_CC
+923,0,empty_subset,,,,54,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC,54,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC

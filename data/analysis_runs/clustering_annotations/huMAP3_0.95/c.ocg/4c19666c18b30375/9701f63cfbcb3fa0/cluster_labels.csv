@@ -1,0 +1,22 @@
+community,core_size,primary_status,primary_label,primary_term_id,primary_library,interface_size,interface_status,interface_label,interface_term_id,interface_library,full_size,full_context_status,full_context_label,full_context_term_id,full_context_library
+139,20,labeled,MSL complex,GO:0072487,GO_CC,53,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC,73,core_labeled,,,
+161,5,no_qualifying_term,,,,65,labeled,positive regulation of double-strand break repair,GO:2000781,GO_BP,70,labeled,positive regulation of double-strand break repair,GO:2000781,GO_BP
+173,0,empty_subset,,,,109,labeled,Peptide chain elongation,R-HSA-156902,Reactome,109,labeled,Peptide chain elongation,R-HSA-156902,Reactome
+188,0,empty_subset,,,,99,labeled,Peptide chain elongation,R-HSA-156902,Reactome,99,labeled,Peptide chain elongation,R-HSA-156902,Reactome
+223,2,labeled,Major pathway of rRNA processing in the nucleolus and cytosol,R-HSA-6791226,Reactome,103,labeled,structural constituent of ribosome,GO:0003735,GO_MF,105,core_labeled,,,
+23,139,labeled,cornified envelope,GO:0001533,GO_CC,180,labeled,blood microparticle,GO:0072562,GO_CC,319,core_labeled,,,
+249,9,labeled,Ino80 complex,GO:0031011,GO_CC,48,labeled,Proteasome assembly,R-HSA-9907900,Reactome,57,core_labeled,,,
+263,5,labeled,ceramide transfer activity,GO:0120017,GO_MF,45,labeled,positive regulation of double-strand break repair,GO:2000781,GO_BP,50,core_labeled,,,
+31,35,labeled,cytosolic ribosome,GO:0022626,GO_CC,222,labeled,Peptide chain elongation,R-HSA-156902,Reactome,257,core_labeled,,,
+319,1,no_qualifying_term,,,,109,labeled,Peptide chain elongation,R-HSA-156902,Reactome,110,labeled,Peptide chain elongation,R-HSA-156902,Reactome
+373,5,labeled,histone H3K14 acetyltransferase activity,GO:0036408,GO_MF,43,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC,48,core_labeled,,,
+4,9,no_qualifying_term,,,,42,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC,51,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC
+401,1,no_qualifying_term,,,,56,labeled,large ribosomal subunit,GO:0015934,GO_CC,57,labeled,large ribosomal subunit,GO:0015934,GO_CC
+410,1,no_qualifying_term,,,,120,labeled,Peptide chain elongation,R-HSA-156902,Reactome,121,labeled,Peptide chain elongation,R-HSA-156902,Reactome
+430,11,labeled,response to metal ion starvation,GO:0180055,GO_BP,55,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC,66,core_labeled,,,
+453,7,labeled,positive regulation of protein localization to early endosome,GO:1902966,GO_BP,45,labeled,Activation of BAD and translocation to mitochondria ,R-HSA-111447,Reactome,52,core_labeled,,,
+466,1,no_qualifying_term,,,,84,labeled,Peptide chain elongation,R-HSA-156902,Reactome,85,labeled,Peptide chain elongation,R-HSA-156902,Reactome
+47,16,labeled,innate immune response in mucosa,GO:0002227,GO_BP,101,labeled,Peptide chain elongation,R-HSA-156902,Reactome,117,core_labeled,,,
+481,8,labeled,ribonucleoprotein complex binding,GO:0043021,GO_MF,75,labeled,Peptide chain elongation,R-HSA-156902,Reactome,83,core_labeled,,,
+70,73,labeled,histone H2AX kinase activity,GO:0141003,GO_MF,192,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC,265,core_labeled,,,
+97,32,labeled,rRNA processing,GO:0006364,GO_BP,144,labeled,Major pathway of rRNA processing in the nucleolus and cytosol,R-HSA-6791226,Reactome,176,core_labeled,,,

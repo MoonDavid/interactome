@@ -1,0 +1,3 @@
+community,core_size,primary_status,primary_label,primary_term_id,primary_library,interface_size,interface_status,interface_label,interface_term_id,interface_library,full_size,full_context_status,full_context_label,full_context_term_id,full_context_library
+21,32,labeled,NuA4 histone acetyltransferase complex,GO:0035267,GO_CC,20,labeled,Swr1 complex,GO:0000812,GO_CC,52,core_labeled,,,
+62,11,labeled,aminoacyl-tRNA synthetase multienzyme complex,GO:0017101,GO_CC,6,labeled,positive regulation of transforming growth factor beta receptor signaling pathway,GO:0030511,GO_BP,17,core_labeled,,,

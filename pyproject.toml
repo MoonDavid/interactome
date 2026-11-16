@@ -20,11 +20,20 @@ dependencies = [
     "numpy>=1.26.0",
     "scipy>=1.11.0",
     "networkx>=3.2.0",
+    "pyvis>=0.3.2,<0.4",
     "rich>=13.7.0",
+    "psutil>=5.9",
     "py4cytoscape>=1.13.0",
 ]
 
 [project.optional-dependencies]
+text-annotation = ["yake>=0.4.8,<0.7"]
+
+embeddings = [
+    "nodevectors==0.1.23",
+    "umap-learn>=0.5.7,<0.6",
+    "scikit-learn>=1.4,<2",
+]
 go = [
     "goatools>=1.4,<2",
 ]
@@ -50,11 +59,13 @@ test = [
 
 [tool.setuptools]
 packages = ["pipelines"]
-py-modules = ["networks", "moonlighting", "moonlighting_extensions", "cytoscape_bridge", "cluster_networks", "annotate_clusters", "cluster_annotation_ui", "ego_analysis_ui"]
+py-modules = ["networks", "moonlighting", "moonlighting_extensions", "cytoscape_bridge", "cluster_networks", "clustering_methods", "clustering_explorer", "annotate_clusters", "clusterannotation", "cluster_annotation_ui", "saved_monte_carlo", "network_embeddings", "network_graph_utils", "network_view", "ocg_exploration", "ocg_visualization", "ocg_annotation_ui", "ocg_ego_overlap", "ocg_ego_comparison"]
 
 [project.scripts]
 interactome-cluster = "cluster_networks:main"
-interactome-annotate = "annotate_clusters:main"
+interactome-annotate = "clusterannotation:main"
+interactome-embed = "network_embeddings:main"
+interactome-ocg = "pipelines.run_ocg_c:main"
 
 [tool.pytest.ini_options]
 pythonpath = ["."]

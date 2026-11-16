@@ -1,0 +1,91 @@
+[
+  {
+    "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\TAGC_binary2025\\cdlib.ego_networks\\8c40c39df1f6f3f2",
+    "annotation_directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\TAGC_binary2025\\cdlib.ego_networks\\8c40c39df1f6f3f2\\4d0836ac60652f44",
+    "communities": [
+      "186",
+      "191",
+      "643",
+      "631",
+      "6368",
+      "1554",
+      "888",
+      "360",
+      "849",
+      "5108",
+      "1543",
+      "1054",
+      "544",
+      "1852",
+      "123",
+      "115",
+      "8743",
+      "166",
+      "5342",
+      "3164",
+      "104",
+      "2862",
+      "2943",
+      "1324",
+      "657",
+      "11026",
+      "6978",
+      "456",
+      "130",
+      "896",
+      "2602",
+      "3966"
+    ]
+  },
+  {
+    "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\TAGC_binary2025\\atlas.demon\\c0e235a52d762ba3",
+    "annotation_directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\TAGC_binary2025\\atlas.demon\\c0e235a52d762ba3\\8784212e6b3f0f2f",
+    "communities": [
+      "129",
+      "220",
+      "123",
+      "180",
+      "204",
+      "157",
+      "227"
+    ]
+  },
+  {
+    "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\TAGC_binary2025\\atlas.link_communities\\efcebc1cb715aed0",
+    "annotation_directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\TAGC_binary2025\\atlas.link_communities\\efcebc1cb715aed0\\5c03250be53738e4",
+    "communities": [
+      "59",
+      "51",
+      "46",
+      "52"
+    ]
+  },
+  {
+    "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\TAGC_binary2025\\atlas.ego_splitting\\694036a91c9713f9",
+    "annotation_directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\TAGC_binary2025\\atlas.ego_splitting\\694036a91c9713f9\\c2934e5d1286338e",
+    "communities": [
+      "204"
+    ]
+  },
+  {
+    "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\TAGC_binary2025\\karateclub.SCD\\eebada8235df9353",
+    "annotation_directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\TAGC_binary2025\\karateclub.SCD\\eebada8235df9353\\427451a35d8fd30c",
+    "communities": [
+      "959"
+    ]
+  },
+  {
+    "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\TAGC_binary2025\\networkx.k_clique_communities\\48fa1a4d19d96250",
+    "annotation_directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\TAGC_binary2025\\networkx.k_clique_communities\\48fa1a4d19d96250\\e7d946b0da2ed804",
+    "communities": [
+      "188"
+    ]
+  },
+  {
+    "directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_raw\\TAGC_binary2025\\igraph.infomap\\8cca66dc0917003e",
+    "annotation_directory": "C:\\projects\\interactome\\data\\analysis_runs\\clustering_annotations\\TAGC_binary2025\\igraph.infomap\\8cca66dc0917003e\\a3d2c3c9bc61413d",
+    "communities": [
+      "210"
+    ]
+  }
+]

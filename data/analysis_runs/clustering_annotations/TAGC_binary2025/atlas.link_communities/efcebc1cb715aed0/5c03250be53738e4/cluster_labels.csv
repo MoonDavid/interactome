@@ -1,0 +1,5 @@
+community,core_size,primary_status,primary_label,primary_term_id,primary_library,interface_size,interface_status,interface_label,interface_term_id,interface_library,full_size,full_context_status,full_context_label,full_context_term_id,full_context_library
+46,0,empty_subset,,,,191,labeled,Interleukin-15 signaling,R-HSA-8983432,Reactome,191,labeled,Interleukin-15 signaling,R-HSA-8983432,Reactome
+51,0,empty_subset,,,,172,labeled,inflammatory response,GO:0006954,GO_BP,172,labeled,inflammatory response,GO:0006954,GO_BP
+52,0,empty_subset,,,,159,labeled,"mRNA splicing, via spliceosome",GO:0000398,GO_BP,159,labeled,"mRNA splicing, via spliceosome",GO:0000398,GO_BP
+59,0,empty_subset,,,,117,labeled,antimicrobial humoral immune response mediated by antimicrobial peptide,GO:0061844,GO_BP,117,labeled,antimicrobial humoral immune response mediated by antimicrobial peptide,GO:0061844,GO_BP

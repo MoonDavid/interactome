@@ -1,0 +1,563 @@
+{
+  "retained_pairs": 35,
+  "outputs": [
+    "curated_BioPlex_cohesion.json",
+    "curated_BioPlex_cohesion.parquet",
+    "curated_BioPlex_cohesion_summary.csv",
+    "curated_BioPlex_shortest_path.json",
+    "curated_BioPlex_shortest_path.parquet",
+    "curated_BioPlex_shortest_path_summary.csv",
+    "curated_HuRI_cohesion.json",
+    "curated_HuRI_cohesion.parquet",
+    "curated_HuRI_cohesion_summary.csv",
+    "curated_HuRI_shortest_path.json",
+    "curated_HuRI_shortest_path.parquet",
+    "curated_HuRI_shortest_path_summary.csv",
+    "curated_TAGC_binary2025_cohesion.json",
+    "curated_TAGC_binary2025_cohesion.parquet",
+    "curated_TAGC_binary2025_cohesion_summary.csv",
+    "curated_TAGC_binary2025_shortest_path.json",
+    "curated_TAGC_binary2025_shortest_path.parquet",
+    "curated_TAGC_binary2025_shortest_path_summary.csv",
+    "curated_huMAP2_0.05_cohesion.json",
+    "curated_huMAP2_0.05_cohesion.parquet",
+    "curated_huMAP2_0.05_cohesion_summary.csv",
+    "curated_huMAP2_0.05_shortest_path.json",
+    "curated_huMAP2_0.05_shortest_path.parquet",
+    "curated_huMAP2_0.05_shortest_path_summary.csv",
+    "curated_huMAP2_0.95_cohesion.json",
+    "curated_huMAP2_0.95_cohesion.parquet",
+    "curated_huMAP2_0.95_cohesion_summary.csv",
+    "curated_huMAP2_0.95_shortest_path.json",
+    "curated_huMAP2_0.95_shortest_path.parquet",
+    "curated_huMAP2_0.95_shortest_path_summary.csv",
+    "metamoon_BioPlex_cohesion.json",
+    "metamoon_BioPlex_cohesion.parquet",
+    "metamoon_BioPlex_cohesion_summary.csv",
+    "metamoon_BioPlex_shortest_path.json",
+    "metamoon_BioPlex_shortest_path.parquet",
+    "metamoon_BioPlex_shortest_path_summary.csv",
+    "metamoon_HuRI_cohesion.json",
+    "metamoon_HuRI_cohesion.parquet",
+    "metamoon_HuRI_cohesion_summary.csv",
+    "metamoon_HuRI_shortest_path.json",
+    "metamoon_HuRI_shortest_path.parquet",
+    "metamoon_HuRI_shortest_path_summary.csv",
+    "metamoon_TAGC_binary2025_cohesion.json",
+    "metamoon_TAGC_binary2025_cohesion.parquet",
+    "metamoon_TAGC_binary2025_cohesion_summary.csv",
+    "metamoon_TAGC_binary2025_shortest_path.json",
+    "metamoon_TAGC_binary2025_shortest_path.parquet",
+    "metamoon_TAGC_binary2025_shortest_path_summary.csv",
+    "metamoon_huMAP2_0.05_cohesion.json",
+    "metamoon_huMAP2_0.05_cohesion.parquet",
+    "metamoon_huMAP2_0.05_cohesion_summary.csv",
+    "metamoon_huMAP2_0.05_shortest_path.json",
+    "metamoon_huMAP2_0.05_shortest_path.parquet",
+    "metamoon_huMAP2_0.05_shortest_path_summary.csv",
+    "metamoon_huMAP2_0.95_cohesion.json",
+    "metamoon_huMAP2_0.95_cohesion.parquet",
+    "metamoon_huMAP2_0.95_cohesion_summary.csv",
+    "metamoon_huMAP2_0.95_shortest_path.json",
+    "metamoon_huMAP2_0.95_shortest_path.parquet",
+    "metamoon_huMAP2_0.95_shortest_path_summary.csv",
+    "moondb_curated_BioPlex_cohesion.json",
+    "moondb_curated_BioPlex_cohesion.parquet",
+    "moondb_curated_BioPlex_cohesion_summary.csv",
+    "moondb_curated_BioPlex_shortest_path.json",
+    "moondb_curated_BioPlex_shortest_path.parquet",
+    "moondb_curated_BioPlex_shortest_path_summary.csv",
+    "moondb_curated_HuRI_cohesion.json",
+    "moondb_curated_HuRI_cohesion.parquet",
+    "moondb_curated_HuRI_cohesion_summary.csv",
+    "moondb_curated_HuRI_shortest_path.json",
+    "moondb_curated_HuRI_shortest_path.parquet",
+    "moondb_curated_HuRI_shortest_path_summary.csv",
+    "moondb_curated_TAGC_binary2025_cohesion.json",
+    "moondb_curated_TAGC_binary2025_cohesion.parquet",
+    "moondb_curated_TAGC_binary2025_cohesion_summary.csv",
+    "moondb_curated_TAGC_binary2025_shortest_path.json",
+    "moondb_curated_TAGC_binary2025_shortest_path.parquet",
+    "moondb_curated_TAGC_binary2025_shortest_path_summary.csv",
+    "moondb_curated_huMAP2_0.05_cohesion.json",
+    "moondb_curated_huMAP2_0.05_cohesion.parquet",
+    "moondb_curated_huMAP2_0.05_cohesion_summary.csv",
+    "moondb_curated_huMAP2_0.05_shortest_path.json",
+    "moondb_curated_huMAP2_0.05_shortest_path.parquet",
+    "moondb_curated_huMAP2_0.05_shortest_path_summary.csv",
+    "moondb_curated_huMAP2_0.95_cohesion.json",
+    "moondb_curated_huMAP2_0.95_cohesion.parquet",
+    "moondb_curated_huMAP2_0.95_cohesion_summary.csv",
+    "moondb_curated_huMAP2_0.95_shortest_path.json",
+    "moondb_curated_huMAP2_0.95_shortest_path.parquet",
+    "moondb_curated_huMAP2_0.95_shortest_path_summary.csv",
+    "moondb_predicted_BioPlex_cohesion.json",
+    "moondb_predicted_BioPlex_cohesion.parquet",
+    "moondb_predicted_BioPlex_cohesion_summary.csv",
+    "moondb_predicted_BioPlex_shortest_path.json",
+    "moondb_predicted_BioPlex_shortest_path.parquet",
+    "moondb_predicted_BioPlex_shortest_path_summary.csv",
+    "moondb_predicted_HuRI_cohesion.json",
+    "moondb_predicted_HuRI_cohesion.parquet",
+    "moondb_predicted_HuRI_cohesion_summary.csv",
+    "moondb_predicted_HuRI_shortest_path.json",
+    "moondb_predicted_HuRI_shortest_path.parquet",
+    "moondb_predicted_HuRI_shortest_path_summary.csv",
+    "moondb_predicted_TAGC_binary2025_cohesion.json",
+    "moondb_predicted_TAGC_binary2025_cohesion.parquet",
+    "moondb_predicted_TAGC_binary2025_cohesion_summary.csv",
+    "moondb_predicted_TAGC_binary2025_shortest_path.json",
+    "moondb_predicted_TAGC_binary2025_shortest_path.parquet",
+    "moondb_predicted_TAGC_binary2025_shortest_path_summary.csv",
+    "moondb_predicted_huMAP2_0.05_cohesion.json",
+    "moondb_predicted_huMAP2_0.05_cohesion.parquet",
+    "moondb_predicted_huMAP2_0.05_cohesion_summary.csv",
+    "moondb_predicted_huMAP2_0.05_shortest_path.json",
+    "moondb_predicted_huMAP2_0.05_shortest_path.parquet",
+    "moondb_predicted_huMAP2_0.05_shortest_path_summary.csv",
+    "moondb_predicted_huMAP2_0.95_cohesion.json",
+    "moondb_predicted_huMAP2_0.95_cohesion.parquet",
+    "moondb_predicted_huMAP2_0.95_cohesion_summary.csv",
+    "moondb_predicted_huMAP2_0.95_shortest_path.json",
+    "moondb_predicted_huMAP2_0.95_shortest_path.parquet",
+    "moondb_predicted_huMAP2_0.95_shortest_path_summary.csv",
+    "moonlitdb_BioPlex_cohesion.json",
+    "moonlitdb_BioPlex_cohesion.parquet",
+    "moonlitdb_BioPlex_cohesion_summary.csv",
+    "moonlitdb_BioPlex_shortest_path.json",
+    "moonlitdb_BioPlex_shortest_path.parquet",
+    "moonlitdb_BioPlex_shortest_path_summary.csv",
+    "moonlitdb_HuRI_cohesion.json",
+    "moonlitdb_HuRI_cohesion.parquet",
+    "moonlitdb_HuRI_cohesion_summary.csv",
+    "moonlitdb_HuRI_shortest_path.json",
+    "moonlitdb_HuRI_shortest_path.parquet",
+    "moonlitdb_HuRI_shortest_path_summary.csv",
+    "moonlitdb_TAGC_binary2025_cohesion.json",
+    "moonlitdb_TAGC_binary2025_cohesion.parquet",
+    "moonlitdb_TAGC_binary2025_cohesion_summary.csv",
+    "moonlitdb_TAGC_binary2025_shortest_path.json",
+    "moonlitdb_TAGC_binary2025_shortest_path.parquet",
+    "moonlitdb_TAGC_binary2025_shortest_path_summary.csv",
+    "moonlitdb_huMAP2_0.05_cohesion.json",
+    "moonlitdb_huMAP2_0.05_cohesion.parquet",
+    "moonlitdb_huMAP2_0.05_cohesion_summary.csv",
+    "moonlitdb_huMAP2_0.05_shortest_path.json",
+    "moonlitdb_huMAP2_0.05_shortest_path.parquet",
+    "moonlitdb_huMAP2_0.05_shortest_path_summary.csv",
+    "moonlitdb_huMAP2_0.95_cohesion.json",
+    "moonlitdb_huMAP2_0.95_cohesion.parquet",
+    "moonlitdb_huMAP2_0.95_cohesion_summary.csv",
+    "moonlitdb_huMAP2_0.95_shortest_path.json",
+    "moonlitdb_huMAP2_0.95_shortest_path.parquet",
+    "moonlitdb_huMAP2_0.95_shortest_path_summary.csv",
+    "moonprot_BioPlex_cohesion.json",
+    "moonprot_BioPlex_cohesion.parquet",
+    "moonprot_BioPlex_cohesion_summary.csv",
+    "moonprot_BioPlex_shortest_path.json",
+    "moonprot_BioPlex_shortest_path.parquet",
+    "moonprot_BioPlex_shortest_path_summary.csv",
+    "moonprot_HuRI_cohesion.json",
+    "moonprot_HuRI_cohesion.parquet",
+    "moonprot_HuRI_cohesion_summary.csv",
+    "moonprot_HuRI_shortest_path.json",
+    "moonprot_HuRI_shortest_path.parquet",
+    "moonprot_HuRI_shortest_path_summary.csv",
+    "moonprot_TAGC_binary2025_cohesion.json",
+    "moonprot_TAGC_binary2025_cohesion.parquet",
+    "moonprot_TAGC_binary2025_cohesion_summary.csv",
+    "moonprot_TAGC_binary2025_shortest_path.json",
+    "moonprot_TAGC_binary2025_shortest_path.parquet",
+    "moonprot_TAGC_binary2025_shortest_path_summary.csv",
+    "moonprot_huMAP2_0.05_cohesion.json",
+    "moonprot_huMAP2_0.05_cohesion.parquet",
+    "moonprot_huMAP2_0.05_cohesion_summary.csv",
+    "moonprot_huMAP2_0.05_shortest_path.json",
+    "moonprot_huMAP2_0.05_shortest_path.parquet",
+    "moonprot_huMAP2_0.05_shortest_path_summary.csv",
+    "moonprot_huMAP2_0.95_cohesion.json",
+    "moonprot_huMAP2_0.95_cohesion.parquet",
+    "moonprot_huMAP2_0.95_cohesion_summary.csv",
+    "moonprot_huMAP2_0.95_shortest_path.json",
+    "moonprot_huMAP2_0.95_shortest_path.parquet",
+    "moonprot_huMAP2_0.95_shortest_path_summary.csv",
+    "multitask_BioPlex_cohesion.json",
+    "multitask_BioPlex_cohesion.parquet",
+    "multitask_BioPlex_cohesion_summary.csv",
+    "multitask_BioPlex_shortest_path.json",
+    "multitask_BioPlex_shortest_path.parquet",
+    "multitask_BioPlex_shortest_path_summary.csv",
+    "multitask_HuRI_cohesion.json",
+    "multitask_HuRI_cohesion.parquet",
+    "multitask_HuRI_cohesion_summary.csv",
+    "multitask_HuRI_shortest_path.json",
+    "multitask_HuRI_shortest_path.parquet",
+    "multitask_HuRI_shortest_path_summary.csv",
+    "multitask_TAGC_binary2025_cohesion.json",
+    "multitask_TAGC_binary2025_cohesion.parquet",
+    "multitask_TAGC_binary2025_cohesion_summary.csv",
+    "multitask_TAGC_binary2025_shortest_path.json",
+    "multitask_TAGC_binary2025_shortest_path.parquet",
+    "multitask_TAGC_binary2025_shortest_path_summary.csv",
+    "multitask_huMAP2_0.05_cohesion.json",
+    "multitask_huMAP2_0.05_cohesion.parquet",
+    "multitask_huMAP2_0.05_cohesion_summary.csv",
+    "multitask_huMAP2_0.05_shortest_path.json",
+    "multitask_huMAP2_0.05_shortest_path.parquet",
+    "multitask_huMAP2_0.05_shortest_path_summary.csv",
+    "multitask_huMAP2_0.95_cohesion.json",
+    "multitask_huMAP2_0.95_cohesion.parquet",
+    "multitask_huMAP2_0.95_cohesion_summary.csv",
+    "multitask_huMAP2_0.95_shortest_path.json",
+    "multitask_huMAP2_0.95_shortest_path.parquet",
+    "multitask_huMAP2_0.95_shortest_path_summary.csv"
+  ],
+  "removed": [
+    {
+      "file": "monte_carlo_852f9b812c168e77_summary.csv",
+      "sha256": "b1f59046213db91300b690bc4dad9743f2d314c950c8754fc073c288ff58fe83"
+    },
+    {
+      "file": "monte_carlo_BioPlex_fe63993a_852f9b812c168e77.json",
+      "sha256": "6e4b24147b72bc13b09073a17ad0d131efd239ac761156f2d8f96711aa61c386"
+    },
+    {
+      "file": "monte_carlo_BioPlex_fe63993a_852f9b812c168e77.parquet",
+      "sha256": "6c34ca77d47d41b9f84bd92e6875694243892b88e90dffcf1e762a0362ba6a13"
+    },
+    {
+      "file": "monte_carlo_curated_6ac77e51bd51fee4_summary.csv",
+      "sha256": "7d5044f234661c6a4b3d7850efea0ed244ba6d58f0daa89cd84b4cc9773246e1"
+    },
+    {
+      "file": "monte_carlo_curated_BioPlex_fe63993a_6ac77e51bd51fee4.json",
+      "sha256": "66d1926a013812a29fc81a9ff84b44a1d2c5d14ea47d5bf4916a06afe8420388"
+    },
+    {
+      "file": "monte_carlo_curated_BioPlex_fe63993a_6ac77e51bd51fee4.parquet",
+      "sha256": "a9870cc28ab5a564431759be5bd1f98d2c8020c9657aefc956f9283b9079fc92"
+    },
+    {
+      "file": "monte_carlo_curated_huMAP2_0.05_69a51190_6ac77e51bd51fee4.json",
+      "sha256": "2683f7ae92b1e847e35fb5a072cf7454aadbdc8b7789a45911f3da5599015def"
+    },
+    {
+      "file": "monte_carlo_curated_huMAP2_0.05_69a51190_6ac77e51bd51fee4.parquet",
+      "sha256": "ae461b01a0b8411769ade52e9514af6dbf96b9045ca01f4a2c5ce4762efa7c73"
+    },
+    {
+      "file": "monte_carlo_curated_huMAP2_0.95_3d6ca42c_6ac77e51bd51fee4.json",
+      "sha256": "e517ab5657692bbc460de064e1d8b6962b982eb1f9f48cd6d8d3c3c9046c4552"
+    },
+    {
+      "file": "monte_carlo_curated_huMAP2_0.95_3d6ca42c_6ac77e51bd51fee4.parquet",
+      "sha256": "324ce7b624191d14b7621152eb2a881927b729a781758e0a90e316bc1e76a4ae"
+    },
+    {
+      "file": "monte_carlo_curated_HuRI_bb0df235_6ac77e51bd51fee4.json",
+      "sha256": "5d0eda4d0d68d663da7fc1efea800f9133baa82be0d5d8cabc9b6eef13d80c8d"
+    },
+    {
+      "file": "monte_carlo_curated_HuRI_bb0df235_6ac77e51bd51fee4.parquet",
+      "sha256": "969721df27c8b2c67d27f8863b8e59857e3a24970b0605d3d170de6c7f31e497"
+    },
+    {
+      "file": "monte_carlo_curated_TAGC_binary2025_d0b75538_6ac77e51bd51fee4.json",
+      "sha256": "aac64752f804a79dfe740999ada77c56d7df5639c42608343377e1ba4a3a22b3"
+    },
+    {
+      "file": "monte_carlo_curated_TAGC_binary2025_d0b75538_6ac77e51bd51fee4.parquet",
+      "sha256": "1dd9ed342a59893287c39a46b3106f01fda601b00bb72e9864020cd0cfe6214b"
+    },
+    {
+      "file": "monte_carlo_huMAP2_0.json",
+      "sha256": "1006b7d286cfba930de30e4d767a665cf479fe27374c207c3dcb0845cad1d46c"
+    },
+    {
+      "file": "monte_carlo_huMAP2_0.parquet",
+      "sha256": "84a3ec21f9f300cc6b9bcdd2d525b3dbaa1971df02a82bcaa6891530d8e057b3"
+    },
+    {
+      "file": "monte_carlo_HuRI_bb0df235_852f9b812c168e77.json",
+      "sha256": "3b2371a9e563c129c51c81c725611b21aa3c66a3a18dd39f420570c3a54c270c"
+    },
+    {
+      "file": "monte_carlo_HuRI_bb0df235_852f9b812c168e77.parquet",
+      "sha256": "54ad10052adae514018d6e54dc7610fad34ad45895d190e99f80599faf365a15"
+    },
+    {
+      "file": "monte_carlo_metamoon_bf74f0b70490b4be_summary.csv",
+      "sha256": "49de0f16bf5f38e070b8eeb599ca3af31c5dab0985ccd7547a01e0a74c5414fb"
+    },
+    {
+      "file": "monte_carlo_metamoon_BioPlex_fe63993a_bf74f0b70490b4be.json",
+      "sha256": "09a13f114e9d5e19ff994370533a4a9d314b289d8e88669ea69dbb2731cac1ab"
+    },
+    {
+      "file": "monte_carlo_metamoon_BioPlex_fe63993a_bf74f0b70490b4be.parquet",
+      "sha256": "1560768f65bcf91aa83bec2597cc0387dc892dd09f913db5093a527250ebd2a0"
+    },
+    {
+      "file": "monte_carlo_metamoon_huMAP2_0.05_69a51190_bf74f0b70490b4be.json",
+      "sha256": "1a822b899b3bf366d252606b16bd1055c880d94b4ea58d6615704d41a54d0b3d"
+    },
+    {
+      "file": "monte_carlo_metamoon_huMAP2_0.05_69a51190_bf74f0b70490b4be.parquet",
+      "sha256": "51cf2c1d83c87acdca09793d057390d4a598a3daa0233f9b7527a1303c147853"
+    },
+    {
+      "file": "monte_carlo_metamoon_huMAP2_0.95_3d6ca42c_bf74f0b70490b4be.json",
+      "sha256": "e0978ee10335628a517929ffea01742aad7483090e91f3cff9f208a2a03a90af"
+    },
+    {
+      "file": "monte_carlo_metamoon_huMAP2_0.95_3d6ca42c_bf74f0b70490b4be.parquet",
+      "sha256": "5a3e9fab4cef716c068c8776a5fdd33c6d01e6035d6e1cc65c2d200cef967beb"
+    },
+    {
+      "file": "monte_carlo_metamoon_HuRI_bb0df235_bf74f0b70490b4be.json",
+      "sha256": "a2082cc7682a71b70c2de952060857ffb14bce4fd0f20cd396edd105b7d6a5c9"
+    },
+    {
+      "file": "monte_carlo_metamoon_HuRI_bb0df235_bf74f0b70490b4be.parquet",
+      "sha256": "a9f2bc632776fc173e94e5c04122a08180c3907ad6c6dee58ba36857e9daee53"
+    },
+    {
+      "file": "monte_carlo_metamoon_TAGC_binary2025_d0b75538_bf74f0b70490b4be.json",
+      "sha256": "98e6b9ce2fe33f86a0633586e0681087001064205682ff478961f54371943faf"
+    },
+    {
+      "file": "monte_carlo_metamoon_TAGC_binary2025_d0b75538_bf74f0b70490b4be.parquet",
+      "sha256": "f9c83c120e842d14548c8da0c716cf4789dd75a361dd35880120da675d4b8921"
+    },
+    {
+      "file": "monte_carlo_moondb_curated_6c8138d740c30033_summary.csv",
+      "sha256": "2ed54a5feba9afb1eb1029bdf85901942fe37a03df7e995a15eaeda19d8a08de"
+    },
+    {
+      "file": "monte_carlo_moondb_curated_BioPlex_fe63993a_6c8138d740c30033.json",
+      "sha256": "3de22bc15e397afe8e5ef64782349c372ea1246c643d91fab8c0aaf39d4bea73"
+    },
+    {
+      "file": "monte_carlo_moondb_curated_BioPlex_fe63993a_6c8138d740c30033.parquet",
+      "sha256": "85c009603f147bee304ffc6d796111ef11e72b68789ae35afde8865203d49119"
+    },
+    {
+      "file": "monte_carlo_moondb_curated_huMAP2_0.05_69a51190_6c8138d740c30033.json",
+      "sha256": "986970979952d5fb266f50a0f7cb6a6119820a9437e5942673ea7a2282ce6af5"
+    },
+    {
+      "file": "monte_carlo_moondb_curated_huMAP2_0.05_69a51190_6c8138d740c30033.parquet",
+      "sha256": "69d18b3c69086b6e9e8200ab0631109330f629b28836f9a817dc6a6e71c3afbb"
+    },
+    {
+      "file": "monte_carlo_moondb_curated_huMAP2_0.95_3d6ca42c_6c8138d740c30033.json",
+      "sha256": "5d3117bd50661a0ed7bdab12fa274e67f2205a480bac93ddd5adc06151bb228b"
+    },
+    {
+      "file": "monte_carlo_moondb_curated_huMAP2_0.95_3d6ca42c_6c8138d740c30033.parquet",
+      "sha256": "b1cb2d823362600356f70503d99bfe2d9a796a12a84ad1a9c7cdaff2c5728433"
+    },
+    {
+      "file": "monte_carlo_moondb_curated_HuRI_bb0df235_6c8138d740c30033.json",
+      "sha256": "fdaa47186971bae43fce503618f2239bddd9632fe4b87b57928c3418814a545c"
+    },
+    {
+      "file": "monte_carlo_moondb_curated_HuRI_bb0df235_6c8138d740c30033.parquet",
+      "sha256": "f0d0a5d5f5be203051f9a3216566e0e851083d7d24655209e6b1f10355e83003"
+    },
+    {
+      "file": "monte_carlo_moondb_curated_TAGC_binary2025_d0b75538_6c8138d740c30033.json",
+      "sha256": "acd4e0188555490f28537b2af33cfc539619326da58f96816d4f4796308c772a"
+    },
+    {
+      "file": "monte_carlo_moondb_curated_TAGC_binary2025_d0b75538_6c8138d740c30033.parquet",
+      "sha256": "874aa906235459524a68b142ebf0c5c31b44331153860723415ff27509edd671"
+    },
+    {
+      "file": "monte_carlo_moondb_predicted_26f88308149bac56_summary.csv",
+      "sha256": "6ebf20bb9e8b265ee89ffaeebfe78528cea52286eeb634568c79dc83d2b53ad7"
+    },
+    {
+      "file": "monte_carlo_moondb_predicted_BioPlex_fe63993a_26f88308149bac56.json",
+      "sha256": "5d865cea91d71e3663a0db5ea0b779933a823a87db6ea956659b8f11cae7ef70"
+    },
+    {
+      "file": "monte_carlo_moondb_predicted_BioPlex_fe63993a_26f88308149bac56.parquet",
+      "sha256": "bac2782e93249c3d60d4592fb2e2e98b4b1fe9a8a7d6de1703b09215d68c7421"
+    },
+    {
+      "file": "monte_carlo_moondb_predicted_huMAP2_0.05_69a51190_26f88308149bac56.json",
+      "sha256": "4b1a48bbc8858bb7d57ed23cfb6c89d432d57c78659971f605d2af9c996025a4"
+    },
+    {
+      "file": "monte_carlo_moondb_predicted_huMAP2_0.05_69a51190_26f88308149bac56.parquet",
+      "sha256": "dcfea335f833e2910a9f6a604acabcdf9e1f2300cb41370e2d90976c6406d16e"
+    },
+    {
+      "file": "monte_carlo_moondb_predicted_huMAP2_0.95_3d6ca42c_26f88308149bac56.json",
+      "sha256": "b7914e66b1e8a92ee3ddd8c0b7bc75e396926be54df5b49d94e0112c35a7df26"
+    },
+    {
+      "file": "monte_carlo_moondb_predicted_huMAP2_0.95_3d6ca42c_26f88308149bac56.parquet",
+      "sha256": "f258ad81e0ef88af5e4cdb00d24433cbf6c42291f2c827839aa6e05340468ed5"
+    },
+    {
+      "file": "monte_carlo_moondb_predicted_HuRI_bb0df235_26f88308149bac56.json",
+      "sha256": "86840423e732ec0a9a80c242d62c636e4dea707083800e1c5e5692b1fa0173f5"
+    },
+    {
+      "file": "monte_carlo_moondb_predicted_HuRI_bb0df235_26f88308149bac56.parquet",
+      "sha256": "4d631bff83f1e9411f5fce8cab874fd0a7cb00e69c9f99b0f1952e9d214d7fee"
+    },
+    {
+      "file": "monte_carlo_moondb_predicted_TAGC_binary2025_d0b75538_26f88308149bac56.json",
+      "sha256": "3ad3aa63874b049c69371c2613b3145bd40ab08adf792575029cb1922f54abab"
+    },
+    {
+      "file": "monte_carlo_moondb_predicted_TAGC_binary2025_d0b75538_26f88308149bac56.parquet",
+      "sha256": "0145a06108f15358d768c94de49d2260905d41bf95a10c7510b85964d39d02a9"
+    },
+    {
+      "file": "monte_carlo_moonlitdb_852f9b812c168e77_summary.csv",
+      "sha256": "1ecdc49467840b1b5b7fe61a993d12c43a6ee1aaff20ec441d0bd92cafa8fcab"
+    },
+    {
+      "file": "monte_carlo_moonlitdb_BioPlex_fe63993a_852f9b812c168e77.json",
+      "sha256": "6e4b24147b72bc13b09073a17ad0d131efd239ac761156f2d8f96711aa61c386"
+    },
+    {
+      "file": "monte_carlo_moonlitdb_BioPlex_fe63993a_852f9b812c168e77.parquet",
+      "sha256": "6c34ca77d47d41b9f84bd92e6875694243892b88e90dffcf1e762a0362ba6a13"
+    },
+    {
+      "file": "monte_carlo_moonlitdb_huMAP2_0.05_69a51190_852f9b812c168e77.json",
+      "sha256": "df11e7db59edc2a7cbe1beaffad8092324d2da5ad8527a702169317b5e8a9e00"
+    },
+    {
+      "file": "monte_carlo_moonlitdb_huMAP2_0.05_69a51190_852f9b812c168e77.parquet",
+      "sha256": "887d569ffe9529cb28ed05e0f61dad1fea30baebeba4c1ae86774dbb1e1345c3"
+    },
+    {
+      "file": "monte_carlo_moonlitdb_huMAP2_0.95_3d6ca42c_852f9b812c168e77.json",
+      "sha256": "1006b7d286cfba930de30e4d767a665cf479fe27374c207c3dcb0845cad1d46c"
+    },
+    {
+      "file": "monte_carlo_moonlitdb_huMAP2_0.95_3d6ca42c_852f9b812c168e77.parquet",
+      "sha256": "84a3ec21f9f300cc6b9bcdd2d525b3dbaa1971df02a82bcaa6891530d8e057b3"
+    },
+    {
+      "file": "monte_carlo_moonlitdb_HuRI_bb0df235_852f9b812c168e77.json",
+      "sha256": "3b2371a9e563c129c51c81c725611b21aa3c66a3a18dd39f420570c3a54c270c"
+    },
+    {
+      "file": "monte_carlo_moonlitdb_HuRI_bb0df235_852f9b812c168e77.parquet",
+      "sha256": "54ad10052adae514018d6e54dc7610fad34ad45895d190e99f80599faf365a15"
+    },
+    {
+      "file": "monte_carlo_moonlitdb_TAGC_binary2025_d0b75538_852f9b812c168e77.json",
+      "sha256": "4833d89530072e54e8f963afeb745444ef0f01049f73633c4b3cfed962fb0cb0"
+    },
+    {
+      "file": "monte_carlo_moonlitdb_TAGC_binary2025_d0b75538_852f9b812c168e77.parquet",
+      "sha256": "30249c9f653561a220bb860dff0aa20fb200a207ef4e553c195602127ec6b25a"
+    },
+    {
+      "file": "monte_carlo_moonprot_8014b1b1706f0bc4_summary.csv",
+      "sha256": "0a322cf975b33540db0d89160495c51b12bd5f030919d67e25c8851f9359abaf"
+    },
+    {
+      "file": "monte_carlo_moonprot_BioPlex_fe63993a_8014b1b1706f0bc4.json",
+      "sha256": "118e29ecb5c0fa8b388f4697021c209f80a6f8ef4ba43fb0b8d30c274f642d84"
+    },
+    {
+      "file": "monte_carlo_moonprot_BioPlex_fe63993a_8014b1b1706f0bc4.parquet",
+      "sha256": "05a50b4bf13f35c15e56137880dbbdcf7678bf91583f8e92f661525bec48b76d"
+    },
+    {
+      "file": "monte_carlo_moonprot_huMAP2_0.05_69a51190_8014b1b1706f0bc4.json",
+      "sha256": "9b48f8e4e766dc9766f1b877d1ef518d973529065484809c7d4ddb197831e203"
+    },
+    {
+      "file": "monte_carlo_moonprot_huMAP2_0.05_69a51190_8014b1b1706f0bc4.parquet",
+      "sha256": "d4348d6b3bebf7720f6ed87795938c17fa5da0282f93d535e94c9c2caa9cf1c1"
+    },
+    {
+      "file": "monte_carlo_moonprot_huMAP2_0.95_3d6ca42c_8014b1b1706f0bc4.json",
+      "sha256": "bfdd1fad5e101aacb432b343079ae21755f11fb21d98a3c05a484760db916d7d"
+    },
+    {
+      "file": "monte_carlo_moonprot_huMAP2_0.95_3d6ca42c_8014b1b1706f0bc4.parquet",
+      "sha256": "5e31167e243c75fe4be3399eaff9f6af73beb010bed6a9c6e23de2d5884d9429"
+    },
+    {
+      "file": "monte_carlo_moonprot_HuRI_bb0df235_8014b1b1706f0bc4.json",
+      "sha256": "39a1c626afb580fb7ffe03c22928aa5aa5b2ad25cec8ccf61072c2b5768e88ce"
+    },
+    {
+      "file": "monte_carlo_moonprot_HuRI_bb0df235_8014b1b1706f0bc4.parquet",
+      "sha256": "69bddd5326c5e685ab9f845af6a69af17f0760efd9389ae1c556e38163a50ff9"
+    },
+    {
+      "file": "monte_carlo_moonprot_TAGC_binary2025_d0b75538_8014b1b1706f0bc4.json",
+      "sha256": "5afdb8f302c20fc5f026fe41487d118178d63b0f2dada10062702690a3c85937"
+    },
+    {
+      "file": "monte_carlo_moonprot_TAGC_binary2025_d0b75538_8014b1b1706f0bc4.parquet",
+      "sha256": "4b9e73618473f9bc12b7178887a24d2410e5cca8b4fca9bd51279f62df9d5927"
+    },
+    {
+      "file": "monte_carlo_multitask_bf50321c0950e656_summary.csv",
+      "sha256": "6280f652511e6136f86a2eed915f5c6ec024c0afe72d3ee981bdddeb2b7bb6a2"
+    },
+    {
+      "file": "monte_carlo_multitask_BioPlex_fe63993a_bf50321c0950e656.json",
+      "sha256": "432b170894e5a5cb584458543eb43113cafbb8e516e762b876512eb042e2519c"
+    },
+    {
+      "file": "monte_carlo_multitask_BioPlex_fe63993a_bf50321c0950e656.parquet",
+      "sha256": "3af03b180251bf28e95cc37490beda6c968c8159c0f65531b0a8ed7d7084b046"
+    },
+    {
+      "file": "monte_carlo_multitask_huMAP2_0.05_69a51190_bf50321c0950e656.json",
+      "sha256": "8a9eef4bdf86df823ed0bd586da9d98f9baada49476e3e0c3591985aea91fe28"
+    },
+    {
+      "file": "monte_carlo_multitask_huMAP2_0.05_69a51190_bf50321c0950e656.parquet",
+      "sha256": "9ff88e5ecd6f7c9dcc68983a97dd7914b9f14a84d924157e8f12fc5150e07ef4"
+    },
+    {
+      "file": "monte_carlo_multitask_huMAP2_0.95_3d6ca42c_bf50321c0950e656.json",
+      "sha256": "7ce74c6e0b2a51f3d907c7805730973e3c4ad71a57bd9a0105a40bf418902023"
+    },
+    {
+      "file": "monte_carlo_multitask_huMAP2_0.95_3d6ca42c_bf50321c0950e656.parquet",
+      "sha256": "f2515a7f946e5f2f442be46c883e7b884deaaa3838d4fd9df8aa2842744eef32"
+    },
+    {
+      "file": "monte_carlo_multitask_HuRI_bb0df235_bf50321c0950e656.json",
+      "sha256": "796c1b84139e33f7124693dd3a4edaabedc51337d8bbc166d60066447db0516d"
+    },
+    {
+      "file": "monte_carlo_multitask_HuRI_bb0df235_bf50321c0950e656.parquet",
+      "sha256": "72181857c5df40fa153ce4e71c6bfa0173e3138af07ba6412d4023144e51e9aa"
+    },
+    {
+      "file": "monte_carlo_multitask_TAGC_binary2025_d0b75538_bf50321c0950e656.json",
+      "sha256": "34a12db73411f4116f883c7a664faed553fdc033ed65c23b10116efd8158856f"
+    },
+    {
+      "file": "monte_carlo_multitask_TAGC_binary2025_d0b75538_bf50321c0950e656.parquet",
+      "sha256": "28ed2655d5dca41e0f89afd397dc54261bacd17e4e6447ac44783e9a81df34c8"
+    },
+    {
+      "file": "monte_carlo_TAGC_binary2025_d0b75538_852f9b812c168e77.json",
+      "sha256": "4833d89530072e54e8f963afeb745444ef0f01049f73633c4b3cfed962fb0cb0"
+    },
+    {
+      "file": "monte_carlo_TAGC_binary2025_d0b75538_852f9b812c168e77.parquet",
+      "sha256": "30249c9f653561a220bb860dff0aa20fb200a207ef4e553c195602127ec6b25a"
+    }
+  ],
+  "duplicates_verified_identical": 4,
+  "distance_cache": "Preserved; shared across protein sets."
+}
